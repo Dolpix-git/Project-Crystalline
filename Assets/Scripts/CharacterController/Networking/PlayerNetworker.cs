@@ -6,10 +6,13 @@ using UnityEngine;
 
 public class PlayerNetworker : NetworkBehaviour {
     private Rigidbody rigidBody;
+    private PlayerStateMachine playerStateMachine;
     public Rigidbody RigidBody { get => rigidBody; set => rigidBody = value; }
 
     private void Awake() {
         rigidBody = GetComponent<Rigidbody>();
+        playerStateMachine = new PlayerStateMachine(this);
+
         InstanceFinder.TimeManager.OnTick += TimeManager_OnTick;
         InstanceFinder.TimeManager.OnPostTick += TimeManager_OnPostTick;
     }
@@ -23,7 +26,7 @@ public class PlayerNetworker : NetworkBehaviour {
     private void TimeManager_OnTick() {
         if (base.IsOwner) {
             Reconciliation(default, false);
-            CheckInput(out PlayerMoveData md);
+            PlayerInputManager.Instance.GetCharacterControllerInputs(out PlayerMoveData md);
             Move(md, false);
         }
         if (base.IsServer) {
@@ -40,7 +43,7 @@ public class PlayerNetworker : NetworkBehaviour {
 
     [Replicate]
     private void Move(PlayerMoveData md, bool asServer, Channel channel = Channel.Unreliable, bool replaying = false) {
-        // Update State
+        playerStateMachine.UpdateState(md);
     }
 
     [Reconcile]

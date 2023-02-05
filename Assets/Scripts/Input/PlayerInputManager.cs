@@ -1,18 +1,58 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.iOS;
 
-public class PlayerInputManager : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+public class PlayerInputManager : MonoBehaviour{
+    public static PlayerInputManager Instance { get; private set; }
+    private PlayerInputActions playerInputActions;
+
+    private bool jumpPress;
+    private bool sprintHold;
+    private bool crouchSlideHold;
+    private Vector2 movement;
+    private void Awake() {
+        if (Instance != null && Instance != this) {
+            Destroy(this);
+        } else {
+            Instance = this;
+        }
+
+        playerInputActions = new PlayerInputActions();
+        playerInputActions.Player.Enable();
+        playerInputActions.Player.Jump.performed += Jump;
+        playerInputActions.Player.Sprint.performed += Sprint;
+        playerInputActions.Player.CrouchSlide.performed += CrouchSlide;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    private void Update() {
+        movement = playerInputActions.Player.Movement.ReadValue<Vector2>();
+    }
+
+    private void Jump(InputAction.CallbackContext context) {
+        if (context.performed) {
+            jumpPress = true;
+        }
+    }
+    private void Sprint(InputAction.CallbackContext context) {
+        if (context.started) {
+            sprintHold = true;
+        } else if(context.canceled){
+            sprintHold = false;
+        }
+    }
+    private void CrouchSlide(InputAction.CallbackContext context) {
+        if (context.started) {
+            crouchSlideHold = true;
+        } else if (context.canceled) {
+            crouchSlideHold = false;
+        }
+    }
+
+    public void GetCharacterControllerInputs(out PlayerMoveData md) {
+        // might need to add a check for if there is no data to send, to prevent weird behavior (might be patched in new version of fishnet)
+        md = new PlayerMoveData(jumpPress, sprintHold,crouchSlideHold, movement);
+
+        jumpPress = false;
     }
 }

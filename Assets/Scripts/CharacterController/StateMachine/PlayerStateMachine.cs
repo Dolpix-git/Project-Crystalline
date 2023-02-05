@@ -49,7 +49,8 @@ public class PlayerStateMachine{
     public void UpdateState(PlayerMoveData md) {
         moveData = md;
         currentState.UpdateStates();
-        RigidBody.velocity = velocity;
+        Debug.Log(velocity);
+        RigidBody.AddForce(velocity);
     }
 }
 

@@ -67,7 +67,7 @@ namespace FishNet.Example.Prediction.Rigidbodies {
         private bool _jump;
         #endregion
 
-        private DefaultControl defaultControl;
+        private PlayerInputActions defaultControl;
         private Vector2 movement;
 
         private void Awake() {
@@ -76,7 +76,7 @@ namespace FishNet.Example.Prediction.Rigidbodies {
             InstanceFinder.TimeManager.OnTick += TimeManager_OnTick;
             InstanceFinder.TimeManager.OnPostTick += TimeManager_OnPostTick;
 
-            defaultControl = new DefaultControl();
+            defaultControl = new PlayerInputActions();
             defaultControl.Player.Enable();
             defaultControl.Player.Jump.performed += Jump;
         }
