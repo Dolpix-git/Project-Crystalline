@@ -19,4 +19,8 @@ public class PlayerRunState : PlayerBaseState{
             SwitchState(Cashe.Idle());
         }
     }
+
+    public override PlayerStates PlayerState() {
+        return PlayerStates.run;
+    }
 }

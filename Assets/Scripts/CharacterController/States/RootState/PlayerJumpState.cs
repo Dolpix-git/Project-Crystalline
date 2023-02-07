@@ -35,6 +35,11 @@ public class PlayerJumpState : PlayerBaseState{
 
 
     void HandleJump(){
-        Ctx.Velocity = new Vector3(0f, 5, 0f);
+        Ctx.Velocity += new Vector3(0f, 8f, 0f);
+        //Ctx.RigidBody.AddForce(new Vector3(0,10,0),ForceMode.Impulse);
+    }
+
+    public override PlayerStates PlayerState() {
+        return PlayerStates.jump;
     }
 }

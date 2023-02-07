@@ -6,11 +6,15 @@ public struct PlayerReconcileData : IReconcileData {
     public Quaternion Rotation;
     public Vector3 Velocity;
     public Vector3 AngularVelocity;
-    public PlayerReconcileData(Vector3 position, Quaternion rotation, Vector3 velocity, Vector3 angularVelocity) {
+    public PlayerStates SuperPlayerState;
+    public PlayerStates SubPlayerState;
+    public PlayerReconcileData(Vector3 position, Quaternion rotation, Vector3 velocity, Vector3 angularVelocity, PlayerStates superPlayerState, PlayerStates subPlayerState) {
         Position = position;
         Rotation = rotation;
         Velocity = velocity;
         AngularVelocity = angularVelocity;
+        SuperPlayerState = superPlayerState;
+        SubPlayerState = subPlayerState;
 
         _tick = 0;
     }

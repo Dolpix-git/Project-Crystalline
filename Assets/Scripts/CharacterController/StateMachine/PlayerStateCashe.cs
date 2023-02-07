@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-enum PlayerStates{
+public enum PlayerStates{
     idle,
     walk,
     run,
@@ -47,5 +47,9 @@ public class PlayerStateCashe{
 
     public PlayerBaseState Falling(){
         return states[PlayerStates.falling];
+    }
+
+    public PlayerBaseState GetState(PlayerStates playerStates) {
+        return states[playerStates];
     }
 }

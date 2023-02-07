@@ -126,8 +126,8 @@ namespace FishNet.Example.Prediction.Rigidbodies {
             float horizontal = movement.x;
             float vertical = movement.y;
 
-            if (horizontal == 0f && vertical == 0f && !_jump)
-                return;
+            //if (horizontal == 0f && vertical == 0f && !_jump)
+            //    return;
 
             md = new MoveData(_jump, horizontal, vertical);
             _jump = false;
@@ -137,7 +137,7 @@ namespace FishNet.Example.Prediction.Rigidbodies {
         private void Move(MoveData md, bool asServer, Channel channel = Channel.Unreliable, bool replaying = false) {
             //Add extra gravity for faster falls.
             Vector3 forces = new Vector3(md.Horizontal, Physics.gravity.y, md.Vertical) * _moveRate;
-            _rigidbody.AddForce(forces);
+            _rigidbody.velocity = (forces);
 
             if (md.Jump)
                 _rigidbody.AddForce(new Vector3(0f, _jumpForce, 0f), ForceMode.Impulse);
@@ -150,7 +150,5 @@ namespace FishNet.Example.Prediction.Rigidbodies {
             _rigidbody.velocity = rd.Velocity;
             _rigidbody.angularVelocity = rd.AngularVelocity;
         }
-
-
     }
 }

@@ -51,8 +51,12 @@ public class PlayerInputManager : MonoBehaviour{
 
     public void GetCharacterControllerInputs(out PlayerMoveData md) {
         // might need to add a check for if there is no data to send, to prevent weird behavior (might be patched in new version of fishnet)
-        md = new PlayerMoveData(jumpPress, sprintHold,crouchSlideHold, movement);
 
+
+        // TOO DO: Hook up to camera function so that cam data is sent
+        md = new PlayerMoveData(jumpPress, sprintHold,crouchSlideHold, movement, Vector3.right,Vector3.forward); 
+
+        // All press statements must be set to false after use here, to not miss a player input
         jumpPress = false;
     }
 }

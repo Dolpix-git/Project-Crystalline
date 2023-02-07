@@ -14,6 +14,7 @@ public abstract class PlayerBaseState{
     protected bool IsRootState { set { isRootState = value; } }
     protected PlayerStateMachine Ctx { get { return ctx; } }
     protected PlayerStateCashe Cashe { get { return cashe; } }
+    public PlayerBaseState CurrentSubState { get => currentSubState; set => currentSubState = value; }
 
     public PlayerBaseState(PlayerStateMachine currentContext, PlayerStateCashe playerStateFactory){
         ctx = currentContext;
@@ -26,6 +27,8 @@ public abstract class PlayerBaseState{
     public abstract void InitiatizeSubState();
     public abstract void CheckSwitchStates(); // NOTE: Must be at the bottom of update state
 
+
+    public abstract PlayerStates PlayerState();
 
 
     public void UpdateStates(){ 
@@ -54,5 +57,8 @@ public abstract class PlayerBaseState{
     protected void SetSubState(PlayerBaseState newSubState) {
         currentSubState = newSubState;
         newSubState.SetSuperState(this);
+    }
+    public void SetSubStateReconsile(PlayerStates playerStates) {
+        SetSubState(Cashe.GetState(playerStates));
     }
 }

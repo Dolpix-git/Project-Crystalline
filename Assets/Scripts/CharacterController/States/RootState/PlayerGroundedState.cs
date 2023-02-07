@@ -28,4 +28,8 @@ public class PlayerGroundedState : PlayerBaseState{
             SwitchState(Cashe.Jump());
         }
     }
+
+    public override PlayerStates PlayerState() {
+        return PlayerStates.grounded;
+    }
 }

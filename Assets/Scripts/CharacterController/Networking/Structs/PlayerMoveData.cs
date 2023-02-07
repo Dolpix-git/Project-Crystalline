@@ -6,11 +6,16 @@ public struct PlayerMoveData : IReplicateData {
     public bool Crouch;
     public bool Sprint;
     public Vector2 Movement;
-    public PlayerMoveData(bool jump, bool crouch, bool sprint, Vector2 movement) {
+    public Vector3 CameraRight;
+    public Vector3 CameraForward;
+    public PlayerMoveData(bool jump, bool crouch, bool sprint, Vector2 movement, Vector3 cameraRight, Vector3 cameraForward) {
         Jump = jump;
         Crouch = crouch;
         Sprint = sprint;
         Movement = movement;
+
+        CameraRight = cameraRight;
+        CameraForward = cameraForward;
 
         _tick = 0;
     }
