@@ -62,6 +62,33 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""74ec50c2-afd1-4ea7-8dda-92fcc6705339"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ToggleMouse"",
+                    ""type"": ""Button"",
+                    ""id"": ""effeab43-82fe-4326-a454-dd45e9e9786b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Throw"",
+                    ""type"": ""Button"",
+                    ""id"": ""e315d1ff-6cda-45f8-b8f7-4a5c445eb1be"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -163,6 +190,39 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f30bbcfc-48a1-4df8-ae7c-022bb6f6c67a"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""249a3e7a-1c22-4cba-83d0-148795f0574e"",
+                    ""path"": ""<Keyboard>/backquote"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleMouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c251b5ca-00ae-4531-8a2d-7b05d3190806"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Throw"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -175,6 +235,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_CrouchSlide = m_Player.FindAction("Crouch/Slide", throwIfNotFound: true);
+        m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
+        m_Player_ToggleMouse = m_Player.FindAction("ToggleMouse", throwIfNotFound: true);
+        m_Player_Throw = m_Player.FindAction("Throw", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -238,6 +301,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_CrouchSlide;
+    private readonly InputAction m_Player_Look;
+    private readonly InputAction m_Player_ToggleMouse;
+    private readonly InputAction m_Player_Throw;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -246,6 +312,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @CrouchSlide => m_Wrapper.m_Player_CrouchSlide;
+        public InputAction @Look => m_Wrapper.m_Player_Look;
+        public InputAction @ToggleMouse => m_Wrapper.m_Player_ToggleMouse;
+        public InputAction @Throw => m_Wrapper.m_Player_Throw;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -267,6 +336,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @CrouchSlide.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouchSlide;
                 @CrouchSlide.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouchSlide;
                 @CrouchSlide.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouchSlide;
+                @Look.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
+                @Look.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
+                @Look.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
+                @ToggleMouse.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMouse;
+                @ToggleMouse.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMouse;
+                @ToggleMouse.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMouse;
+                @Throw.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnThrow;
+                @Throw.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnThrow;
+                @Throw.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnThrow;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -283,6 +361,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @CrouchSlide.started += instance.OnCrouchSlide;
                 @CrouchSlide.performed += instance.OnCrouchSlide;
                 @CrouchSlide.canceled += instance.OnCrouchSlide;
+                @Look.started += instance.OnLook;
+                @Look.performed += instance.OnLook;
+                @Look.canceled += instance.OnLook;
+                @ToggleMouse.started += instance.OnToggleMouse;
+                @ToggleMouse.performed += instance.OnToggleMouse;
+                @ToggleMouse.canceled += instance.OnToggleMouse;
+                @Throw.started += instance.OnThrow;
+                @Throw.performed += instance.OnThrow;
+                @Throw.canceled += instance.OnThrow;
             }
         }
     }
@@ -293,5 +380,8 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnCrouchSlide(InputAction.CallbackContext context);
+        void OnLook(InputAction.CallbackContext context);
+        void OnToggleMouse(InputAction.CallbackContext context);
+        void OnThrow(InputAction.CallbackContext context);
     }
 }

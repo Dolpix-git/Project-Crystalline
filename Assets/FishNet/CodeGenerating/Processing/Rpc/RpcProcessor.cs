@@ -1,4 +1,4 @@
-﻿
+﻿using FishNet.Utility.Extension;
 using FishNet.CodeGenerating.Extension;
 using FishNet.CodeGenerating.Helping;
 using FishNet.CodeGenerating.Helping.Extension;
@@ -57,7 +57,8 @@ namespace FishNet.CodeGenerating.Processing.Rpc
         private const string READER_PREFIX = "RpcReader___";
         private const string REQUIREOWNERSHIP_NAME = "RequireOwnership";
         private const string RUNLOCALLY_NAME = "RunLocally";
-        private const string INCLUDEOWNER_NAME = "IncludeOwner";
+        private const string EXCLUDEOWNER_NAME = "ExcludeOwner";
+        private const string EXCLUDESERVER_NAME = "ExcludeServer";
         private const string BUFFERLAST_NAME = "BufferLast";
         private const string DATALENGTH_NAME = "DataLength";
         private const string VALIDATETARGET_NAME = "ValidateTarget";
@@ -247,7 +248,22 @@ namespace FishNet.CodeGenerating.Processing.Rpc
         {
             intentionallyNull = false;
 
-            
+            //PROSTART
+            if (CodeStripping.StripBuild)
+            {
+                /* Clients don't need writers for client rpcs,
+                 * just as server doesnt need writers for server rpcs. */
+                bool isServerRpc = (cr.RpcType == RpcType.Server);
+                if (
+                    (isServerRpc && CodeStripping.ReleasingForServer) ||
+                    (!isServerRpc && CodeStripping.ReleasingForClient)
+                    )
+                {
+                    intentionallyNull = true;
+                    return null;
+                }
+            }
+            //PROEND
 
             string methodName = $"{WRITER_PREFIX}{GetRpcMethodName(cr)}";
             /* If method already exist then clear it. This
@@ -357,7 +373,9 @@ namespace FishNet.CodeGenerating.Processing.Rpc
             /* Creates basic ServerRpc and ClientRpc
              * conditions such as if requireOwnership ect..
              * or if (!base.isClient) */
-            
+            //PROSTART
+            if (!CodeStripping.StripBuild)
+                //PROEND
                 CreateClientRpcConditionsForServer(writerMd);
 
             VariableDefinition channelVariableDef = CreateAndPopulateChannelVariable(writerMd, channelParameterDef);
@@ -415,7 +433,9 @@ namespace FishNet.CodeGenerating.Processing.Rpc
             /* Creates basic ServerRpc
              * conditions such as if requireOwnership ect..
              * or if (!base.isClient) */
-            
+            //PROSTART
+            if (!CodeStripping.StripBuild)
+                //PROEND
                 CreateServerRpcConditionsForClient(writerMd, cr.Attribute);
 
             VariableDefinition channelVariableDef = CreateAndPopulateChannelVariable(writerMd, channelParameterDef);
@@ -481,7 +501,22 @@ namespace FishNet.CodeGenerating.Processing.Rpc
             MethodDefinition logicMd = cr.LogicMethodDef;
             CustomAttribute rpcAttribute = cr.Attribute;
 
-            
+            //PROSTART
+            if (CodeStripping.StripBuild)
+            {
+                /* Server doesnt need readers for client rpcs,
+                 * just as clients dont need reader for server rpcs. */
+                bool isServerRpc = (cr.RpcType == RpcType.Server);
+                if (
+                    (isServerRpc && CodeStripping.ReleasingForClient) ||
+                    (!isServerRpc && CodeStripping.ReleasingForServer)
+                    )
+                {
+                    intentionallyNull = true;
+                    return null;
+                }
+            }
+            //PROEND
 
             string methodName = $"{READER_PREFIX}{GetRpcMethodName(cr)}";
             /* If method already exist then just return it. This
@@ -628,19 +663,6 @@ namespace FishNet.CodeGenerating.Processing.Rpc
             * because deinitializations are slightly delayed to support
             * the clientHost deinitializing the object as well. */
             base.GetClass<NetworkBehaviourHelper>().CreateIsClientCheck(createdMd, LoggingType.Off, false, false);
-
-            /* ObserversRpc IncludeOwnerCheck. */
-            if (rpcType == RpcType.Observers)
-            {
-                //If to not include owner then don't call logic if owner.
-                bool includeOwner = rpcAttribute.GetField(INCLUDEOWNER_NAME, true);
-                if (!includeOwner)
-                {
-                    //Create return if owner.
-                    Instruction retInst = base.GetClass<NetworkBehaviourHelper>().CreateLocalClientIsOwnerCheck(createdMd, LoggingType.Off, true, true, true);
-                    processor.InsertBefore(retInst, allReadInsts);
-                }
-            }
 
             //Block from running twice as host.
             if (runLocally)
@@ -867,7 +889,25 @@ namespace FishNet.CodeGenerating.Processing.Rpc
             TypeDefinition typeDef = cr.TypeDef;
             MethodDefinition originalMd = cr.OriginalMethodDef;
 
-            
+            //PROSTART
+            /* If running locally then logic must exist for both. 
+             * Such the case, don't exclude logic. */
+            if (CodeStripping.StripBuild && !cr.RunLocally)
+            {
+                /* Client doesn't need logic of a serverRpc
+                * and server doesn't need logic of client rpcs. */
+                bool isServerRpc = (cr.RpcType == RpcType.Server);
+                if (
+                    (isServerRpc && CodeStripping.ReleasingForClient) ||
+                    (!isServerRpc && CodeStripping.ReleasingForServer)
+                    )
+                {
+                    originalMd.ClearMethodWithRet(base.Session);
+                    intentionallyNull = true;
+                    return null;
+                }
+            }
+            //PROEND
 
             //Methodname for logic methods do not use prefixes because there can be only one.
             string methodName = $"{LOGIC_PREFIX}{GetMethodNameAsParameters(originalMd)}";
@@ -924,7 +964,19 @@ namespace FishNet.CodeGenerating.Processing.Rpc
             * entry. */
             MethodDefinition originalMd = createdRpcs[0].OriginalMethodDef;
 
-            
+            //PROSTART
+            if (CodeStripping.StripBuild)
+            {
+                /* If there is no writer method then nothing
+                 * can be redirected. This could occur during code
+                 * stripping. */
+                if (createdRpcs[0].WriterMethodDef == null)
+                {
+                    originalMd.ClearMethodWithRet(base.Session);
+                    return;
+                }
+            }
+            //PROEND
 
             ILProcessor processor = originalMd.Body.GetILProcessor();
             originalMd.Body.Instructions.Clear();
@@ -1026,7 +1078,8 @@ namespace FishNet.CodeGenerating.Processing.Rpc
             insts.AddRange(CreateSendRpcCommon(processor, methodHash, writerVariableDef, channelVariableDef));
             //Also add if buffered.
             bool bufferLast = rpcAttribute.GetField(BUFFERLAST_NAME, false);
-            int buffered = (bufferLast) ? 1 : 0;
+            bool excludeOwner = rpcAttribute.GetField(EXCLUDEOWNER_NAME, false);
+            bool excludeServer = rpcAttribute.GetField(EXCLUDESERVER_NAME, false);
 
             //Warn user if any values are byref.
             bool usedByref = false;
@@ -1041,7 +1094,9 @@ namespace FishNet.CodeGenerating.Processing.Rpc
             if (usedByref)
                 base.LogWarning($"Method {methodDef.FullName} takes an argument by reference. While this is supported, using BufferLast in addition to by reference arguements will buffer the value as it was serialized, not as it is when sending buffered.");
 
-            insts.Add(processor.Create(OpCodes.Ldc_I4, buffered));
+            insts.Add(processor.Create(OpCodes.Ldc_I4, bufferLast.ToInt()));
+            insts.Add(processor.Create(OpCodes.Ldc_I4, excludeServer.ToInt()));
+            insts.Add(processor.Create(OpCodes.Ldc_I4, excludeOwner.ToInt())); 
             //Call NetworkBehaviour.
             insts.Add(processor.Create(OpCodes.Call, base.GetClass<NetworkBehaviourHelper>().SendObserversRpc_MethodRef));
 
@@ -1057,13 +1112,15 @@ namespace FishNet.CodeGenerating.Processing.Rpc
 
             CustomAttribute rpcAttribute = attributeDatas.GetAttribute(base.Session, RpcType.Target);
             bool validateTarget = rpcAttribute.GetField(VALIDATETARGET_NAME, true);
-            int validate = (validateTarget) ? 1 : 0;
+            bool excludeServer = rpcAttribute.GetField(EXCLUDESERVER_NAME, false);
 
             insts.AddRange(CreateSendRpcCommon(processor, methodHash, writerVariableDef, channelVariableDef));
             //Reference to NetworkConnection that RPC is going to.
             insts.Add(processor.Create(OpCodes.Ldarg, targetConnectionParameterDef));
+            //Exclude server from rpc.
+            insts.Add(processor.Create(OpCodes.Ldc_I4, excludeServer.ToInt()));
             //Validate target receiving the rpc.
-            insts.Add(processor.Create(OpCodes.Ldc_I4, validate));
+            insts.Add(processor.Create(OpCodes.Ldc_I4, validateTarget.ToInt()));            
             //Call NetworkBehaviour.
             insts.Add(processor.Create(OpCodes.Call, base.GetClass<NetworkBehaviourHelper>().SendTargetRpc_MethodRef));
 

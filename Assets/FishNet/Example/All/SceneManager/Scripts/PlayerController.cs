@@ -6,7 +6,8 @@ namespace FishNet.Example.Scened
 {
 
 
-    public class PlayerController : NetworkBehaviour{
+    public class PlayerController : NetworkBehaviour
+    {
         [SerializeField]
         private GameObject _camera;
         [SerializeField]
@@ -14,13 +15,11 @@ namespace FishNet.Example.Scened
         [SerializeField]
         private bool _clientAuth = true;
 
-        public override void OnStartClient(){
+        public override void OnStartClient()
+        {
             base.OnStartClient();
-            if (base.IsOwner){
-                _camera = Camera.main.gameObject;
+            if (base.IsOwner)
                 _camera.SetActive(true);
-            }
-                
         }
 
         private void Update()
