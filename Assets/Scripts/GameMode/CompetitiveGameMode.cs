@@ -149,7 +149,7 @@ public class CompetitiveGameMode : BaseGameMode {
         round++;
         if (defenderPoints >= maxPoints) {
             EndGame();
-        }else if (attackerPoints >= maxPoints) {
+        } else if (attackerPoints >= maxPoints) {
             EndGame();
         }
 
@@ -177,7 +177,7 @@ public class CompetitiveGameMode : BaseGameMode {
             defenderPoints++;
             Debug.Log($" ---------- Defenders won that round and now have: {defenderPoints} points ----------");
             Debug.Log($" Attackers lost that round and have: {attackerPoints} points");
-            
+
             EndRound();
         } else if (attackerObjective || defenderWipe) {
             attackerPoints++;
@@ -205,12 +205,12 @@ public class CompetitiveGameMode : BaseGameMode {
             nob.GetComponent<ITeamable>().SetTeamID(Teams.Attackers);
             if (HoldSpike) {
                 nob.GetComponent<PlayerWeaponManager>().HasSpike = true;
-                HoldSpike = false;  
+                HoldSpike = false;
             }
         } else {
             defenderPlayers.Add(nob);
             nob.GetComponent<ITeamable>().SetTeamID(Teams.Defenders);
-        }        
+        }
     }
 
     public override void PlayerDeathUpdate() {

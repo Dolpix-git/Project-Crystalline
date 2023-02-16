@@ -1419,7 +1419,6 @@ GameObject:
   - component: {fileID: 1941173840}
   - component: {fileID: 1941173839}
   - component: {fileID: 1941173842}
-  - component: {fileID: 1941173844}
   - component: {fileID: 1941173843}
   m_Layer: 0
   m_Name: GameManager
@@ -1521,18 +1520,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38ba86a81ea087a4892a3542b2a8997b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1941173844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1941173838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 092e634e64a684a43ab911604e5c7d3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1987871130
@@ -1769,7 +1756,7 @@ MonoBehaviour:
   _startedColor: {r: 0, g: 0.5882353, b: 0.64705884, a: 1}
   _serverIndicator: {fileID: 3965864433284411826}
   _clientIndicator: {fileID: 1424052073283055032}
-  facepunch: {fileID: 7443408886979169087}
+  facepunch: {fileID: 0}
 --- !u!1 &4393252310826039065
 GameObject:
   m_ObjectHideFlags: 0
@@ -2249,15 +2236,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 7443408886979169083}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9da90c29836670c49809661c5c09cd5d, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f48f002b825cbd45a19bd96d90f9edb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _steamAppID: 480
-  _serverBindAddress: 
-  _port: 27015
-  _maximumClients: 16
-  _clientAddress: 
-  _timeout: 25
+  _unreliableMTU: 1023
+  _ipv4BindAddress: 
+  _ipv6BindAddress: 
+  _port: 7770
+  _maximumClients: 4095
+  _clientAddress: localhost
+  _timeout: 15
 --- !u!224 &9139860296178313795
 RectTransform:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using UnityEngine;
 using Steamworks;
 using Steamworks.Data;
 using Color = UnityEngine.Color;
+using System.Collections;
 
 public class NetworkHudCanvases : MonoBehaviour {
     #region Types.
@@ -152,15 +153,18 @@ public class NetworkHudCanvases : MonoBehaviour {
             return;
 
         if (_serverState != LocalConnectionState.Stopped) {
-            _networkManager.ServerManager.StopConnection(true);
-        } else {
-            Debug.Log("TEST");
+            StartCoroutine(ShutDownServer());
+        } else if (_serverState == LocalConnectionState.Stopped) {
             _networkManager.ServerManager.StartConnection();
-            Debug.Log("TEST2");
             StartHost(10);
         }
     }
 
+    private IEnumerator ShutDownServer() {
+        yield return new WaitUntil(() => _serverState == LocalConnectionState.Started);
+        _networkManager.ServerManager.StopConnection(true);
+    }
+    
 
     public void OnClick_Client() {
         if (_networkManager == null)

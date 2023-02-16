@@ -1,14 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour{
-    public static SpawnManager Instance { get; private set; }
+    private static SpawnManager _instance;
+    public static SpawnManager Instance { get {
+            if (_instance is null) {
+                _instance = FindObjectOfType<SpawnManager>();
+                if (_instance is null) {
+                    var obj = Instantiate(new GameObject("SpawnManager"));
+                    _instance = obj.AddComponent<SpawnManager>();
+                }
+            }
+            return _instance;
+        } 
+    }
     private void Awake() {
-        if (Instance != null && Instance != this) {
+        if (_instance != null && _instance != this) {
             Destroy(this);
         } else {
-            Instance = this;
+            _instance = this;
         }
     }
 }
