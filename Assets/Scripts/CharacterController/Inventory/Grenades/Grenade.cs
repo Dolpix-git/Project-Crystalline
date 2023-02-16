@@ -125,6 +125,7 @@ public class Grenade : NetworkBehaviour, IThrowable, ITeamable, IRound{
     }
 
     public void RoundEnded() {
-        Destroy(gameObject);
+        if (!base.IsServer) { return; }
+        base.Despawn();
     }
 }

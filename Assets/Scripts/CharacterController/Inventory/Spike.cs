@@ -52,6 +52,7 @@ public class Spike : NetworkBehaviour, IInteractable, IRound {
     }
 
     public void RoundEnded() {
-        Destroy(gameObject);
+        if (!base.IsServer) { return; }
+        base.Despawn();
     }
 }
