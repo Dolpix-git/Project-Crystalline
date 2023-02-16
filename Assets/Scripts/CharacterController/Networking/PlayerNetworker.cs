@@ -161,11 +161,12 @@ public class PlayerNetworker : NetworkBehaviour {
     private void SimulateWithMove(PlayerMoveData md) {
         if (canMove) {
             playerStateMachine.UpdateStates(md);
+        } else {
+            playerStateMachine.RigidBody.velocity = Vector3.zero;
         }
     }
     [Replicate]
     private void Move(PlayerMoveData md, bool asServer, Channel channel = Channel.Unreliable, bool replaying = false) {
-        Debug.Log("MoveDataSent! " + transform.gameObject.name);
         if (base.IsServer)
             lastMove = md;
 
@@ -173,7 +174,6 @@ public class PlayerNetworker : NetworkBehaviour {
     }
     [Reconcile]
     private void Reconciliation(PlayerReconcileData rd, bool asServer, Channel channel = Channel.Unreliable) {
-        Debug.Log("Reconciliation!");
         Reconcile(rd);
     }
     private void Reconcile(PlayerReconcileData rd) {
@@ -228,7 +228,6 @@ public class PlayerNetworker : NetworkBehaviour {
     #region Death and Respawn Events.
     private void OnDeath() {
         canMove = false;
-        gameObject.SetActive(false);
     }
     private void OnRespawned() {
         canMove = true;

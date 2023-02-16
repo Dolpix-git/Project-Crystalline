@@ -8,9 +8,11 @@ public class FirstPersonCamera : CameraBaseClass {
     }
     public override void DestroyCamera() {
         FirstPersonCameraEvent.OnFirstPersonCamera -= PlayerCameraFirstPerson;
+        firstPersonTransform = null;
+        Debug.Log("Camera FPS Transform Destroyed!");
     }
     public override void UpdateCamera() {
-        if (firstPersonTransform is not null) {
+        if (firstPersonTransform != null) {
             CameraPosition();
             CameraRotation();
         }

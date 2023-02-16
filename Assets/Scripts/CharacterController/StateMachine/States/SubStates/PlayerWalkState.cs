@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.IMGUI.Controls.CapsuleBoundsHandle;
-using UnityEngine.InputSystem;
 using Unity.Mathematics;
 
 public class PlayerWalkState : PlayerBaseState{

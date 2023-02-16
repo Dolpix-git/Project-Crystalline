@@ -30,9 +30,4 @@ public class PlayerCameraManager : MonoBehaviour{
     private void LateUpdate() {
         cameraClasses[currentCamera].UpdateCamera();
     }
-
-    private void SecondEventSub() {
-        currentCamera = CameraTypes.secondPerson;
-    }
-
 }

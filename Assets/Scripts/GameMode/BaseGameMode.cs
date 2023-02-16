@@ -1,18 +1,18 @@
+using FishNet.Object;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseGameMode : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+public abstract class BaseGameMode : NetworkBehaviour{
+    private GameManager manager;
+    protected bool gameInProgress;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public GameManager Manager { get => manager; set => manager = value; }
+    public bool GameInProgress { get => gameInProgress; }
+
+    public abstract void RestartGame();
+    public abstract void StartGame();
+    public abstract void EndGame();
+    public abstract void AddLateJoiner(NetworkObject nob);
+    public abstract void PlayerDeathUpdate();
 }

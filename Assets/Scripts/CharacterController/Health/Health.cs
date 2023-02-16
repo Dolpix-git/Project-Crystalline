@@ -1,9 +1,9 @@
 using FishNet.Object;
+using FishNet.Object.Synchronizing;
+using FishNet.Transporting;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
+
 
 public class Health : NetworkBehaviour {
     #region Public.
@@ -22,11 +22,15 @@ public class Health : NetworkBehaviour {
     /// <summary>
     /// Current health.
     /// </summary>
-    public int CurrentHealth { get; private set; }
+    [SyncVar(Channel = Channel.Unreliable, OnChange = nameof(On_Health))]
+    private int currentHealth;
     /// <summary>
     /// Maximum amount of health character can currently achieve.
     /// </summary>
     public int MaximumHealth { get { return baseHealth; } }
+
+    public int CurrentHealth { get => currentHealth; }
+    public bool IsDead { get { return currentHealth <= 0f; } }
     #endregion
 
     #region Serialized.
@@ -40,98 +44,96 @@ public class Health : NetworkBehaviour {
 
 
     private void Awake() {
-        CurrentHealth = MaximumHealth;
+        if (base.IsServer) { currentHealth = MaximumHealth; }
     }
-
 
     /// <summary>
     /// Restores health to maximum health.
     /// </summary>
     public void RestoreHealth() {
-        int oldHealth = CurrentHealth;
-        CurrentHealth = MaximumHealth;
+        if (!base.IsServer) { return; }
+        int oldHealth = currentHealth;
+        currentHealth = MaximumHealth;
 
-        OnHealthChanged?.Invoke(oldHealth, CurrentHealth, MaximumHealth);
-
-        if (base.IsServer)
-            ObserversRestoreHealth();
+        OnHealthChanged?.Invoke(oldHealth, currentHealth, MaximumHealth);
     }
 
     /// <summary>
     /// Called when respawned.
     /// </summary>
     public void Respawned() {
+        if (!base.IsServer) { return; }
         OnRespawned?.Invoke();
         RestoreHealth();
 
-        if (base.IsServer)
-            ObserversRespawned();
+        ObserversRespawned();
     }
+    /// <summary>
+    /// Sent to clients when character is respawned.
+    /// </summary>
+    [ObserversRpc(ExcludeServer = true)]
+    private void ObserversRespawned() {
+        if (base.IsServer)
+            return;
+
+        OnRespawned?.Invoke();
+    }
+
 
     /// <summary>
     /// Removes health.
     /// </summary>
     /// <param name="value"></param>
     public void RemoveHealth(int value) {
-        int oldHealth = CurrentHealth;
-        CurrentHealth -= value;
+        if (!base.IsServer) { return; }
+        int oldHealth = currentHealth;
+        currentHealth -= value;
 
-        OnHealthChanged?.Invoke(oldHealth, CurrentHealth, MaximumHealth);
+        OnHealthChanged?.Invoke(oldHealth, currentHealth, MaximumHealth);
 
-        if (CurrentHealth <= 0f)
-            HealthDepleted();
+        if (currentHealth <= 0f) {
+            GameManager.Instance.PlayerHasDied(GetComponent<NetworkObject>());
+            OnDeath?.Invoke();
 
-        if (base.IsServer)
-            ObserversRemoveHealth(value, oldHealth);
+            ObserverDeath();
+        }
     }
 
     /// <summary>
     /// Called when health is depleted.
     /// </summary>
-    public virtual void HealthDepleted() {
+    [ObserversRpc(ExcludeServer = true)]
+    public virtual void ObserverDeath() {
         Debug.Log("Player Has Died");
         OnDeath?.Invoke();
     }
 
-    /// <summary>
-    /// Sent to clients when health is restored.
-    /// </summary>
-    [ObserversRpc]
-    private void ObserversRestoreHealth() {
-        //Server already restored health. If we don't exit this will be an endless loop. This is for client host.
-        if (base.IsServer)
-            return;
 
-        RestoreHealth();
+    private void On_Health(int prev, int next, bool asServer) {
+        OnHealthChanged?.Invoke(prev, next, MaximumHealth);
     }
 
-    /// <summary>
-    /// Sent to clients when character is respawned.
-    /// </summary>
-    [ObserversRpc]
-    private void ObserversRespawned() {
-        if (base.IsServer)
+    private GUIStyle _style = new GUIStyle();
+
+    private void OnGUI() {
+        //No need to perform these actions on server.
+#if !UNITY_EDITOR && UNITY_SERVER
+            return;
+#endif
+
+        //Only clients can see pings.
+        if (!base.IsOwner)
             return;
 
-        Respawned();
-    }
+        _style.normal.textColor = Color.white;
+        _style.fontSize = 15;
+        float width = 85f;
+        float height = 15f;
+        float edge = 10f;
 
+        float horizontal = Screen.width - width - edge;
+        float vertical = Screen.height - height - edge - 25;
 
-    /// <summary>
-    /// Sent to clients to remove a portion of health.
-    /// </summary>
-    /// <param name="value"></param>
-    [ObserversRpc]
-    private void ObserversRemoveHealth(int value, int priorHealth) {
-        //Server already removed health. If we don't exit this will be an endless loop. This is for client host.
-        if (base.IsServer)
-            return;
-
-        /* Set current health to prior health so that
-         * in case client somehow magically got out of sync
-         * this will fix it before trying to remove health. */
-        CurrentHealth = priorHealth;
-
-        RemoveHealth(value);
+        GUI.Label(new Rect(horizontal, vertical, width, height), $"Health: {currentHealth}", _style);
     }
 }

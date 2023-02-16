@@ -1,6 +1,3 @@
-
-using static UnityEditor.IMGUI.Controls.CapsuleBoundsHandle;
-using UnityEditor.PackageManager.UI;
 using UnityEngine;
 
 public class PlayerStateSetup{

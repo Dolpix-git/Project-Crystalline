@@ -1,11 +1,8 @@
 using FishNet.Managing.Timing;
 using FishNet.Object;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
-public class Grenade : NetworkBehaviour, IThrowable{
+public class Grenade : NetworkBehaviour, IThrowable, ITeamable, IRound{
     #region Serialized.
     /// <summary>
     /// How long after spawn to detonate.
@@ -92,7 +89,7 @@ public class Grenade : NetworkBehaviour, IThrowable{
             Collider[] hits = Physics.OverlapSphere(transform.position, damageRadius, playerLayer);
             for (int i = 0; i < hits.Length; i++) {
                 Health h = hits[i].GetComponent<Health>();
-                if (h != null) {
+                if (h != null && (h.GetComponent<ITeamable>().GetTeamID() != teamID || teamID == Teams.Solo)) {
                     int damage = 25;
 
                     h.RemoveHealth(damage);
@@ -115,5 +112,19 @@ public class Grenade : NetworkBehaviour, IThrowable{
         //If also client host destroy here.
         if (base.IsServer)
             base.Despawn();
+    }
+
+
+    private Teams teamID;
+
+    public Teams GetTeamID() {
+        return teamID;
+    }
+    public void SetTeamID(Teams teamID) {
+        this.teamID = teamID;
+    }
+
+    public void RoundEnded() {
+        Destroy(gameObject);
     }
 }

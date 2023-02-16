@@ -1,8 +1,5 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Utilities;
-using UnityEngine.iOS;
 
 public class PlayerInputManager : MonoBehaviour{
     public static PlayerInputManager Instance { get; private set; }
@@ -14,6 +11,8 @@ public class PlayerInputManager : MonoBehaviour{
     private Vector2 movement;
     private Vector2 look;
     private bool throwPress;
+    private bool plantSpike;
+    private bool interactionHold;
 
     private Camera cam;
 
@@ -36,6 +35,9 @@ public class PlayerInputManager : MonoBehaviour{
         playerInputActions.Player.CrouchSlide.performed += CrouchSlide;
         playerInputActions.Player.ToggleMouse.performed += ToggleMouse;
         playerInputActions.Player.Throw.performed += Throw;
+        playerInputActions.Player.PlantSpike.performed += PlantSpike;
+        playerInputActions.Player.Interaction.started += Interaction;
+        playerInputActions.Player.Interaction.canceled += Interaction;
 
         cam = Camera.main;
     }
@@ -90,6 +92,21 @@ public class PlayerInputManager : MonoBehaviour{
         }
     }
 
+    private void PlantSpike(InputAction.CallbackContext context) {
+        if (context.performed) {
+            plantSpike = true;
+        }
+    }
+    private void Interaction(InputAction.CallbackContext context) {
+        Debug.Log(context);
+        if (context.started) {
+            Debug.Log("yes");
+            interactionHold = true;
+        } else if (context.canceled) {
+            Debug.Log("no");
+            interactionHold = false;
+        }
+    }
     public void GetCharacterControllerInputs(out PlayerMoveData md) {
         // might need to add a check for if there is no data to send, to prevent weird behavior (might be patched in new version of fishnet)
 
@@ -113,8 +130,15 @@ public class PlayerInputManager : MonoBehaviour{
     public Vector3 GetCamRight() {
         return cam.transform.right;
     }
-
     public Vector2 GetMouseVector2() {
         return look;
+    }
+    public bool GetPlantSpike() {
+        bool tempBool = plantSpike;
+        plantSpike = false;
+        return tempBool;
+    }
+    public bool GetInteraction() {
+        return interactionHold;
     }
 }

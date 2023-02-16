@@ -8,8 +8,6 @@ public class PlayerIdleState : PlayerBaseState{
 
     private float groundAcc = 90;
     private float airAcc = 50;
-    private float maxSpeed = 0;
-    private float4 speedClamp = new float4(-10, 10, -10, 10);
 
     public override void EnterState() { }
     public override void UpdateState() {

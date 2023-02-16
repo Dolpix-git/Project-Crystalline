@@ -62,6 +62,7 @@ GameObject:
   - component: {fileID: 1882312147218659704}
   - component: {fileID: 7095002559478580514}
   - component: {fileID: 8004145175360252860}
+  - component: {fileID: -2635411870532952237}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -204,6 +205,10 @@ MonoBehaviour:
   throable: {fileID: 4560890644814375177, guid: d52b995c0b1d6994f82e64b8457c9c74,
     type: 3}
   force: 200
+  spike: {fileID: 2563415760963950010, guid: 1a7046bc5103a6b42ac4604d7707ae77, type: 3}
+  hasSpike: 0
+  interactionToggle: 0
+  interactionServerToggle: 0
 --- !u!114 &8004145175360252860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,7 +224,24 @@ MonoBehaviour:
   _componentIndexCache: 2
   _addedNetworkObject: {fileID: 5162187385007901065}
   _networkObjectCache: {fileID: 5162187385007901065}
+  currentHealth: 0
   baseHealth: 100
+--- !u!114 &-2635411870532952237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4870035923611722996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 852f0becbd42afd478227992d8eca599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 5162187385007901065}
+  _networkObjectCache: {fileID: 0}
+  teamID: 0
 --- !u!1 &4870035923714307969
 GameObject:
   m_ObjectHideFlags: 0
