@@ -62,7 +62,6 @@ public class CompetitiveGameMode : BaseGameMode {
         ObjectiveManager.Instance.OnPlanted -= ObjectiveManager_OnPlanted;
     }
     #endregion
-
     #region Games.
     public override void EndGame() {
         Debug.Log("Game End");
@@ -157,6 +156,8 @@ public class CompetitiveGameMode : BaseGameMode {
         if (round == halfTime) {
             TeamFlipFlop();
         }
+
+        TakeSpikeAwayFromPlayers();
 
         // Start new round
         StartRound();
@@ -302,7 +303,14 @@ public class CompetitiveGameMode : BaseGameMode {
             HoldSpike = true;
         }
     }
-
+    void TakeSpikeAwayFromPlayers() {
+        foreach (NetworkObject player in attackerPlayers) {
+            player.GetComponent<PlayerWeaponManager>().HasSpike = false;
+        }
+        foreach (NetworkObject player in defenderPlayers) {
+            player.GetComponent<PlayerWeaponManager>().HasSpike = false;
+        }
+    }
 
 
 
