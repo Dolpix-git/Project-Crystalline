@@ -100,7 +100,6 @@ public class Health : NetworkBehaviour {
         OnHealthChanged?.Invoke(oldHealth, currentHealth, MaximumHealth);
 
         if (currentHealth <= 0f) {
-            GameManager.Instance.PlayerHasDied(GetComponent<NetworkObject>());
             OnDeath?.Invoke();
 
             ObserverDeath();

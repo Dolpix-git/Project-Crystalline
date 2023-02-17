@@ -55,6 +55,8 @@ public class GameManager : NetworkBehaviour{
     private void PlayerSpawner_OnSpawned(NetworkObject nob) {
         if (!base.IsServer) { return; }
         players.Add(nob);
+        nob.GetComponent<Health>().OnDeath += PlayerHasDied;
+
         if (gameMode.GameInProgress) {
             gameMode.AddLateJoiner(nob);
         }
@@ -64,7 +66,7 @@ public class GameManager : NetworkBehaviour{
         players.Remove(nob);
         // Code to handle removing this person from the team.
     }
-    public void PlayerHasDied(NetworkObject nob) {
+    public void PlayerHasDied() {
         if (!base.IsServer) { return; }
         gameMode.PlayerDeathUpdate();
     }
