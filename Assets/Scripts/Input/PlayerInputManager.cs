@@ -98,12 +98,9 @@ public class PlayerInputManager : MonoBehaviour{
         }
     }
     private void Interaction(InputAction.CallbackContext context) {
-        Debug.Log(context);
         if (context.started) {
-            Debug.Log("yes");
             interactionHold = true;
         } else if (context.canceled) {
-            Debug.Log("no");
             interactionHold = false;
         }
     }

@@ -80,7 +80,7 @@ public class NetworkHudCanvases : MonoBehaviour {
     private void Start() {
         _networkManager = FindObjectOfType<NetworkManager>();
         if (_networkManager == null) {
-            Debug.LogError("NetworkManager not found, HUD will not function.");
+            Debug.Log("NetworkManager not found, HUD will not function.");
             return;
         } else {
             UpdateColor(LocalConnectionState.Stopped, ref _serverIndicator);
@@ -189,9 +189,7 @@ public class NetworkHudCanvases : MonoBehaviour {
     private void OnApplicationQuit() => Disconnect();
 
     public async void StartHost(uint maxMembers) {
-        Debug.Log("TEST3");
         if (facepunch != null) { CurrentLobby = await SteamMatchmaking.CreateLobbyAsync((int)maxMembers); }
-        Debug.Log("TEST4");
     }
 
     public void StartClient(SteamId id) {

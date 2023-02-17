@@ -30,7 +30,7 @@ public class GameManager : NetworkBehaviour{
         base.OnStartServer();
 
         if (!base.IsServer) { return; }
-        Debug.Log("Start");
+        Console.Log(LogCategories.GameManager , "Start");
         players.Clear();
         gameMode.StartGame();
     }
@@ -38,12 +38,12 @@ public class GameManager : NetworkBehaviour{
         base.OnStopServer();
 
         if (!base.IsServer) { return; }
-        Debug.Log("End");
+        Console.Log(LogCategories.GameManager , "End");
         stoppingServer = true;
         gameMode.EndGame();
         players.Clear();
 
-        InstanceFinder.NetworkManager.gameObject.GetComponent<PlayerSpawner>().OnSpawned -= PlayerSpawner_OnSpawned;
+        //InstanceFinder.NetworkManager.gameObject.GetComponent<PlayerSpawner>().OnSpawned -= PlayerSpawner_OnSpawned;
     }
 
     public void GameHasEnded() {

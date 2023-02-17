@@ -35,8 +35,6 @@ public class PlayerWeaponManager : NetworkBehaviour {
     }
 
     private void Fire(PreciseTick pt, Vector3 position, Vector3 forward) {
-        Debug.Log("Fired");
-
         CmdFireBase(pt, position, forward);
     }
 
@@ -51,8 +49,6 @@ public class PlayerWeaponManager : NetworkBehaviour {
     }
 
     private void PlantSpike(Vector3 position) {
-        Debug.Log("PlantSpike");
-
         CmdPlantSpike(position);
     }
 
