@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class PlayerRunState : PlayerBaseState{
     public PlayerRunState(PlayerStateMachine currentContext, PlayerStateCashe playerStateFactory) : base(currentContext, playerStateFactory){}
 
-
+    #region States.
     public override void EnterState() { }
     public override void UpdateState() {
         CheckSwitchStates();
@@ -19,8 +15,8 @@ public class PlayerRunState : PlayerBaseState{
             SwitchState(Cashe.Idle());
         }
     }
-
     public override PlayerStates PlayerState() {
         return PlayerStates.run;
     }
+    #endregion
 }

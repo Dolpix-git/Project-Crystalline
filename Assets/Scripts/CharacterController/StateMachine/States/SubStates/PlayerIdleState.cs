@@ -1,14 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerIdleState : PlayerBaseState{
+    #region Private.
+    /// <summary>
+    /// Velocity acceleration when grounded.
+    /// </summary>
+    private float groundAcc = 90;
+    /// <summary>
+    /// Velocity acceleration when not grounded.
+    /// </summary>
+    private float airAcc = 50;
+    #endregion
     public PlayerIdleState(PlayerStateMachine currentContext, PlayerStateCashe playerStateFactory) : base(currentContext, playerStateFactory){}
 
-    private float groundAcc = 90;
-    private float airAcc = 50;
-
+    #region States.
     public override void EnterState() { }
     public override void UpdateState() {
         AdjustVelocity();
@@ -24,8 +29,15 @@ public class PlayerIdleState : PlayerBaseState{
             SwitchState(Cashe.Walk());
         }
     }
+    public override PlayerStates PlayerState() {
+        return PlayerStates.idle;
+    }
+    #endregion
 
-
+    #region Methods.
+    /// <summary>
+    /// Handles getting the players new velocity based on what its standing on, the players input, and acceleration values.
+    /// </summary>
     void AdjustVelocity() {
         Vector3 xAxis = PlayerFunctionHelpers.ProjectDirectionOnPlane(Ctx.RightAxis, Ctx.ContactNormal);
         Vector3 zAxis = PlayerFunctionHelpers.ProjectDirectionOnPlane(Ctx.ForwardAxis, Ctx.ContactNormal);
@@ -44,8 +56,5 @@ public class PlayerIdleState : PlayerBaseState{
 
         Ctx.Velocity += xAxis * (newX - currentX) + zAxis * (newZ - currentZ);
     }
-
-    public override PlayerStates PlayerState() {
-        return PlayerStates.idle;
-    }
+    #endregion
 }

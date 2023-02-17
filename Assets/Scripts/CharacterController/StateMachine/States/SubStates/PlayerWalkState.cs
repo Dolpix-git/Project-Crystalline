@@ -2,13 +2,28 @@ using UnityEngine;
 using Unity.Mathematics;
 
 public class PlayerWalkState : PlayerBaseState{
-    public PlayerWalkState(PlayerStateMachine currentContext, PlayerStateCashe playerStateFactory) : base(currentContext, playerStateFactory){}
-
+    #region Private.
+    /// <summary>
+    /// Velocity acceleration when grounded.
+    /// </summary>
     private float groundAcc = 90;
+    /// <summary>
+    /// Velocity acceleration when not grounded.
+    /// </summary>
     private float airAcc = 50;
+    /// <summary>
+    /// The max velocity of the player.
+    /// </summary>
     private float maxSpeed = 5;
+    /// <summary>
+    /// A clamp on the movement in each direction (backward, forward, left, right)
+    /// Used to make going some directions faster than others, for example no running backward.
+    /// </summary>
     private float4 speedClamp = new float4(-10, 10, -10, 10);
+    #endregion
+    public PlayerWalkState(PlayerStateMachine currentContext, PlayerStateCashe playerStateFactory) : base(currentContext, playerStateFactory) { }
 
+    #region States.
     public override void EnterState() { }
     public override void UpdateState(){
         AdjustVelocity();
@@ -24,7 +39,15 @@ public class PlayerWalkState : PlayerBaseState{
             SwitchState(Cashe.Idle());
         }
     }
+    public override PlayerStates PlayerState() {
+        return PlayerStates.walk;
+    }
+    #endregion
 
+    #region Methods.
+    /// <summary>
+    /// Handles getting the players new velocity based on what its standing on, the players input, and acceleration values.
+    /// </summary>
     void AdjustVelocity() {
         Vector3 xAxis = PlayerFunctionHelpers.ProjectDirectionOnPlane(Ctx.RightAxis, Ctx.ContactNormal);
         Vector3 zAxis = PlayerFunctionHelpers.ProjectDirectionOnPlane(Ctx.ForwardAxis, Ctx.ContactNormal);
@@ -46,8 +69,5 @@ public class PlayerWalkState : PlayerBaseState{
 
         Ctx.Velocity += xAxis * (newX - currentX) + zAxis * (newZ - currentZ);
     }
-
-    public override PlayerStates PlayerState() {
-        return PlayerStates.walk;
-    }
+    #endregion
 }

@@ -7,6 +7,7 @@ public class PlayerFallingState : PlayerBaseState{
         IsRootState = true;
     }
 
+    #region States.
     public override void EnterState() {
         InitiatizeSubState();
     }
@@ -26,8 +27,8 @@ public class PlayerFallingState : PlayerBaseState{
             SetSubState(Cashe.Idle());
         }
     }
-
     public override PlayerStates PlayerState() {
         return PlayerStates.falling;
     }
+    #endregion
 }

@@ -4,7 +4,6 @@ using FishNet.Serializing.Helping;
 
 
 public class PlayerStateMachine{
-
     #region Private.
     /// <summary>
     /// A refrence to the current root state of the state machine.
@@ -35,12 +34,10 @@ public class PlayerStateMachine{
     /// </summary>
     private float tickDelta;
     #endregion
-
     #region States.
     public bool OnGround => playerStateSetup.groundContactCount > 0;
     public bool OnSteep => playerStateSetup.steepContactCount > 0;
     #endregion
-
     #region Getters and Setters.
     public Rigidbody RigidBody { get => playerNet.RigidBody; set => playerNet.RigidBody = value; }
     public CapsuleCollider PlayerCollider { get => playerNet.CapsuleCollider; set => playerNet.CapsuleCollider = value; }

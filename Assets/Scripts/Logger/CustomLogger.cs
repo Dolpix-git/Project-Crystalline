@@ -1,22 +1,20 @@
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Diagnostics;
 
 namespace UnityEngine {
-    public enum LogCategories {
-        Round,
-        Game,
-        GameManager,
-    }
-
-    public static class Console {
-        static Dictionary<LogCategories, Color> colors =
+    public static class CustomLogger {
+        #region Private.
+        private static Dictionary<LogCategories, Color> colors =
                 new Dictionary<LogCategories, Color>() {
                 {LogCategories.Round, new Color(0.2f, 0.650f, 1)},
                 {LogCategories.Game, new Color(0.2f, 0.376f, 1)},
-                {LogCategories.GameManager, new Color(0.498f, 0.2f, 1)}
+                {LogCategories.GameManager, new Color(0.498f, 0.2f, 1)},
+                {LogCategories.Health, new Color(1, 0.2f, 0.290f)},
+                {LogCategories.Spike, new Color(0.215f, 1, 0.2f)}
         };
+        #endregion
+
 
         #region Log.
         [Conditional("DEBUG")]
@@ -47,7 +45,6 @@ namespace UnityEngine {
             }
         }
         #endregion
-
         #region Warning.
         [Conditional("DEBUG")]
         public static void LogWarning(object message) {
@@ -77,7 +74,6 @@ namespace UnityEngine {
             }
         }
         #endregion
-
         #region Error.
         [Conditional("DEBUG")]
         public static void LogError(object message) {
@@ -122,8 +118,9 @@ namespace UnityEngine {
             }
         }
         #endregion
+        
 
-
+        #region Format.
         private static string FormatMessage(Color color, object message) {
             return $"<color=#{ColorUtility.ToHtmlStringRGBA(color)}>{message}</color>";
         }
@@ -131,5 +128,6 @@ namespace UnityEngine {
         private static string FormatMessageWithCategory(Color color, string category, object message) {
             return $"<color=#{ColorUtility.ToHtmlStringRGBA(color)}><b>[{category}]</b> {message}</color>";
         }
+        #endregion
     }
 }

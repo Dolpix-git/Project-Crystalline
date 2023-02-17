@@ -64,14 +64,14 @@ public class CompetitiveGameMode : BaseGameMode {
     #endregion
     #region Games.
     public override void EndGame() {
-        Console.Log(LogCategories.Game, "Game End");
+        CustomLogger.Log(LogCategories.Game, "Game End");
 
         gameInProgress = false;
         // Log Winner
         if (defenderPoints == 5) {
-            Console.Log(LogCategories.Game, "Defenders Win!");
+            CustomLogger.Log(LogCategories.Game, "Defenders Win!");
         } else if (attackerPoints == 5) {
-            Console.Log(LogCategories.Game, "Attackers Win!");
+            CustomLogger.Log(LogCategories.Game, "Attackers Win!");
         }
 
         // Clean up game
@@ -90,7 +90,7 @@ public class CompetitiveGameMode : BaseGameMode {
     }
 
     public override void RestartGame() {
-        Console.Log(LogCategories.Game, "Game Restart");
+        CustomLogger.Log(LogCategories.Game, "Game Restart");
 
         // End Game
         EndGame();
@@ -100,7 +100,7 @@ public class CompetitiveGameMode : BaseGameMode {
     }
 
     public override void StartGame() {
-        Console.Log(LogCategories.Game, "Game Start");
+        CustomLogger.Log(LogCategories.Game, "Game Start");
         // Set game to start
         gameInProgress = true;
 
@@ -116,7 +116,7 @@ public class CompetitiveGameMode : BaseGameMode {
     #endregion
     #region Rounds.
     private void StartRound() {
-        Console.Log(LogCategories.Round , "Round Start");
+        CustomLogger.Log(LogCategories.Round , "Round Start");
         // Round is now in progress
         roundInProgress = true;
 
@@ -133,7 +133,7 @@ public class CompetitiveGameMode : BaseGameMode {
         gameTimer.StartTimer(roundTime, true);
     }
     private void EndRound() {
-        Console.Log(LogCategories.Round , "Round End");
+        CustomLogger.Log(LogCategories.Round , "Round End");
         roundInProgress = false;
 
         // Clean up
@@ -176,14 +176,14 @@ public class CompetitiveGameMode : BaseGameMode {
 
         if (timerCompleted || attackerWipe || defenderObjective) {
             defenderPoints++;
-            Console.Log(LogCategories.Round , $" ---------- Defenders won that round and now have: {defenderPoints} points ----------");
-            Console.Log(LogCategories.Round , $" Attackers lost that round and have: {attackerPoints} points");
+            CustomLogger.Log(LogCategories.Round , $" ---------- Defenders won that round and now have: {defenderPoints} points ----------");
+            CustomLogger.Log(LogCategories.Round , $" Attackers lost that round and have: {attackerPoints} points");
 
             EndRound();
         } else if (attackerObjective || defenderWipe) {
             attackerPoints++;
-            Console.Log(LogCategories.Round , $" ---------- Attackers won that round and now have: {attackerPoints} points ----------");
-            Console.Log(LogCategories.Round , $" Defenders lost that round and have: {defenderPoints} points");
+            CustomLogger.Log(LogCategories.Round , $" ---------- Attackers won that round and now have: {attackerPoints} points ----------");
+            CustomLogger.Log(LogCategories.Round , $" Defenders lost that round and have: {defenderPoints} points");
             EndRound();
         }
     }
@@ -191,13 +191,13 @@ public class CompetitiveGameMode : BaseGameMode {
 
     private void timeRemaining_OnChange(SyncTimerOperation op, float prev, float next, bool asServer) {
         if (op == SyncTimerOperation.Finished && asServer) {
-            Console.Log(LogCategories.Round, $"The timer has completed!");
+            CustomLogger.Log(LogCategories.Round, $"The timer has completed!");
             timerCompleted = true;
         }
     }
 
     public override void AddLateJoiner(NetworkObject nob) {
-        Console.Log(LogCategories.Game , "Adding A late joiner");
+        CustomLogger.Log(LogCategories.Game , "Adding A late joiner");
 
         // add them to a team.
         // Known issue, players will be able to late join and join a round in progress will prevent with custom spawning event later.
@@ -216,7 +216,7 @@ public class CompetitiveGameMode : BaseGameMode {
 
     public override void PlayerDeathUpdate() {
         if (!roundInProgress) { return; }
-        Console.Log(LogCategories.Game , "Updateing player death");
+        CustomLogger.Log(LogCategories.Game , "Updateing player death");
         attackersLeft = 0;
         defendersLeft = 0;
         // Check if a team has won by wipe
@@ -240,13 +240,13 @@ public class CompetitiveGameMode : BaseGameMode {
         }
 
         if (attackerWipe && defenderWipe) {
-            Console.LogWarning(LogCategories.Round , "Some how both teams have full wiped in the same tick! Wow!");
+            CustomLogger.LogWarning(LogCategories.Round , "Some how both teams have full wiped in the same tick! Wow!");
             defenderWipe = false;
         }
     }
 
     private void CreateTeams() {
-        Console.Log(LogCategories.Game , "Creating Teams");
+        CustomLogger.Log(LogCategories.Game , "Creating Teams");
         // evenly spread out teams (no limit yet)
         for (int i = 0; i < Manager.Players.Count; i++) {
             if (i % 2 == 0) {
@@ -260,7 +260,7 @@ public class CompetitiveGameMode : BaseGameMode {
     }
 
     private void TeamFlipFlop() {
-        Console.Log(LogCategories.Round , "TeamFlipFlop");
+        CustomLogger.Log(LogCategories.Round , "TeamFlipFlop");
         int pointStore = attackerPoints;
         NetworkObject[] playerStore = attackerPlayers.ToArray();
 
@@ -278,7 +278,7 @@ public class CompetitiveGameMode : BaseGameMode {
         }
     }
     void RespawnPlayers() {
-        Console.Log(LogCategories.Round , "Respawning Players!");
+        CustomLogger.Log(LogCategories.Round , "Respawning Players!");
 
         foreach (NetworkObject nob in attackerPlayers) {
             Health nobHealth = nob.GetComponent<Health>();
@@ -300,14 +300,14 @@ public class CompetitiveGameMode : BaseGameMode {
         if (attackerPlayers.Count != 0) {
             int player = Random.Range(0, attackerPlayers.Count);
             attackerPlayers[player].GetComponent<PlayerWeaponManager>().HasSpike = true;
-            Console.Log(LogCategories.Round, $"Giving spike to: {attackerPlayers[player].gameObject.name}");
+            CustomLogger.Log(LogCategories.Round, $"Giving spike to: {attackerPlayers[player].gameObject.name}");
         } else {
             HoldSpike = true;
-            Console.Log(LogCategories.Round, "Holding spike");
+            CustomLogger.Log(LogCategories.Round, "Holding spike");
         }
     }
     void TakeSpikeAwayFromPlayers() {
-        Console.Log(LogCategories.Round , "Taking away spike");
+        CustomLogger.Log(LogCategories.Round , "Taking away spike");
         foreach (NetworkObject player in attackerPlayers) {
             player.GetComponent<PlayerWeaponManager>().HasSpike = false;
         }

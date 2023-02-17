@@ -1,8 +1,12 @@
 using UnityEngine;
 
 public class PlayerStateSetup{
+    #region Private.
+    /// <summary>
+    /// Refrence to the statemachine that owns this script
+    /// </summary>
     private PlayerStateMachine playerStateMachine;
-
+    #endregion
     #region Player Variables.
     public int groundContactCount, steepContactCount; // How many colliders are we touching and below the maxGroundAngle
     private Rigidbody connectedBody, previousConnectedBody; // all the rigidbodys of what we are colliding with. (provided with NULL if there isnt on)
@@ -22,7 +26,6 @@ public class PlayerStateSetup{
     #endregion
 
 
-
     public PlayerStateSetup(PlayerStateMachine playerStateMachine) {
         this.playerStateMachine = playerStateMachine;
 
@@ -34,6 +37,10 @@ public class PlayerStateSetup{
         PlayerInputs();
     }
 
+    #region Methods.
+    /// <summary>
+    /// Take the user inputs and makes them relative to the character. also handles vector cheating.
+    /// </summary>
     private void PlayerInputs() {
         // This is to prevent clients from cheating, as they could in theory alter the vector2 on their machine
         playerStateMachine.SetPlayerMovementData(Vector2.ClampMagnitude(playerStateMachine.MoveData.Movement, 1f));
@@ -168,4 +175,5 @@ public class PlayerStateSetup{
         connectionWorldPosition = playerStateMachine.RigidBody.position;
         connectionLocalPosition = connectedBody.transform.InverseTransformPoint(connectionWorldPosition);
     }
+    #endregion
 }

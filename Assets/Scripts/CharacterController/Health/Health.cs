@@ -6,6 +6,14 @@ using UnityEngine;
 
 
 public class Health : NetworkBehaviour {
+    #region Serialized.
+    /// <summary>
+    /// Health to start with.
+    /// </summary>
+    [Tooltip("Health to start with.")]
+    [SerializeField]
+    private int baseHealth = 100;
+    #endregion
     #region Public.
     /// <summary>
     /// Dispatched when health changes with old, new, and max health values.
@@ -19,27 +27,27 @@ public class Health : NetworkBehaviour {
     /// Dispatched after being respawned.
     /// </summary>
     public event Action OnRespawned;
+    #endregion
+    #region Private.
     /// <summary>
     /// Current health.
     /// </summary>
     [SyncVar(Channel = Channel.Unreliable, OnChange = nameof(On_Health))]
     private int currentHealth;
+    #endregion
+    #region Getters Setters.
     /// <summary>
     /// Maximum amount of health character can currently achieve.
     /// </summary>
     public int MaximumHealth { get { return baseHealth; } }
-
-    public int CurrentHealth { get => currentHealth; }
-    public bool IsDead { get { return currentHealth <= 0f; } }
-    #endregion
-
-    #region Serialized.
     /// <summary>
-    /// Health to start with.
+    /// Returns the current health of character.
     /// </summary>
-    [Tooltip("Health to start with.")]
-    [SerializeField]
-    private int baseHealth = 100;
+    public int CurrentHealth { get => currentHealth; }
+    /// <summary>
+    /// Returns true if player is dead.
+    /// </summary>
+    public bool IsDead { get { return currentHealth <= 0f; } }
     #endregion
 
 
@@ -47,6 +55,8 @@ public class Health : NetworkBehaviour {
         if (base.IsServer) { currentHealth = MaximumHealth; }
     }
 
+
+    #region Methods.
     /// <summary>
     /// Restores health to maximum health.
     /// </summary>
@@ -57,7 +67,6 @@ public class Health : NetworkBehaviour {
 
         OnHealthChanged?.Invoke(oldHealth, currentHealth, MaximumHealth);
     }
-
     /// <summary>
     /// Called when respawned.
     /// </summary>
@@ -76,14 +85,13 @@ public class Health : NetworkBehaviour {
         if (base.IsServer)
             return;
 
+        CustomLogger.Log(LogCategories.Health, $"{gameObject.name} Has been respawned!");
         OnRespawned?.Invoke();
     }
-
-
     /// <summary>
     /// Removes health.
     /// </summary>
-    /// <param name="value"></param>
+    /// <param name="value">Amount</param>
     public void RemoveHealth(int value) {
         if (!base.IsServer) { return; }
         int oldHealth = currentHealth;
@@ -98,23 +106,31 @@ public class Health : NetworkBehaviour {
             ObserverDeath();
         }
     }
-
     /// <summary>
     /// Called when health is depleted.
     /// </summary>
     [ObserversRpc(ExcludeServer = true)]
     public virtual void ObserverDeath() {
-        Debug.Log("Player Has Died");
+        CustomLogger.Log(LogCategories.Health, $"{gameObject.name} Has Died");
         OnDeath?.Invoke();
     }
-
-
+    /// <summary>
+    /// Called when health changes
+    /// </summary>
+    /// <param name="prev">Previous health</param>
+    /// <param name="next">Next health</param>
+    /// <param name="asServer">True if is server</param>
     private void On_Health(int prev, int next, bool asServer) {
+        CustomLogger.LogFormat(LogCategories.Health, "Health has changed: ", ( prev,next, MaximumHealth));
         OnHealthChanged?.Invoke(prev, next, MaximumHealth);
     }
+    #endregion
 
+    #region OnGUI
+    /// <summary>
+    /// Will be removed or relocated for logging
+    /// </summary>
     private GUIStyle _style = new GUIStyle();
-
     private void OnGUI() {
         //No need to perform these actions on server.
 #if !UNITY_EDITOR && UNITY_SERVER
@@ -136,4 +152,5 @@ public class Health : NetworkBehaviour {
 
         GUI.Label(new Rect(horizontal, vertical, width, height), $"Health: {currentHealth}", _style);
     }
+    #endregion
 }

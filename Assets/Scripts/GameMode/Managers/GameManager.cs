@@ -30,7 +30,7 @@ public class GameManager : NetworkBehaviour{
         base.OnStartServer();
 
         if (!base.IsServer) { return; }
-        Console.Log(LogCategories.GameManager , "Start");
+        CustomLogger.Log(LogCategories.GameManager , "Start");
         players.Clear();
         gameMode.StartGame();
     }
@@ -38,7 +38,7 @@ public class GameManager : NetworkBehaviour{
         base.OnStopServer();
 
         if (!base.IsServer) { return; }
-        Console.Log(LogCategories.GameManager , "End");
+        CustomLogger.Log(LogCategories.GameManager , "End");
         stoppingServer = true;
         gameMode.EndGame();
         players.Clear();

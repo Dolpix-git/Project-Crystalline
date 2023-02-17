@@ -7,8 +7,9 @@ public class PlayerJumpState : PlayerBaseState{
         IsRootState = true;
     }
 
+    #region States.
     public override void EnterState() {
-        InitiatizeSubState();
+    InitiatizeSubState();
         HandleJump();
     }
     public override void UpdateState() {
@@ -30,16 +31,15 @@ public class PlayerJumpState : PlayerBaseState{
 
         SwitchState(Cashe.Grounded());
     }
+    public override PlayerStates PlayerState() {
+        return PlayerStates.jump;
+    }
+    #endregion
 
-
-
-
+    #region Methods.
     void HandleJump(){
         Ctx.Velocity += new Vector3(0f, 8f, 0f);
         //Ctx.RigidBody.AddForce(new Vector3(0,10,0),ForceMode.Impulse);
     }
-
-    public override PlayerStates PlayerState() {
-        return PlayerStates.jump;
-    }
+    #endregion
 }

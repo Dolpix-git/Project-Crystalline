@@ -24,14 +24,17 @@ public class Grenade : NetworkBehaviour, IThrowable, ITeamable, IRound{
     [SerializeField]
     private LayerMask playerLayer = 0;
     #endregion
-
     #region Private.
     /// <summary>
     /// When to detonate.
     /// </summary>
     private float detonationTime = -1f;
+    /// <summary>
+    /// The team the grenade is on to prevent frendly fire.
+    /// </summary>
+    private Teams teamID;
     #endregion
-    public const float MAXIMUM_LATENCY_COMPENSATION = 20f;
+
 
     public override void OnStartServer() {
         base.OnStartServer();
@@ -51,6 +54,11 @@ public class Grenade : NetworkBehaviour, IThrowable, ITeamable, IRound{
         PerformUpdate(true);
     }
 
+    #region Methods.
+    /// <summary>
+    /// Update the grenade.
+    /// </summary>
+    /// <param name="onTick"></param>
     private void PerformUpdate(bool onTick) {
         /* If a tick but also host then do not
          * update. The update will occur outside of
@@ -64,13 +72,19 @@ public class Grenade : NetworkBehaviour, IThrowable, ITeamable, IRound{
 
         CheckDetonate();
     }
-
+    /// <summary>
+    /// Sets up the grenade, called at startup.
+    /// </summary>
+    /// <param name="pt"></param>
+    /// <param name="force"></param>
     public void Initialize(PreciseTick pt, Vector3 force) {
         detonationTime = Time.time + detonationDelay;
 
         GetComponent<Rigidbody>().AddForce(force);
     }
-
+    /// <summary>
+    /// Checks for detonation.
+    /// </summary>
     protected void CheckDetonate() {
         if (detonationTime == -1f)
             return;
@@ -82,7 +96,9 @@ public class Grenade : NetworkBehaviour, IThrowable, ITeamable, IRound{
 
         Detonate();
     }
-
+    /// <summary>
+    /// Called when detonated.
+    /// </summary>
     protected virtual void Detonate() {
         if (base.IsServer) {
             //Trace for players 
@@ -113,19 +129,26 @@ public class Grenade : NetworkBehaviour, IThrowable, ITeamable, IRound{
         if (base.IsServer)
             base.Despawn();
     }
-
-
-    private Teams teamID;
-
+    /// <summary>
+    /// Gets team ID.
+    /// </summary>
+    /// <returns>The grenades team id</returns>
     public Teams GetTeamID() {
         return teamID;
     }
+    /// <summary>
+    /// Sets the grenades team id.
+    /// </summary>
+    /// <param name="teamID">Team id</param>
     public void SetTeamID(Teams teamID) {
         this.teamID = teamID;
     }
-
+    /// <summary>
+    /// Called when the round has ended.
+    /// </summary>
     public void RoundEnded() {
         if (!base.IsServer) { return; }
         base.Despawn();
     }
+    #endregion
 }

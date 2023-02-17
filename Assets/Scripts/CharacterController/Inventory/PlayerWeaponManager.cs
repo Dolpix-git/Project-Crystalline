@@ -1,24 +1,44 @@
-using FishNet;
 using FishNet.Managing.Timing;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerWeaponManager : NetworkBehaviour {
+    #region Serialized.
+    /// <summary>
+    /// The prefab to spawn for throwing.
+    /// </summary>
+    [Header("Grenade")]
     [SerializeField] private GameObject throable;
+    /// <summary>
+    /// Force to apply when throwing.
+    /// </summary>
     [SerializeField] private float force;
-
+    /// <summary>
+    /// The spike(bomb) prefab object.
+    /// </summary>
     [Header("Spike")]
     [SerializeField] private GameObject spike;
-
+    #endregion
+    #region Private.
+    /// <summary>
+    /// True if the player has a spike item.
+    /// </summary>
     [SyncVar]
     private bool hasSpike;
-
+    /// <summary>
+    /// How far the sphere cast for interaction is
+    /// </summary>
+    private float interactionRadius = 2;
+    #endregion
+    #region Getters Setters.
+    /// <summary>
+    /// Retrurns true if the player has the spike
+    /// </summary>
     [HideInInspector]
     public bool HasSpike { get => hasSpike; set => hasSpike = value; }
-    private float interactionRadius = 2;
+    #endregion
+
 
     private void Update() {
         if (!base.IsOwner) { return; }
@@ -34,24 +54,35 @@ public class PlayerWeaponManager : NetworkBehaviour {
         }
     }
 
+
+    #region Fire.
+    /// <summary>
+    /// Request a fire(grendade throw) to the (server).
+    /// </summary>
+    /// <param name="pt">Persice tick</param>
+    /// <param name="position">Position to spawn</param>
+    /// <param name="forward">Forward vector</param>
     private void Fire(PreciseTick pt, Vector3 position, Vector3 forward) {
         CmdFireBase(pt, position, forward);
     }
-
     [ServerRpc]
     private void CmdFireBase(PreciseTick pt, Vector3 position, Vector3 forward) {
         GameObject result = Instantiate(throable, position, Quaternion.identity);
         base.Spawn(result);
         ITeamable teamable = result.GetComponent<ITeamable>();
-        teamable.SetTeamID(GetComponent<ITeamable>().GetTeamID()); 
+        teamable.SetTeamID(GetComponent<ITeamable>().GetTeamID());
         IThrowable throwable = result.GetComponent<IThrowable>();
         throwable.Initialize(pt, forward * force);
     }
-
+    #endregion
+    #region Plant.
+    /// <summary>
+    /// Request a (plant the spike) to the (server).
+    /// </summary>
+    /// <param name="position"></param>
     private void PlantSpike(Vector3 position) {
         CmdPlantSpike(position);
     }
-
     [ServerRpc]
     private void CmdPlantSpike(Vector3 position) {
         if (hasSpike) {
@@ -60,17 +91,21 @@ public class PlayerWeaponManager : NetworkBehaviour {
             hasSpike = false;
         }
     }
-
+    #endregion
+    #region Interaction.
+    /// <summary>
+    /// Start sending interaction requests to the server
+    /// </summary>
     private void StartInteraction() {
         CmdStartInteraction();
-    }    
-
-
+    }
     [ServerRpc]
     private void CmdStartInteraction() {
         Interaction();
     }
-
+    /// <summary>
+    /// The interaction method, that does a sphere overlap and finds interactable objects
+    /// </summary>
     private void Interaction() {
         Collider[] hits = Physics.OverlapSphere(transform.position, interactionRadius);
         for (int i = 0; i < hits.Length; i++) {
@@ -80,9 +115,14 @@ public class PlayerWeaponManager : NetworkBehaviour {
             }
         }
     }
+    #endregion
 
+
+    #region OnGUI.
+    /// <summary>
+    /// Will be removed or relocated for logging
+    /// </summary>
     private GUIStyle _style = new GUIStyle();
-
     private void OnGUI() {
         //No need to perform these actions on server.
 #if !UNITY_EDITOR && UNITY_SERVER
@@ -103,4 +143,5 @@ public class PlayerWeaponManager : NetworkBehaviour {
 
         GUI.Label(new Rect(horizontal, 90, width, height), $"Spike: {hasSpike}", _style);
     }
+    #endregion
 }

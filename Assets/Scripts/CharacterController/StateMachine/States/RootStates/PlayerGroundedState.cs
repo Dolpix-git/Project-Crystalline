@@ -7,8 +7,9 @@ public class PlayerGroundedState : PlayerBaseState{
         IsRootState = true;
     }
 
+    #region States.
     public override void EnterState() {
-        InitiatizeSubState();
+    InitiatizeSubState();
     }
     public override void UpdateState(){
         CheckSwitchStates();
@@ -28,8 +29,8 @@ public class PlayerGroundedState : PlayerBaseState{
             SwitchState(Cashe.Jump());
         }
     }
-
     public override PlayerStates PlayerState() {
         return PlayerStates.grounded;
     }
+    #endregion
 }
