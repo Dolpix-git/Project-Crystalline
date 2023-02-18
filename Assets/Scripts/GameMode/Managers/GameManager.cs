@@ -6,8 +6,22 @@ using UnityEngine;
 
 
 public class GameManager : NetworkBehaviour{
-    public static GameManager Instance { get; private set; }
-    
+    public static GameManager _instance;
+    public static GameManager Instance {
+        get {
+            if (_instance is null) {
+                _instance = FindObjectOfType<GameManager>();
+                if (_instance is null) {
+                    var obj = Instantiate(new GameObject("GameManager"));
+                    CustomLogger.LogWarning("GameManager was acsessed and there was no GameManager!");
+                    _instance = obj.AddComponent<GameManager>();
+                }
+            }
+            return _instance;
+        }
+    }
+
+
     private List<NetworkObject> players = new List<NetworkObject>();
     [SerializeField] private BaseGameMode gameMode;
 
@@ -16,10 +30,10 @@ public class GameManager : NetworkBehaviour{
 
     private void Awake() {
         // If there is an instance, and it's not me, delete myself.
-        if (Instance != null && Instance != this) {
+        if (_instance != null && _instance != this) {
             Destroy(this);
         } else {
-            Instance = this;
+            _instance = this;
         }
         players = new List<NetworkObject>();
         gameMode.Manager = this;
