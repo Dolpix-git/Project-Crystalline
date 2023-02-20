@@ -14,8 +14,8 @@ public class SpawnManager : MonoBehaviour{
         } 
     }
 
-    [SerializeField] private Transform teamOneSpawn;
-    [SerializeField] private Transform teamTwoSpawn;
+    [SerializeField] private Transform attackerSpawn;
+    [SerializeField] private Transform defenderSpawn;
 
     private void Awake() {
         if (_instance != null && _instance != this) {
@@ -25,18 +25,23 @@ public class SpawnManager : MonoBehaviour{
         }
     }
 
-    public Vector3 GetTeamOneSpawn() {
-        if (teamOneSpawn == null) {
-            CustomLogger.LogError("No TeamOne spawn set!");
+    public Vector3 GetSpawn(Team teamSide) {
+        if (teamSide == Team.Attackers) {
+            if (attackerSpawn == null) {
+                CustomLogger.LogError("No Attacker spawn set!");
+                return Vector3.zero;
+            } else {
+                return attackerSpawn.position;
+            }
+        } else if (teamSide == Team.Defenders) {
+            if (defenderSpawn == null) {
+                CustomLogger.LogError("No Defender spawn set!");
+                return Vector3.zero;
+            } else {
+                return defenderSpawn.position;
+            }
+        } else {
             return Vector3.zero;
         }
-        return teamOneSpawn.position;
-    }
-    public Vector3 GetTeamTwoSpawn() {
-        if (teamOneSpawn == null) {
-            CustomLogger.LogError("No TeamTwo spawn set!");
-            return Vector3.zero;
-        }
-        return teamTwoSpawn.position;
     }
 }

@@ -11,25 +11,35 @@ public class CompetitiveGameMode : BaseGameMode {
     [SyncObject]
     private readonly SyncTimer gameTimer = new SyncTimer();
 
-    private List<NetworkObject> defenderPlayers;
-    private List<NetworkObject> attackerPlayers;
-
     private bool timerCompleted;
     private bool defenderObjective, attackerObjective;
     private bool defenderWipe, attackerWipe;
 
-    [SyncVar, HideInInspector]
-    private int defendersLeft, attackersLeft;
-    [SyncVar, HideInInspector]
-    private int defenderPoints, attackerPoints;
+    private CompTeam teamOne, teamTwo;
+    private CompTeam DefenderTeam {
+        get {
+            if (teamOne.Team == Team.Defenders) {
+                return teamOne;
+            }else {
+                return teamTwo;
+            } 
+        }
+    }
+    private CompTeam AttackerTeam {
+        get {
+            if (teamOne.Team == Team.Attackers) {
+                return teamOne;
+            } else {
+                return teamTwo;
+            }
+        }
+    }
 
     private int round;
 
     private int maxPoints = 5;
     private int halfTime = 2;
     private float roundTime = 30;
-
-    private bool HoldSpike;
 
 
 
@@ -65,25 +75,22 @@ public class CompetitiveGameMode : BaseGameMode {
     #region Games.
     public override void EndGame() {
         CustomLogger.Log(LogCategories.Game, "Game End");
-
+        // Game is no longer in progress
         gameInProgress = false;
+
         // Log Winner
-        if (defenderPoints == 5) {
-            CustomLogger.Log(LogCategories.Game, "Defenders Win!");
-        } else if (attackerPoints == 5) {
-            CustomLogger.Log(LogCategories.Game, "Attackers Win!");
+        if (teamOne.Points >= maxPoints) {
+            CustomLogger.Log(LogCategories.Game, $"----- {teamOne.TeamName} {teamOne.Team} Have Won the game!-----");
+        } else if (teamTwo.Points >= maxPoints) {
+            CustomLogger.Log(LogCategories.Game, $"----- {teamTwo.TeamName} {teamTwo.Team} Have Won the game! -----");
+        } else {
+            CustomLogger.Log(LogCategories.Game, "-----  No One Wins!  -----");
         }
 
         // Clean up game
-        round = defenderPoints = attackerPoints = 0;
-        defenderPlayers = null;
-        attackerPlayers = null;
-
-        foreach (NetworkObject player in Manager.Players) {
-            if (player != null) {
-                player.GetComponent<ITeamable>().SetTeamID(Teams.Solo);
-            }
-        }
+        round = 0;
+        teamOne.Reset();
+        teamTwo.Reset();
 
         // Inform game manager
         Manager.GameHasEnded();
@@ -91,11 +98,7 @@ public class CompetitiveGameMode : BaseGameMode {
 
     public override void RestartGame() {
         CustomLogger.Log(LogCategories.Game, "Game Restart");
-
-        // End Game
         EndGame();
-
-        // Start Game
         StartGame();
     }
 
@@ -103,13 +106,8 @@ public class CompetitiveGameMode : BaseGameMode {
         CustomLogger.Log(LogCategories.Game, "Game Start");
         // Set game to start
         gameInProgress = true;
-
-        defenderPlayers = new List<NetworkObject>();
-        attackerPlayers = new List<NetworkObject>();
-
         // Create Teams!
         CreateTeams();
-
         // Start rounds
         StartRound();
     }
@@ -119,46 +117,38 @@ public class CompetitiveGameMode : BaseGameMode {
         CustomLogger.Log(LogCategories.Round , "Round Start");
         // Round is now in progress
         roundInProgress = true;
-
-        attackersLeft = attackerPlayers.Count;
-        defendersLeft = defenderPlayers.Count;
-
         // Respawn Players (dead and non dead)
         RespawnPlayers();
-
         // Give A player the spike
         GiveSpikeToRandomPlayer();
-
         // Start the timer
         gameTimer.StartTimer(roundTime, true);
     }
     private void EndRound() {
         CustomLogger.Log(LogCategories.Round , "Round End");
         roundInProgress = false;
-
         // Clean up
-        defenderWipe = attackerWipe = timerCompleted = defenderObjective = attackerObjective = HoldSpike = false;
+        defenderWipe = attackerWipe = timerCompleted = defenderObjective = attackerObjective = false;
         gameTimer.StopTimer();
         IRound[] roundOb = FindObjectsOfType<MonoBehaviour>().OfType<IRound>().ToArray();
         foreach (var ob in roundOb) {
             ob.RoundEnded();
         }
-
         // Detect game over condition
         round++;
-        if (defenderPoints >= maxPoints) {
+        if (teamOne.Points >= maxPoints) {
             EndGame();
-        } else if (attackerPoints >= maxPoints) {
+            return;
+        } else if (teamTwo.Points >= maxPoints) {
             EndGame();
+            return;
         }
-
         // Detect round flipflop
         if (round == halfTime) {
             TeamFlipFlop();
         }
-
+        // Take Spike away
         TakeSpikeAwayFromPlayers();
-
         // Start new round
         StartRound();
     }
@@ -175,15 +165,13 @@ public class CompetitiveGameMode : BaseGameMode {
         if (!roundInProgress || !base.IsServer) { return; }
 
         if (timerCompleted || attackerWipe || defenderObjective) {
-            defenderPoints++;
-            CustomLogger.Log(LogCategories.Round , $" ---------- Defenders won that round and now have: {defenderPoints} points ----------");
-            CustomLogger.Log(LogCategories.Round , $" Attackers lost that round and have: {attackerPoints} points");
+            DefenderTeam.Points++;
+            CustomLogger.Log(LogCategories.Round , $"Defenders won that round and now have: {DefenderTeam.Points} points");
 
             EndRound();
         } else if (attackerObjective || defenderWipe) {
-            attackerPoints++;
-            CustomLogger.Log(LogCategories.Round , $" ---------- Attackers won that round and now have: {attackerPoints} points ----------");
-            CustomLogger.Log(LogCategories.Round , $" Defenders lost that round and have: {defenderPoints} points");
+            AttackerTeam.Points++;
+            CustomLogger.Log(LogCategories.Round , $"Attackers won that round and now have: {AttackerTeam.Points} points");
             EndRound();
         }
     }
@@ -199,45 +187,18 @@ public class CompetitiveGameMode : BaseGameMode {
     public override void AddLateJoiner(NetworkObject nob) {
         CustomLogger.Log(LogCategories.Game , "Adding A late joiner");
 
-        // add them to a team.
-        // Known issue, players will be able to late join and join a round in progress will prevent with custom spawning event later.
-        if (attackerPlayers.Count < defenderPlayers.Count) {
-            attackerPlayers.Add(nob);
-            nob.GetComponent<ITeamable>().SetTeamID(Teams.Attackers);
-            if (HoldSpike) {
-                nob.GetComponent<PlayerWeaponManager>().HasSpike = true;
-                HoldSpike = false;
-            }
+        if (teamOne.Players.Count > teamTwo.Players.Count) {
+            teamOne.AddPlayerToTeam(nob);
         } else {
-            defenderPlayers.Add(nob);
-            nob.GetComponent<ITeamable>().SetTeamID(Teams.Defenders);
+            teamTwo.AddPlayerToTeam(nob);
         }
     }
 
     public override void PlayerDeathUpdate() {
         if (!roundInProgress) { return; }
         CustomLogger.Log(LogCategories.Game , "Updateing player death");
-        attackersLeft = 0;
-        defendersLeft = 0;
-        // Check if a team has won by wipe
-        if (attackerPlayers.Count >= 1) {
-            attackerWipe = true;
-            foreach (NetworkObject player in attackerPlayers) {
-                if (!player.GetComponent<Health>().IsDead) {
-                    attackerWipe = false;
-                    attackersLeft++;
-                }
-            }
-        }
-        if (defenderPlayers.Count >= 1) {
-            defenderWipe = true;
-            foreach (NetworkObject player in defenderPlayers) {
-                if (!player.GetComponent<Health>().IsDead) {
-                    defenderWipe = false;
-                    defendersLeft++;
-                }
-            }
-        }
+        attackerWipe = AttackerTeam.IsTeamWiped();
+        defenderWipe = DefenderTeam.IsTeamWiped();
 
         if (attackerWipe && defenderWipe) {
             CustomLogger.LogWarning(LogCategories.Round , "Some how both teams have full wiped in the same tick! Wow!");
@@ -247,71 +208,42 @@ public class CompetitiveGameMode : BaseGameMode {
 
     private void CreateTeams() {
         CustomLogger.Log(LogCategories.Game , "Creating Teams");
+        teamOne.SetTeam(Team.Attackers);
+        teamTwo.SetTeam(Team.Defenders);
+
         // evenly spread out teams (no limit yet)
         for (int i = 0; i < Manager.Players.Count; i++) {
             if (i % 2 == 0) {
-                attackerPlayers.Add(Manager.Players[i]);
-                Manager.Players[i].GetComponent<ITeamable>().SetTeamID(Teams.Attackers);
+                teamOne.AddPlayerToTeam(Manager.Players[i]);
             } else {
-                defenderPlayers.Add(Manager.Players[i]);
-                Manager.Players[i].GetComponent<ITeamable>().SetTeamID(Teams.Defenders);
+                teamTwo.AddPlayerToTeam(Manager.Players[i]);
             }
         }
     }
 
     private void TeamFlipFlop() {
         CustomLogger.Log(LogCategories.Round , "TeamFlipFlop");
-        int pointStore = attackerPoints;
-        NetworkObject[] playerStore = attackerPlayers.ToArray();
+        CompTeam newAttackers = DefenderTeam;
+        CompTeam newDefenders = AttackerTeam;
 
-        attackerPoints = defenderPoints;
-        attackerPlayers = defenderPlayers;
-
-        defenderPoints = pointStore;
-        defenderPlayers = playerStore.ToList();
-
-        foreach (NetworkObject player in attackerPlayers) {
-            player.GetComponent<ITeamable>().SetTeamID(Teams.Attackers);
-        }
-        foreach (NetworkObject player in defenderPlayers) {
-            player.GetComponent<ITeamable>().SetTeamID(Teams.Defenders);
-        }
+        newAttackers.SetTeam(Team.Attackers);
+        newDefenders.SetTeam(Team.Defenders);
     }
     void RespawnPlayers() {
         CustomLogger.Log(LogCategories.Round , "Respawning Players!");
 
-        foreach (NetworkObject nob in attackerPlayers) {
-            Health nobHealth = nob.GetComponent<Health>();
-            nob.transform.position = new Vector3(5, 0, Random.Range(-10, 10));
-            if (nobHealth.IsDead) {
-                nobHealth.Respawned();
-            }
-        }
-        foreach (NetworkObject nob in defenderPlayers) {
-            Health nobHealth = nob.GetComponent<Health>();
-            nob.transform.position = new Vector3(-5, 0, Random.Range(-10, 10));
-            if (nobHealth.IsDead) {
-                nobHealth.Respawned();
-            }
-        }
+        teamOne.RespawnTeam();
+        teamTwo.RespawnTeam();
     }
 
     void GiveSpikeToRandomPlayer() {
-        if (attackerPlayers.Count != 0) {
-            int player = Random.Range(0, attackerPlayers.Count);
-            attackerPlayers[player].GetComponent<PlayerWeaponManager>().HasSpike = true;
-            CustomLogger.Log(LogCategories.Round, $"Giving spike to: {attackerPlayers[player].gameObject.name}");
-        } else {
-            HoldSpike = true;
-            CustomLogger.Log(LogCategories.Round, "Holding spike");
-        }
+        CustomLogger.Log(LogCategories.Round, "Giving someone the spike");
+        int player = Random.Range(0, AttackerTeam.Players.Count);
+        AttackerTeam.Players[player].GetComponent<PlayerWeaponManager>().HasSpike = true;
     }
     void TakeSpikeAwayFromPlayers() {
         CustomLogger.Log(LogCategories.Round , "Taking away spike");
-        foreach (NetworkObject player in attackerPlayers) {
-            player.GetComponent<PlayerWeaponManager>().HasSpike = false;
-        }
-        foreach (NetworkObject player in defenderPlayers) {
+        foreach (NetworkObject player in Manager.Players) {
             player.GetComponent<PlayerWeaponManager>().HasSpike = false;
         }
     }
@@ -342,7 +274,7 @@ public class CompetitiveGameMode : BaseGameMode {
         float vertical = 10f;
 
         GUI.Label(new Rect(horizontal, vertical, width, height), $"GameTime: {timeRemaning} ", _style);
-        GUI.Label(new Rect(horizontal, 30, width, height), $"Attackers points: {attackerPoints} Defenders points: {defenderPoints}", _style);
-        GUI.Label(new Rect(horizontal, 50, width, height), $"Attackers left: {attackersLeft} Defenders left: {defendersLeft}", _style);
+        GUI.Label(new Rect(horizontal, 30, width, height), $"Attackers points: {AttackerTeam.Points} Defenders points: {DefenderTeam.Points}", _style);
+        GUI.Label(new Rect(horizontal, 50, width, height), $"Attackers left: {AttackerTeam.GetNumAlive()} Defenders left: {DefenderTeam.GetNumAlive()}", _style);
     }
 }

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface ITeamable {
-    public Teams GetTeamID();
-    public void SetTeamID(Teams teamID);
+    public Team GetTeamID();
+    public void SetTeamID(Team teamID);
 }
 
-public enum Teams {
-    Solo,
+public enum Team {
+    None,
     Defenders,
     Attackers
 }

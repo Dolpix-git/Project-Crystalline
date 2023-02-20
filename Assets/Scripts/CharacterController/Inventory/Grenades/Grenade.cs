@@ -32,7 +32,7 @@ public class Grenade : NetworkBehaviour, IThrowable, ITeamable, IRound{
     /// <summary>
     /// The team the grenade is on to prevent frendly fire.
     /// </summary>
-    private Teams teamID;
+    private Team teamID;
     #endregion
 
 
@@ -105,7 +105,7 @@ public class Grenade : NetworkBehaviour, IThrowable, ITeamable, IRound{
             Collider[] hits = Physics.OverlapSphere(transform.position, damageRadius, playerLayer);
             for (int i = 0; i < hits.Length; i++) {
                 Health h = hits[i].GetComponent<Health>();
-                if (h != null && (h.GetComponent<ITeamable>().GetTeamID() != teamID || teamID == Teams.Solo)) {
+                if (h != null && (h.GetComponent<ITeamable>().GetTeamID() != teamID || teamID == Team.None)) {
                     int damage = 25;
 
                     h.RemoveHealth(damage);
@@ -133,14 +133,14 @@ public class Grenade : NetworkBehaviour, IThrowable, ITeamable, IRound{
     /// Gets team ID.
     /// </summary>
     /// <returns>The grenades team id</returns>
-    public Teams GetTeamID() {
+    public Team GetTeamID() {
         return teamID;
     }
     /// <summary>
     /// Sets the grenades team id.
     /// </summary>
     /// <param name="teamID">Team id</param>
-    public void SetTeamID(Teams teamID) {
+    public void SetTeamID(Team teamID) {
         this.teamID = teamID;
     }
     /// <summary>

@@ -5,13 +5,13 @@ using UnityEngine;
 public class PlayerTeam : NetworkBehaviour, ITeamable{
 
     [SyncVar]
-    private Teams teamID;
+    private Team teamID;
 
-    public Teams GetTeamID() {
+    public Team GetTeamID() {
         return teamID;
     }
 
-    public void SetTeamID(Teams teamID) {
+    public void SetTeamID(Team teamID) {
         this.teamID = teamID;
     }
 
