@@ -1522,6 +1522,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38ba86a81ea087a4892a3542b2a8997b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  teamOneSpawn: {fileID: 0}
+  teamTwoSpawn: {fileID: 0}
 --- !u!114 &1987871130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2147,7 +2149,7 @@ MonoBehaviour:
   _refreshDefaultPrefabs: 1
   _runInBackground: 1
   _dontDestroyOnLoad: 1
-  _objectPool: {fileID: 0}
+  _objectPool: {fileID: 7443408886979169088}
   _persistence: 0
   _logging: {fileID: 0}
   _spawnablePrefabs: {fileID: 11400000, guid: 20b1d25f12bf6734ebf45960599db57f, type: 2}
@@ -2170,6 +2172,7 @@ GameObject:
   - component: {fileID: 7443408886979169084}
   - component: {fileID: 7443408886979169086}
   - component: {fileID: 7443408886979169087}
+  - component: {fileID: 7443408886979169088}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -2246,6 +2249,19 @@ MonoBehaviour:
   _maximumClients: 4095
   _clientAddress: localhost
   _timeout: 15
+--- !u!114 &7443408886979169088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7443408886979169083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb13d174096685549b1d6a94d726ff7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enabled: 1
 --- !u!224 &9139860296178313795
 RectTransform:
   m_ObjectHideFlags: 0
