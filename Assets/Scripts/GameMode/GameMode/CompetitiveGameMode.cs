@@ -203,22 +203,44 @@ public class CompetitiveGameMode : BaseGameMode {
             defenderWipe = false;
         }
     }
-
+    public override void PlayerLeaveGamemode(NetworkObject nob) {
+        ITeamable team = nob.GetComponent<ITeamable>();
+        if (team.GetTeamID() == Team.Attackers) {
+            CustomLogger.Log(LogCategories.GameManager, $"Player {nob.name} has left attacking team!");
+            AttackerTeam.RemovePlayerFromTeam(nob);
+        } else if(team.GetTeamID() == Team.Defenders) {
+            CustomLogger.Log(LogCategories.GameManager, $"Player {nob.name} has left defending team!");
+            DefenderTeam.RemovePlayerFromTeam(nob);
+        } else {
+            CustomLogger.Log(LogCategories.GameManager, $"Player {nob.name} has left the server! (was apart of no team)");
+        }
+    }
 
     #region Methods.
     private void CreateTeams() {
         CustomLogger.Log(LogCategories.Game , "Creating Teams");
         teamOne.SetTeam(Team.Attackers);
         teamTwo.SetTeam(Team.Defenders);
-
+        NetworkObject[] shuffledPlayers = Shuffle(Manager.Players.Values.ToArray());
         // evenly spread out teams (no limit yet)
-        for (int i = 0; i < Manager.Players.Count; i++) {
+        for (int i = 0; i < shuffledPlayers.Length; i++) {
             if (i % 2 == 0) {
-                teamOne.AddPlayerToTeam(Manager.Players[i]);
+                teamOne.AddPlayerToTeam(shuffledPlayers[i]);
             } else {
-                teamTwo.AddPlayerToTeam(Manager.Players[i]);
+                teamTwo.AddPlayerToTeam(shuffledPlayers[i]);
             }
         }
+    }
+    public NetworkObject[] Shuffle(NetworkObject[] list) {
+        int n = list.Length;
+        while (n > 1) {
+            n--;
+            int k = Random.Range(0, n + 1);
+            NetworkObject value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
+        return list;
     }
     private void TeamFlipFlop() {
         CustomLogger.Log(LogCategories.Round , "TeamFlipFlop");
@@ -245,7 +267,7 @@ public class CompetitiveGameMode : BaseGameMode {
     }
     private void TakeSpikeAwayFromPlayers() {
         CustomLogger.Log(LogCategories.Round , "Taking away spike");
-        foreach (NetworkObject player in Manager.Players) {
+        foreach (NetworkObject player in Manager.Players.Values) {
             player.GetComponent<PlayerWeaponManager>().HasSpike = false;
         }
     }

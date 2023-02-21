@@ -1,5 +1,7 @@
 using FishNet.Object;
 using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
 
 public class CompTeam {
     private List<NetworkObject> players;
@@ -55,7 +57,10 @@ public class CompTeam {
             }
         }
     }
-
+    public void RemovePlayerFromTeam(NetworkObject nob) {
+        CustomLogger.Log(LogCategories.GameManager, $"Attempting to remove {nob.name}");
+        players.Remove(nob);
+    }
     public void AddPlayerToTeam(NetworkObject nob) {
         players.Add(nob);
         nob.GetComponent<ITeamable>().SetTeamID(team);

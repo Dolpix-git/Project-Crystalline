@@ -1,5 +1,6 @@
 using FishNet;
 using FishNet.Component.Spawning;
+using FishNet.Connection;
 using FishNet.Object;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,11 +22,9 @@ public class GameManager : NetworkBehaviour{
         }
     }
 
-
-    private List<NetworkObject> players = new List<NetworkObject>();
     [SerializeField] private BaseGameMode gameMode;
 
-    public List<NetworkObject> Players { get => players; set => players = value; }
+    public Dictionary<NetworkConnection,NetworkObject> Players { get => PlayerManager.Instance.Players; }
     private bool stoppingServer;
 
     private void Awake() {
@@ -35,17 +34,16 @@ public class GameManager : NetworkBehaviour{
         } else {
             _instance = this;
         }
-        players = new List<NetworkObject>();
         gameMode.Manager = this;
 
-        InstanceFinder.NetworkManager.gameObject.GetComponent<PlayerSpawner>().OnSpawned += PlayerSpawner_OnSpawned;
+        PlayerManager.Instance.OnSpawned += PlayerSpawner_OnSpawned;
+        PlayerManager.Instance.OnDisconect += PlayerSpawner_OnDisconect;
     }
     public override void OnStartServer() {
         base.OnStartServer();
 
         if (!base.IsServer) { return; }
         CustomLogger.Log(LogCategories.GameManager , "Start");
-        players.Clear();
         gameMode.StartGame();
     }
     public override void OnStopServer() {
@@ -55,9 +53,9 @@ public class GameManager : NetworkBehaviour{
         CustomLogger.Log(LogCategories.GameManager , "End");
         stoppingServer = true;
         gameMode.EndGame();
-        players.Clear();
 
-        //InstanceFinder.NetworkManager.gameObject.GetComponent<PlayerSpawner>().OnSpawned -= PlayerSpawner_OnSpawned;
+        PlayerManager.Instance.OnSpawned -= PlayerSpawner_OnSpawned;
+        PlayerManager.Instance.OnDisconect -= PlayerSpawner_OnDisconect;
     }
 
     public void GameHasEnded() {
@@ -68,7 +66,6 @@ public class GameManager : NetworkBehaviour{
 
     private void PlayerSpawner_OnSpawned(NetworkObject nob) {
         if (!base.IsServer) { return; }
-        players.Add(nob);
         nob.GetComponent<Health>().OnDeath += PlayerHasDied;
 
         if (gameMode.GameInProgress) {
@@ -77,8 +74,7 @@ public class GameManager : NetworkBehaviour{
     }
     private void PlayerSpawner_OnDisconect(NetworkObject nob) {
         if (!base.IsServer) { return; }
-        players.Remove(nob);
-        // Code to handle removing this person from the team.
+        gameMode.PlayerLeaveGamemode(nob);
     }
     public void PlayerHasDied() {
         if (!base.IsServer) { return; }

@@ -15,4 +15,5 @@ public abstract class BaseGameMode : NetworkBehaviour{
     public abstract void EndGame();
     public abstract void AddLateJoiner(NetworkObject nob);
     public abstract void PlayerDeathUpdate();
+    public abstract void PlayerLeaveGamemode(NetworkObject nob);
 }
