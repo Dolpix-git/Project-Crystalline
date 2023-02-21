@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputManager : MonoBehaviour{
     public static PlayerInputManager Instance { get; private set; }
+   
+
     private PlayerInputActions playerInputActions;
 
     private bool jumpPress;
@@ -20,6 +22,7 @@ public class PlayerInputManager : MonoBehaviour{
     private bool mouseToggle = false;
     bool isPaused = false;
 
+    public Vector2 Movement { get => movement; }
 
     private void Awake() {
         if (Instance != null && Instance != this) {

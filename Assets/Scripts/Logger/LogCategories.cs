@@ -5,5 +5,6 @@ public enum LogCategories {
     Health,
     Spike,
     PlayerManager,
-    Player
+    Player,
+    Camera
 }

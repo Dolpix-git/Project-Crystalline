@@ -14,6 +14,7 @@ namespace UnityEngine {
                 {LogCategories.Spike, new Color(0.215f, 1, 0.2f)},
                 {LogCategories.PlayerManager, new Color(0.910f, 0.00f, 0.895f)},
                 {LogCategories.Player, new Color(0.830f, 0.816f, 0.00830f)},
+                {LogCategories.Camera, new Color(0.830f, 0.501f, 0.00830f)}
         };
         #endregion
 
