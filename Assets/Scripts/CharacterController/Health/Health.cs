@@ -51,7 +51,7 @@ public class Health : NetworkBehaviour {
     #endregion
 
 
-    private void Awake() {
+    private void Start() {
         if (base.IsServer) { currentHealth = MaximumHealth; }
     }
 
@@ -120,7 +120,7 @@ public class Health : NetworkBehaviour {
     /// <param name="next">Next health</param>
     /// <param name="asServer">True if is server</param>
     private void On_Health(int prev, int next, bool asServer) {
-        CustomLogger.LogFormat(LogCategories.Health, "Health has changed: ", ( prev,next, MaximumHealth));
+        CustomLogger.Log(LogCategories.Health, $"Health has changed: {prev} {next} {MaximumHealth}  is Server:{asServer}");
         OnHealthChanged?.Invoke(prev, next, MaximumHealth);
     }
     #endregion

@@ -95,17 +95,17 @@ public class CompetitiveGameMode : BaseGameMode {
         // Inform game manager
         Manager.GameHasEnded();
     }
-
     public override void RestartGame() {
         CustomLogger.Log(LogCategories.Game, "Game Restart");
         EndGame();
         StartGame();
     }
-
     public override void StartGame() {
         CustomLogger.Log(LogCategories.Game, "Game Start");
         // Set game to start
         gameInProgress = true;
+        teamOne = new CompTeam(Team.Attackers,"Team One");
+        teamTwo = new CompTeam(Team.Defenders,"Team Two");
         // Create Teams!
         CreateTeams();
         // Start rounds
@@ -176,7 +176,6 @@ public class CompetitiveGameMode : BaseGameMode {
         }
     }
 
-
     private void timeRemaining_OnChange(SyncTimerOperation op, float prev, float next, bool asServer) {
         if (op == SyncTimerOperation.Finished && asServer) {
             CustomLogger.Log(LogCategories.Round, $"The timer has completed!");
@@ -193,7 +192,6 @@ public class CompetitiveGameMode : BaseGameMode {
             teamTwo.AddPlayerToTeam(nob);
         }
     }
-
     public override void PlayerDeathUpdate() {
         if (!roundInProgress) { return; }
         CustomLogger.Log(LogCategories.Game , "Updateing player death");
@@ -206,6 +204,8 @@ public class CompetitiveGameMode : BaseGameMode {
         }
     }
 
+
+    #region Methods.
     private void CreateTeams() {
         CustomLogger.Log(LogCategories.Game , "Creating Teams");
         teamOne.SetTeam(Team.Attackers);
@@ -220,7 +220,6 @@ public class CompetitiveGameMode : BaseGameMode {
             }
         }
     }
-
     private void TeamFlipFlop() {
         CustomLogger.Log(LogCategories.Round , "TeamFlipFlop");
         CompTeam newAttackers = DefenderTeam;
@@ -229,25 +228,28 @@ public class CompetitiveGameMode : BaseGameMode {
         newAttackers.SetTeam(Team.Attackers);
         newDefenders.SetTeam(Team.Defenders);
     }
-    void RespawnPlayers() {
+    private void RespawnPlayers() {
         CustomLogger.Log(LogCategories.Round , "Respawning Players!");
 
         teamOne.RespawnTeam();
         teamTwo.RespawnTeam();
     }
-
-    void GiveSpikeToRandomPlayer() {
-        CustomLogger.Log(LogCategories.Round, "Giving someone the spike");
-        int player = Random.Range(0, AttackerTeam.Players.Count);
-        AttackerTeam.Players[player].GetComponent<PlayerWeaponManager>().HasSpike = true;
+    private void GiveSpikeToRandomPlayer() {
+        CustomLogger.Log(LogCategories.Round, "Giving someone the spike"); 
+        if (AttackerTeam.Players.Count != 0) {
+            int player = Random.Range(0, AttackerTeam.Players.Count);
+            AttackerTeam.Players[player].GetComponent<PlayerWeaponManager>().HasSpike = true;
+        } else {
+            CustomLogger.Log(LogCategories.Round, "There was no player to give the spike to");
+        }
     }
-    void TakeSpikeAwayFromPlayers() {
+    private void TakeSpikeAwayFromPlayers() {
         CustomLogger.Log(LogCategories.Round , "Taking away spike");
         foreach (NetworkObject player in Manager.Players) {
             player.GetComponent<PlayerWeaponManager>().HasSpike = false;
         }
     }
-
+    #endregion
 
 
 
