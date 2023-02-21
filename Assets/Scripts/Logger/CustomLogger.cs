@@ -12,7 +12,8 @@ namespace UnityEngine {
                 {LogCategories.GameManager, new Color(0.498f, 0.2f, 1)},
                 {LogCategories.Health, new Color(0.241f, 0.710f, 0.199f)},
                 {LogCategories.Spike, new Color(0.215f, 1, 0.2f)},
-                {LogCategories.PlayerManager, new Color(0.910f, 0.00f, 0.895f)}
+                {LogCategories.PlayerManager, new Color(0.910f, 0.00f, 0.895f)},
+                {LogCategories.Player, new Color(0.830f, 0.816f, 0.00830f)},
         };
         #endregion
 

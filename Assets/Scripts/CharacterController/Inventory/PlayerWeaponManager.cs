@@ -30,6 +30,8 @@ public class PlayerWeaponManager : NetworkBehaviour {
     /// How far the sphere cast for interaction is
     /// </summary>
     private float interactionRadius = 2;
+    [SyncVar]
+    private bool disabled;
     #endregion
     #region Getters Setters.
     /// <summary>
@@ -39,9 +41,35 @@ public class PlayerWeaponManager : NetworkBehaviour {
     public bool HasSpike { get => hasSpike; set => hasSpike = value; }
     #endregion
 
+    private void Awake() {
+        gameObject.GetComponent<Health>().OnDisabled += PlayerWeaponManager_OnDisabled;
+        gameObject.GetComponent<Health>().OnRespawned += PlayerWeaponManager_OnRespawned;
+        gameObject.GetComponent<Health>().OnDeath += PlayerWeaponManager_OnDeath;
+    }
+
+    private void OnDestroy() {
+        gameObject.GetComponent<Health>().OnDisabled += PlayerWeaponManager_OnDisabled;
+        gameObject.GetComponent<Health>().OnRespawned += PlayerWeaponManager_OnRespawned;
+        gameObject.GetComponent<Health>().OnDeath += PlayerWeaponManager_OnDeath;
+    }
+
+    private void PlayerWeaponManager_OnDeath() {
+        if (!base.IsServer) { return; }
+        disabled = true;
+    }
+
+    private void PlayerWeaponManager_OnRespawned() {
+        if (!base.IsServer) { return; }
+        disabled = false;
+    }
+
+    private void PlayerWeaponManager_OnDisabled() {
+        if (!base.IsServer) { return; }
+        disabled = true;
+    }
 
     private void Update() {
-        if (!base.IsOwner) { return; }
+        if (!base.IsOwner || disabled) { return; }
 
         if (PlayerInputManager.Instance.GetWeaponsInput()) {
             Fire(base.TimeManager.GetPreciseTick(TickType.Tick), transform.position + (transform.forward * 2f), PlayerInputManager.Instance.GetCamForward() + Vector3.up);
@@ -116,6 +144,7 @@ public class PlayerWeaponManager : NetworkBehaviour {
         }
     }
     #endregion
+
 
 
     #region OnGUI.

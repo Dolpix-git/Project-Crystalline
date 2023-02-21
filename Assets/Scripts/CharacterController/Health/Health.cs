@@ -1,7 +1,9 @@
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using FishNet.Transporting;
+using Newtonsoft.Json.Bson;
 using System;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 
@@ -27,6 +29,10 @@ public class Health : NetworkBehaviour {
     /// Dispatched after being respawned.
     /// </summary>
     public event Action OnRespawned;
+    /// <summary>
+    /// Dispatched when players are disabled. You can reinable them by calling respawn.
+    /// </summary>
+    public event Action OnDisabled;
     #endregion
     #region Private.
     /// <summary>
@@ -72,6 +78,7 @@ public class Health : NetworkBehaviour {
     /// </summary>
     public void Respawned() {
         if (!base.IsServer) { return; }
+        CustomLogger.Log(LogCategories.Health, $"{gameObject.name} Has been respawned!");
         OnRespawned?.Invoke();
         RestoreHealth();
 
@@ -82,9 +89,6 @@ public class Health : NetworkBehaviour {
     /// </summary>
     [ObserversRpc(ExcludeServer = true)]
     private void ObserversRespawned() {
-        if (base.IsServer)
-            return;
-
         CustomLogger.Log(LogCategories.Health, $"{gameObject.name} Has been respawned!");
         OnRespawned?.Invoke();
     }
@@ -122,6 +126,18 @@ public class Health : NetworkBehaviour {
     private void On_Health(int prev, int next, bool asServer) {
         CustomLogger.Log(LogCategories.Health, $"Health has changed: {prev} {next} {MaximumHealth}  is Server:{asServer}");
         OnHealthChanged?.Invoke(prev, next, MaximumHealth);
+    }
+
+    public void Disable() {
+        if (!base.IsServer) { return; }
+        CustomLogger.Log($"Observer disable request. Is server?:{base.IsServer}");
+        OnDisabled?.Invoke();
+        ObserverDisable();
+    }
+    [ObserversRpc(ExcludeServer = true)]
+    public virtual void ObserverDisable() {
+        CustomLogger.Log($"Observer disable request. Is server?:{base.IsServer}");
+        OnDisabled?.Invoke();
     }
     #endregion
 

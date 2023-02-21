@@ -53,6 +53,7 @@ public class PlayerNetworker : NetworkBehaviour {
         Health playerHealth = GetComponent<Health>();
         playerHealth.OnDeath += OnDeath;
         playerHealth.OnRespawned += OnRespawned;
+        playerHealth.OnDisabled += OnDisabled;
 
         if (InstanceFinder.TimeManager is not null && InstanceFinder.PredictionManager is not null) {
             InstanceFinder.PredictionManager.OnPreReconcile += PredictionManager_OnPreReconcile;
@@ -64,6 +65,10 @@ public class PlayerNetworker : NetworkBehaviour {
         }
     }
     private void OnDestroy() {
+        Health playerHealth = GetComponent<Health>();
+        playerHealth.OnDeath -= OnDeath;
+        playerHealth.OnRespawned -= OnRespawned;
+        playerHealth.OnDisabled -= OnDisabled;
         if (InstanceFinder.TimeManager is not null && InstanceFinder.PredictionManager is not null) {
             InstanceFinder.PredictionManager.OnPreReconcile -= PredictionManager_OnPreReconcile;
             InstanceFinder.PredictionManager.OnPostReconcile -= PredictionManager_OnPostReconcile;
@@ -227,10 +232,24 @@ public class PlayerNetworker : NetworkBehaviour {
 
     #region Death and Respawn Events.
     private void OnDeath() {
+        CustomLogger.Log(LogCategories.Player, $"{gameObject.name} Has died");
         canMove = false;
     }
     private void OnRespawned() {
+        CustomLogger.Log(LogCategories.Player, $"{gameObject.name} Has been respawned");
         canMove = true;
+        visualTransform.gameObject.SetActive(true);
+        capsuleCollider.enabled = true;
+        rigidBody.detectCollisions = true;
+        rigidBody.useGravity = true;
+    }
+    private void OnDisabled() {
+        CustomLogger.Log(LogCategories.Player, $"{gameObject.name} Has been disabled");
+        canMove = false;
+        visualTransform.gameObject.SetActive(false);
+        capsuleCollider.enabled = false;
+        rigidBody.detectCollisions = false;
+        rigidBody.useGravity = false;
     }
     #endregion
 }

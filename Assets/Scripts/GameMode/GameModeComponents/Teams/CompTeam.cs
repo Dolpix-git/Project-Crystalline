@@ -52,9 +52,7 @@ public class CompTeam {
             player.transform.position = SpawnManager.Instance.GetSpawn(team);
 
             Health nobHealth = player.GetComponent<Health>();
-            if (nobHealth.IsDead) {
-                nobHealth.Respawned();
-            }
+            nobHealth.Respawned();
         }
     }
     public void RemovePlayerFromTeam(NetworkObject nob) {

@@ -130,6 +130,8 @@ public class PlayerManager : NetworkBehaviour {
         nob.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
         _networkManager.ServerManager.Spawn(nob, conn);
 
+        nob.GetComponent<Health>().Disable();
+
         //If there are no global scenes 
         if (_addToDefaultScene)
             _networkManager.SceneManager.AddOwnerToDefaultScene(nob);

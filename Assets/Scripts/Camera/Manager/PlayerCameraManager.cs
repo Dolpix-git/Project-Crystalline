@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum CameraTypes{
+    locked,
     firstPerson,
-    secondPerson
+    teamSpectator,
+    Spectator
 }
 public class PlayerCameraManager : MonoBehaviour{
     [SerializeField] private float cameraRotationSpeed;
@@ -29,5 +31,26 @@ public class PlayerCameraManager : MonoBehaviour{
 
     private void LateUpdate() {
         cameraClasses[currentCamera].UpdateCamera();
+    }
+
+    private void Health_OnRespawned() {
+        currentCamera = CameraTypes.firstPerson;
+    }
+    private void Health_OnDeath() {
+        currentCamera = CameraTypes.teamSpectator;
+    }
+    public void SetSpectator() {
+        // kill player
+
+        // disable player
+
+        currentCamera = CameraTypes.Spectator;
+    }
+    public void SetLocked() {
+        // kill player
+
+        // disable player
+
+        currentCamera = CameraTypes.locked;
     }
 }
