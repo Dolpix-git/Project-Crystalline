@@ -69,8 +69,6 @@ public class PlayerWeaponManager : NetworkBehaviour {
     }
 
     private void Update() {
-        if (!base.IsOwner || disabled) { return; }
-
         if (PlayerInputManager.Instance.GetWeaponsInput()) {
             Fire(base.TimeManager.GetPreciseTick(TickType.Tick), transform.position + (transform.forward * 2f), PlayerInputManager.Instance.GetCamForward() + Vector3.up);
         }
@@ -91,6 +89,7 @@ public class PlayerWeaponManager : NetworkBehaviour {
     /// <param name="position">Position to spawn</param>
     /// <param name="forward">Forward vector</param>
     private void Fire(PreciseTick pt, Vector3 position, Vector3 forward) {
+        if (!base.IsOwner || disabled) { return; }
         CmdFireBase(pt, position, forward);
     }
     [ServerRpc]
@@ -109,6 +108,7 @@ public class PlayerWeaponManager : NetworkBehaviour {
     /// </summary>
     /// <param name="position"></param>
     private void PlantSpike(Vector3 position) {
+        if (!base.IsOwner || disabled) { return; }
         CmdPlantSpike(position);
     }
     [ServerRpc]
@@ -125,6 +125,7 @@ public class PlayerWeaponManager : NetworkBehaviour {
     /// Start sending interaction requests to the server
     /// </summary>
     private void StartInteraction() {
+        if (!base.IsOwner || disabled) { return; }
         CmdStartInteraction();
     }
     [ServerRpc]

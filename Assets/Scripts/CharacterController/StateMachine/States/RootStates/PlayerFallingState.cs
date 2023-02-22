@@ -17,6 +17,9 @@ public class PlayerFallingState : PlayerBaseState{
     public override void ExitState() { }
     public override void CheckSwitchStates() {
         // Check if grounded if so then change root to grounded
+        if (Ctx.OnGround) {
+            SwitchState(Cashe.Grounded());
+        }
     }
     public override void InitiatizeSubState() {
         if (Ctx.MoveData.Movement.magnitude != 0 && Ctx.MoveData.Sprint){

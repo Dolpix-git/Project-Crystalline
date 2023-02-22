@@ -29,7 +29,7 @@ public class PlayerJumpState : PlayerBaseState{
         // TOO DO: Go to falling state
         // TOO DO: Then go to grounded state
 
-        SwitchState(Cashe.Grounded());
+        SwitchState(Cashe.Falling());
     }
     public override PlayerStates PlayerState() {
         return PlayerStates.jump;
@@ -38,7 +38,7 @@ public class PlayerJumpState : PlayerBaseState{
 
     #region Methods.
     void HandleJump(){
-        Ctx.Velocity += new Vector3(0f, 8f, 0f);
+        Ctx.Velocity += new Vector3(0f, 4f, 0f);
         //Ctx.RigidBody.AddForce(new Vector3(0,10,0),ForceMode.Impulse);
     }
     #endregion
