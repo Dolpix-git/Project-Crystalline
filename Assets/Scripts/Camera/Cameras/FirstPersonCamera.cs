@@ -9,7 +9,7 @@ public class FirstPersonCamera : CameraBaseClass {
     /// 
     /// </summary>
     private Vector2 cameraAngles;
-    public FirstPersonCamera(PlayerCameraManager playerCameraManager) : base(playerCameraManager) {
+    private void Start() {
         FirstPersonCameraEvent.OnFirstPersonCamera += PlayerCameraFirstPerson;
     }
     public override void DestroyCamera() {

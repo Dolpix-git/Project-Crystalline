@@ -1,14 +1,12 @@
-public abstract class CameraBaseClass{
+using FishNet.Object;
+
+public abstract class CameraBaseClass : NetworkBehaviour{
     /// <summary>
     /// Refrence to player camera manager
     /// </summary>
     private PlayerCameraManager playerCameraManager;
 
     public PlayerCameraManager PlayerCameraManager { get => playerCameraManager; set => playerCameraManager = value; }
-
-    protected CameraBaseClass(PlayerCameraManager playerCameraManager) {
-        this.playerCameraManager = playerCameraManager;
-    }
 
     /// <summary>
     /// Camera update called on Update().

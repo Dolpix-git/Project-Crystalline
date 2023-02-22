@@ -1,6 +1,7 @@
 using FishNet.Object;
+using FishNet.Object.Synchronizing;
+using FishNet.Object.Synchronizing.Internal;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class CompTeam {

@@ -1,37 +1,84 @@
+using FishNet.Object.Synchronizing;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TeamSpectatorCamera : CameraBaseClass {
-    private Vector2 cameraAngles;
-    private float speed = 5;
-    public TeamSpectatorCamera(PlayerCameraManager playerCameraManager) : base(playerCameraManager) { }
-    public override void DestroyCamera() { }
+    [SyncObject]
+    private readonly SyncList<TeamHeadData> heads = new SyncList<TeamHeadData>();
+    private ITeamable team = null;
+    private int indexOfHead = 0;
+    private void Start() {
+        //TeamCameraEvent.OnTeamCameraAdd += TeamCamera_OnTeamCamera;
+        //TeamCameraEvent.OnTeamCameraRemove += TeamCamera_OnTeamCameraRemove;
+        //TeamCameraEvent.OnClientConnect += TeamCameraEvent_OnClientConnect;
+    }
+    public override void DestroyCamera() { 
+        //TeamCameraEvent.OnTeamCameraAdd -= TeamCamera_OnTeamCamera;
+        //TeamCameraEvent.OnTeamCameraRemove -= TeamCamera_OnTeamCameraRemove;
+        //TeamCameraEvent.OnClientConnect -= TeamCameraEvent_OnClientConnect;
+        heads.Clear();
+    }
+
+    private void TeamCamera_OnTeamCamera(Transform obj, PlayerNetworker net) {
+        heads.Add(new TeamHeadData(obj, net));
+        indexOfHead = heads.Count-1;
+    }
+
+    private void TeamCamera_OnTeamCameraRemove(Transform obj) {
+        for (int i = 0; i < heads.Count; i++) {
+            if (heads[i].headTransform == obj) {
+                heads.RemoveAt(i);
+            }
+        }
+    }
+    private void TeamCameraEvent_OnClientConnect(ITeamable obj) {
+        team = obj;
+    }
+
+
+
+
+
     public override void UpdateCamera() {
         CameraPosition();
         CameraRotation();
     }
 
+
     /// <summary>
     /// Updates camera position
     /// </summary>
     private void CameraPosition() {
-        Vector3 xAxis = PlayerFunctionHelpers.ProjectDirectionOnPlane(PlayerCameraManager.transform.right, PlayerCameraManager.transform.up);
-        Vector3 zAxis = PlayerFunctionHelpers.ProjectDirectionOnPlane(PlayerCameraManager.transform.forward, PlayerCameraManager.transform.up);
+        if (heads.Count == 0 || indexOfHead >= heads.Count) { return; }
 
-        Vector3 desiredVelocity = new Vector3(PlayerInputManager.Instance.Movement.x * speed, 0f, PlayerInputManager.Instance.Movement.y * speed) * Time.deltaTime;
-
-        PlayerCameraManager.transform.position += desiredVelocity.x * xAxis + desiredVelocity.y * zAxis;
+        PlayerCameraManager.transform.position = heads[indexOfHead].headTransform.position;
     }
 
     /// <summary>
     /// Updates camera rotation
     /// </summary>
     private void CameraRotation() {
-        cameraAngles.x += Mathf.Clamp(-PlayerInputManager.Instance.GetMouseVector2().y * PlayerCameraManager.CameraRotationSpeed * Time.unscaledDeltaTime, -PlayerCameraManager.MaxCameraDelta, PlayerCameraManager.MaxCameraDelta);
-        cameraAngles.y += Mathf.Clamp(PlayerInputManager.Instance.GetMouseVector2().x * PlayerCameraManager.CameraRotationSpeed * Time.unscaledDeltaTime, -PlayerCameraManager.MaxCameraDelta, PlayerCameraManager.MaxCameraDelta);
+        if (heads.Count == 0 || indexOfHead >= heads.Count) { return; }
 
-        cameraAngles.x = Mathf.Clamp(cameraAngles.x % 180, -PlayerCameraManager.MaxCameraAngle, PlayerCameraManager.MaxCameraAngle);
+        PlayerCameraManager.transform.rotation = Quaternion.LookRotation(heads[indexOfHead].headRotation.LastMove.CameraForward,Vector3.up);
+    }
 
-        PlayerCameraManager.transform.rotation = Quaternion.Euler(cameraAngles);
-        PlayerCameraManager.transform.rotation = Quaternion.LookRotation(PlayerCameraManager.transform.forward, Vector3.up);
+
+
+    public void NextCam() {
+
+    }
+    public void PrevCam() {
+
+    }
+}
+
+public struct TeamHeadData {
+    public Transform headTransform;
+    public PlayerNetworker headRotation;
+
+    public TeamHeadData(Transform headTransform, PlayerNetworker headRotation) {
+        this.headTransform = headTransform;
+        this.headRotation = headRotation;
     }
 }

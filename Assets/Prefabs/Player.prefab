@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6770776063968730071}
   - component: {fileID: 1468702581677018905}
+  - component: {fileID: 8947219052655322648}
   m_Layer: 0
   m_Name: CameraHead
   m_TagString: Untagged
@@ -47,6 +48,22 @@ MonoBehaviour:
   _componentIndexCache: 4
   _addedNetworkObject: {fileID: 5162187385007901065}
   _networkObjectCache: {fileID: 5162187385007901065}
+--- !u!114 &8947219052655322648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649934074545204447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468be0c780ac0494392b09670df00ea2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 5
+  _addedNetworkObject: {fileID: 5162187385007901065}
+  _networkObjectCache: {fileID: 5162187385007901065}
+  nob: {fileID: 5162187385007901065}
 --- !u!1 &4870035923611722996
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,6 +124,7 @@ MonoBehaviour:
   - {fileID: 8004145175360252860}
   - {fileID: -2635411870532952237}
   - {fileID: 1468702581677018905}
+  - {fileID: 8947219052655322648}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
@@ -208,6 +226,7 @@ MonoBehaviour:
   force: 200
   spike: {fileID: 2563415760963950010, guid: 1a7046bc5103a6b42ac4604d7707ae77, type: 3}
   hasSpike: 0
+  disabled: 0
 --- !u!114 &8004145175360252860
 MonoBehaviour:
   m_ObjectHideFlags: 0

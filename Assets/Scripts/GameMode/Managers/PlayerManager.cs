@@ -84,6 +84,19 @@ public class PlayerManager : NetworkBehaviour {
         InitializeOnce();
     }
 
+    /// <summary>
+    /// Initializes this script for use.
+    /// </summary>
+    private void InitializeOnce() {
+        _networkManager = InstanceFinder.NetworkManager;
+        if (_networkManager == null) {
+            CustomLogger.LogWarning($"PlayerSpawner on {gameObject.name} cannot work as NetworkManager wasn't found on this object or within parent objects.");
+            return;
+        }
+
+        _networkManager.SceneManager.OnClientLoadedStartScenes += SceneManager_OnClientLoadedStartScenes;
+        _networkManager.ServerManager.OnRemoteConnectionState += ServerManager_OnRemoteConnectionState;
+    }
     private void OnDestroy() {
         if (_networkManager != null)
             _networkManager.SceneManager.OnClientLoadedStartScenes -= SceneManager_OnClientLoadedStartScenes;
@@ -100,19 +113,6 @@ public class PlayerManager : NetworkBehaviour {
         players.Clear();
     }
 
-    /// <summary>
-    /// Initializes this script for use.
-    /// </summary>
-    private void InitializeOnce() {
-        _networkManager = InstanceFinder.NetworkManager;
-        if (_networkManager == null) {
-            CustomLogger.LogWarning($"PlayerSpawner on {gameObject.name} cannot work as NetworkManager wasn't found on this object or within parent objects.");
-            return;
-        }
-
-        _networkManager.SceneManager.OnClientLoadedStartScenes += SceneManager_OnClientLoadedStartScenes;
-        _networkManager.ServerManager.OnRemoteConnectionState += ServerManager_OnRemoteConnectionState;
-    }
 
     /// <summary>
     /// Called when a client loads initial scenes after connecting.

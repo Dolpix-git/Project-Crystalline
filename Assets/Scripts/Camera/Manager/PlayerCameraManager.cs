@@ -21,10 +21,22 @@ public class PlayerCameraManager : MonoBehaviour{
     public float MaxCameraAngle { get => maxCameraAngle; set => maxCameraAngle = value; }
 
     private void Awake() {
-        cameraClasses.Add(CameraTypes.locked, new LockedCamera(this));
-        cameraClasses.Add(CameraTypes.firstPerson, new FirstPersonCamera(this));
-        cameraClasses.Add(CameraTypes.teamSpectator, new TeamSpectatorCamera(this));
-        cameraClasses.Add(CameraTypes.Spectator, new SpectatorCamera(this));
+        CameraBaseClass camera = gameObject.AddComponent<LockedCamera>();
+        camera.PlayerCameraManager = this;
+        cameraClasses.Add(CameraTypes.locked, camera);
+
+        camera = gameObject.AddComponent<FirstPersonCamera>();
+        camera.PlayerCameraManager = this;
+        cameraClasses.Add(CameraTypes.firstPerson, camera);
+
+        camera = gameObject.AddComponent<TeamSpectatorCamera>();
+        camera.PlayerCameraManager = this;
+        cameraClasses.Add(CameraTypes.teamSpectator, camera);
+
+        camera = gameObject.AddComponent<SpectatorCamera>();
+        camera.PlayerCameraManager = this;
+        cameraClasses.Add(CameraTypes.Spectator, camera);
+
 
         PlayerManager.Instance.OnSpawned += Instance_OnSpawned;
     }

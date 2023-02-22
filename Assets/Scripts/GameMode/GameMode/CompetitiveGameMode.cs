@@ -15,7 +15,9 @@ public class CompetitiveGameMode : BaseGameMode {
     private bool defenderObjective, attackerObjective;
     private bool defenderWipe, attackerWipe;
 
-    private CompTeam teamOne, teamTwo;
+
+    private CompTeam teamOne = new CompTeam(Team.Attackers, "Team One");
+    private CompTeam teamTwo = new CompTeam(Team.Defenders, "Team Two");
     private CompTeam DefenderTeam {
         get {
             if (teamOne.Team == Team.Defenders) {
@@ -70,6 +72,8 @@ public class CompetitiveGameMode : BaseGameMode {
         ObjectiveManager.Instance.OnAttackerWin -= ObjectiveManager_OnAttackerWin;
         ObjectiveManager.Instance.OnDefenderWin -= ObjectiveManager_OnDefenderWin;
         ObjectiveManager.Instance.OnPlanted -= ObjectiveManager_OnPlanted;
+
+        EndGame();
     }
     #endregion
     #region Games.
@@ -104,8 +108,10 @@ public class CompetitiveGameMode : BaseGameMode {
         CustomLogger.Log(LogCategories.Game, "Game Start");
         // Set game to start
         gameInProgress = true;
-        teamOne = new CompTeam(Team.Attackers,"Team One");
-        teamTwo = new CompTeam(Team.Defenders,"Team Two");
+        teamOne.Team = Team.Attackers;
+        teamOne.TeamName = "Team One";
+        teamTwo.Team = Team.Defenders;
+        teamTwo.TeamName = "Team Two";
         // Create Teams!
         CreateTeams();
         // Start rounds

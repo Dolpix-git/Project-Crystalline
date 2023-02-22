@@ -42,6 +42,7 @@ public class PlayerNetworker : NetworkBehaviour {
     public Rigidbody RigidBody { get => rigidBody; set => rigidBody = value; }
     public CapsuleCollider CapsuleCollider { get => capsuleCollider; set => capsuleCollider = value; }
     public Transform VisualTransform { get => visualTransform; set => visualTransform = value; }
+    public PlayerMoveData LastMove { get => lastMove; }
     #endregion
 
 

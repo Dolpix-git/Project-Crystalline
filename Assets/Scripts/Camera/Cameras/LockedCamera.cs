@@ -3,7 +3,6 @@ using UnityEngine;
 public class LockedCamera : CameraBaseClass {
     private Vector2 cameraAngles;
     private float speed = 5;
-    public LockedCamera(PlayerCameraManager playerCameraManager) : base(playerCameraManager) { }
     public override void DestroyCamera() { }
     public override void UpdateCamera() {
         CameraPosition();
