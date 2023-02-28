@@ -262,7 +262,7 @@ public class CompetitiveGameMode : BaseGameMode {
         teamOne.RespawnTeam();
         teamTwo.RespawnTeam();
     }
-    private void GiveSpikeToRandomPlayer() {
+    private void GiveSpikeToRandomPlayer() { // add 
         CustomLogger.Log(LogCategories.Round, "Giving someone the spike"); 
         if (AttackerTeam.Players.Count != 0) {
             int player = Random.Range(0, AttackerTeam.Players.Count);

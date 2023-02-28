@@ -40,14 +40,15 @@ public class CompTeam {
         }
         return i;
     }
-
     public void SetTeam(Team team) {
         this.team = team;
         foreach (NetworkObject player in players) {
             player.GetComponent<ITeamable>().SetTeamID(team);
         }
     }
-
+    public bool IsPlayerOnTeam(NetworkObject nob) {
+        return players.Contains(nob);
+    }
     public void RespawnTeam() {
         foreach (NetworkObject player in players) {
             player.transform.position = SpawnManager.Instance.GetSpawn(team);

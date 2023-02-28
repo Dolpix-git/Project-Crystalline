@@ -2,6 +2,7 @@ using FishNet;
 using FishNet.Connection;
 using FishNet.Managing;
 using FishNet.Object;
+using FishNet.Object.Synchronizing;
 using FishNet.Transporting;
 using System;
 using System.Collections.Generic;
