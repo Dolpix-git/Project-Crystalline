@@ -1,0 +1,28 @@
+{
+    "originalSdkFolder": "X:\\RiskProjects\\WWiseVersions\\SDK",
+    "currentVersion": {
+        "build": 2694,
+        "major": 1,
+        "minor": 2,
+        "nickname": "",
+        "year": 2022
+    },
+    "installedBundleGroups": [
+        {
+            "id": "Packages",
+            "valueId": "Unity"
+        },
+        {
+            "id": "Packages",
+            "valueId": "Extensions"
+        },
+        {
+            "id": "DeploymentPlatforms",
+            "valueId": "Mac"
+        },
+        {
+            "id": "DeploymentPlatforms",
+            "valueId": "Windows"
+        }
+    ]
+}
