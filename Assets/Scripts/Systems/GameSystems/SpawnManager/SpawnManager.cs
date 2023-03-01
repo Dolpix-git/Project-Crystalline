@@ -25,15 +25,15 @@ public class SpawnManager : MonoBehaviour{
         }
     }
 
-    public Vector3 GetSpawn(Team teamSide) {
-        if (teamSide == Team.Attackers) {
+    public Vector3 GetSpawn(Teams teamSide) {
+        if (teamSide == Teams.Attackers) {
             if (attackerSpawn == null) {
                 CustomLogger.LogError("No Attacker spawn set!");
                 return Vector3.zero;
             } else {
                 return attackerSpawn.position;
             }
-        } else if (teamSide == Team.Defenders) {
+        } else if (teamSide == Teams.Defenders) {
             if (defenderSpawn == null) {
                 CustomLogger.LogError("No Defender spawn set!");
                 return Vector3.zero;
@@ -44,4 +44,6 @@ public class SpawnManager : MonoBehaviour{
             return Vector3.zero;
         }
     }
+
+    // RespawnTeam(Team team)
 }

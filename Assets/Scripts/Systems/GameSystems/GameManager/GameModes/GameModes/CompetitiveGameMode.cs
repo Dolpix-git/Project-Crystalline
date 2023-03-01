@@ -16,11 +16,11 @@ public class CompetitiveGameMode : BaseGameMode {
     private bool defenderWipe, attackerWipe;
 
 
-    private CompTeam teamOne = new CompTeam(Team.Attackers, "Team One");
-    private CompTeam teamTwo = new CompTeam(Team.Defenders, "Team Two");
+    private CompTeam teamOne = new CompTeam(Teams.Attackers, "Team One");
+    private CompTeam teamTwo = new CompTeam(Teams.Defenders, "Team Two");
     private CompTeam DefenderTeam {
         get {
-            if (teamOne.Team == Team.Defenders) {
+            if (teamOne.Team == Teams.Defenders) {
                 return teamOne;
             }else {
                 return teamTwo;
@@ -29,7 +29,7 @@ public class CompetitiveGameMode : BaseGameMode {
     }
     private CompTeam AttackerTeam {
         get {
-            if (teamOne.Team == Team.Attackers) {
+            if (teamOne.Team == Teams.Attackers) {
                 return teamOne;
             } else {
                 return teamTwo;
@@ -108,9 +108,9 @@ public class CompetitiveGameMode : BaseGameMode {
         CustomLogger.Log(LogCategories.Game, "Game Start");
         // Set game to start
         gameInProgress = true;
-        teamOne.Team = Team.Attackers;
+        teamOne.Team = Teams.Attackers;
         teamOne.TeamName = "Team One";
-        teamTwo.Team = Team.Defenders;
+        teamTwo.Team = Teams.Defenders;
         teamTwo.TeamName = "Team Two";
         // Create Teams!
         CreateTeams();
@@ -211,10 +211,10 @@ public class CompetitiveGameMode : BaseGameMode {
     }
     public override void PlayerLeaveGamemode(NetworkObject nob) {
         ITeamable team = nob.GetComponent<ITeamable>();
-        if (team.GetTeamID() == Team.Attackers) {
+        if (team.GetTeamID() == Teams.Attackers) {
             CustomLogger.Log(LogCategories.GameManager, $"Player {nob.name} has left attacking team!");
             AttackerTeam.RemovePlayerFromTeam(nob);
-        } else if(team.GetTeamID() == Team.Defenders) {
+        } else if(team.GetTeamID() == Teams.Defenders) {
             CustomLogger.Log(LogCategories.GameManager, $"Player {nob.name} has left defending team!");
             DefenderTeam.RemovePlayerFromTeam(nob);
         } else {
@@ -225,8 +225,8 @@ public class CompetitiveGameMode : BaseGameMode {
     #region Methods.
     private void CreateTeams() {
         CustomLogger.Log(LogCategories.Game , "Creating Teams");
-        teamOne.SetTeam(Team.Attackers);
-        teamTwo.SetTeam(Team.Defenders);
+        teamOne.SetTeam(Teams.Attackers);
+        teamTwo.SetTeam(Teams.Defenders);
         NetworkObject[] shuffledPlayers = Shuffle(Manager.Players.Values.ToArray());
         // evenly spread out teams (no limit yet)
         for (int i = 0; i < shuffledPlayers.Length; i++) {
@@ -253,8 +253,8 @@ public class CompetitiveGameMode : BaseGameMode {
         CompTeam newAttackers = DefenderTeam;
         CompTeam newDefenders = AttackerTeam;
 
-        newAttackers.SetTeam(Team.Attackers);
-        newDefenders.SetTeam(Team.Defenders);
+        newAttackers.SetTeam(Teams.Attackers);
+        newDefenders.SetTeam(Teams.Defenders);
     }
     private void RespawnPlayers() {
         CustomLogger.Log(LogCategories.Round , "Respawning Players!");
