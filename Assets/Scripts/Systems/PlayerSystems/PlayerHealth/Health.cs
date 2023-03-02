@@ -1,3 +1,4 @@
+using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using FishNet.Transporting;
@@ -38,6 +39,10 @@ public class Health : NetworkBehaviour {
     /// </summary>
     [SyncVar(Channel = Channel.Unreliable, OnChange = nameof(On_Health))]
     private int currentHealth;
+    [SyncVar(OnChange = nameof(On_Disabled))]
+    private bool isDisabled;
+    [SyncObject]
+    private readonly SyncDictionary<NetworkConnection, int> damageRecord = new SyncDictionary<NetworkConnection, int>();
     #endregion
     #region Getters Setters.
     /// <summary>
@@ -74,12 +79,13 @@ public class Health : NetworkBehaviour {
     /// <summary>
     /// Called when respawned.
     /// </summary>
-    public void Respawned() {
+    public void Respawn() {
         if (!base.IsServer) { return; }
         CustomLogger.Log(LogCategories.Health, $"{gameObject.name} Has been respawned!");
         OnRespawned?.Invoke();
         RestoreHealth();
-
+        damageRecord.Clear();
+        isDisabled = false;
         ObserversRespawned();
     }
     /// <summary>
@@ -94,15 +100,39 @@ public class Health : NetworkBehaviour {
     /// Removes health.
     /// </summary>
     /// <param name="value">Amount</param>
-    public void RemoveHealth(int value) {
+    public void RemoveHealth(int value, NetworkConnection dealerOfDamage) {
         if (!base.IsServer) { return; }
         int oldHealth = currentHealth;
         currentHealth -= value;
 
         OnHealthChanged?.Invoke(oldHealth, currentHealth, MaximumHealth);
 
+        if (damageRecord.ContainsKey(dealerOfDamage)) {
+            damageRecord[dealerOfDamage] += value;
+        } else {
+            damageRecord.Add(dealerOfDamage, value);
+        }
+        
+
         if (currentHealth <= 0f) {
             OnDeath?.Invoke();
+            NetworkConnection killer = null;
+            NetworkConnection assister = null;
+            int mostDamage = 0;
+            int secondMostDamage = 0;
+            foreach (NetworkConnection player in damageRecord.Keys) {
+                if (damageRecord[player] > mostDamage) {
+                    mostDamage = damageRecord[player];
+                    killer = player;
+                }else if (damageRecord[player] > secondMostDamage) {
+                    secondMostDamage = damageRecord[player];
+                    assister = player;
+                }
+            }
+            if (secondMostDamage < MaximumHealth * 0.5f) {
+                assister = null;
+            }
+            PlayerEventManager.Instance.InvokePlayerDeath(Owner,killer,assister);
 
             ObserverDeath();
         }
@@ -125,17 +155,17 @@ public class Health : NetworkBehaviour {
         CustomLogger.Log(LogCategories.Health, $"Health has changed: {prev} {next} {MaximumHealth}  is Server:{asServer}");
         OnHealthChanged?.Invoke(prev, next, MaximumHealth);
     }
-
+    private void On_Disabled(bool prev, bool next, bool asServer) {
+        if (asServer) { return; }
+        if (next) {
+            OnDisabled?.Invoke();
+        }
+    }
     public void Disable() {
         if (!base.IsServer) { return; }
         CustomLogger.Log($"Observer disable request. Is server?:{base.IsServer}");
         OnDisabled?.Invoke();
-        ObserverDisable();
-    }
-    [ObserversRpc(ExcludeServer = true)]
-    public virtual void ObserverDisable() {
-        CustomLogger.Log($"Observer disable request. Is server?:{base.IsServer}");
-        OnDisabled?.Invoke();
+        isDisabled = true;
     }
     #endregion
 

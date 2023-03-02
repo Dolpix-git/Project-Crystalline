@@ -1,9 +1,9 @@
 using FishNet.Connection;
+using FishNet.Object;
 using FishNet.Object.Synchronizing;
-using UnityEditor.Rendering.Universal;
 using UnityEngine;
 
-public class StatisticsManager : MonoBehaviour{
+public class StatisticsManager : NetworkBehaviour {
     private static StatisticsManager _instance;
     public static StatisticsManager Instance {
         get {
@@ -69,6 +69,7 @@ public class StatisticsManager : MonoBehaviour{
     }
 
     private void Instance_OnRoundEnd(Teams team) {
+        CustomLogger.Log(LogCategories.SystStatisticsManager, "Looking for a MVP");
         NetworkConnection currentMVP = null;
         int currentMVPPoints = -1000;
         bool TiedMVP = false;
@@ -82,6 +83,7 @@ public class StatisticsManager : MonoBehaviour{
             }
         }
         if (!TiedMVP && currentMVP != null) {
+            CustomLogger.Log(LogCategories.SystStatisticsManager, "A MVP was found and has been given stats");
             StatisticsData stats = playerStatistics[currentMVP];
             stats.MVPs++;
             playerStatistics.Dirty(currentMVP);
@@ -91,42 +93,49 @@ public class StatisticsManager : MonoBehaviour{
 
     private void Instance_OnPlayerDeath(NetworkConnection pDeader, NetworkConnection pKiller, NetworkConnection pAssister) {
         // On player death give point to dead, Give reward to killer, Give reward to assister
-        if (playerStatistics.ContainsKey(pDeader)) {
-            StatisticsData stats = playerStatistics[pDeader];
-            stats.deaths++;
-            playerStatistics.Dirty(pDeader);
+        CustomLogger.Log(LogCategories.SystStatisticsManager, "A person has died Updateing statistics");
+        if (pDeader != null) {
+            if (playerStatistics.ContainsKey(pDeader)) {
+                StatisticsData stats = playerStatistics[pDeader];
+                stats.deaths++;
+                playerStatistics.Dirty(pDeader);
+            }
+            if (playerRoundStatistics.ContainsKey(pDeader)) {
+                RoundStatisticsData stats = playerRoundStatistics[pDeader];
+                stats.deaths++;
+                playerRoundStatistics.Dirty(pDeader);
+            }
         }
-        if (playerStatistics.ContainsKey(pKiller)) {
-            StatisticsData stats = playerStatistics[pKiller];
-            stats.kills++;
-            playerStatistics.Dirty(pKiller);
+        if (pKiller != null) {
+            if (playerStatistics.ContainsKey(pKiller)) {
+                StatisticsData stats = playerStatistics[pKiller];
+                stats.kills++;
+                playerStatistics.Dirty(pKiller);
+            }
+            if (playerRoundStatistics.ContainsKey(pKiller)) {
+                RoundStatisticsData stats = playerRoundStatistics[pKiller];
+                stats.kills++;
+                playerRoundStatistics.Dirty(pKiller);
+            }
         }
-        if (playerStatistics.ContainsKey(pAssister)) {
-            StatisticsData stats = playerStatistics[pAssister];
-            stats.assists++;
-            playerStatistics.Dirty(pAssister);
-        }
-
-        if (playerRoundStatistics.ContainsKey(pDeader)) {
-            RoundStatisticsData stats = playerRoundStatistics[pDeader];
-            stats.deaths++;
-            playerRoundStatistics.Dirty(pDeader);
-        }
-        if (playerRoundStatistics.ContainsKey(pKiller)) {
-            RoundStatisticsData stats = playerRoundStatistics[pKiller];
-            stats.kills++;
-            playerRoundStatistics.Dirty(pKiller);
-        }
-        if (playerRoundStatistics.ContainsKey(pAssister)) {
-            RoundStatisticsData stats = playerRoundStatistics[pAssister];
-            stats.assists++;
-            playerRoundStatistics.Dirty(pAssister);
+        if (pAssister != null) {
+            if (playerStatistics.ContainsKey(pAssister)) {
+                StatisticsData stats = playerStatistics[pAssister];
+                stats.assists++;
+                playerStatistics.Dirty(pAssister);
+            }
+            if (playerRoundStatistics.ContainsKey(pAssister)) {
+                RoundStatisticsData stats = playerRoundStatistics[pAssister];
+                stats.assists++;
+                playerRoundStatistics.Dirty(pAssister);
+            }
         }
     }
 
 
     private void Instance_OnObjectiveStarted(Teams team, NetworkConnection conn) {
         // On bomb plant, give reward to planter
+        CustomLogger.Log(LogCategories.SystStatisticsManager, "Objective has been started Updateing statistics");
         if (playerStatistics.ContainsKey(conn)) {
             StatisticsData stats = playerStatistics[conn];
             stats.objectives++;
@@ -140,6 +149,7 @@ public class StatisticsManager : MonoBehaviour{
     }
     private void Instance_OnObjectiveComplete(Teams team, NetworkConnection conn) {
         // On bomb defuse, give reward to defuser
+        CustomLogger.Log(LogCategories.SystStatisticsManager, "Objective has been completed Updateing statistics");
         if (playerStatistics.ContainsKey(conn)) {
             StatisticsData stats = playerStatistics[conn];
             stats.objectives++;

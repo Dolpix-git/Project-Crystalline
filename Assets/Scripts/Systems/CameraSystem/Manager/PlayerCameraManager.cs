@@ -1,4 +1,6 @@
-using System.Collections;
+using FishNet;
+using FishNet.Connection;
+using FishNet.Object;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +15,7 @@ public class PlayerCameraManager : MonoBehaviour{
     [SerializeField] private float maxCameraDelta, maxCameraAngle;
 
     private Dictionary<CameraTypes, CameraBaseClass> cameraClasses = new Dictionary<CameraTypes, CameraBaseClass>();
-    private CameraTypes currentCamera = CameraTypes.Spectator;
+    private CameraTypes currentCamera = CameraTypes.firstPerson;
 
     
     public float CameraRotationSpeed { get => cameraRotationSpeed; set => cameraRotationSpeed = value; }
@@ -29,26 +31,27 @@ public class PlayerCameraManager : MonoBehaviour{
         camera.PlayerCameraManager = this;
         cameraClasses.Add(CameraTypes.firstPerson, camera);
 
-        camera = gameObject.AddComponent<TeamSpectatorCamera>();
-        camera.PlayerCameraManager = this;
-        cameraClasses.Add(CameraTypes.teamSpectator, camera);
+        //camera = gameObject.AddComponent<TeamSpectatorCamera>();
+        //camera.PlayerCameraManager = this;
+        //cameraClasses.Add(CameraTypes.teamSpectator, camera);
 
         camera = gameObject.AddComponent<SpectatorCamera>();
         camera.PlayerCameraManager = this;
         cameraClasses.Add(CameraTypes.Spectator, camera);
 
 
-        PlayerManager.Instance.OnSpawned += Instance_OnSpawned;
+        PlayerEventManager.Instance.OnPlayerConnected += Instance_OnSpawned;
     }
 
-    private void Instance_OnSpawned(FishNet.Object.NetworkObject obj) {
-        obj.GetComponent<Health>().OnDeath += Health_OnDeath;
-        obj.GetComponent<Health>().OnRespawned += Health_OnRespawned;
-        SetSpectator();
+    private void Instance_OnSpawned(NetworkConnection conn) {
+        //if (conn != InstanceFinder.NetworkManager.owner) { return; }
+        //PlayerManager.Instance.players[conn].GetComponent<Health>().OnDeath += Health_OnDeath;
+        //PlayerManager.Instance.players[conn].GetComponent<Health>().OnRespawned += Health_OnRespawned;
+        //SetSpectator();
     }
 
     private void OnDestroy() {
-        PlayerManager.Instance.OnSpawned -= Instance_OnSpawned;
+        PlayerEventManager.Instance.OnPlayerConnected -= Instance_OnSpawned;
         foreach (CameraBaseClass camera in cameraClasses.Values) {
             camera.DestroyCamera();
         }   
@@ -64,7 +67,7 @@ public class PlayerCameraManager : MonoBehaviour{
     }
     private void Health_OnDeath() {
         CustomLogger.Log(LogCategories.Camera, "Switched to Team spectator");
-        currentCamera = CameraTypes.teamSpectator;
+        currentCamera = CameraTypes.Spectator;
     }
     public void SetSpectator() {
         CustomLogger.Log(LogCategories.Camera, "Switched to Spectator");

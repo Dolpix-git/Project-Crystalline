@@ -1,8 +1,9 @@
 using FishNet.Connection;
+using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using UnityEngine;
 
-public class EconomyManager : MonoBehaviour {
+public class EconomyManager : NetworkBehaviour {
     private int baseMoney = 5;
     private int roundWinMoney = 5;
     private int roundLoseMoney = 5;
@@ -66,18 +67,21 @@ public class EconomyManager : MonoBehaviour {
 
     private void Instance_OnGameStart() {
         // On game start, give base money
+        CustomLogger.Log(LogCategories.SystEconomyManager, "Giving base money");
         foreach (NetworkConnection player in playerEconomy.Keys) {
             playerEconomy[player] = baseMoney;
         }
     }
-    private void Instance_OnTeamFlipFlop(Teams arg1, Teams arg2) {
+    private void Instance_OnTeamFlipFlop() {
         // On game flip flop, reset money, give base money 
+        CustomLogger.Log(LogCategories.SystEconomyManager, "flip teams");
         foreach (NetworkConnection player in playerEconomy.Keys) {
             playerEconomy[player] = baseMoney;
         }
     }
     private void Instance_OnGameEnd() {
         // On game end, reset money
+        CustomLogger.Log(LogCategories.SystEconomyManager, "Reseting money");
         foreach (NetworkConnection player in playerEconomy.Keys) {
             playerEconomy[player] = 0;
         }
@@ -85,6 +89,7 @@ public class EconomyManager : MonoBehaviour {
 
     private void Instance_OnRoundEnd(Teams team) {
         // On round end, give money for wining to winning team
+        CustomLogger.Log(LogCategories.SystEconomyManager, $"Giving money to teams, winning team:{team}");
         foreach (NetworkConnection player in playerEconomy.Keys) {
             if (TeamManager.Instance.playerTeams[player] == team) {
                 playerEconomy[player] = Mathf.Min(roundWinMoney + playerEconomy[player], maxPlayerMoney);
@@ -96,25 +101,37 @@ public class EconomyManager : MonoBehaviour {
 
     private void Instance_OnPlayerDeath(NetworkConnection pDeader, NetworkConnection pKiller, NetworkConnection pAssister) {
         // On player death give point to dead, Give reward to killer, Give reward to assister
-        if (playerEconomy.ContainsKey(pKiller)) {
-            playerEconomy[pKiller] = Mathf.Min(playerKillMoney + playerEconomy[pKiller], maxPlayerMoney);
+        CustomLogger.Log(LogCategories.SystEconomyManager, $"Giving money to killer:{pKiller} assister:{pAssister}");
+        if (pKiller != null) {
+            if (playerEconomy.ContainsKey(pKiller)) {
+                playerEconomy[pKiller] = Mathf.Min(playerKillMoney + playerEconomy[pKiller], maxPlayerMoney);
+            }
         }
-        if (playerEconomy.ContainsKey(pAssister)) {
-            playerEconomy[pAssister] = Mathf.Min(playerKillAssistMoney + playerEconomy[pAssister], maxPlayerMoney);
+        if (pAssister != null) {
+            if (playerEconomy.ContainsKey(pAssister)) {
+                playerEconomy[pAssister] = Mathf.Min(playerKillAssistMoney + playerEconomy[pAssister], maxPlayerMoney);
+            }
         }
+
     }
 
 
     private void Instance_OnObjectiveStarted(Teams team, NetworkConnection conn) {
         // On bomb plant, give reward to planter
-        if (playerEconomy.ContainsKey(conn)) {
-            playerEconomy[conn] += Mathf.Min(objectiveStartMoney + playerEconomy[conn], maxPlayerMoney);
+        CustomLogger.Log(LogCategories.SystEconomyManager, $"Objective start for team:{team} conn:{conn}");
+        if (conn != null) {
+            if (playerEconomy.ContainsKey(conn)) {
+                playerEconomy[conn] += Mathf.Min(objectiveStartMoney + playerEconomy[conn], maxPlayerMoney);
+            }
         }
     }
     private void Instance_OnObjectiveComplete(Teams team, NetworkConnection conn) {
         // On bomb defuse, give reward to defuser
-        if (playerEconomy.ContainsKey(conn)) {
-            playerEconomy[conn] += Mathf.Min(objectiveEndMoney + playerEconomy[conn], maxPlayerMoney);
+        CustomLogger.Log(LogCategories.SystEconomyManager, $"Objective complete for team:{team} conn:{conn}");
+        if (conn != null) {
+            if (playerEconomy.ContainsKey(conn)) {
+                playerEconomy[conn] += Mathf.Min(objectiveEndMoney + playerEconomy[conn], maxPlayerMoney);
+            }
         }
     }
 }

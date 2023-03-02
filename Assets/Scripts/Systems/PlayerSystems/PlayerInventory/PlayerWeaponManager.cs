@@ -96,10 +96,8 @@ public class PlayerWeaponManager : NetworkBehaviour {
     private void CmdFireBase(PreciseTick pt, Vector3 position, Vector3 forward) {
         GameObject result = Instantiate(throable, position, Quaternion.identity);
         base.Spawn(result);
-        ITeamable teamable = result.GetComponent<ITeamable>();
-        teamable.SetTeamID(GetComponent<ITeamable>().GetTeamID());
         IThrowable throwable = result.GetComponent<IThrowable>();
-        throwable.Initialize(pt, forward * force);
+        throwable.Initialize(forward * force, Owner);
     }
     #endregion
     #region Plant.
@@ -116,6 +114,7 @@ public class PlayerWeaponManager : NetworkBehaviour {
         if (hasSpike) {
             GameObject result = Instantiate(spike, position, Quaternion.identity);
             base.Spawn(result);
+            result.GetComponent<Spike>().Initilised(Owner);
             hasSpike = false;
         }
     }
@@ -140,7 +139,7 @@ public class PlayerWeaponManager : NetworkBehaviour {
         for (int i = 0; i < hits.Length; i++) {
             IInteractable interaction = hits[i].GetComponent<IInteractable>();
             if (interaction != null) {
-                interaction.Interact();
+                interaction.Interact(Owner);
             }
         }
     }

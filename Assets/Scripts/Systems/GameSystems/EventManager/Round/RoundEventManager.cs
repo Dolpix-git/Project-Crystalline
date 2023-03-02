@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public class RoundEventManager {
     private static RoundEventManager _instance;
@@ -16,6 +17,19 @@ public class RoundEventManager {
     // The team that won the round, if null then no team has won that round
     public event Action<Teams> OnRoundEnd;
 
-    public event Action<Teams,Teams> OnTeamFlipFlop;
+    public event Action OnTeamFlipFlop;
+
+    public void InvokeRoundStart() {
+        CustomLogger.Log(LogCategories.SystEventManager, "Round Start");
+        OnRoundStart?.Invoke();
+    }
+    public void InvokeRoundEnd(Teams team) {
+        CustomLogger.Log(LogCategories.SystEventManager, $"Round End with {team} winning");
+        OnRoundEnd?.Invoke(team);
+    }
+    public void InvokeTeamFlipFlop() {
+        CustomLogger.Log(LogCategories.SystEventManager, "Team flip flop");
+        OnTeamFlipFlop?.Invoke();
+    }
 }
 

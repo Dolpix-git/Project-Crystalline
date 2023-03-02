@@ -1,8 +1,8 @@
-using FishNet.Managing.Timing;
+using FishNet.Connection;
 using FishNet.Object;
 using UnityEngine;
 
-public class Grenade : NetworkBehaviour, IThrowable, ITeamable, IRound{
+public class Grenade : NetworkBehaviour, IThrowable, IRound{
     #region Serialized.
     /// <summary>
     /// How long after spawn to detonate.
@@ -32,44 +32,12 @@ public class Grenade : NetworkBehaviour, IThrowable, ITeamable, IRound{
     /// <summary>
     /// The team the grenade is on to prevent frendly fire.
     /// </summary>
-    private Teams teamID;
+    private NetworkConnection ownerConn;
     #endregion
 
 
-    public override void OnStartServer() {
-        base.OnStartServer();
-        base.TimeManager.OnTick += TimeManager_OnTick;
-    }
-
-    public override void OnStopServer() {
-        base.OnStopServer();
-        base.TimeManager.OnTick -= TimeManager_OnTick;
-    }
-
-    protected virtual void Update() {
-        PerformUpdate(false);
-    }
-
-    private void TimeManager_OnTick() {
-        PerformUpdate(true);
-    }
-
-    #region Methods.
-    /// <summary>
-    /// Update the grenade.
-    /// </summary>
-    /// <param name="onTick"></param>
-    private void PerformUpdate(bool onTick) {
-        /* If a tick but also host then do not
-         * update. The update will occur outside of
-         * OnTick, using the update loop. */
-        if (onTick && base.IsHost)
-            return;
-        /* If not called from OnTick and is server
-         * only then exit. OnTick will handle movements. */
-        else if (!onTick && base.IsServerOnly)
-            return;
-
+    private void Update() {
+        if (!base.IsServer) { return; }
         CheckDetonate();
     }
     /// <summary>
@@ -77,8 +45,9 @@ public class Grenade : NetworkBehaviour, IThrowable, ITeamable, IRound{
     /// </summary>
     /// <param name="pt"></param>
     /// <param name="force"></param>
-    public void Initialize(PreciseTick pt, Vector3 force) {
+    public void Initialize(Vector3 force, NetworkConnection conn) {
         detonationTime = Time.time + detonationDelay;
+        ownerConn = conn;
 
         GetComponent<Rigidbody>().AddForce(force);
     }
@@ -105,10 +74,15 @@ public class Grenade : NetworkBehaviour, IThrowable, ITeamable, IRound{
             Collider[] hits = Physics.OverlapSphere(transform.position, damageRadius, playerLayer);
             for (int i = 0; i < hits.Length; i++) {
                 Health h = hits[i].GetComponent<Health>();
-                if (h != null && (h.GetComponent<ITeamable>().GetTeamID() != teamID || teamID == Teams.None)) {
-                    int damage = 25;
+                if (h != null) {
+                    NetworkConnection conn = h.Owner;
+                    CustomLogger.Log($"Attempting to kill {TeamManager.Instance.playerTeams[conn]}");
+                    CustomLogger.Log($"Attempting to kill {TeamManager.Instance.playerTeams[ownerConn]}");
+                    if (TeamManager.Instance.playerTeams[conn] != TeamManager.Instance.playerTeams[ownerConn]) {
+                        int damage = 25;
 
-                    h.RemoveHealth(damage);
+                        h.RemoveHealth(damage, ownerConn);
+                    }
                 }
             }
 
@@ -130,25 +104,10 @@ public class Grenade : NetworkBehaviour, IThrowable, ITeamable, IRound{
             base.Despawn();
     }
     /// <summary>
-    /// Gets team ID.
-    /// </summary>
-    /// <returns>The grenades team id</returns>
-    public Teams GetTeamID() {
-        return teamID;
-    }
-    /// <summary>
-    /// Sets the grenades team id.
-    /// </summary>
-    /// <param name="teamID">Team id</param>
-    public void SetTeamID(Teams teamID) {
-        this.teamID = teamID;
-    }
-    /// <summary>
     /// Called when the round has ended.
     /// </summary>
     public void RoundEnded() {
         if (!base.IsServer) { return; }
         base.Despawn();
     }
-    #endregion
 }

@@ -6,5 +6,13 @@ public enum LogCategories {
     Spike,
     PlayerManager,
     Player,
-    Camera
+    Camera,
+    SystGameManager,
+    SystEconomyManager,
+    SystEventManager,
+    SystObjectiveManager,
+    SystPlayerManager,
+    SystSpawnManager,
+    SystStatisticsManager,
+    SystTeamManager
 }

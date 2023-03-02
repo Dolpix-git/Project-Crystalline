@@ -1,3 +1,4 @@
+using FishNet.Connection;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour{
@@ -25,25 +26,17 @@ public class SpawnManager : MonoBehaviour{
         }
     }
 
-    public Vector3 GetSpawn(Teams teamSide) {
-        if (teamSide == Teams.Attackers) {
-            if (attackerSpawn == null) {
-                CustomLogger.LogError("No Attacker spawn set!");
-                return Vector3.zero;
+    public void RespawnTeams() {
+        foreach (NetworkConnection player in PlayerManager.Instance.players.Keys) {
+            if (TeamManager.Instance.teamsDict[TeamManager.Instance.playerTeams[player]].objective == Objectives.Defenders) {
+                PlayerManager.Instance.players[player].GetComponent<Health>().Respawn();
+                PlayerManager.Instance.players[player].transform.position = defenderSpawn.position; 
+            } else if (TeamManager.Instance.teamsDict[TeamManager.Instance.playerTeams[player]].objective == Objectives.Attackers) {
+                PlayerManager.Instance.players[player].GetComponent<Health>().Respawn();
+                PlayerManager.Instance.players[player].transform.position = attackerSpawn.position;
             } else {
-                return attackerSpawn.position;
+                CustomLogger.Log(LogCategories.Round, "A player was not under eather attackers or defenders");
             }
-        } else if (teamSide == Teams.Defenders) {
-            if (defenderSpawn == null) {
-                CustomLogger.LogError("No Defender spawn set!");
-                return Vector3.zero;
-            } else {
-                return defenderSpawn.position;
-            }
-        } else {
-            return Vector3.zero;
         }
     }
-
-    // RespawnTeam(Team team)
 }

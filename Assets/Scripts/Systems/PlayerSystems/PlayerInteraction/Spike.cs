@@ -1,3 +1,4 @@
+using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using UnityEngine;
@@ -14,13 +15,12 @@ public class Spike : NetworkBehaviour, IInteractable, IRound {
     #endregion
 
 
-    private void Start() {
+    public void Initilised(NetworkConnection conn) {
         if (!base.IsServer) { return; }
-        Debug.Log("SPIKE PLANTED");
         defuseCounter = defuseTime;
         spikeTimer.OnChange += timeRemaining_OnChange;
         spikeTimer.StartTimer(fuseTime, true);
-        Planted();
+        Planted(conn);
     }
 
     private void Update() {
@@ -32,13 +32,11 @@ public class Spike : NetworkBehaviour, IInteractable, IRound {
     /// <summary>
     /// Should be called every update, and will lower the defuse counter. When it reches 0 it will blow up.
     /// </summary>
-    public void Interact() {
-        Debug.Log("Interaction");
+    public void Interact(NetworkConnection conn) {
         defuseCounter -= Time.deltaTime;
 
         if (defuseCounter <= 0) {
-            Debug.Log("The spike has been defused!");
-            Defused();
+            Defused(conn);
         }
     }
     /// <summary>
@@ -57,7 +55,6 @@ public class Spike : NetworkBehaviour, IInteractable, IRound {
     /// <param name="asServer">True if as server</param>
     private void timeRemaining_OnChange(SyncTimerOperation op, float prev, float next, bool asServer) {
         if (op == SyncTimerOperation.Finished) {
-            Debug.Log($"The spike has blown up!");
             BlownUp();
         }
     }
@@ -66,20 +63,20 @@ public class Spike : NetworkBehaviour, IInteractable, IRound {
     /// <summary>
     /// Called when spike is planted.
     /// </summary>
-    private void Planted() {
-        ObjectiveManager.Instance.Planted();
+    private void Planted(NetworkConnection conn) {
+        ObjectiveEventManager.Instance.InvokeObjectiveStarted(TeamManager.Instance.GetTeamFromObjective(Objectives.Attackers), conn);
     }
     /// <summary>
     /// Called when spike is defused.
     /// </summary>
-    private void Defused() {
-        ObjectiveManager.Instance.DefenderWin();
+    private void Defused(NetworkConnection conn) {
+        ObjectiveEventManager.Instance.InvokeObjectiveComplete(TeamManager.Instance.GetTeamFromObjective(Objectives.Defenders), conn);
     }
     /// <summary>
     /// Called when spike has blown up.
     /// </summary>
     private void BlownUp() {
-        ObjectiveManager.Instance.AttackerWin();
+        ObjectiveEventManager.Instance.InvokeObjectiveComplete(TeamManager.Instance.GetTeamFromObjective(Objectives.Attackers), null);
         Destroy(gameObject);
     }
     #endregion

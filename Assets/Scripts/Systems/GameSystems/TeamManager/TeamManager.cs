@@ -1,6 +1,8 @@
 using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TeamManager : NetworkBehaviour {
@@ -27,19 +29,180 @@ public class TeamManager : NetworkBehaviour {
     private void Awake() {
         PlayerEventManager.Instance.OnPlayerConnected += Instance_OnPlayerConnected;
         PlayerEventManager.Instance.OnPlayerDisconnected += Instance_OnPlayerDisconnected;
+        RoundEventManager.Instance.OnRoundEnd += Instance_OnRoundEnd;
     }
+
+
 
     private void OnDestroy() {
         PlayerEventManager.Instance.OnPlayerConnected -= Instance_OnPlayerConnected;
         PlayerEventManager.Instance.OnPlayerDisconnected -= Instance_OnPlayerDisconnected;
+        RoundEventManager.Instance.OnRoundEnd -= Instance_OnRoundEnd;
     }
 
-
-    private void Instance_OnPlayerDisconnected(NetworkConnection obj) {
-        playerTeams.Add(obj,Teams.None);
+    private void Instance_OnRoundEnd(Teams team) {
+        CustomLogger.Log(LogCategories.SystTeamManager, $"Giving a point to {team}");
+        if (team == Teams.TeamOne || team == Teams.TeamTwo) {
+            TeamData teamD = teamsDict[team];
+            teamD.points++;
+            teamsDict[team] = teamD;
+            teamsDict.Dirty(team);
+        }
     }
-
     private void Instance_OnPlayerConnected(NetworkConnection obj) {
+        CustomLogger.Log(LogCategories.SystTeamManager, $"Adding {obj} to team roster");
+        playerTeams.Add(obj, Teams.None);
+    }
+    private void Instance_OnPlayerDisconnected(NetworkConnection obj) {
+        CustomLogger.Log(LogCategories.SystTeamManager, $"Removeing {obj} from team roster");
         playerTeams.Remove(obj);
+    }
+
+    public void DescoverWhoWon() {
+        Teams winningTeam = Teams.None;
+        int winningPoints = 0;
+        bool tie = false;
+        foreach (Teams team in teamsDict.Keys) {
+            if (teamsDict[team].points > winningPoints) {
+                winningTeam = team;
+                winningPoints = teamsDict[team].points;
+                tie = false;
+            }else if (teamsDict[team].points == winningPoints) {
+                tie = true;
+            }
+        }
+
+        if (tie) {
+            CustomLogger.Log(LogCategories.SystTeamManager, "There was a Tie!");
+        } else if(winningTeam != Teams.None){
+            CustomLogger.Log(LogCategories.SystTeamManager, $"{winningTeam} Has won the game!");
+        } else {
+            CustomLogger.Log(LogCategories.SystTeamManager, "There was no winner!");
+        }
+    }
+
+    public void ResetTeams() {
+        CustomLogger.Log(LogCategories.SystTeamManager, $"Reseting teams");
+        foreach (NetworkConnection player in playerTeams.Keys.ToList()) {
+            playerTeams[player] = Teams.None;
+        }
+        teamsDict.Clear();
+    }
+    [Server]
+    public void SetUpTeams() {
+        CustomLogger.Log(LogCategories.SystTeamManager, $"Setting up teams");
+        TeamData teamOne = new TeamData {
+            name = "TeamOne",
+            objective = Objectives.Attackers
+        };
+
+        teamsDict.Add(Teams.TeamOne, teamOne);
+        teamsDict.Dirty(Teams.TeamOne);
+
+        TeamData teamTwo = new TeamData {
+            name = "TeamTwo",
+            objective = Objectives.Defenders
+        };
+
+        teamsDict.Add(Teams.TeamTwo, teamTwo);
+        teamsDict.Dirty(Teams.TeamTwo);
+
+        NetworkConnection[] arrayOfPlayers = Shuffle(playerTeams.Keys.ToArray());
+        for (int i = 0; i < arrayOfPlayers.Length; i++) {
+            if (i % 2 == 0) {
+                playerTeams[arrayOfPlayers[i]] = Teams.TeamOne;
+            } else {
+                playerTeams[arrayOfPlayers[i]] = Teams.TeamTwo;
+            }
+        }
+    }
+
+    public Teams GetTeamFromObjective(Objectives obj) { 
+        foreach (Teams team in teamsDict.Keys) {
+            if (teamsDict[team].objective == obj) {
+                CustomLogger.Log(LogCategories.SystTeamManager, $"Getting team from {obj} team:{team}");
+                return team;
+            }
+        }
+        CustomLogger.Log(LogCategories.SystTeamManager, $"There was no team for Objective:{obj}");
+        return Teams.None;
+    }
+
+    public NetworkConnection GetRandomPlayerFromTeam(Teams team) {
+        
+        List<NetworkConnection> list = new List<NetworkConnection>();
+        foreach (NetworkConnection player in playerTeams.Keys) {
+            if (playerTeams[player] == team) {
+                list.Add(player);
+            }
+        }
+        if(list.Count == 0) {
+            CustomLogger.Log(LogCategories.SystTeamManager, $"No random players in team:{team}");
+            return null;
+        }
+        int index = Random.Range(0, list.Count);
+        CustomLogger.Log(LogCategories.SystTeamManager, $"Returning random player from team:{team} player:{list[index]}");
+        return list[index];
+    }
+
+    private NetworkConnection[] Shuffle(NetworkConnection[] a) {
+        for (int i = a.Length - 1; i > 0; i--) {
+            int rnd = Random.Range(0, i);
+            NetworkConnection temp = a[i];
+
+            a[i] = a[rnd];
+            a[rnd] = temp;
+        }
+        return a;
+    }
+
+    public void TeamFlipFlop() {
+        CustomLogger.Log(LogCategories.SystTeamManager, $"Team Flip flop");
+        Objectives teamOneObj = teamsDict[Teams.TeamOne].objective;
+        Objectives teamTwoObj = teamsDict[Teams.TeamTwo].objective;
+
+        TeamData teamOneData = teamsDict[Teams.TeamOne];
+        TeamData teamTwoData = teamsDict[Teams.TeamTwo];
+
+        teamOneData.objective = teamTwoObj;
+        teamTwoData.objective = teamOneObj;
+
+        teamsDict[Teams.TeamOne] = teamOneData;
+        teamsDict[Teams.TeamTwo] = teamTwoData;
+
+        teamsDict.Dirty(Teams.TeamOne);
+        teamsDict.Dirty(Teams.TeamTwo);
+    }
+
+    public void AddLateJoiner(NetworkConnection conn, Teams team) {
+        playerTeams[conn] = team;
+    } 
+    public Teams GetTeamWithLeastMembers() {
+        int teamOne = GetTeamCount(Teams.TeamOne);
+        int teamTwo = GetTeamCount(Teams.TeamTwo);
+        if (teamOne < teamTwo) {
+            return Teams.TeamOne;
+        } else {
+            return Teams.TeamTwo;
+        }
+    }
+    public int GetTeamCount(Teams team) {
+        int i = 0;
+        foreach (NetworkConnection player in playerTeams.Keys) {
+            if (playerTeams[player] == team) {
+                i++;
+            }
+        }
+        return i;
+    }
+    public bool CheckTeamWipe(Teams team) {
+        foreach (NetworkConnection player in playerTeams.Keys) {
+            if (playerTeams[player] == team) {
+                if (!PlayerManager.Instance.players[player].GetComponent<Health>().IsDead) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

@@ -1,3 +1,5 @@
+using FishNet.Connection;
+
 public interface IInteractable{
-    public void Interact();
+    public void Interact(NetworkConnection conn);
 }

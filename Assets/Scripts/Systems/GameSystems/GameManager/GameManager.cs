@@ -1,10 +1,5 @@
-using FishNet;
-using FishNet.Component.Spawning;
-using FishNet.Connection;
 using FishNet.Object;
-using System.Collections.Generic;
 using UnityEngine;
-
 
 public class GameManager : NetworkBehaviour{
     public static GameManager _instance;
@@ -24,7 +19,6 @@ public class GameManager : NetworkBehaviour{
 
     [SerializeField] private BaseGameMode gameMode;
 
-    public Dictionary<NetworkConnection,NetworkObject> Players { get => PlayerManager.Instance.Players; }
     private bool stoppingServer;
 
     private void Awake() {
@@ -35,9 +29,6 @@ public class GameManager : NetworkBehaviour{
             _instance = this;
         }
         gameMode.Manager = this;
-
-        PlayerManager.Instance.OnSpawned += PlayerSpawner_OnSpawned;
-        PlayerManager.Instance.OnDisconect += PlayerSpawner_OnDisconect;
     }
     public override void OnStartServer() {
         base.OnStartServer();
@@ -53,31 +44,11 @@ public class GameManager : NetworkBehaviour{
         CustomLogger.Log(LogCategories.GameManager , "End");
         stoppingServer = true;
         gameMode.EndGame();
-
-        PlayerManager.Instance.OnSpawned -= PlayerSpawner_OnSpawned;
-        PlayerManager.Instance.OnDisconect -= PlayerSpawner_OnDisconect;
     }
 
     public void GameHasEnded() {
         if (!base.IsServer || stoppingServer) { return; }
 
         gameMode.StartGame();
-    }
-
-    private void PlayerSpawner_OnSpawned(NetworkObject nob) {
-        if (!base.IsServer) { return; }
-        nob.GetComponent<Health>().OnDeath += PlayerHasDied;
-
-        if (gameMode.GameInProgress) {
-            gameMode.AddLateJoiner(nob);
-        }
-    }
-    private void PlayerSpawner_OnDisconect(NetworkObject nob) {
-        if (!base.IsServer) { return; }
-        gameMode.PlayerLeaveGamemode(nob);
-    }
-    public void PlayerHasDied() {
-        if (!base.IsServer) { return; }
-        gameMode.PlayerDeathUpdate();
     }
 }

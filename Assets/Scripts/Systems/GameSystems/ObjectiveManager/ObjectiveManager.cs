@@ -10,9 +10,6 @@ public class ObjectiveManager {
             return _instance;
         }
     }
-    private ObjectiveManager() {
-
-    }
 
     public event Action OnAttackerWin;
     public event Action OnDefenderWin;

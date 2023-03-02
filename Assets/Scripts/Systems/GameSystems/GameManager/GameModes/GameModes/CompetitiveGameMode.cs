@@ -1,11 +1,12 @@
 using FishNet;
+using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class CompetitiveGameMode : BaseGameMode {
+    #region Private.
     private bool roundInProgress;
 
     [SyncObject]
@@ -16,64 +17,31 @@ public class CompetitiveGameMode : BaseGameMode {
     private bool defenderWipe, attackerWipe;
 
 
-    private CompTeam teamOne = new CompTeam(Teams.Attackers, "Team One");
-    private CompTeam teamTwo = new CompTeam(Teams.Defenders, "Team Two");
-    private CompTeam DefenderTeam {
-        get {
-            if (teamOne.Team == Teams.Defenders) {
-                return teamOne;
-            }else {
-                return teamTwo;
-            } 
-        }
-    }
-    private CompTeam AttackerTeam {
-        get {
-            if (teamOne.Team == Teams.Attackers) {
-                return teamOne;
-            } else {
-                return teamTwo;
-            }
-        }
-    }
 
-    private int round;
+    private int round = 0;
 
     private int maxPoints = 5;
-    private int halfTime = 2;
+    private int halfTime = 4;
     private float roundTime = 30;
+    #endregion
 
 
-
-    #region Setup and Destroy
+    #region Setup and Destroy.
     public override void OnStartServer() {
         base.OnStartServer();
         gameTimer.OnChange += timeRemaining_OnChange;
-        ObjectiveManager.Instance.OnAttackerWin += ObjectiveManager_OnAttackerWin;
-        ObjectiveManager.Instance.OnDefenderWin += ObjectiveManager_OnDefenderWin;
-        ObjectiveManager.Instance.OnPlanted += ObjectiveManager_OnPlanted;
-    }
-    private void ObjectiveManager_OnAttackerWin() {
-        if (!base.IsServer) { return; }
-        attackerObjective = true;
-    }
-    private void ObjectiveManager_OnDefenderWin() {
-        if (!base.IsServer) { return; }
-        defenderObjective = true;
-    }
-    private void ObjectiveManager_OnPlanted() {
-        if (!base.IsServer) { return; }
-        Debug.Log("Pause timer!");
-        gameTimer.PauseTimer();
+        ObjectiveEventManager.Instance.OnObjectiveComplete += Instance_OnObjectiveComplete; 
+        ObjectiveEventManager.Instance.OnObjectiveStarted += Instance_OnObjectiveStarted;
+        PlayerEventManager.Instance.OnPlayerConnected += Instance_OnPlayerConnected;
+        PlayerEventManager.Instance.OnPlayerDeath += Instance_OnPlayerDeath;
     }
     public override void OnStopServer() {
         base.OnStopServer();
         gameTimer.OnChange -= timeRemaining_OnChange;
-        ObjectiveManager.Instance.OnAttackerWin -= ObjectiveManager_OnAttackerWin;
-        ObjectiveManager.Instance.OnDefenderWin -= ObjectiveManager_OnDefenderWin;
-        ObjectiveManager.Instance.OnPlanted -= ObjectiveManager_OnPlanted;
-
-        EndGame();
+        ObjectiveEventManager.Instance.OnObjectiveComplete -= Instance_OnObjectiveComplete;
+        ObjectiveEventManager.Instance.OnObjectiveStarted -= Instance_OnObjectiveStarted;
+        PlayerEventManager.Instance.OnPlayerConnected -= Instance_OnPlayerConnected;
+        PlayerEventManager.Instance.OnPlayerDeath -= Instance_OnPlayerDeath;
     }
     #endregion
     #region Games.
@@ -81,20 +49,13 @@ public class CompetitiveGameMode : BaseGameMode {
         CustomLogger.Log(LogCategories.Game, "Game End");
         // Game is no longer in progress
         gameInProgress = false;
-
+        GameEventManager.Instance.InvokeGameEnd();
         // Log Winner
-        if (teamOne.Points >= maxPoints) {
-            CustomLogger.Log(LogCategories.Game, $"----- {teamOne.TeamName} {teamOne.Team} Have Won the game!-----");
-        } else if (teamTwo.Points >= maxPoints) {
-            CustomLogger.Log(LogCategories.Game, $"----- {teamTwo.TeamName} {teamTwo.Team} Have Won the game! -----");
-        } else {
-            CustomLogger.Log(LogCategories.Game, "-----  No One Wins!  -----");
-        }
+        TeamManager.Instance.DescoverWhoWon();
 
         // Clean up game
         round = 0;
-        teamOne.Reset();
-        teamTwo.Reset();
+        TeamManager.Instance.ResetTeams();
 
         // Inform game manager
         Manager.GameHasEnded();
@@ -106,32 +67,29 @@ public class CompetitiveGameMode : BaseGameMode {
     }
     public override void StartGame() {
         CustomLogger.Log(LogCategories.Game, "Game Start");
-        // Set game to start
         gameInProgress = true;
-        teamOne.Team = Teams.Attackers;
-        teamOne.TeamName = "Team One";
-        teamTwo.Team = Teams.Defenders;
-        teamTwo.TeamName = "Team Two";
-        // Create Teams!
-        CreateTeams();
-        // Start rounds
+        GameEventManager.Instance.InvokeGameStart();
+
+        TeamManager.Instance.SetUpTeams();
+
         StartRound();
     }
     #endregion
     #region Rounds.
     private void StartRound() {
-        CustomLogger.Log(LogCategories.Round , "Round Start");
+        CustomLogger.Log(LogCategories.Round, "Round Start");
+        RoundEventManager.Instance.InvokeRoundStart();
         // Round is now in progress
         roundInProgress = true;
         // Respawn Players (dead and non dead)
-        RespawnPlayers();
+        SpawnManager.Instance.RespawnTeams();
         // Give A player the spike
         GiveSpikeToRandomPlayer();
         // Start the timer
         gameTimer.StartTimer(roundTime, true);
     }
     private void EndRound() {
-        CustomLogger.Log(LogCategories.Round , "Round End");
+        CustomLogger.Log(LogCategories.Round, "Round End");
         roundInProgress = false;
         // Clean up
         defenderWipe = attackerWipe = timerCompleted = defenderObjective = attackerObjective = false;
@@ -142,16 +100,18 @@ public class CompetitiveGameMode : BaseGameMode {
         }
         // Detect game over condition
         round++;
-        if (teamOne.Points >= maxPoints) {
+        if (TeamManager.Instance.teamsDict[Teams.TeamOne].points >= maxPoints) {
             EndGame();
             return;
-        } else if (teamTwo.Points >= maxPoints) {
+        } else if (TeamManager.Instance.teamsDict[Teams.TeamTwo].points >= maxPoints) {
             EndGame();
             return;
         }
+        CustomLogger.Log(LogCategories.Round, $"Round: {round} TeamOne points: {TeamManager.Instance.teamsDict[Teams.TeamOne].points} TeamTwo points: {TeamManager.Instance.teamsDict[Teams.TeamTwo].points}");
         // Detect round flipflop
         if (round == halfTime) {
-            TeamFlipFlop();
+            TeamManager.Instance.TeamFlipFlop();
+            RoundEventManager.Instance.InvokeTeamFlipFlop();
         }
         // Take Spike away
         TakeSpikeAwayFromPlayers();
@@ -171,14 +131,35 @@ public class CompetitiveGameMode : BaseGameMode {
         if (!roundInProgress || !base.IsServer) { return; }
 
         if (timerCompleted || attackerWipe || defenderObjective) {
-            DefenderTeam.Points++;
-            CustomLogger.Log(LogCategories.Round , $"Defenders won that round and now have: {DefenderTeam.Points} points");
-
+            Teams team = TeamManager.Instance.GetTeamFromObjective(Objectives.Defenders);
+            RoundEventManager.Instance.InvokeRoundEnd(team);
+            CustomLogger.Log(LogCategories.Round, $"Defenders won that round and now have: {TeamManager.Instance.teamsDict[team].points} points");
+            
             EndRound();
         } else if (attackerObjective || defenderWipe) {
-            AttackerTeam.Points++;
-            CustomLogger.Log(LogCategories.Round , $"Attackers won that round and now have: {AttackerTeam.Points} points");
+            Teams team = TeamManager.Instance.GetTeamFromObjective(Objectives.Attackers);
+            RoundEventManager.Instance.InvokeRoundEnd(team);
+            CustomLogger.Log(LogCategories.Round, $"Attackers won that round and now have: {TeamManager.Instance.teamsDict[team].points} points");
+            
             EndRound();
+        }
+    }
+
+    #region Events.
+    private void Instance_OnObjectiveStarted(Teams arg1, NetworkConnection arg2) {
+        if (!base.IsServer) { return; }
+        CustomLogger.Log(LogCategories.Round, "Timer stoped");
+        gameTimer.PauseTimer();
+    }
+
+    private void Instance_OnObjectiveComplete(Teams team, NetworkConnection arg2) {
+        if (!base.IsServer) { return; }
+        if (TeamManager.Instance.teamsDict[team].objective == Objectives.Attackers) {
+            CustomLogger.Log(LogCategories.Round, $"Attackers objective complete");
+            attackerObjective = true;
+        } else if (TeamManager.Instance.teamsDict[team].objective == Objectives.Defenders) {
+            CustomLogger.Log(LogCategories.Round, $"Defenders objective complete");
+            defenderObjective = true;
         }
     }
 
@@ -188,96 +169,33 @@ public class CompetitiveGameMode : BaseGameMode {
             timerCompleted = true;
         }
     }
-
-    public override void AddLateJoiner(NetworkObject nob) {
-        CustomLogger.Log(LogCategories.Game , "Adding A late joiner");
-
-        if (teamOne.Players.Count > teamTwo.Players.Count) {
-            teamOne.AddPlayerToTeam(nob);
-        } else {
-            teamTwo.AddPlayerToTeam(nob);
-        }
+    private void Instance_OnPlayerDeath(NetworkConnection arg1, NetworkConnection arg2, NetworkConnection arg3) {
+        CustomLogger.Log(LogCategories.Round, "Checking For Wipe");
+        attackerWipe = TeamManager.Instance.CheckTeamWipe(TeamManager.Instance.GetTeamFromObjective(Objectives.Attackers));
+        defenderWipe = TeamManager.Instance.CheckTeamWipe(TeamManager.Instance.GetTeamFromObjective(Objectives.Defenders));
     }
-    public override void PlayerDeathUpdate() {
-        if (!roundInProgress) { return; }
-        CustomLogger.Log(LogCategories.Game , "Updateing player death");
-        attackerWipe = AttackerTeam.IsTeamWiped();
-        defenderWipe = DefenderTeam.IsTeamWiped();
-
-        if (attackerWipe && defenderWipe) {
-            CustomLogger.LogWarning(LogCategories.Round , "Some how both teams have full wiped in the same tick! Wow!");
-            defenderWipe = false;
-        }
+    private void Instance_OnPlayerConnected(NetworkConnection conn) {
+        CustomLogger.Log(LogCategories.Round, $"Adding extra player {conn}");
+        TeamManager.Instance.AddLateJoiner(conn, TeamManager.Instance.GetTeamWithLeastMembers());
     }
-    public override void PlayerLeaveGamemode(NetworkObject nob) {
-        ITeamable team = nob.GetComponent<ITeamable>();
-        if (team.GetTeamID() == Teams.Attackers) {
-            CustomLogger.Log(LogCategories.GameManager, $"Player {nob.name} has left attacking team!");
-            AttackerTeam.RemovePlayerFromTeam(nob);
-        } else if(team.GetTeamID() == Teams.Defenders) {
-            CustomLogger.Log(LogCategories.GameManager, $"Player {nob.name} has left defending team!");
-            DefenderTeam.RemovePlayerFromTeam(nob);
-        } else {
-            CustomLogger.Log(LogCategories.GameManager, $"Player {nob.name} has left the server! (was apart of no team)");
-        }
-    }
-
+    #endregion
     #region Methods.
-    private void CreateTeams() {
-        CustomLogger.Log(LogCategories.Game , "Creating Teams");
-        teamOne.SetTeam(Teams.Attackers);
-        teamTwo.SetTeam(Teams.Defenders);
-        NetworkObject[] shuffledPlayers = Shuffle(Manager.Players.Values.ToArray());
-        // evenly spread out teams (no limit yet)
-        for (int i = 0; i < shuffledPlayers.Length; i++) {
-            if (i % 2 == 0) {
-                teamOne.AddPlayerToTeam(shuffledPlayers[i]);
-            } else {
-                teamTwo.AddPlayerToTeam(shuffledPlayers[i]);
-            }
-        }
-    }
-    public NetworkObject[] Shuffle(NetworkObject[] list) {
-        int n = list.Length;
-        while (n > 1) {
-            n--;
-            int k = Random.Range(0, n + 1);
-            NetworkObject value = list[k];
-            list[k] = list[n];
-            list[n] = value;
-        }
-        return list;
-    }
-    private void TeamFlipFlop() {
-        CustomLogger.Log(LogCategories.Round , "TeamFlipFlop");
-        CompTeam newAttackers = DefenderTeam;
-        CompTeam newDefenders = AttackerTeam;
-
-        newAttackers.SetTeam(Teams.Attackers);
-        newDefenders.SetTeam(Teams.Defenders);
-    }
-    private void RespawnPlayers() {
-        CustomLogger.Log(LogCategories.Round , "Respawning Players!");
-
-        teamOne.RespawnTeam();
-        teamTwo.RespawnTeam();
-    }
-    private void GiveSpikeToRandomPlayer() { // add 
-        CustomLogger.Log(LogCategories.Round, "Giving someone the spike"); 
-        if (AttackerTeam.Players.Count != 0) {
-            int player = Random.Range(0, AttackerTeam.Players.Count);
-            AttackerTeam.Players[player].GetComponent<PlayerWeaponManager>().HasSpike = true;
-        } else {
-            CustomLogger.Log(LogCategories.Round, "There was no player to give the spike to");
+    private void GiveSpikeToRandomPlayer() {
+        CustomLogger.Log(LogCategories.Round, "Giving someone the spike");
+        Teams attackingTeam = TeamManager.Instance.GetTeamFromObjective(Objectives.Attackers);
+        NetworkConnection conn = TeamManager.Instance.GetRandomPlayerFromTeam(attackingTeam);
+        if (conn != null) {
+            PlayerManager.Instance.players[conn].GetComponent<PlayerWeaponManager>().HasSpike = true;
         }
     }
     private void TakeSpikeAwayFromPlayers() {
-        CustomLogger.Log(LogCategories.Round , "Taking away spike");
-        foreach (NetworkObject player in Manager.Players.Values) {
+        CustomLogger.Log(LogCategories.Round, "Taking away spike");
+        foreach (NetworkObject player in PlayerManager.Instance.players.Values) {
             player.GetComponent<PlayerWeaponManager>().HasSpike = false;
         }
     }
     #endregion
+
 
 
 
@@ -304,7 +222,7 @@ public class CompetitiveGameMode : BaseGameMode {
         float vertical = 10f;
 
         GUI.Label(new Rect(horizontal, vertical, width, height), $"GameTime: {timeRemaning} ", _style);
-        GUI.Label(new Rect(horizontal, 30, width, height), $"Attackers points: {AttackerTeam.Points} Defenders points: {DefenderTeam.Points}", _style);
-        GUI.Label(new Rect(horizontal, 50, width, height), $"Attackers left: {AttackerTeam.GetNumAlive()} Defenders left: {DefenderTeam.GetNumAlive()}", _style);
+        //GUI.Label(new Rect(horizontal, 30, width, height), $"Attackers points: {TeamManager.Instance.teamsDict[TeamManager.Instance.GetTeamFromObjective(Objectives.Attackers)].points} Defenders points: {TeamManager.Instance.teamsDict[TeamManager.Instance.GetTeamFromObjective(Objectives.Defenders)].points}", _style);
+        //GUI.Label(new Rect(horizontal, 50, width, height), $"Attackers left: {AttackerTeam.GetNumAlive()} Defenders left: {DefenderTeam.GetNumAlive()}", _style);
     }
 }

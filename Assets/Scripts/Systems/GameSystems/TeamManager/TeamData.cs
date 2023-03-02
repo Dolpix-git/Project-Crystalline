@@ -3,15 +3,9 @@ public struct TeamData {
     public Objectives objective;
     public int points;
 
-    public TeamData(string name, Objectives obj) {
+    public TeamData(string name, Objectives objective, int points) {
         this.name = name;
-        this.objective = obj;
-        this.points = 0;
-    }
-
-    public void Reset() {
-        name = "";
-        objective = Objectives.None;
-        points = 0;
+        this.objective = objective;
+        this.points = points;
     }
 }
