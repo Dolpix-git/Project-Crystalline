@@ -89,11 +89,12 @@ public class PlayerWeaponManager : NetworkBehaviour {
     /// <param name="position">Position to spawn</param>
     /// <param name="forward">Forward vector</param>
     private void Fire(PreciseTick pt, Vector3 position, Vector3 forward) {
-        if (!base.IsOwner || disabled) { return; }
+        if (!base.IsOwner) { return; }
         CmdFireBase(pt, position, forward);
     }
     [ServerRpc]
     private void CmdFireBase(PreciseTick pt, Vector3 position, Vector3 forward) {
+        if (disabled) { return; }
         GameObject result = Instantiate(throable, position, Quaternion.identity);
         base.Spawn(result);
         IThrowable throwable = result.GetComponent<IThrowable>();
@@ -106,11 +107,12 @@ public class PlayerWeaponManager : NetworkBehaviour {
     /// </summary>
     /// <param name="position"></param>
     private void PlantSpike(Vector3 position) {
-        if (!base.IsOwner || disabled) { return; }
+        if (!base.IsOwner) { return; }
         CmdPlantSpike(position);
     }
     [ServerRpc]
     private void CmdPlantSpike(Vector3 position) {
+        if (disabled) { return; }
         if (hasSpike) {
             GameObject result = Instantiate(spike, position, Quaternion.identity);
             base.Spawn(result);
@@ -124,11 +126,12 @@ public class PlayerWeaponManager : NetworkBehaviour {
     /// Start sending interaction requests to the server
     /// </summary>
     private void StartInteraction() {
-        if (!base.IsOwner || disabled) { return; }
+        if (!base.IsOwner) { return; }
         CmdStartInteraction();
     }
     [ServerRpc]
     private void CmdStartInteraction() {
+        if (disabled) { return; }
         Interaction();
     }
     /// <summary>

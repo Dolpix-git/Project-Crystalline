@@ -135,7 +135,6 @@ public class NetworkHudCanvases : MonoBehaviour {
         img.color = c;
     }
 
-
     private void ClientManager_OnClientConnectionState(ClientConnectionStateArgs obj) {
         _clientState = obj.ConnectionState;
         UpdateColor(obj.ConnectionState, ref _clientIndicator);

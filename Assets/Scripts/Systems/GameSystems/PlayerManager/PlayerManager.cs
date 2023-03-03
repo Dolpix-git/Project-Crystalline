@@ -4,6 +4,7 @@ using FishNet.Managing;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using FishNet.Transporting;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerManager : NetworkBehaviour {
@@ -57,6 +58,7 @@ public class PlayerManager : NetworkBehaviour {
         } else {
             _instance = this;
         }
+        players.OnChange += Players_OnChange;
     }
 
     private void Start() {
@@ -77,9 +79,13 @@ public class PlayerManager : NetworkBehaviour {
         networkManager.ServerManager.OnRemoteConnectionState += ServerManager_OnRemoteConnectionState;
     }
     private void OnDestroy() {
-        if (networkManager != null)
-            networkManager.SceneManager.OnClientLoadedStartScenes -= SceneManager_OnClientLoadedStartScenes;
+        if (networkManager == null) {
+            CustomLogger.LogWarning($"PlayerSpawner on {gameObject.name} cannot work as NetworkManager wasn't found on this object or within parent objects.");
+            return;
+        }
+        networkManager.SceneManager.OnClientLoadedStartScenes -= SceneManager_OnClientLoadedStartScenes;
         networkManager.ServerManager.OnRemoteConnectionState -= ServerManager_OnRemoteConnectionState;
+        players.OnChange -= Players_OnChange;
     }
 
 
@@ -93,26 +99,25 @@ public class PlayerManager : NetworkBehaviour {
     /// Called when a client loads initial scenes after connecting.
     /// </summary>
     private void SceneManager_OnClientLoadedStartScenes(NetworkConnection conn, bool asServer) {
-        if (!asServer)
-            return;
         if (playerPrefab == null) {
             CustomLogger.LogWarning($"Player prefab is empty and cannot be spawned for connection {conn.ClientId}.");
             return;
         }
 
+        if (asServer) {
+            NetworkObject nob = networkManager.GetPooledInstantiated(playerPrefab, true);
+            nob.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+            networkManager.ServerManager.Spawn(nob, conn);
 
-        NetworkObject nob = networkManager.GetPooledInstantiated(playerPrefab, true);
-        nob.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
-        networkManager.ServerManager.Spawn(nob, conn);
+            nob.GetComponent<Health>().Disable();
 
-        nob.GetComponent<Health>().Disable();
+            //If there are no global scenes 
+            if (addToDefaultScene)
+                networkManager.SceneManager.AddOwnerToDefaultScene(nob);
 
-        //If there are no global scenes 
-        if (addToDefaultScene)
-            networkManager.SceneManager.AddOwnerToDefaultScene(nob);
-
-        players.Add(conn,nob);
-        PlayerEventManager.Instance.InvokePlayerConnected(conn);
+            players.Add(conn, nob);
+            PlayerEventManager.Instance.InvokePlayerConnected(conn);
+        }
     }
 
     private void ServerManager_OnRemoteConnectionState(NetworkConnection conn, RemoteConnectionStateArgs args) {
@@ -120,6 +125,13 @@ public class PlayerManager : NetworkBehaviour {
             CustomLogger.Log(LogCategories.PlayerManager, args.ConnectionState);
             PlayerEventManager.Instance.InvokePlayerdisconnected(conn);
             players.Remove(conn);
+        }
+    }
+    private void Players_OnChange(SyncDictionaryOperation op, NetworkConnection key, NetworkObject value, bool asServer) {
+        if (op == SyncDictionaryOperation.Add) {
+            if (value != null && !asServer) {
+                PlayerEventManager.Instance.InvokePlayerClentConnected(value);
+            }
         }
     }
 }

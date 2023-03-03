@@ -13,8 +13,7 @@ namespace FishNet.Component.Spawning
     /// Must be placed on or beneath the NetworkManager object.
     /// </summary>
     [AddComponentMenu("FishNet/Component/PlayerSpawner")]
-    public class PlayerSpawner : MonoBehaviour
-    {
+    public class PlayerSpawner : MonoBehaviour{
         #region Public.
         /// <summary>
         /// Called on the server when a player is spawned.
@@ -54,13 +53,11 @@ namespace FishNet.Component.Spawning
         private int _nextSpawn;
         #endregion
 
-        private void Start()
-        {
+        private void Start(){
             InitializeOnce();
         }
 
-        private void OnDestroy()
-        {
+        private void OnDestroy(){
             if (_networkManager != null)
                 _networkManager.SceneManager.OnClientLoadedStartScenes -= SceneManager_OnClientLoadedStartScenes;
         }

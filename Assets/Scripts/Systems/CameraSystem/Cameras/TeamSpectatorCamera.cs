@@ -1,84 +1,66 @@
-//using FishNet.Object.Synchronizing;
-//using System.Collections.Generic;
-//using UnityEngine;
+using FishNet.Connection;
+using FishNet.Object;
+using System.Linq;
+using UnityEngine;
 
-//public class TeamSpectatorCamera : CameraBaseClass {
-//    [SyncObject]
-//    private readonly SyncList<TeamHeadData> heads = new SyncList<TeamHeadData>();
-//    private ITeamable team = null;
-//    private int indexOfHead = 0;
-//    private void Start() {
-//        //TeamCameraEvent.OnTeamCameraAdd += TeamCamera_OnTeamCamera;
-//        //TeamCameraEvent.OnTeamCameraRemove += TeamCamera_OnTeamCameraRemove;
-//        //TeamCameraEvent.OnClientConnect += TeamCameraEvent_OnClientConnect;
-//    }
-//    public override void DestroyCamera() { 
-//        //TeamCameraEvent.OnTeamCameraAdd -= TeamCamera_OnTeamCamera;
-//        //TeamCameraEvent.OnTeamCameraRemove -= TeamCamera_OnTeamCameraRemove;
-//        //TeamCameraEvent.OnClientConnect -= TeamCameraEvent_OnClientConnect;
-//        heads.Clear();
-//    }
+public class TeamSpectatorCamera : CameraBaseClass {
+    private PlayerHead currentHead;
+    private int pointerIndex;
+    float counter = 0;
 
-//    private void TeamCamera_OnTeamCamera(Transform obj, PlayerNetworker net) {
-//        heads.Add(new TeamHeadData(obj, net));
-//        indexOfHead = heads.Count-1;
-//    }
+    public override void SetCamera() {
+        NextTeamCamera();
+    }
+    public override void DestroyCamera() {
+        
+    }
+    
+    public override void UpdateCamera() {
+        counter += 1;
+        if (counter > 100) {
+            counter = 0;
+            NextTeamCamera();
+        }
+        if (currentHead != null) {
+            CameraPosition();
+            CameraRotation();
+        }
+    }
 
-//    private void TeamCamera_OnTeamCameraRemove(Transform obj) {
-//        for (int i = 0; i < heads.Count; i++) {
-//            if (heads[i].headTransform == obj) {
-//                heads.RemoveAt(i);
-//            }
-//        }
-//    }
-//    private void TeamCameraEvent_OnClientConnect(ITeamable obj) {
-//        team = obj;
-//    }
+    /// <summary>
+    /// Updates camera position
+    /// </summary>
+    private void CameraPosition() {
+        PlayerCameraManager.transform.position = currentHead.head.position;
+    }
 
+    /// <summary>
+    /// Updates camera rotation
+    /// </summary>
+    private void CameraRotation() {
+        PlayerCameraManager.transform.rotation = Quaternion.LookRotation(currentHead.GetPlayerForwardVector3(), Vector3.up);
+    }
 
+    public void NextTeamCamera() {
+        CustomLogger.Log($"Looking for the next team camera");
+        int tempIndex = pointerIndex + 1;
+        Teams ownerTeam = TeamManager.Instance.playerTeams[LocalConnection];
+        NetworkConnection[] conn = PlayerManager.Instance.players.Keys.ToArray();
+        NetworkObject[] netObj = PlayerManager.Instance.players.Values.ToArray();
+        Teams[] team = TeamManager.Instance.playerTeams.Values.ToArray();
+        while (pointerIndex != tempIndex) {
+            if (tempIndex >= conn.Length) {
+                tempIndex = 0;
+            }
+            if (team[tempIndex] == ownerTeam) {
+                currentHead = netObj[tempIndex].GetComponent<PlayerHead>();
+                pointerIndex = tempIndex;
+                break;
+            }
+            tempIndex++;
+        }
+    }
+    public void PreviousTeamCamera() {
 
-
-
-//    public override void UpdateCamera() {
-//        CameraPosition();
-//        CameraRotation();
-//    }
-
-
-//    /// <summary>
-//    /// Updates camera position
-//    /// </summary>
-//    private void CameraPosition() {
-//        if (heads.Count == 0 || indexOfHead >= heads.Count) { return; }
-
-//        PlayerCameraManager.transform.position = heads[indexOfHead].headTransform.position;
-//    }
-
-//    /// <summary>
-//    /// Updates camera rotation
-//    /// </summary>
-//    private void CameraRotation() {
-//        if (heads.Count == 0 || indexOfHead >= heads.Count) { return; }
-
-//        PlayerCameraManager.transform.rotation = Quaternion.LookRotation(heads[indexOfHead].headRotation.LastMove.CameraForward,Vector3.up);
-//    }
-
-
-
-//    public void NextCam() {
-
-//    }
-//    public void PrevCam() {
-
-//    }
-//}
-
-//public struct TeamHeadData {
-//    public Transform headTransform;
-//    public PlayerNetworker headRotation;
-
-//    public TeamHeadData(Transform headTransform, PlayerNetworker headRotation) {
-//        this.headTransform = headTransform;
-//        this.headRotation = headRotation;
-//    }
-//}
+    }
+}

@@ -31,50 +31,59 @@ public class PlayerCameraManager : MonoBehaviour{
         camera.PlayerCameraManager = this;
         cameraClasses.Add(CameraTypes.firstPerson, camera);
 
-        //camera = gameObject.AddComponent<TeamSpectatorCamera>();
-        //camera.PlayerCameraManager = this;
-        //cameraClasses.Add(CameraTypes.teamSpectator, camera);
+        camera = gameObject.AddComponent<TeamSpectatorCamera>();
+        camera.PlayerCameraManager = this;
+        cameraClasses.Add(CameraTypes.teamSpectator, camera);
 
         camera = gameObject.AddComponent<SpectatorCamera>();
         camera.PlayerCameraManager = this;
         cameraClasses.Add(CameraTypes.Spectator, camera);
 
 
-        PlayerEventManager.Instance.OnPlayerConnected += Instance_OnSpawned;
+        PlayerEventManager.Instance.OnPlayerClentConnected += Instance_OnPlayerClentConnected;
     }
-
-    private void Instance_OnSpawned(NetworkConnection conn) {
-        //if (conn != InstanceFinder.NetworkManager.owner) { return; }
-        //PlayerManager.Instance.players[conn].GetComponent<Health>().OnDeath += Health_OnDeath;
-        //PlayerManager.Instance.players[conn].GetComponent<Health>().OnRespawned += Health_OnRespawned;
-        //SetSpectator();
-    }
-
     private void OnDestroy() {
-        PlayerEventManager.Instance.OnPlayerConnected -= Instance_OnSpawned;
         foreach (CameraBaseClass camera in cameraClasses.Values) {
             camera.DestroyCamera();
-        }   
+        }
+
+        PlayerEventManager.Instance.OnPlayerClentConnected -= Instance_OnPlayerClentConnected;
     }
+
 
     private void LateUpdate() {
         cameraClasses[currentCamera].UpdateCamera();
     }
 
+
+    private void Instance_OnPlayerClentConnected(NetworkObject obj) {
+        NetworkConnection conn = obj.Owner;
+        CustomLogger.Log(conn.ClientId + " " + InstanceFinder.ClientManager.Connection.ClientId);
+        if (conn == InstanceFinder.ClientManager.Connection) {
+            PlayerManager.Instance.players[conn].GetComponent<Health>().OnDeath += Health_OnDeath;
+            PlayerManager.Instance.players[conn].GetComponent<Health>().OnRespawned += Health_OnRespawned;
+            SetSpectator();
+        }
+    }
+
     private void Health_OnRespawned() {
         CustomLogger.Log(LogCategories.Camera, "Switched to First person");
         currentCamera = CameraTypes.firstPerson;
+        cameraClasses[currentCamera].SetCamera();
     }
     private void Health_OnDeath() {
         CustomLogger.Log(LogCategories.Camera, "Switched to Team spectator");
-        currentCamera = CameraTypes.Spectator;
+        currentCamera = CameraTypes.teamSpectator;
+        cameraClasses[currentCamera].SetCamera();
     }
     public void SetSpectator() {
         CustomLogger.Log(LogCategories.Camera, "Switched to Spectator");
         currentCamera = CameraTypes.Spectator;
+        cameraClasses[currentCamera].SetCamera();
     }
     public void SetLocked() {
         CustomLogger.Log(LogCategories.Camera, "Switched to Locked");
         currentCamera = CameraTypes.locked;
+        cameraClasses[currentCamera].SetCamera();
     }
 }

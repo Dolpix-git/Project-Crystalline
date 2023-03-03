@@ -100,8 +100,8 @@ public class Health : NetworkBehaviour {
     /// Removes health.
     /// </summary>
     /// <param name="value">Amount</param>
-    public void RemoveHealth(int value, NetworkConnection dealerOfDamage) {
-        if (!base.IsServer) { return; }
+    public void RemoveHealth(int value, NetworkConnection dealerOfDamage) { 
+        if (!base.IsServer || IsDead) { return; }
         int oldHealth = currentHealth;
         currentHealth -= value;
 
@@ -116,27 +116,31 @@ public class Health : NetworkBehaviour {
 
         if (currentHealth <= 0f) {
             OnDeath?.Invoke();
-            NetworkConnection killer = null;
-            NetworkConnection assister = null;
-            int mostDamage = 0;
-            int secondMostDamage = 0;
-            foreach (NetworkConnection player in damageRecord.Keys) {
-                if (damageRecord[player] > mostDamage) {
-                    mostDamage = damageRecord[player];
-                    killer = player;
-                }else if (damageRecord[player] > secondMostDamage) {
-                    secondMostDamage = damageRecord[player];
-                    assister = player;
-                }
-            }
-            if (secondMostDamage < MaximumHealth * 0.5f) {
-                assister = null;
-            }
-            PlayerEventManager.Instance.InvokePlayerDeath(Owner,killer,assister);
+            AnnounceDeath(dealerOfDamage);
 
             ObserverDeath();
         }
     }
+
+    private void AnnounceDeath(NetworkConnection killer) {// the killer
+        NetworkConnection assister = null; // the most damage
+        int assisterDamage = 0;
+
+        foreach (NetworkConnection player in damageRecord.Keys) {
+            if (player == killer) {
+                continue;
+            }
+            if (damageRecord[player] > assisterDamage) {
+                assisterDamage = damageRecord[player];
+                assister = player;
+            }
+        }
+        if (assisterDamage < MaximumHealth * 0.5f) {
+            assister = null;
+        }
+        PlayerEventManager.Instance.InvokePlayerDeath(Owner, killer, assister);
+    }
+
     /// <summary>
     /// Called when health is depleted.
     /// </summary>

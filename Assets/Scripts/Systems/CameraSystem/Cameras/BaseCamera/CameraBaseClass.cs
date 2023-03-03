@@ -9,6 +9,10 @@ public abstract class CameraBaseClass : NetworkBehaviour{
     public PlayerCameraManager PlayerCameraManager { get => playerCameraManager; set => playerCameraManager = value; }
 
     /// <summary>
+    /// Setup the camera for first time config.
+    /// </summary>
+    public abstract void SetCamera();
+    /// <summary>
     /// Camera update called on Update().
     /// </summary>
     public abstract void UpdateCamera();
@@ -16,4 +20,5 @@ public abstract class CameraBaseClass : NetworkBehaviour{
     /// Destroys camera for clean up.
     /// </summary>
     public abstract void DestroyCamera();
+
 }

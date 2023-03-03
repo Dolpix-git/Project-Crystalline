@@ -10,10 +10,11 @@ public class FirstPersonCamera : CameraBaseClass {
     /// </summary>
     private Vector2 cameraAngles;
     private void Start() {
-        FirstPersonCameraEvent.OnFirstPersonCamera += PlayerCameraFirstPerson;
+        PlayerHead.OnFirstPersonCamera += PlayerCameraFirstPerson;
     }
+    public override void SetCamera() { }
     public override void DestroyCamera() {
-        FirstPersonCameraEvent.OnFirstPersonCamera -= PlayerCameraFirstPerson;
+        PlayerHead.OnFirstPersonCamera -= PlayerCameraFirstPerson;
         firstPersonTransform = null;
         Debug.Log("Camera FPS Transform Destroyed!");
     }
