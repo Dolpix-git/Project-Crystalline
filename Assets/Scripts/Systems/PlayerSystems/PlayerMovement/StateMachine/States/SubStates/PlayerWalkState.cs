@@ -14,7 +14,7 @@ public class PlayerWalkState : PlayerBaseState{
     /// <summary>
     /// The max velocity of the player.
     /// </summary>
-    private float maxSpeed = 5;
+    private float maxSpeed = 3;
     /// <summary>
     /// A clamp on the movement in each direction (backward, forward, left, right)
     /// Used to make going some directions faster than others, for example no running backward.

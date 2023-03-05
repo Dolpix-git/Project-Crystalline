@@ -34,8 +34,10 @@ public class PlayerInputManager : MonoBehaviour{
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
         playerInputActions.Player.Jump.performed += Jump;
-        playerInputActions.Player.Sprint.performed += Sprint;
-        playerInputActions.Player.CrouchSlide.performed += CrouchSlide;
+        playerInputActions.Player.Sprint.started += Sprint;
+        playerInputActions.Player.Sprint.canceled += Sprint;
+        playerInputActions.Player.CrouchSlide.started += CrouchSlide;
+        playerInputActions.Player.CrouchSlide.canceled += CrouchSlide;
         playerInputActions.Player.ToggleMouse.performed += ToggleMouse;
         playerInputActions.Player.Throw.performed += Throw;
         playerInputActions.Player.PlantSpike.performed += PlantSpike;
@@ -108,11 +110,7 @@ public class PlayerInputManager : MonoBehaviour{
         }
     }
     public void GetCharacterControllerInputs(out PlayerMoveData md) {
-        // might need to add a check for if there is no data to send, to prevent weird behavior (might be patched in new version of fishnet)
-
-
-        // TOO DO: Hook up to camera function so that cam data is sent
-        md = new PlayerMoveData(jumpPress, sprintHold,crouchSlideHold, movement, cam.transform.right, cam.transform.forward); 
+        md = new PlayerMoveData(jumpPress, crouchSlideHold, sprintHold, movement, cam.transform.right, cam.transform.forward); 
 
         // All press statements must be set to false after use here, to not miss a player input
         jumpPress = false;
