@@ -166,5 +166,4 @@ namespace FishNet.Object.Synchronizing
         ///</summary>
         public string OnChange;
     }
-
 }

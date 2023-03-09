@@ -1,11 +1,15 @@
 using UnityEngine;
-using Unity.Mathematics;
 
 public class PlayerWalkState : PlayerBaseState {
     public PlayerWalkState(PlayerStateMachine currentContext, PlayerStateCashe playerStateFactory) : base(currentContext, playerStateFactory) { }
 
     #region States.
-    public override void EnterState() { }
+    public override void EnterState() {
+        Debug.Log($"Enter Walk state {Ctx.RigidBody.gameObject.GetInstanceID()}");
+        AkSoundEngine.RegisterGameObj(Ctx.RigidBody.gameObject);
+        AkSoundEngine.PostEvent("Footsteps", Ctx.RigidBody.gameObject);
+        AkSoundEngine.UnregisterGameObj(Ctx.RigidBody.gameObject);
+    }
     public override void UpdateState() {
         GDSSReturn();
         GDSS();

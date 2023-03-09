@@ -2,7 +2,9 @@ using FishNet.Managing.Timing;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using UnityEngine;
+using System;
 
+[Serializable]
 public class PlayerWeaponManager : NetworkBehaviour {
     #region Serialized.
     /// <summary>
@@ -31,7 +33,7 @@ public class PlayerWeaponManager : NetworkBehaviour {
     /// </summary>
     private float interactionRadius = 2;
     [SyncVar]
-    private bool disabled;
+    public bool disabled;
     #endregion
     #region Getters Setters.
     /// <summary>
@@ -41,12 +43,51 @@ public class PlayerWeaponManager : NetworkBehaviour {
     public bool HasSpike { get => hasSpike; set => hasSpike = value; }
     #endregion
 
+    //private Command weapon = new();
+
+    //public class Command : NetworkBehaviour {
+    //    public virtual void Activate(PlayerWeaponManager instance) {}
+    //}
+    //public class Weapon : Command {
+    //    private PlayerWeaponManager refrence;
+    //    private float force;
+    //    // Add ammo
+    //    private GameObject throable; // Replace with scriptable object
+    //    public override void Activate(PlayerWeaponManager instance) {
+    //        refrence = instance;
+    //        if (PlayerInputManager.Instance.GetWeaponsInput()) {
+    //            Fire(instance.TimeManager.GetPreciseTick(TickType.Tick), instance.transform.position + (instance.transform.forward * 2f), PlayerInputManager.Instance.GetCamForward() + Vector3.up);
+    //        }
+    //    }
+
+    //    #region Fire.
+    //    /// <summary>
+    //    /// Request a fire(grendade throw) to the (server).
+    //    /// </summary>
+    //    /// <param name="pt">Persice tick</param>
+    //    /// <param name="position">Position to spawn</param>
+    //    /// <param name="forward">Forward vector</param>
+    //    private void Fire(PreciseTick pt, Vector3 position, Vector3 forward) {
+    //        if (!base.IsOwner) { return; }
+    //        CmdFireBase(pt, position, forward);
+    //    }
+    //    [ServerRpc]
+    //    private void CmdFireBase(PreciseTick pt, Vector3 position, Vector3 forward) {
+    //        if (refrence.disabled) { return; }
+    //        GameObject result = Instantiate(throable, position, Quaternion.identity);
+    //        base.Spawn(result);
+    //        IThrowable throwable = result.GetComponent<IThrowable>();
+    //        throwable.Initialize(forward * force, Owner);
+    //    }
+    //    #endregion
+    //}
+
+
     private void Awake() {
         gameObject.GetComponent<Health>().OnDisabled += PlayerWeaponManager_OnDisabled;
         gameObject.GetComponent<Health>().OnRespawned += PlayerWeaponManager_OnRespawned;
         gameObject.GetComponent<Health>().OnDeath += PlayerWeaponManager_OnDeath;
     }
-
     private void OnDestroy() {
         gameObject.GetComponent<Health>().OnDisabled += PlayerWeaponManager_OnDisabled;
         gameObject.GetComponent<Health>().OnRespawned += PlayerWeaponManager_OnRespawned;
@@ -68,7 +109,10 @@ public class PlayerWeaponManager : NetworkBehaviour {
         disabled = true;
     }
 
-    private void Update() {
+    private void Update() { // Too Do: Command structure
+
+        //weapon.Activate();
+
         if (PlayerInputManager.Instance.GetWeaponsInput()) {
             Fire(base.TimeManager.GetPreciseTick(TickType.Tick), transform.position + (transform.forward * 2f), PlayerInputManager.Instance.GetCamForward() + Vector3.up);
         }

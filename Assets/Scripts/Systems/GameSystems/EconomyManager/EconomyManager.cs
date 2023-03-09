@@ -4,14 +4,14 @@ using FishNet.Object.Synchronizing;
 using UnityEngine;
 
 public class EconomyManager : NetworkBehaviour {
-    private int baseMoney = 5;
-    private int roundWinMoney = 5;
-    private int roundLoseMoney = 5;
-    private int playerKillMoney = 5;
-    private int playerKillAssistMoney = 5;
-    private int objectiveStartMoney = 5;
-    private int objectiveEndMoney = 5;
-    private int maxPlayerMoney = 5000;
+    [SerializeField] private int baseMoney = 5;
+    [SerializeField] private int roundWinMoney = 5;
+    [SerializeField] private int roundLoseMoney = 5;
+    [SerializeField] private int playerKillMoney = 5;
+    [SerializeField] private int playerKillAssistMoney = 5;
+    [SerializeField] private int objectiveStartMoney = 5;
+    [SerializeField] private int objectiveEndMoney = 5;
+    [SerializeField] private int maxPlayerMoney = 5000;
 
     private static EconomyManager _instance;
     public static EconomyManager Instance {
@@ -98,9 +98,9 @@ public class EconomyManager : NetworkBehaviour {
         CustomLogger.Log(LogCategories.SystEconomyManager, $"Giving money to teams, winning team:{team}");
         foreach (NetworkConnection player in playerEconomy.Keys) {
             if (TeamManager.Instance.playerTeams[player] == team) {
-                playerEconomy[player] = Mathf.Min(roundWinMoney + playerEconomy[player], maxPlayerMoney);
+                playerEconomy[player] = Mathf.Clamp(roundWinMoney + playerEconomy[player], 0, maxPlayerMoney);
             } else {
-                playerEconomy[player] = Mathf.Min(roundLoseMoney + playerEconomy[player], maxPlayerMoney);
+                playerEconomy[player] = Mathf.Clamp(roundLoseMoney + playerEconomy[player], 0, maxPlayerMoney);
             }
         }
     }
@@ -110,12 +110,13 @@ public class EconomyManager : NetworkBehaviour {
         CustomLogger.Log(LogCategories.SystEconomyManager, $"Giving money to killer:{pKiller} assister:{pAssister}");
         if (pKiller != null) {
             if (playerEconomy.ContainsKey(pKiller)) {
-                playerEconomy[pKiller] = Mathf.Min(playerKillMoney + playerEconomy[pKiller], maxPlayerMoney);
+                playerEconomy[pKiller] = Mathf.Clamp(playerKillMoney + playerEconomy[pKiller], 0, maxPlayerMoney);
             }
         }
+
         if (pAssister != null) {
             if (playerEconomy.ContainsKey(pAssister)) {
-                playerEconomy[pAssister] = Mathf.Min(playerKillAssistMoney + playerEconomy[pAssister], maxPlayerMoney);
+                playerEconomy[pAssister] = Mathf.Clamp(playerKillAssistMoney + playerEconomy[pAssister], 0, maxPlayerMoney);
             }
         }
 
@@ -125,19 +126,19 @@ public class EconomyManager : NetworkBehaviour {
     private void Instance_OnObjectiveStarted(Teams team, NetworkConnection conn) {
         // On bomb plant, give reward to planter
         CustomLogger.Log(LogCategories.SystEconomyManager, $"Objective start for team:{team} conn:{conn}");
-        if (conn != null) {
-            if (playerEconomy.ContainsKey(conn)) {
-                playerEconomy[conn] += Mathf.Min(objectiveStartMoney + playerEconomy[conn], maxPlayerMoney);
-            }
+        if (conn == null)  return; 
+
+        if (playerEconomy.ContainsKey(conn)) {
+            playerEconomy[conn] += Mathf.Clamp(objectiveStartMoney + playerEconomy[conn], 0, maxPlayerMoney);
         }
     }
     private void Instance_OnObjectiveComplete(Teams team, NetworkConnection conn) {
         // On bomb defuse, give reward to defuser
         CustomLogger.Log(LogCategories.SystEconomyManager, $"Objective complete for team:{team} conn:{conn}");
-        if (conn != null) {
-            if (playerEconomy.ContainsKey(conn)) {
-                playerEconomy[conn] += Mathf.Min(objectiveEndMoney + playerEconomy[conn], maxPlayerMoney);
-            }
+        if (conn != null) return;
+
+        if (playerEconomy.ContainsKey(conn)) {
+            playerEconomy[conn] += Mathf.Clamp(objectiveEndMoney + playerEconomy[conn], 0, maxPlayerMoney);
         }
     }
 }

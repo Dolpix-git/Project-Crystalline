@@ -48,6 +48,8 @@ GameObject:
   - component: {fileID: 7095002559478580514}
   - component: {fileID: 8004145175360252860}
   - component: {fileID: -9088385742316106720}
+  - component: {fileID: 3593365082401464698}
+  - component: {fileID: 6391269186535704374}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -247,6 +249,7 @@ MonoBehaviour:
     y: 10
     z: -10
     w: 10
+  crouchDelta: 0.8
   crouchGroundAcc: 90
   crouchAirAcc: 10
   crouchMaxSpeed: 2.5
@@ -255,6 +258,7 @@ MonoBehaviour:
     y: 10
     z: -10
     w: 10
+  slidingActivationSpeed: 6
   slidingGroundAcc: 90
   slidingAirAcc: 10
   slidingMaxSpeed: 7
@@ -263,6 +267,53 @@ MonoBehaviour:
     y: 10
     z: -10
     w: 10
+--- !u!114 &3593365082401464698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4870035923611722996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78b8cc1bc752b2b4c85139126dbe58de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_listeners:
+    initialListenerList: []
+    useDefaultListeners: 1
+  isEnvironmentAware: 1
+  isStaticObject: 0
+  m_positionOffsetData:
+    KeepMe: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+  m_posOffsetData: {fileID: 0}
+  listenerMask: 1
+--- !u!114 &6391269186535704374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4870035923611722996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5cc5a29726df784a83ddf02b0c7b619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 6afb1ff878cf8457382afb9a68c3a55c,
+      type: 2}
+  decodeBank: 0
+  loadAsynchronous: 0
+  saveDecodedBank: 0
+  unloadTriggerList: 958ca0ea
+  bankNameInternal: 
+  valueGuidInternal: 
 --- !u!1 &4870035923714307969
 GameObject:
   m_ObjectHideFlags: 0

@@ -472,10 +472,10 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: 5dd4aa4037f28a4ba665f5da9fb40167
     GuidInternal: 
-    m_lastTime: -8585233927214988773
+    m_lastTime: -8585232256941696882
     List:
     - name: Footsteps
-      guid: c43351996615ba4fa273421a58b2a216
+      guid: 518f8c32d3ac9747a8443165f4bc7664
       id: 2385628198
       PathAndIcons:
       - ElementName: SoundBanks
@@ -486,7 +486,7 @@ MonoBehaviour:
         guid: 5dd4aa4037f28a4ba665f5da9fb40167
       - ElementName: Footsteps
         ObjectType: 7
-        guid: c43351996615ba4fa273421a58b2a216
+        guid: 518f8c32d3ac9747a8443165f4bc7664
       Path: SoundBanks\Default Work Unit\Footsteps
     - name: Play_C_Atmo
       guid: 42ecf7efd0f51346a38510f597fad409
@@ -514,10 +514,10 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: 42974ee106cdd64b8120f90cd49fee48
     GuidInternal: 
-    m_lastTime: -8585233927215079488
+    m_lastTime: -8585232256941716882
     List:
     - name: Footsteps
-      guid: 354bada03b39a847bd6a55b539ac79ea
+      guid: 406490dcd546294eb78a230045e3fae9
       id: 2385628198
       PathAndIcons:
       - ElementName: Events
@@ -528,7 +528,7 @@ MonoBehaviour:
         guid: 42974ee106cdd64b8120f90cd49fee48
       - ElementName: Footsteps
         ObjectType: 3
-        guid: 354bada03b39a847bd6a55b539ac79ea
+        guid: 406490dcd546294eb78a230045e3fae9
       Path: Events\Default Work Unit\Footsteps
       maxAttenuation: 0
       maxDuration: -1
@@ -641,7 +641,7 @@ MonoBehaviour:
     m_lastTime: -8585240127075720021
     List: []
   ExpandedFileSystemItemIds: 
-  ExpandedWaapiItemIds: 010000000500000006000000070000000a0000000b0000000c000000
+  ExpandedWaapiItemIds: 010000000500000006000000070000000a0000000b0000000c0000000d000000
   AutoSyncSelection: 0
   autoPopulateEnabled: 1
   currentDataSource: 0

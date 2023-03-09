@@ -67,40 +67,35 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="2385628198" Type="User" Language="SFX" Hash="{2ECE66F5-1AA2-729E-6AAE-BF66B956FA24}">
+		<SoundBank Id="2385628198" Type="User" Language="SFX" Hash="{AC280B59-53FC-0658-960C-B0634B92A3A2}">
 			<ShortName>Footsteps</ShortName>
 			<Path>Footsteps.bnk</Path>
 			<Media>
-				<File Id="408102827" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>PLY_LOCO_DIRT_FOOTSTEP_03.wav</ShortName>
-					<CachePath>SFX/PLY_LOCO_DIRT_FOOTSTEP_03_10C4C929.wem</CachePath>
+				<File Id="139344530" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PLY_SFX_LOCO_FOOTSTEPS_DIRT_02.wav</ShortName>
+					<CachePath>SFX/PLY_SFX_LOCO_FOOTSTEPS_DIRT_02_10C4C929.wem</CachePath>
 				</File>
-				<File Id="835588288" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>PLY_LOCO_DIRT_FOOTSTEP_01.wav</ShortName>
-					<CachePath>SFX/PLY_LOCO_DIRT_FOOTSTEP_01_10C4C929.wem</CachePath>
+				<File Id="550998752" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PLY_SFX_LOCO_FOOTSTEPS_DIRT_04.wav</ShortName>
+					<CachePath>SFX/PLY_SFX_LOCO_FOOTSTEPS_DIRT_04_10C4C929.wem</CachePath>
 				</File>
-				<File Id="948722513" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>PLY_LOCO_DIRT_FOOTSTEP_04.wav</ShortName>
-					<CachePath>SFX/PLY_LOCO_DIRT_FOOTSTEP_04_10C4C929.wem</CachePath>
+				<File Id="586929104" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PLY_SFX_LOCO_FOOTSTEPS_DIRT_03.wav</ShortName>
+					<CachePath>SFX/PLY_SFX_LOCO_FOOTSTEPS_DIRT_03_10C4C929.wem</CachePath>
 				</File>
-				<File Id="1034483636" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>PLY_LOCO_DIRT_FOOTSTEP_02.wav</ShortName>
-					<CachePath>SFX/PLY_LOCO_DIRT_FOOTSTEP_02_10C4C929.wem</CachePath>
+				<File Id="699467187" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PLY_SFX_LOCO_FOOTSTEPS_DIRT_01.wav</ShortName>
+					<CachePath>SFX/PLY_SFX_LOCO_FOOTSTEPS_DIRT_01_10C4C929.wem</CachePath>
 				</File>
 			</Media>
 			<Events>
-				<Event Id="2385628198" Name="Footsteps" DurationType="OneShot" DurationMin="0" DurationMax="0">
-					<SwitchContainers>
-						<SwitchContainer>
-							<SwitchValue GroupType="Switch" GroupId="2385628198" Id="2195636714" Default="true"/>
-							<MediaRefs>
-								<MediaRef Id="408102827"/>
-								<MediaRef Id="835588288"/>
-								<MediaRef Id="948722513"/>
-								<MediaRef Id="1034483636"/>
-							</MediaRefs>
-						</SwitchContainer>
-					</SwitchContainers>
+				<Event Id="2385628198" Name="Footsteps" DurationType="OneShot" DurationMin="0.38844022" DurationMax="0.5484125">
+					<MediaRefs>
+						<MediaRef Id="139344530"/>
+						<MediaRef Id="550998752"/>
+						<MediaRef Id="586929104"/>
+						<MediaRef Id="699467187"/>
+					</MediaRefs>
 				</Event>
 			</Events>
 			<SwitchGroups>
@@ -111,23 +106,54 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="4249302535" Type="User" Language="SFX" Hash="{035F3014-6464-A817-CE43-509AE541BAF8}">
+		<SoundBank Id="4249302535" Type="User" Language="SFX" Hash="{AF6E25E5-514C-FCED-2D18-45E135B863CD}">
 			<ShortName>Play_C_Atmo</ShortName>
 			<Path>Play_C_Atmo.bnk</Path>
 			<Media>
+				<File Id="139344530" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PLY_SFX_LOCO_FOOTSTEPS_DIRT_02.wav</ShortName>
+					<CachePath>SFX/PLY_SFX_LOCO_FOOTSTEPS_DIRT_02_10C4C929.wem</CachePath>
+				</File>
+				<File Id="550998752" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PLY_SFX_LOCO_FOOTSTEPS_DIRT_04.wav</ShortName>
+					<CachePath>SFX/PLY_SFX_LOCO_FOOTSTEPS_DIRT_04_10C4C929.wem</CachePath>
+				</File>
+				<File Id="586929104" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PLY_SFX_LOCO_FOOTSTEPS_DIRT_03.wav</ShortName>
+					<CachePath>SFX/PLY_SFX_LOCO_FOOTSTEPS_DIRT_03_10C4C929.wem</CachePath>
+				</File>
 				<File Id="659850033" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>C atmoAmb.wav</ShortName>
 					<CachePath>SFX/C atmoAmb_10C4C929.wem</CachePath>
 				</File>
+				<File Id="699467187" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PLY_SFX_LOCO_FOOTSTEPS_DIRT_01.wav</ShortName>
+					<CachePath>SFX/PLY_SFX_LOCO_FOOTSTEPS_DIRT_01_10C4C929.wem</CachePath>
+				</File>
 			</Media>
 			<Events>
-				<Event Id="3940056561" Name="Play_C_atmoAmb" DurationType="OneShot" DurationMin="0" DurationMax="0">
+				<Event Id="2385628198" Name="Footsteps" DurationType="OneShot" DurationMin="0.38844022" DurationMax="0.5484125">
+					<MediaRefs>
+						<MediaRef Id="139344530"/>
+						<MediaRef Id="550998752"/>
+						<MediaRef Id="586929104"/>
+						<MediaRef Id="699467187"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="3940056561" Name="Play_C_atmoAmb" DurationType="OneShot" DurationMin="96.5" DurationMax="96.5">
 					<MediaRefs>
 						<MediaRef Id="659850033"/>
 					</MediaRefs>
 				</Event>
 			</Events>
+			<SwitchGroups>
+				<SwitchGroup Id="2385628198" Name="Footsteps">
+					<Switches>
+						<Switch Id="2195636714" Name="Dirt"/>
+					</Switches>
+				</SwitchGroup>
+			</SwitchGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{E5D8BD2D-6BC2-B959-B3DC-A41ECEE6F828}</FileHash>
+	<FileHash>{860F36C4-F7AC-B320-1154-EA4BC7ECA9A9}</FileHash>
 </SoundBanksInfo>

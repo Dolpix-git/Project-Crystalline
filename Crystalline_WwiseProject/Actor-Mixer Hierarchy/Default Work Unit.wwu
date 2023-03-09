@@ -67,7 +67,7 @@
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<Sound Name="PLY_LOCO_DIRT_FOOTSTEP_01" ID="{AC570686-51F9-47CE-B70A-D3FD595EE2F8}" ShortID="632592072">
+												<Sound Name="PLY_SFX_LOCO_FOOTSTEPS_DIRT_01" ID="{5CAAF49F-51DC-42BC-8212-9BE0102EF23C}" ShortID="500737481">
 													<ReferenceList>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{2E337954-BC83-4C5D-A497-6A21CF70B05D}"/>
@@ -77,19 +77,19 @@
 														</Reference>
 													</ReferenceList>
 													<ChildrenList>
-														<AudioFileSource Name="PLY_LOCO_DIRT_FOOTSTEP_01" ID="{2340B30B-5AC0-4E62-BBFF-BBFFED222E7F}">
+														<AudioFileSource Name="PLY_SFX_LOCO_FOOTSTEPS_DIRT_01" ID="{AA61027A-FED5-4B0B-8E53-BEF8D71F2110}">
 															<Language>SFX</Language>
-															<AudioFile>PLY_LOCO_DIRT_FOOTSTEP_01.wav</AudioFile>
+															<AudioFile>PLY_SFX_LOCO_FOOTSTEPS_DIRT_01.wav</AudioFile>
 															<MediaIDList>
-																<MediaID ID="835588288"/>
+																<MediaID ID="699467187"/>
 															</MediaIDList>
 														</AudioFileSource>
 													</ChildrenList>
 													<ActiveSourceList>
-														<ActiveSource Name="PLY_LOCO_DIRT_FOOTSTEP_01" ID="{2340B30B-5AC0-4E62-BBFF-BBFFED222E7F}" Platform="Linked"/>
+														<ActiveSource Name="PLY_SFX_LOCO_FOOTSTEPS_DIRT_01" ID="{AA61027A-FED5-4B0B-8E53-BEF8D71F2110}" Platform="Linked"/>
 													</ActiveSourceList>
 												</Sound>
-												<Sound Name="PLY_LOCO_DIRT_FOOTSTEP_02" ID="{654B877B-6DEE-4F27-B5D8-B0904CF0E6EA}" ShortID="341237320">
+												<Sound Name="PLY_SFX_LOCO_FOOTSTEPS_DIRT_02" ID="{966E1CEB-5A31-4BFF-8DB6-A5DACA3F11C7}" ShortID="815007181">
 													<ReferenceList>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{2E337954-BC83-4C5D-A497-6A21CF70B05D}"/>
@@ -99,19 +99,19 @@
 														</Reference>
 													</ReferenceList>
 													<ChildrenList>
-														<AudioFileSource Name="PLY_LOCO_DIRT_FOOTSTEP_02" ID="{A06004CF-944C-4D10-BC98-5A1369E557BD}">
+														<AudioFileSource Name="PLY_SFX_LOCO_FOOTSTEPS_DIRT_02" ID="{7FF0B181-2B5A-491B-9F3C-A4E138F0E659}">
 															<Language>SFX</Language>
-															<AudioFile>PLY_LOCO_DIRT_FOOTSTEP_02.wav</AudioFile>
+															<AudioFile>PLY_SFX_LOCO_FOOTSTEPS_DIRT_02.wav</AudioFile>
 															<MediaIDList>
-																<MediaID ID="1034483636"/>
+																<MediaID ID="139344530"/>
 															</MediaIDList>
 														</AudioFileSource>
 													</ChildrenList>
 													<ActiveSourceList>
-														<ActiveSource Name="PLY_LOCO_DIRT_FOOTSTEP_02" ID="{A06004CF-944C-4D10-BC98-5A1369E557BD}" Platform="Linked"/>
+														<ActiveSource Name="PLY_SFX_LOCO_FOOTSTEPS_DIRT_02" ID="{7FF0B181-2B5A-491B-9F3C-A4E138F0E659}" Platform="Linked"/>
 													</ActiveSourceList>
 												</Sound>
-												<Sound Name="PLY_LOCO_DIRT_FOOTSTEP_03" ID="{65FB87E0-C117-4F25-966D-361E26F5CD46}" ShortID="64441286">
+												<Sound Name="PLY_SFX_LOCO_FOOTSTEPS_DIRT_03" ID="{F7A08665-5D9D-4191-81D3-00827DAAF8D5}" ShortID="407058366">
 													<ReferenceList>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{2E337954-BC83-4C5D-A497-6A21CF70B05D}"/>
@@ -121,19 +121,19 @@
 														</Reference>
 													</ReferenceList>
 													<ChildrenList>
-														<AudioFileSource Name="PLY_LOCO_DIRT_FOOTSTEP_03" ID="{5BB4DE5F-9403-43A7-97B5-82F7319B70F5}">
+														<AudioFileSource Name="PLY_SFX_LOCO_FOOTSTEPS_DIRT_03" ID="{D12314EC-DBC2-4DDD-9A4F-A9BB9D0D60CC}">
 															<Language>SFX</Language>
-															<AudioFile>PLY_LOCO_DIRT_FOOTSTEP_03.wav</AudioFile>
+															<AudioFile>PLY_SFX_LOCO_FOOTSTEPS_DIRT_03.wav</AudioFile>
 															<MediaIDList>
-																<MediaID ID="408102827"/>
+																<MediaID ID="586929104"/>
 															</MediaIDList>
 														</AudioFileSource>
 													</ChildrenList>
 													<ActiveSourceList>
-														<ActiveSource Name="PLY_LOCO_DIRT_FOOTSTEP_03" ID="{5BB4DE5F-9403-43A7-97B5-82F7319B70F5}" Platform="Linked"/>
+														<ActiveSource Name="PLY_SFX_LOCO_FOOTSTEPS_DIRT_03" ID="{D12314EC-DBC2-4DDD-9A4F-A9BB9D0D60CC}" Platform="Linked"/>
 													</ActiveSourceList>
 												</Sound>
-												<Sound Name="PLY_LOCO_DIRT_FOOTSTEP_04" ID="{E4F38298-EB50-4CCF-97A2-1EB151344B9B}" ShortID="65547982">
+												<Sound Name="PLY_SFX_LOCO_FOOTSTEPS_DIRT_04" ID="{01346E02-3612-4C1E-AABC-4297F8BA34E0}" ShortID="14129102">
 													<ReferenceList>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{2E337954-BC83-4C5D-A497-6A21CF70B05D}"/>
@@ -143,16 +143,16 @@
 														</Reference>
 													</ReferenceList>
 													<ChildrenList>
-														<AudioFileSource Name="PLY_LOCO_DIRT_FOOTSTEP_04" ID="{DF465041-567A-4830-92B7-27114313043F}">
+														<AudioFileSource Name="PLY_SFX_LOCO_FOOTSTEPS_DIRT_04" ID="{33759588-AE62-4188-8598-C6EB0E2EE349}">
 															<Language>SFX</Language>
-															<AudioFile>PLY_LOCO_DIRT_FOOTSTEP_04.wav</AudioFile>
+															<AudioFile>PLY_SFX_LOCO_FOOTSTEPS_DIRT_04.wav</AudioFile>
 															<MediaIDList>
-																<MediaID ID="948722513"/>
+																<MediaID ID="550998752"/>
 															</MediaIDList>
 														</AudioFileSource>
 													</ChildrenList>
 													<ActiveSourceList>
-														<ActiveSource Name="PLY_LOCO_DIRT_FOOTSTEP_04" ID="{DF465041-567A-4830-92B7-27114313043F}" Platform="Linked"/>
+														<ActiveSource Name="PLY_SFX_LOCO_FOOTSTEPS_DIRT_04" ID="{33759588-AE62-4188-8598-C6EB0E2EE349}" Platform="Linked"/>
 													</ActiveSourceList>
 												</Sound>
 											</ChildrenList>

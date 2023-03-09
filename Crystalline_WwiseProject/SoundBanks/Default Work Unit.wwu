@@ -6,13 +6,14 @@
 				<SoundBank Name="Play_C_Atmo" ID="{EFF7EC42-F5D0-4613-A385-10F597FAD409}">
 					<ObjectInclusionList>
 						<ObjectRef Name="Play_C_atmoAmb" ID="{66AD943D-2916-4432-90BF-8F0216350E60}" WorkUnitID="{E14E9742-CD06-4BD6-8120-F90CD49FEE48}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Dirt" ID="{DB05445C-E1C7-480F-BFC6-F6C580AC8571}" WorkUnitID="{D9C0B92D-FEDB-44A8-AF23-D93A852198CF}" Origin="Manual" Filter="7"/>
 					</ObjectInclusionList>
 					<ObjectExclusionList/>
 					<GameSyncExclusionList/>
 				</SoundBank>
-				<SoundBank Name="Footsteps" ID="{995133C4-1566-4FBA-A273-421A58B2A216}">
+				<SoundBank Name="Footsteps" ID="{328C8F51-ACD3-4797-A844-3165F4BC7664}">
 					<ObjectInclusionList>
-						<ObjectRef Name="Footsteps" ID="{A0AD4B35-393B-47A8-BD6A-55B539AC79EA}" WorkUnitID="{E14E9742-CD06-4BD6-8120-F90CD49FEE48}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Dirt" ID="{DB05445C-E1C7-480F-BFC6-F6C580AC8571}" WorkUnitID="{D9C0B92D-FEDB-44A8-AF23-D93A852198CF}" Origin="Manual" Filter="7"/>
 					</ObjectInclusionList>
 					<ObjectExclusionList/>
 					<GameSyncExclusionList/>

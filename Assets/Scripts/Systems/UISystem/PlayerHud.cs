@@ -41,10 +41,12 @@ public class PlayerHud : MonoBehaviour{
 
 
     private void Instance_OnPlayerClentConnected(FishNet.Object.NetworkObject obj) {
-        if (obj.Owner == InstanceFinder.ClientManager.Connection) {
-            if (PlayerManager.Instance.players.ContainsKey(InstanceFinder.ClientManager.Connection)) {
-                PlayerManager.Instance.players[InstanceFinder.ClientManager.Connection].GetComponent<Health>().OnHealthChanged += PlayerHud_OnHealthChanged;
-            }
+        if (obj.Owner != InstanceFinder.ClientManager.Connection) return;
+
+        if (PlayerManager.Instance.players.ContainsKey(InstanceFinder.ClientManager.Connection)) {
+            PlayerManager.Instance.players[InstanceFinder.ClientManager.Connection].GetComponent<Health>().OnHealthChanged += PlayerHud_OnHealthChanged;
+        } else {
+            CustomLogger.LogWarning($"Tried to get a player and they were not in the list of players Conn:{InstanceFinder.ClientManager.Connection}");
         }
     }
     private void PlayerHud_OnHealthChanged(int arg1, int arg2, int arg3) {
