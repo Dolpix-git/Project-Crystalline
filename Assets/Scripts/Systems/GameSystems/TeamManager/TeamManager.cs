@@ -27,6 +27,11 @@ public class TeamManager : NetworkBehaviour {
 
 
     private void Awake() {
+        if (_instance != null && _instance != this) {
+            Destroy(this);
+        } else {
+            _instance = this;
+        }
         PlayerEventManager.Instance.OnPlayerConnected += Instance_OnPlayerConnected;
         PlayerEventManager.Instance.OnPlayerDisconnected += Instance_OnPlayerDisconnected;
         RoundEventManager.Instance.OnRoundEnd += Instance_OnRoundEnd;
@@ -41,12 +46,17 @@ public class TeamManager : NetworkBehaviour {
     }
 
     private void Instance_OnRoundEnd(Teams team) {
-        CustomLogger.Log(LogCategories.SystTeamManager, $"Giving a point to {team}");
+        if (!base.IsServer) { return; }
+        CustomLogger.Log(LogCategories.SystTeamManager, $"Giving a point to {team} client?{base.IsClient} server?{base.IsServer}");
         if (team == Teams.TeamOne || team == Teams.TeamTwo) {
-            TeamData teamD = teamsDict[team];
-            teamD.points++;
-            teamsDict[team] = teamD;
-            teamsDict.Dirty(team);
+            CustomLogger.Log(LogCategories.SystTeamManager, $"Length {teamsDict.Count} Team one:{teamsDict.ContainsKey(Teams.TeamOne)} Team two:{teamsDict.ContainsKey(Teams.TeamTwo)}");
+            if (teamsDict.ContainsKey(Teams.TeamOne) && teamsDict.ContainsKey(Teams.TeamTwo)) {
+
+                TeamData teamD = teamsDict[team];
+                teamD.points++;
+                teamsDict[team] = teamD;
+                teamsDict.Dirty(team);
+            }
         }
     }
     private void Instance_OnPlayerConnected(NetworkConnection obj) {
@@ -106,6 +116,8 @@ public class TeamManager : NetworkBehaviour {
 
         teamsDict.Add(Teams.TeamTwo, teamTwo);
         teamsDict.Dirty(Teams.TeamTwo);
+
+        CustomLogger.Log(LogCategories.SystEventManager, $"Length of teams: {teamsDict.Count}");
 
         NetworkConnection[] arrayOfPlayers = Shuffle(playerTeams.Keys.ToArray());
         for (int i = 0; i < arrayOfPlayers.Length; i++) {
@@ -204,5 +216,16 @@ public class TeamManager : NetworkBehaviour {
             }
         }
         return true;
+    }
+    public int CheckRemainingTeamMembers(Teams team) {
+        int count = 0;
+        foreach (NetworkConnection player in playerTeams.Keys) {
+            if (playerTeams[player] == team) {
+                if (!PlayerManager.Instance.players[player].GetComponent<Health>().IsDead) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 }

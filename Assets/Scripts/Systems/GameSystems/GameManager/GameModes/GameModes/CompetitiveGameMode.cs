@@ -9,8 +9,7 @@ public class CompetitiveGameMode : BaseGameMode {
     #region Private.
     private bool roundInProgress;
 
-    [SyncObject]
-    private readonly SyncTimer gameTimer = new SyncTimer();
+
 
     private bool timerCompleted;
     private bool defenderObjective, attackerObjective;
@@ -29,7 +28,7 @@ public class CompetitiveGameMode : BaseGameMode {
     #region Setup and Destroy.
     public override void OnStartServer() {
         base.OnStartServer();
-        gameTimer.OnChange += timeRemaining_OnChange;
+        GameManager.Instance.gameTimer.OnChange += timeRemaining_OnChange;
         ObjectiveEventManager.Instance.OnObjectiveComplete += Instance_OnObjectiveComplete; 
         ObjectiveEventManager.Instance.OnObjectiveStarted += Instance_OnObjectiveStarted;
         PlayerEventManager.Instance.OnPlayerConnected += Instance_OnPlayerConnected;
@@ -37,13 +36,14 @@ public class CompetitiveGameMode : BaseGameMode {
     }
     public override void OnStopServer() {
         base.OnStopServer();
-        gameTimer.OnChange -= timeRemaining_OnChange;
+        GameManager.Instance.gameTimer.OnChange -= timeRemaining_OnChange;
         ObjectiveEventManager.Instance.OnObjectiveComplete -= Instance_OnObjectiveComplete;
         ObjectiveEventManager.Instance.OnObjectiveStarted -= Instance_OnObjectiveStarted;
         PlayerEventManager.Instance.OnPlayerConnected -= Instance_OnPlayerConnected;
         PlayerEventManager.Instance.OnPlayerDeath -= Instance_OnPlayerDeath;
     }
     #endregion
+
     #region Games.
     public override void EndGame() {
         CustomLogger.Log(LogCategories.Game, "Game End");
@@ -86,14 +86,14 @@ public class CompetitiveGameMode : BaseGameMode {
         // Give A player the spike
         GiveSpikeToRandomPlayer();
         // Start the timer
-        gameTimer.StartTimer(roundTime, true);
+        GameManager.Instance.gameTimer.StartTimer(roundTime, true);
     }
     private void EndRound() {
         CustomLogger.Log(LogCategories.Round, "Round End");
         roundInProgress = false;
         // Clean up
         defenderWipe = attackerWipe = timerCompleted = defenderObjective = attackerObjective = false;
-        gameTimer.StopTimer();
+        GameManager.Instance.gameTimer.StopTimer();
         IRound[] roundOb = FindObjectsOfType<MonoBehaviour>().OfType<IRound>().ToArray();
         foreach (var ob in roundOb) {
             ob.RoundEnded();
@@ -122,11 +122,7 @@ public class CompetitiveGameMode : BaseGameMode {
 
 
     private void Update() {
-        gameTimer.Update(Time.deltaTime);
-
-        if (!gameTimer.Paused) {
-            timeRemaning = gameTimer.Remaining;
-        }
+        GameManager.Instance.gameTimer.Update(Time.deltaTime);
 
         if (!roundInProgress || !base.IsServer) { return; }
 
@@ -149,7 +145,7 @@ public class CompetitiveGameMode : BaseGameMode {
     private void Instance_OnObjectiveStarted(Teams arg1, NetworkConnection arg2) {
         if (!base.IsServer) { return; }
         CustomLogger.Log(LogCategories.Round, "Timer stoped");
-        gameTimer.PauseTimer();
+        GameManager.Instance.gameTimer.PauseTimer();
     }
 
     private void Instance_OnObjectiveComplete(Teams team, NetworkConnection arg2) {
@@ -195,34 +191,4 @@ public class CompetitiveGameMode : BaseGameMode {
         }
     }
     #endregion
-
-
-
-
-    float timeRemaning;
-
-    private GUIStyle _style = new GUIStyle();
-    private void OnGUI() {
-        //No need to perform these actions on server.
-#if !UNITY_EDITOR && UNITY_SERVER
-            return;
-#endif
-
-        //Only clients can see pings.
-        if (!InstanceFinder.IsClient)
-            return;
-
-        _style.normal.textColor = Color.white;
-        _style.fontSize = 15;
-        float width = 85f;
-        float height = 15f;
-        float edge = 10f;
-
-        float horizontal = (Screen.width * 0.5f) - width - edge;
-        float vertical = 10f;
-
-        GUI.Label(new Rect(horizontal, vertical, width, height), $"GameTime: {timeRemaning} ", _style);
-        //GUI.Label(new Rect(horizontal, 30, width, height), $"Attackers points: {TeamManager.Instance.teamsDict[TeamManager.Instance.GetTeamFromObjective(Objectives.Attackers)].points} Defenders points: {TeamManager.Instance.teamsDict[TeamManager.Instance.GetTeamFromObjective(Objectives.Defenders)].points}", _style);
-        //GUI.Label(new Rect(horizontal, 50, width, height), $"Attackers left: {AttackerTeam.GetNumAlive()} Defenders left: {DefenderTeam.GetNumAlive()}", _style);
-    }
 }

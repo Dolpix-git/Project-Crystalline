@@ -1,4 +1,5 @@
 using FishNet.Object;
+using FishNet.Object.Synchronizing;
 using UnityEngine;
 
 public class GameManager : NetworkBehaviour{
@@ -18,6 +19,9 @@ public class GameManager : NetworkBehaviour{
     }
 
     [SerializeField] private BaseGameMode gameMode;
+
+    [SyncObject]
+    public readonly SyncTimer gameTimer = new SyncTimer();
 
     private bool stoppingServer;
 

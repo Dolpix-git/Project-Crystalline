@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerFallingState : PlayerBaseState{
@@ -15,19 +13,20 @@ public class PlayerFallingState : PlayerBaseState{
         CheckSwitchStates();
     }
     public override void ExitState() { }
-    public override void CheckSwitchStates() {
-        // Check if grounded if so then change root to grounded
-        if (Ctx.OnGround) {
-            SwitchState(Cashe.Grounded());
-        }
-    }
     public override void InitiatizeSubState() {
         if (Ctx.MoveData.Movement.magnitude != 0 && Ctx.MoveData.Sprint){
             SetSubState(Cashe.Run());
-        }else if (Ctx.MoveData.Movement.magnitude != 0){
+        } else if (Ctx.MoveData.Movement.magnitude != 0){
             SetSubState(Cashe.Walk());
-        }else{
+        } else {
             SetSubState(Cashe.Idle());
+        }
+    }
+    public override void CheckSwitchStates() {
+        if (Ctx.MoveData.Jump && Ctx.OnGround) {
+            SwitchState(Cashe.Jump());
+        } else if (Ctx.OnGround) {
+            SwitchState(Cashe.Grounded());
         }
     }
     public override PlayerStates PlayerState() {

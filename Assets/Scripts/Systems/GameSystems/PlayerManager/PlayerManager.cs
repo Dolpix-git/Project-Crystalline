@@ -123,7 +123,7 @@ public class PlayerManager : NetworkBehaviour {
     private void ServerManager_OnRemoteConnectionState(NetworkConnection conn, RemoteConnectionStateArgs args) {
         if (args.ConnectionState == RemoteConnectionState.Stopped) {
             CustomLogger.Log(LogCategories.PlayerManager, args.ConnectionState);
-            PlayerEventManager.Instance.InvokePlayerdisconnected(conn);
+            PlayerEventManager.Instance.InvokePlayerDisconnected(conn);
             players.Remove(conn);
         }
     }

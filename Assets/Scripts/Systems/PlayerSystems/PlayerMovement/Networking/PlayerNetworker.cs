@@ -25,6 +25,8 @@ public class PlayerNetworker : NetworkBehaviour {
     private Rigidbody rigidBody;
     private CapsuleCollider capsuleCollider;
     private PlayerStateMachine playerStateMachine;
+    private PlayerEffects playerEffects;
+    private Health playerHealth;
 
     private bool canMove = true;
 
@@ -43,15 +45,18 @@ public class PlayerNetworker : NetworkBehaviour {
     public CapsuleCollider CapsuleCollider { get => capsuleCollider; set => capsuleCollider = value; }
     public Transform VisualTransform { get => visualTransform; set => visualTransform = value; }
     public PlayerMoveData LastMove { get => lastMove; }
+    public PlayerEffects PlayerEffects { get => playerEffects; }
     #endregion
 
 
     #region Start up.
     private void Awake() {
-        rigidBody = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
+        playerEffects = GetComponent<PlayerEffects>();
+        rigidBody = GetComponent<Rigidbody>();
+        playerHealth = GetComponent<Health>();
         playerStateMachine = new PlayerStateMachine(this);
-        Health playerHealth = GetComponent<Health>();
+
         playerHealth.OnDeath += OnDeath;
         playerHealth.OnRespawned += OnRespawned;
         playerHealth.OnDisabled += OnDisabled;
@@ -66,10 +71,10 @@ public class PlayerNetworker : NetworkBehaviour {
         }
     }
     private void OnDestroy() {
-        Health playerHealth = GetComponent<Health>();
         playerHealth.OnDeath -= OnDeath;
         playerHealth.OnRespawned -= OnRespawned;
         playerHealth.OnDisabled -= OnDisabled;
+
         if (InstanceFinder.TimeManager is not null && InstanceFinder.PredictionManager is not null) {
             InstanceFinder.PredictionManager.OnPreReconcile -= PredictionManager_OnPreReconcile;
             InstanceFinder.PredictionManager.OnPostReconcile -= PredictionManager_OnPostReconcile;
@@ -155,7 +160,7 @@ public class PlayerNetworker : NetworkBehaviour {
     }
     private void TimeManager_OnPostTick() {
         if (base.IsServer) {
-            PlayerReconcileData rd = new PlayerReconcileData(transform.position, transform.rotation, rigidBody.velocity, rigidBody.angularVelocity, playerStateMachine.CurrentState.PlayerState(), playerStateMachine.CurrentState.CurrentSubState.PlayerState());
+            PlayerReconcileData rd = new PlayerReconcileData(transform.position, transform.rotation, rigidBody.velocity, rigidBody.angularVelocity, capsuleCollider.center, capsuleCollider.height, playerStateMachine.CurrentState.PlayerState(), playerStateMachine.CurrentState.CurrentSubState.PlayerState());
             ObserversSendState(lastMove, rd);
             Reconciliation(rd, true);
         }
@@ -187,6 +192,8 @@ public class PlayerNetworker : NetworkBehaviour {
         transform.rotation = rd.Rotation;
         rigidBody.velocity = rd.Velocity;
         rigidBody.angularVelocity = rd.AngularVelocity;
+        capsuleCollider.center = rd.ColliderCenter;
+        capsuleCollider.height = rd.ColliderHeight;
         playerStateMachine.CurrentState = playerStateMachine.States.GetState(rd.SuperPlayerState);
         playerStateMachine.CurrentState.EnterState();
         playerStateMachine.CurrentState.SetSubStateReconsile(rd.SubPlayerState);

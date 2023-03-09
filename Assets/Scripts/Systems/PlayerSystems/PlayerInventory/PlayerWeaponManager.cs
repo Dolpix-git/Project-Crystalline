@@ -147,33 +147,4 @@ public class PlayerWeaponManager : NetworkBehaviour {
         }
     }
     #endregion
-
-
-
-    #region OnGUI.
-    /// <summary>
-    /// Will be removed or relocated for logging
-    /// </summary>
-    private GUIStyle _style = new GUIStyle();
-    private void OnGUI() {
-        //No need to perform these actions on server.
-#if !UNITY_EDITOR && UNITY_SERVER
-            return;
-#endif
-
-        //Only clients can see pings.
-        if (!base.IsOwner)
-            return;
-
-        _style.normal.textColor = Color.white;
-        _style.fontSize = 15;
-        float width = 85f;
-        float height = 15f;
-        float edge = 10f;
-
-        float horizontal = (Screen.width * 0.5f) - width - edge;
-
-        GUI.Label(new Rect(horizontal, 90, width, height), $"Spike: {hasSpike}", _style);
-    }
-    #endregion
 }

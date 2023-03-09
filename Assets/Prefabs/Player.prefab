@@ -43,10 +43,11 @@ GameObject:
   - component: {fileID: 5162187385007901065}
   - component: {fileID: 5162187385007901066}
   - component: {fileID: 890095907401492723}
+  - component: {fileID: 901988388494858577}
   - component: {fileID: 1882312147218659704}
   - component: {fileID: 7095002559478580514}
   - component: {fileID: 8004145175360252860}
-  - component: {fileID: 901988388494858577}
+  - component: {fileID: -9088385742316106720}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -86,10 +87,11 @@ MonoBehaviour:
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours:
+  - {fileID: 901988388494858577}
   - {fileID: 1882312147218659704}
   - {fileID: 7095002559478580514}
   - {fileID: 8004145175360252860}
-  - {fileID: 0}
+  - {fileID: -9088385742316106720}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
@@ -130,10 +132,26 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: 0d957029773f1e64ab2ed410db9a3399, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.2
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &901988388494858577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4870035923611722996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87a3baef4e75e2d45963580966df8ece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 5162187385007901065}
+  _networkObjectCache: {fileID: 5162187385007901065}
+  head: {fileID: 6770776063968730071}
 --- !u!114 &1882312147218659704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec00af0a05175764db04df6b6ccbccaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
+  _componentIndexCache: 1
   _addedNetworkObject: {fileID: 5162187385007901065}
   _networkObjectCache: {fileID: 5162187385007901065}
   visualTransform: {fileID: 4870035924695137484}
@@ -163,7 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 735dca7daab6096418e504f569b50aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 1
+  _componentIndexCache: 2
   _addedNetworkObject: {fileID: 5162187385007901065}
   _networkObjectCache: {fileID: 5162187385007901065}
   throable: {fileID: 4560890644814375177, guid: d52b995c0b1d6994f82e64b8457c9c74,
@@ -184,13 +202,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbacd7be58d81a14682d6c1f23767faa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 2
+  _componentIndexCache: 3
   _addedNetworkObject: {fileID: 5162187385007901065}
   _networkObjectCache: {fileID: 5162187385007901065}
   baseHealth: 100
   currentHealth: 0
   isDisabled: 0
---- !u!114 &901988388494858577
+--- !u!114 &-9088385742316106720
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -199,13 +217,52 @@ MonoBehaviour:
   m_GameObject: {fileID: 4870035923611722996}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87a3baef4e75e2d45963580966df8ece, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b32648e4a77fef4393939ad13896f90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 4
   _addedNetworkObject: {fileID: 5162187385007901065}
-  _networkObjectCache: {fileID: 0}
-  head: {fileID: 6770776063968730071}
+  _networkObjectCache: {fileID: 5162187385007901065}
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  probeDistance: 0.3
+  maxSnapSpeed: 100
+  maxSlope: 40
+  idleGroundAcc: 90
+  idleAirAcc: 10
+  walkingGroundAcc: 90
+  walkingAirAcc: 10
+  walkingMaxSpeed: 3.5
+  walkigSpeedClamp:
+    x: -10
+    y: 10
+    z: -10
+    w: 10
+  runningGroundAcc: 90
+  runningAirAcc: 10
+  runningMaxSpeed: 7
+  runningSpeedClamp:
+    x: -10
+    y: 10
+    z: -10
+    w: 10
+  crouchGroundAcc: 90
+  crouchAirAcc: 10
+  crouchMaxSpeed: 2.5
+  crouchSpeedClamp:
+    x: -10
+    y: 10
+    z: -10
+    w: 10
+  slidingGroundAcc: 90
+  slidingAirAcc: 10
+  slidingMaxSpeed: 7
+  slidingSpeedClamp:
+    x: -10
+    y: 10
+    z: -10
+    w: 10
 --- !u!1 &4870035923714307969
 GameObject:
   m_ObjectHideFlags: 0

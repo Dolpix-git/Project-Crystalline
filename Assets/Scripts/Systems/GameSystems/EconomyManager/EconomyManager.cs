@@ -31,6 +31,12 @@ public class EconomyManager : NetworkBehaviour {
     private readonly SyncDictionary<NetworkConnection, int> playerEconomy = new SyncDictionary<NetworkConnection, int>();
 
     private void Awake() {
+        if (_instance != null && _instance != this) {
+            Destroy(this);
+        } else {
+            _instance = this;
+        }
+
         GameEventManager.Instance.OnGameStart += Instance_OnGameStart;
         GameEventManager.Instance.OnGameEnd += Instance_OnGameEnd;
         RoundEventManager.Instance.OnRoundEnd += Instance_OnRoundEnd;

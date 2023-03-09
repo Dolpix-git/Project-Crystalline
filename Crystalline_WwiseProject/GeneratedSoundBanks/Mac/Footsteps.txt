@@ -1,0 +1,15 @@
+Event	ID	Name			Wwise Object Path	Notes
+	2385628198	Footsteps			\Default Work Unit\Footsteps	
+
+Switch Group	ID	Name			Wwise Object Path	Notes
+	2385628198	Footsteps			\Default Work Unit\Footsteps	
+
+Switch	ID	Name	Switch Group			Notes
+	2195636714	Dirt	Footsteps			
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	408102827	PLY_LOCO_DIRT_FOOTSTEP_03	X:\RiskProjects\Crystalline\Crystalline_WwiseProject\.cache\Mac\SFX\PLY_LOCO_DIRT_FOOTSTEP_03_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Player\Locomotion\Footstpes\Dirt\PLY_LOCO_DIRT_FOOTSTEP_03		0
+	835588288	PLY_LOCO_DIRT_FOOTSTEP_01	X:\RiskProjects\Crystalline\Crystalline_WwiseProject\.cache\Mac\SFX\PLY_LOCO_DIRT_FOOTSTEP_01_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Player\Locomotion\Footstpes\Dirt\PLY_LOCO_DIRT_FOOTSTEP_01		0
+	948722513	PLY_LOCO_DIRT_FOOTSTEP_04	X:\RiskProjects\Crystalline\Crystalline_WwiseProject\.cache\Mac\SFX\PLY_LOCO_DIRT_FOOTSTEP_04_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Player\Locomotion\Footstpes\Dirt\PLY_LOCO_DIRT_FOOTSTEP_04		0
+	1034483636	PLY_LOCO_DIRT_FOOTSTEP_02	X:\RiskProjects\Crystalline\Crystalline_WwiseProject\.cache\Mac\SFX\PLY_LOCO_DIRT_FOOTSTEP_02_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Player\Locomotion\Footstpes\Dirt\PLY_LOCO_DIRT_FOOTSTEP_02		0
+

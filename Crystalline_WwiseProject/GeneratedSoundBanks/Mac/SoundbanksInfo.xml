@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{F56A610C-C7C4-F874-B68B-7ADDF94EBB7A}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{075B4A12-52B7-E76B-853D-0A8DBA8FD85C}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -19,9 +19,115 @@
 				</AudioDevices>
 			</Plugins>
 			<Busses>
+				<Bus Id="82043516" Name="Ambience3D"/>
+				<Bus Id="412198653" Name="AmbientBeds2D"/>
+				<Bus Id="674522502" Name="Land"/>
+				<Bus Id="1182634443" Name="AmbientBeds"/>
+				<Bus Id="1459460693" Name="AmbientMaster"/>
+				<Bus Id="1656947812" Name="PlayerDeath"/>
+				<Bus Id="2169369406" Name="PlayerAttack"/>
+				<Bus Id="2343802269" Name="PlayerLocomotion"/>
+				<Bus Id="2385628198" Name="Footsteps"/>
+				<Bus Id="3216143520" Name="PlayerHeal"/>
+				<Bus Id="3537581393" Name="PlayerHurt"/>
+				<Bus Id="3538689948" Name="PlayerMaster"/>
+				<Bus Id="3686556480" Name="Slide"/>
 				<Bus Id="3803692087" Name="Master Audio Bus"/>
+				<Bus Id="3833651337" Name="Jump"/>
+				<Bus Id="3950933845" Name="Ambient2D"/>
 			</Busses>
+			<AuxBusses>
+				<AuxBus Id="144697359" Name="Outdoor">
+					<AuxBusRefs>
+						<AuxBusRef Id="3545700988" Name="Reverbs"/>
+					</AuxBusRefs>
+				</AuxBus>
+				<AuxBus Id="187046019" Name="LargeRoom">
+					<AuxBusRefs>
+						<AuxBusRef Id="3545700988" Name="Reverbs"/>
+					</AuxBusRefs>
+				</AuxBus>
+				<AuxBus Id="2933838247" Name="SmallRoom">
+					<AuxBusRefs>
+						<AuxBusRef Id="3545700988" Name="Reverbs"/>
+					</AuxBusRefs>
+				</AuxBus>
+				<AuxBus Id="3545700988" Name="Reverbs"/>
+				<AuxBus Id="4122393694" Name="Cave">
+					<AuxBusRefs>
+						<AuxBusRef Id="3545700988" Name="Reverbs"/>
+					</AuxBusRefs>
+				</AuxBus>
+			</AuxBusses>
+			<SwitchGroups>
+				<SwitchGroup Id="2385628198" Name="Footsteps">
+					<Switches>
+						<Switch Id="2195636714" Name="Dirt"/>
+					</Switches>
+				</SwitchGroup>
+			</SwitchGroups>
+		</SoundBank>
+		<SoundBank Id="2385628198" Type="User" Language="SFX" Hash="{2ECE66F5-1AA2-729E-6AAE-BF66B956FA24}">
+			<ShortName>Footsteps</ShortName>
+			<Path>Footsteps.bnk</Path>
+			<Media>
+				<File Id="408102827" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PLY_LOCO_DIRT_FOOTSTEP_03.wav</ShortName>
+					<CachePath>SFX/PLY_LOCO_DIRT_FOOTSTEP_03_10C4C929.wem</CachePath>
+				</File>
+				<File Id="835588288" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PLY_LOCO_DIRT_FOOTSTEP_01.wav</ShortName>
+					<CachePath>SFX/PLY_LOCO_DIRT_FOOTSTEP_01_10C4C929.wem</CachePath>
+				</File>
+				<File Id="948722513" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PLY_LOCO_DIRT_FOOTSTEP_04.wav</ShortName>
+					<CachePath>SFX/PLY_LOCO_DIRT_FOOTSTEP_04_10C4C929.wem</CachePath>
+				</File>
+				<File Id="1034483636" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PLY_LOCO_DIRT_FOOTSTEP_02.wav</ShortName>
+					<CachePath>SFX/PLY_LOCO_DIRT_FOOTSTEP_02_10C4C929.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="2385628198" Name="Footsteps" DurationType="OneShot" DurationMin="0" DurationMax="0">
+					<SwitchContainers>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="2385628198" Id="2195636714" Default="true"/>
+							<MediaRefs>
+								<MediaRef Id="408102827"/>
+								<MediaRef Id="835588288"/>
+								<MediaRef Id="948722513"/>
+								<MediaRef Id="1034483636"/>
+							</MediaRefs>
+						</SwitchContainer>
+					</SwitchContainers>
+				</Event>
+			</Events>
+			<SwitchGroups>
+				<SwitchGroup Id="2385628198" Name="Footsteps">
+					<Switches>
+						<Switch Id="2195636714" Name="Dirt"/>
+					</Switches>
+				</SwitchGroup>
+			</SwitchGroups>
+		</SoundBank>
+		<SoundBank Id="4249302535" Type="User" Language="SFX" Hash="{035F3014-6464-A817-CE43-509AE541BAF8}">
+			<ShortName>Play_C_Atmo</ShortName>
+			<Path>Play_C_Atmo.bnk</Path>
+			<Media>
+				<File Id="659850033" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>C atmoAmb.wav</ShortName>
+					<CachePath>SFX/C atmoAmb_10C4C929.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="3940056561" Name="Play_C_atmoAmb" DurationType="OneShot" DurationMin="0" DurationMax="0">
+					<MediaRefs>
+						<MediaRef Id="659850033"/>
+					</MediaRefs>
+				</Event>
+			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{85FB997E-979E-429B-B6F1-CF88BB808457}</FileHash>
+	<FileHash>{25B802B7-C142-8353-3736-7FD1640AD6A1}</FileHash>
 </SoundBanksInfo>

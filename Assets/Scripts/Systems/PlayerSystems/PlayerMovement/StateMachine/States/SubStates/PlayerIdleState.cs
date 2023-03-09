@@ -1,21 +1,13 @@
 using UnityEngine;
 
 public class PlayerIdleState : PlayerBaseState{
-    #region Private.
-    /// <summary>
-    /// Velocity acceleration when grounded.
-    /// </summary>
-    private float groundAcc = 90;
-    /// <summary>
-    /// Velocity acceleration when not grounded.
-    /// </summary>
-    private float airAcc = 50;
-    #endregion
     public PlayerIdleState(PlayerStateMachine currentContext, PlayerStateCashe playerStateFactory) : base(currentContext, playerStateFactory){}
 
     #region States.
     public override void EnterState() { }
     public override void UpdateState() {
+        GDSSReturn();
+
         AdjustVelocity();
 
         CheckSwitchStates();
@@ -23,9 +15,13 @@ public class PlayerIdleState : PlayerBaseState{
     public override void ExitState() { }
     public override void InitiatizeSubState() { }
     public override void CheckSwitchStates() {
-        if (Ctx.MoveData.Movement.magnitude != 0 && Ctx.MoveData.Sprint){
+        if (Ctx.Velocity.magnitude >= Ctx.PlayerEffects.SlidingActivationSpeed && Ctx.MoveData.Crouch) {
+            SwitchState(Cashe.Sliding());
+        } else if (Ctx.MoveData.Crouch) {
+            SwitchState(Cashe.Crouching());
+        } else if (Ctx.MoveData.Movement.magnitude != 0 && Ctx.MoveData.Sprint){
             SwitchState(Cashe.Run());
-        }else if (Ctx.MoveData.Movement.magnitude != 0){
+        } else if (Ctx.MoveData.Movement.magnitude != 0){
             SwitchState(Cashe.Walk());
         }
     }
@@ -46,7 +42,7 @@ public class PlayerIdleState : PlayerBaseState{
         float currentX = Vector3.Dot(relativeVelocity, xAxis);
         float currentZ = Vector3.Dot(relativeVelocity, zAxis);
 
-        float acceleration = Ctx.OnGround ? groundAcc : airAcc;
+        float acceleration = Ctx.OnGround ? Ctx.PlayerEffects.IdleGroundAcc : Ctx.PlayerEffects.IdleAirAcc;
         float maxSpeedChange = acceleration * Ctx.TickDelta;
 
         Vector3 desiredVelocity = new Vector3(0, 0, 0);
@@ -55,6 +51,14 @@ public class PlayerIdleState : PlayerBaseState{
         float newZ = Mathf.MoveTowards(currentZ, desiredVelocity.z, maxSpeedChange);
 
         Ctx.Velocity += xAxis * (newX - currentX) + zAxis * (newZ - currentZ);
+    }
+    #endregion
+    #region GDSS.
+    void GDSSReturn() {
+        if (Ctx.PlayerCollider.height < Ctx.OriginalPlayerHeight) {
+            Ctx.PlayerCollider.height = Mathf.Min(Ctx.OriginalPlayerHeight, Ctx.PlayerCollider.height + Ctx.TickDelta * 5f);
+            Ctx.PlayerCollider.center = new Vector3(0, (Ctx.OriginalPlayerHeight - Ctx.PlayerCollider.height) * 0.5f, 0);
+        }
     }
     #endregion
 }

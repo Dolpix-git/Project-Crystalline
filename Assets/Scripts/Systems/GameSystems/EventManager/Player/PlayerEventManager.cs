@@ -29,11 +29,15 @@ public class PlayerEventManager {
         CustomLogger.Log(LogCategories.SystEventManager, $"Player connected {conn?.ClientId}");
         OnPlayerConnected?.Invoke(conn);
     }
+    /// <summary>
+    /// Exicutes on clients when a player connects.
+    /// </summary>
+    /// <param name="obj"></param>
     public void InvokePlayerClentConnected(NetworkObject obj) {
         CustomLogger.Log(LogCategories.SystEventManager, $"Player connected {obj}");
         OnPlayerClentConnected?.Invoke(obj);
     }
-    public void InvokePlayerdisconnected(NetworkConnection conn) {
+    public void InvokePlayerDisconnected(NetworkConnection conn) {
         CustomLogger.Log(LogCategories.SystEventManager, $"Player disconnected {conn?.ClientId}");
         OnPlayerDisconnected?.Invoke(conn);
     }

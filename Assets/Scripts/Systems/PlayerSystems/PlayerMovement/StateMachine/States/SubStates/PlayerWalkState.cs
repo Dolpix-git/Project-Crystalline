@@ -1,31 +1,15 @@
 using UnityEngine;
 using Unity.Mathematics;
 
-public class PlayerWalkState : PlayerBaseState{
-    #region Private.
-    /// <summary>
-    /// Velocity acceleration when grounded.
-    /// </summary>
-    private float groundAcc = 90;
-    /// <summary>
-    /// Velocity acceleration when not grounded.
-    /// </summary>
-    private float airAcc = 50;
-    /// <summary>
-    /// The max velocity of the player.
-    /// </summary>
-    private float maxSpeed = 3;
-    /// <summary>
-    /// A clamp on the movement in each direction (backward, forward, left, right)
-    /// Used to make going some directions faster than others, for example no running backward.
-    /// </summary>
-    private float4 speedClamp = new float4(-10, 10, -10, 10);
-    #endregion
+public class PlayerWalkState : PlayerBaseState {
     public PlayerWalkState(PlayerStateMachine currentContext, PlayerStateCashe playerStateFactory) : base(currentContext, playerStateFactory) { }
 
     #region States.
     public override void EnterState() { }
-    public override void UpdateState(){
+    public override void UpdateState() {
+        GDSSReturn();
+        GDSS();
+
         AdjustVelocity();
 
         CheckSwitchStates();
@@ -33,9 +17,13 @@ public class PlayerWalkState : PlayerBaseState{
     public override void ExitState() { }
     public override void InitiatizeSubState() { }
     public override void CheckSwitchStates() {
-        if (Ctx.MoveData.Movement.magnitude != 0 && Ctx.MoveData.Sprint){
+        if (Ctx.Velocity.magnitude >= Ctx.PlayerEffects.SlidingActivationSpeed && Ctx.MoveData.Crouch) {
+            SwitchState(Cashe.Sliding());
+        } else if (Ctx.MoveData.Crouch) {
+            SwitchState(Cashe.Crouching());
+        } else if (Ctx.MoveData.Movement.magnitude != 0 && Ctx.MoveData.Sprint) {
             SwitchState(Cashe.Run());
-        }else if(Ctx.MoveData.Movement.magnitude == 0){
+        } else if (Ctx.MoveData.Movement.magnitude == 0) {
             SwitchState(Cashe.Idle());
         }
     }
@@ -56,18 +44,44 @@ public class PlayerWalkState : PlayerBaseState{
         float currentX = Vector3.Dot(relativeVelocity, xAxis);
         float currentZ = Vector3.Dot(relativeVelocity, zAxis);
 
-        float acceleration = Ctx.OnGround ? groundAcc : airAcc;
+        float acceleration = Ctx.OnGround ? Ctx.PlayerEffects.WalkingGroundAcc : Ctx.PlayerEffects.WalkingAirAcc;
         float maxSpeedChange = acceleration * Ctx.TickDelta;
 
         Vector3 desiredVelocity = new Vector3(
-            Mathf.Clamp(Ctx.MoveData.Movement.x * maxSpeed, speedClamp.x, speedClamp.y), 
+            Mathf.Clamp(Ctx.MoveData.Movement.x * Ctx.PlayerEffects.WalkingMaxSpeed, Ctx.PlayerEffects.WalkigSpeedClamp.x, Ctx.PlayerEffects.WalkigSpeedClamp.y),
             0f,
-            Mathf.Clamp(Ctx.MoveData.Movement.y * maxSpeed, speedClamp.z, speedClamp.w));
+            Mathf.Clamp(Ctx.MoveData.Movement.y * Ctx.PlayerEffects.WalkingMaxSpeed, Ctx.PlayerEffects.WalkigSpeedClamp.z, Ctx.PlayerEffects.WalkigSpeedClamp.w));
 
         float newX = Mathf.MoveTowards(currentX, desiredVelocity.x, maxSpeedChange);
         float newZ = Mathf.MoveTowards(currentZ, desiredVelocity.z, maxSpeedChange);
 
         Ctx.Velocity += xAxis * (newX - currentX) + zAxis * (newZ - currentZ);
+    }
+    #endregion
+
+    #region GDSS.
+    void GDSS() {
+        RaycastHit ray;
+        Vector3 proJect = Ctx.RigidBody.velocity.normalized;
+        proJect.y = 0;
+        Vector3 playerProjected = Ctx.RigidBody.transform.position + (proJect * 0.15f) + Ctx.PlayerCollider.center;
+        if (Physics.SphereCast(playerProjected, 0.195f, Vector3.down, out ray, Ctx.OriginalPlayerHeight * 0.5f - 0.3f, Ctx.PlayerEffects.ProbeMask)) {
+            ChangeColliderHeight(Ctx.OriginalPlayerHeight * 0.5f - (ray.distance + 0.1f));
+        }
+    }
+    void ChangeColliderHeight(float a) {
+        Vector3 playerVel = Ctx.Velocity;
+        playerVel.y = Mathf.Max(4 * a, playerVel.y);
+        Ctx.Velocity = playerVel;
+
+        Ctx.PlayerCollider.height = Ctx.OriginalPlayerHeight - a;
+        Ctx.PlayerCollider.center = new Vector3(0, a * 0.5f, 0);
+    }
+    void GDSSReturn() {
+        if (Ctx.PlayerCollider.height < Ctx.OriginalPlayerHeight) {
+            Ctx.PlayerCollider.height = Mathf.Min(Ctx.OriginalPlayerHeight, Ctx.PlayerCollider.height + Ctx.TickDelta * 5f);
+            Ctx.PlayerCollider.center = new Vector3(0, (Ctx.OriginalPlayerHeight - Ctx.PlayerCollider.height) * 0.5f, 0);
+        }
     }
     #endregion
 }

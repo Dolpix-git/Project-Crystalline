@@ -33,6 +33,11 @@ public class PlayerStateMachine{
     /// A local refrence to the local tick delta
     /// </summary>
     private float tickDelta;
+    /// <summary>
+    /// Saves the original player height so when GDSS we can return to original height. we opt to get the collider hight and not set it
+    /// so that designers dont have to touch code to adjust player heights.
+    /// </summary>
+    private float originalPlayerHeight;
     #endregion
     #region States.
     public bool OnGround => playerStateSetup.groundContactCount > 0;
@@ -43,6 +48,7 @@ public class PlayerStateMachine{
     public CapsuleCollider PlayerCollider { get => playerNet.CapsuleCollider; set => playerNet.CapsuleCollider = value; }
     public PlayerBaseState CurrentState { get => currentState; set => currentState = value; }
     public PlayerStateCashe States { get => states; set => states = value; }
+    public PlayerEffects PlayerEffects { get => playerNet.PlayerEffects; }
     public Vector3 Velocity { get => velocity; set => velocity = value; }
     public PlayerMoveData MoveData { get => moveData;}
     public float TickDelta { get => tickDelta; set => tickDelta = value; }
@@ -51,14 +57,16 @@ public class PlayerStateMachine{
     public Vector3 ContactNormal { get => playerStateSetup.contactNormal; set => playerStateSetup.contactNormal = value; }
     public Vector3 ConnectionVelocity { get => playerStateSetup.connectionVelocity; set => playerStateSetup.connectionVelocity = value; }
     public PlayerStateSetup PlayerStateSetup { get => playerStateSetup; set => playerStateSetup = value; }
+    public float OriginalPlayerHeight { get => originalPlayerHeight; }
     #endregion
 
     public PlayerStateMachine(PlayerNetworker pn){
+        playerNet = pn;
         States = new PlayerStateCashe(this);
         playerStateSetup = new PlayerStateSetup(this);
         currentState = States.Grounded();
         currentState.EnterState();
-        playerNet = pn;
+        originalPlayerHeight = pn.CapsuleCollider.height;
     }
 
     public void UpdateStates(PlayerMoveData md) {

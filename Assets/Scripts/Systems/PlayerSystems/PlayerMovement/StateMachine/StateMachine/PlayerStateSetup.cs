@@ -7,6 +7,7 @@ public class PlayerStateSetup{
     /// </summary>
     private PlayerStateMachine playerStateMachine;
     #endregion
+
     #region Player Variables.
     public int groundContactCount, steepContactCount; // How many colliders are we touching and below the maxGroundAngle
     private Rigidbody connectedBody, previousConnectedBody; // all the rigidbodys of what we are colliding with. (provided with NULL if there isnt on)
@@ -16,20 +17,18 @@ public class PlayerStateSetup{
 
     public Vector3 rightAxis, forwardAxis;
 
-    private float probeDistance = 0.1f; // the distance check for how far the controller will snap to a surface
-    private LayerMask probeMask = -1;
-    private float maxSnapSpeed = 100f; // the max speed of when the controller will not snap
-    private float maxSlope = 40f;
     private float minDot;
 
-    private int stepsSinceLastGrounded, stepsSinceLastJump; // Used to count the amount of physics steps we are not grounded for
+    public int stepsSinceLastGrounded, stepsSinceLastJump; // Used to count the amount of physics steps we are not grounded for
+
+    public float MinDot { get => minDot; }
     #endregion
 
 
     public PlayerStateSetup(PlayerStateMachine playerStateMachine) {
         this.playerStateMachine = playerStateMachine;
 
-        minDot = Mathf.Cos(maxSlope * Mathf.Deg2Rad);
+        minDot = Mathf.Cos(playerStateMachine.PlayerEffects.MaxSlope * Mathf.Deg2Rad);
     }
 
     public void Update() {
@@ -121,12 +120,12 @@ public class PlayerStateSetup{
 
         // Dont snap if we are going faster than the snap speed.
         float speed = playerStateMachine.Velocity.magnitude;
-        if (speed > maxSnapSpeed) {
+        if (speed > playerStateMachine.PlayerEffects.MaxSnapSpeed) {
             return false;
         }
 
         // Dont snap if there is no ground to snap too.
-        if (!Physics.Raycast(playerStateMachine.RigidBody.position, Vector3.down, out RaycastHit hit, playerStateMachine.PlayerCollider.height * 0.5f + probeDistance, probeMask)) {
+        if (!Physics.Raycast(playerStateMachine.RigidBody.position, Vector3.down, out RaycastHit hit, playerStateMachine.PlayerCollider.height * 0.5f + playerStateMachine.PlayerEffects.ProbeDistance, playerStateMachine.PlayerEffects.ProbeMask)) {
             return false;
         }
 
@@ -144,6 +143,7 @@ public class PlayerStateSetup{
             playerStateMachine.Velocity = (playerStateMachine.Velocity - hit.normal * dot).normalized * speed;
         }
         connectedBody = hit.rigidbody;
+
         return true;
     }
 
@@ -175,5 +175,7 @@ public class PlayerStateSetup{
         connectionWorldPosition = playerStateMachine.RigidBody.position;
         connectionLocalPosition = connectedBody.transform.InverseTransformPoint(connectionWorldPosition);
     }
+
+
     #endregion
 }

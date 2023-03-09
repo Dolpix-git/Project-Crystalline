@@ -172,32 +172,4 @@ public class Health : NetworkBehaviour {
         isDisabled = true;
     }
     #endregion
-
-    #region OnGUI
-    /// <summary>
-    /// Will be removed or relocated for logging
-    /// </summary>
-    private GUIStyle _style = new GUIStyle();
-    private void OnGUI() {
-        //No need to perform these actions on server.
-#if !UNITY_EDITOR && UNITY_SERVER
-            return;
-#endif
-
-        //Only clients can see pings.
-        if (!base.IsOwner)
-            return;
-
-        _style.normal.textColor = Color.white;
-        _style.fontSize = 15;
-        float width = 85f;
-        float height = 15f;
-        float edge = 10f;
-
-        float horizontal = Screen.width - width - edge;
-        float vertical = Screen.height - height - edge - 25;
-
-        GUI.Label(new Rect(horizontal, vertical, width, height), $"Health: {currentHealth}", _style);
-    }
-    #endregion
 }

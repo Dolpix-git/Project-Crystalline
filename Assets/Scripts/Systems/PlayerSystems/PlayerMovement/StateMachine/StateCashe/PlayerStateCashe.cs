@@ -1,7 +1,4 @@
-
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public enum PlayerStates{
     idle,
@@ -10,6 +7,8 @@ public enum PlayerStates{
     jump,
     grounded,
     falling,
+    crouching,
+    sliding
 }
 
 public class PlayerStateCashe{
@@ -23,6 +22,8 @@ public class PlayerStateCashe{
         states[PlayerStates.jump] = new PlayerJumpState(context, this);
         states[PlayerStates.grounded] = new PlayerGroundedState(context, this);
         states[PlayerStates.falling] = new PlayerFallingState(context, this);
+        states[PlayerStates.crouching] = new PlayerCrouchState(context, this);
+        states[PlayerStates.sliding] = new PlayerSlideState(context, this);
     }
 
     public PlayerBaseState Idle() {
@@ -47,6 +48,14 @@ public class PlayerStateCashe{
 
     public PlayerBaseState Falling(){
         return states[PlayerStates.falling];
+    }
+    
+    public PlayerBaseState Crouching() {
+        return states[PlayerStates.crouching];
+    }
+
+    public PlayerBaseState Sliding() {
+        return states[PlayerStates.sliding];
     }
 
     public PlayerBaseState GetState(PlayerStates playerStates) {

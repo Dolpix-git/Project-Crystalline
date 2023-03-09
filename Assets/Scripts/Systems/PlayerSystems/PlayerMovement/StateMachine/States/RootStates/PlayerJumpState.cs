@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerJumpState : PlayerBaseState{
@@ -9,7 +7,7 @@ public class PlayerJumpState : PlayerBaseState{
 
     #region States.
     public override void EnterState() {
-    InitiatizeSubState();
+        InitiatizeSubState();
         HandleJump();
     }
     public override void UpdateState() {
@@ -17,11 +15,11 @@ public class PlayerJumpState : PlayerBaseState{
     }
     public override void ExitState() { }
     public override void InitiatizeSubState() {
-        if (Ctx.MoveData.Movement.magnitude != 0 && Ctx.MoveData.Sprint){
+        if (Ctx.MoveData.Movement.magnitude != 0 && Ctx.MoveData.Sprint) {
             SetSubState(Cashe.Run());
-        }else if (Ctx.MoveData.Movement.magnitude != 0){
+        } else if (Ctx.MoveData.Movement.magnitude != 0) {
             SetSubState(Cashe.Walk());
-        }else {
+        } else {
             SetSubState(Cashe.Idle());
         }
     }
@@ -31,6 +29,7 @@ public class PlayerJumpState : PlayerBaseState{
 
         SwitchState(Cashe.Falling());
     }
+
     public override PlayerStates PlayerState() {
         return PlayerStates.jump;
     }
@@ -39,6 +38,7 @@ public class PlayerJumpState : PlayerBaseState{
     #region Methods.
     void HandleJump(){
         Ctx.Velocity += new Vector3(0f, 4f, 0f);
+        Ctx.PlayerStateSetup.stepsSinceLastJump = 0;
         //Ctx.RigidBody.AddForce(new Vector3(0,10,0),ForceMode.Impulse);
     }
     #endregion
