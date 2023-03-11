@@ -2594,7 +2594,6 @@ MonoBehaviour:
   <SceneId>k__BackingField: 2510022319803194476
   <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
-  - {fileID: 0}
   - {fileID: 1370743971}
   - {fileID: 1941173840}
 --- !u!1 &1420061517
@@ -2652,8 +2651,7 @@ MonoBehaviour:
     type: 3}
   m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018,
     type: 3}
-  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018,
-    type: 3}
+  m_SubmitAction: {fileID: 0}
   m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018,
     type: 3}
   m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018,
@@ -3372,7 +3370,6 @@ MonoBehaviour:
   <SceneId>k__BackingField: 2510022321420834054
   <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
-  - {fileID: 0}
   - {fileID: 1370743971}
   - {fileID: 1941173840}
 --- !u!4 &1941173841
@@ -3514,21 +3511,6 @@ MonoBehaviour:
   _pingInterval: 1
   _timingInterval: 2
   _physicsMode: 1
---- !u!114 &1987871136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7443408886979169083}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9b6b565cd9533c4ebc18003f0fc18a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _color: {r: 1, g: 1, b: 1, a: 1}
-  _placement: 3
-  _hideTickRate: 0
 --- !u!1 &2093536315
 GameObject:
   m_ObjectHideFlags: 0
@@ -4197,8 +4179,6 @@ GameObject:
   - component: {fileID: 1103686172}
   - component: {fileID: 1987871130}
   - component: {fileID: 1987871131}
-  - component: {fileID: 1987871136}
-  - component: {fileID: 7443408886979169085}
   - component: {fileID: 7443408886979169084}
   - component: {fileID: 7443408886979169086}
   - component: {fileID: 7443408886979169087}
@@ -4228,22 +4208,6 @@ MonoBehaviour:
   _redundancyCount: 5
   _allowPredictedSpawning: 1
   _reservedObjectIds: 15
---- !u!114 &7443408886979169085
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7443408886979169083}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bc8f0363ddc75946a958043c5e49a83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _color: {r: 1, g: 1, b: 1, a: 1}
-  _placement: 2
-  _showOutgoing: 1
-  _showIncoming: 1
 --- !u!114 &7443408886979169086
 MonoBehaviour:
   m_ObjectHideFlags: 0

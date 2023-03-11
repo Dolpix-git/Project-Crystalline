@@ -1,4 +1,3 @@
-using FishNet.Managing.Timing;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using UnityEngine;
@@ -43,47 +42,19 @@ public class PlayerWeaponManager : NetworkBehaviour {
     public bool HasSpike { get => hasSpike; set => hasSpike = value; }
     #endregion
 
-    //private Command weapon = new();
+    [SerializeField] NadeCommandScriptableObject nadeToAdd;
 
-    //public class Command : NetworkBehaviour {
-    //    public virtual void Activate(PlayerWeaponManager instance) {}
-    //}
-    //public class Weapon : Command {
-    //    private PlayerWeaponManager refrence;
-    //    private float force;
-    //    // Add ammo
-    //    private GameObject throable; // Replace with scriptable object
-    //    public override void Activate(PlayerWeaponManager instance) {
-    //        refrence = instance;
-    //        if (PlayerInputManager.Instance.GetWeaponsInput()) {
-    //            Fire(instance.TimeManager.GetPreciseTick(TickType.Tick), instance.transform.position + (instance.transform.forward * 2f), PlayerInputManager.Instance.GetCamForward() + Vector3.up);
-    //        }
-    //    }
-
-    //    #region Fire.
-    //    /// <summary>
-    //    /// Request a fire(grendade throw) to the (server).
-    //    /// </summary>
-    //    /// <param name="pt">Persice tick</param>
-    //    /// <param name="position">Position to spawn</param>
-    //    /// <param name="forward">Forward vector</param>
-    //    private void Fire(PreciseTick pt, Vector3 position, Vector3 forward) {
-    //        if (!base.IsOwner) { return; }
-    //        CmdFireBase(pt, position, forward);
-    //    }
-    //    [ServerRpc]
-    //    private void CmdFireBase(PreciseTick pt, Vector3 position, Vector3 forward) {
-    //        if (refrence.disabled) { return; }
-    //        GameObject result = Instantiate(throable, position, Quaternion.identity);
-    //        base.Spawn(result);
-    //        IThrowable throwable = result.GetComponent<IThrowable>();
-    //        throwable.Initialize(forward * force, Owner);
-    //    }
-    //    #endregion
-    //}
+    [SyncVar]
+    private Command inventorySlotOne;
 
 
     private void Awake() {
+        NadeCommand nade = new();
+        nade.Setup(nadeToAdd,this,nadeToAdd.MaxStack);
+        inventorySlotOne = nade;
+
+
+
         gameObject.GetComponent<Health>().OnDisabled += PlayerWeaponManager_OnDisabled;
         gameObject.GetComponent<Health>().OnRespawned += PlayerWeaponManager_OnRespawned;
         gameObject.GetComponent<Health>().OnDeath += PlayerWeaponManager_OnDeath;
@@ -110,85 +81,74 @@ public class PlayerWeaponManager : NetworkBehaviour {
     }
 
     private void Update() { // Too Do: Command structure
-
-        //weapon.Activate();
+        if (!IsOwner) { return; }
 
         if (PlayerInputManager.Instance.GetWeaponsInput()) {
-            Fire(base.TimeManager.GetPreciseTick(TickType.Tick), transform.position + (transform.forward * 2f), PlayerInputManager.Instance.GetCamForward() + Vector3.up);
+            Activate(PlayerInputManager.Instance.GetCamForward());
         }
-        if (PlayerInputManager.Instance.GetPlantSpike()) {
-            PlantSpike(transform.position + (transform.forward * 2f));
-        }
-        if (PlayerInputManager.Instance.GetInteraction()) {
-            StartInteraction();
-        }
-    }
 
-
-    #region Fire.
-    /// <summary>
-    /// Request a fire(grendade throw) to the (server).
-    /// </summary>
-    /// <param name="pt">Persice tick</param>
-    /// <param name="position">Position to spawn</param>
-    /// <param name="forward">Forward vector</param>
-    private void Fire(PreciseTick pt, Vector3 position, Vector3 forward) {
-        if (!base.IsOwner) { return; }
-        CmdFireBase(pt, position, forward);
+        //if (PlayerInputManager.Instance.GetPlantSpike()) {
+        //    PlantSpike(transform.position + (transform.forward * 2f));
+        //}
+        //if (PlayerInputManager.Instance.GetInteraction()) {
+        //    StartInteraction();
+        //}
     }
     [ServerRpc]
-    private void CmdFireBase(PreciseTick pt, Vector3 position, Vector3 forward) {
-        if (disabled) { return; }
-        GameObject result = Instantiate(throable, position, Quaternion.identity);
+    public void Activate(Vector3 lookVector) {
+        inventorySlotOne.Activate(lookVector);
+    }
+    [Server]
+    public GameObject SpawnObject(GameObject nadeObj, Vector3 position, Quaternion rotation) {
+        GameObject result = Instantiate(nadeObj, position, rotation);
         base.Spawn(result);
-        IThrowable throwable = result.GetComponent<IThrowable>();
-        throwable.Initialize(forward * force, Owner);
+        return result;
     }
-    #endregion
-    #region Plant.
-    /// <summary>
-    /// Request a (plant the spike) to the (server).
-    /// </summary>
-    /// <param name="position"></param>
-    private void PlantSpike(Vector3 position) {
-        if (!base.IsOwner) { return; }
-        CmdPlantSpike(position);
-    }
-    [ServerRpc]
-    private void CmdPlantSpike(Vector3 position) {
-        if (disabled) { return; }
-        if (hasSpike) {
-            GameObject result = Instantiate(spike, position, Quaternion.identity);
-            base.Spawn(result);
-            result.GetComponent<Spike>().Initilised(Owner);
-            hasSpike = false;
-        }
-    }
-    #endregion
-    #region Interaction.
-    /// <summary>
-    /// Start sending interaction requests to the server
-    /// </summary>
-    private void StartInteraction() {
-        if (!base.IsOwner) { return; }
-        CmdStartInteraction();
-    }
-    [ServerRpc]
-    private void CmdStartInteraction() {
-        if (disabled) { return; }
-        Interaction();
-    }
-    /// <summary>
-    /// The interaction method, that does a sphere overlap and finds interactable objects
-    /// </summary>
-    private void Interaction() {
-        Collider[] hits = Physics.OverlapSphere(transform.position, interactionRadius);
-        for (int i = 0; i < hits.Length; i++) {
-            IInteractable interaction = hits[i].GetComponent<IInteractable>();
-            if (interaction != null) {
-                interaction.Interact(Owner);
-            }
-        }
-    }
-    #endregion
+
+    //#region Plant.
+    ///// <summary>
+    ///// Request a (plant the spike) to the (server).
+    ///// </summary>
+    ///// <param name="position"></param>
+    //private void PlantSpike(Vector3 position) {
+    //    if (!base.IsOwner) { return; }
+    //    CmdPlantSpike(position);
+    //}
+    //[ServerRpc]
+    //private void CmdPlantSpike(Vector3 position) {
+    //    if (disabled) { return; }
+    //    if (hasSpike) {
+    //        GameObject result = Instantiate(spike, position, Quaternion.identity);
+    //        base.Spawn(result);
+    //        result.GetComponent<Spike>().Initilised(Owner);
+    //        hasSpike = false;
+    //    }
+    //}
+    //#endregion
+    //#region Interaction.
+    ///// <summary>
+    ///// Start sending interaction requests to the server
+    ///// </summary>
+    //private void StartInteraction() {
+    //    if (!base.IsOwner) { return; }
+    //    CmdStartInteraction();
+    //}
+    //[ServerRpc]
+    //private void CmdStartInteraction() {
+    //    if (disabled) { return; }
+    //    Interaction();
+    //}
+    ///// <summary>
+    ///// The interaction method, that does a sphere overlap and finds interactable objects
+    ///// </summary>
+    //private void Interaction() {
+    //    Collider[] hits = Physics.OverlapSphere(transform.position, interactionRadius);
+    //    for (int i = 0; i < hits.Length; i++) {
+    //        IInteractable interaction = hits[i].GetComponent<IInteractable>();
+    //        if (interaction != null) {
+    //            interaction.Interact(Owner);
+    //        }
+    //    }
+    //}
+    //#endregion
 }

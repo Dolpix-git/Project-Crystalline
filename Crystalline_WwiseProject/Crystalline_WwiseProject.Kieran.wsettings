@@ -5,6 +5,7 @@
 			<PropertyList>
 				<Property Name="Event Action List\{66AD943D-2916-4432-90BF-8F0216350E60}\x64_Expand States" Type="string" Value=""/>
 				<Property Name="Event Action List\{A0AD4B35-393B-47A8-BD6A-55B539AC79EA}\x64_Expand States" Type="string" Value=""/>
+				<Property Name="Event Action List\{DC906440-46D5-4E29-B78A-230045E3FAE9}\x64_Expand States" Type="string" Value=""/>
 				<Property Name="EventView\FilterMode1" Type="int32" Value="2"/>
 				<Property Name="EventView\FilterMode2" Type="int32" Value="2"/>
 				<Property Name="ExternalSourcesInputPath" Type="string">
@@ -37,7 +38,7 @@
 				<Property Name="MonitoringManager\GameObjectFilter\GameObjectFiltersEnable" Type="bool" Value="True"/>
 				<Property Name="MonitoringManager\GameObjectFilter\x64_GameObjectFilters" Type="string" Value=""/>
 				<Property Name="ObjectTabPanel\x64_CurrentObjects_{031E1E2C-DC25-4332-80C3-FFCC371AC803}" Type="string" Value=""/>
-				<Property Name="ObjectTabPanel\x64_CurrentObjects_{D5805147-985E-4C5B-B817-369AF1B7184D}" Type="string" Value="ewBBADAAQQBEADQAQgAzADUALQAzADkAMwBCAC0ANAA3AEEAOAAtAEIARAA2AEEALQA1ADUAQgA1ADMAOQBBAEMANwA5AEUAQQB9AAAAAQF7AEUAMQA0AEUAOQA3ADQAMgAtAEMARAAwADYALQA0AEIARAA2AC0AOAAxADIAMAAtAEYAOQAwAEMARAA0ADkARgBFAEUANAA4AH0AAAAAAXsANgA2AEEARAA5ADQAMwBEAC0AMgA5ADEANgAtADQANAAzADIALQA5ADAAQgBGAC0AOABGADAAMgAxADYAMwA1ADAARQA2ADAAfQAAAAEBewAzADAAOQBBAEYANQBEAEUALQAwADMAMQBGAC0ANABDAEUAMAAtADkAQgA5AEIALQBDADAAQQA1ADMANgAyADcANQAzADQAMwB9AAAAAQF7ADkARQAyAEMAOQBDAEQAMQAtADQAMgA2ADgALQA0ADcAMQAzAC0AQgBFADkAOAAtADEAQwAxADkAOAA1AEIANgA3AEYARgBEAH0AAAABAQ=="/>
+				<Property Name="ObjectTabPanel\x64_CurrentObjects_{D5805147-985E-4C5B-B817-369AF1B7184D}" Type="string" Value="ewBEAEMAOQAwADYANAA0ADAALQA0ADYARAA1AC0ANABFADIAOQAtAEIANwA4AEEALQAyADMAMAAwADQANQBFADMARgBBAEUAOQB9AAAAAAE="/>
 				<Property Name="ProjectExplorer\AudioSelectionChannel1\ProjectExplorer2LastScrollState" Type="int32" Value="0"/>
 				<Property Name="ProjectExplorer\AudioSelectionChannel1\x64_ProjectExplorer2LastExpandedState" Type="string" Value="iC8JJ1oiVBFnJcijTz1EguraiCN1l8ZGou3FIio5d1b4u6dewGRQSoghoH6L4h1oZtP+STC1qEKZO5JIc6q3Bw=="/>
 				<Property Name="ProjectExplorer\AudioSelectionChannel2\ProjectExplorer2LastScrollState" Type="int32" Value="0"/>

@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: -9088385742316106720}
   - component: {fileID: 3593365082401464698}
   - component: {fileID: 6391269186535704374}
+  - component: {fileID: 8898154372268635960}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -192,6 +193,8 @@ MonoBehaviour:
   spike: {fileID: 2563415760963950010, guid: 1a7046bc5103a6b42ac4604d7707ae77, type: 3}
   hasSpike: 0
   disabled: 0
+  nadeToAdd: {fileID: 11400000, guid: a707bf96536307642a4729486ea79536, type: 2}
+  inventorySlotOne: {fileID: 0}
 --- !u!114 &8004145175360252860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,6 +317,42 @@ MonoBehaviour:
   unloadTriggerList: 958ca0ea
   bankNameInternal: 
   valueGuidInternal: 
+--- !u!114 &8898154372268635960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4870035923611722996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee9cb8c4a5e507945a799469e8a7d3b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  actionOnEventType: 0
+  curveInterpolation: 4
+  enableActionOnEvent: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: b65b735d03ca040999c38c7898b1b67b,
+      type: 2}
+  useCallbacks: 0
+  Callbacks: []
+  playingId: 0
+  soundEmitterObject: {fileID: 0}
+  transitionDuration: 0
+  eventIdInternal: 0
+  valueGuidInternal: 
+  m_callbackDataInternal: {fileID: 0}
+  MultiPositionType: 1
+  multiPositionTypeLabel: 0
+  attenuationSphereColor: {r: 1, g: 0, b: 0, a: 0.1}
+  LargeModePositions:
+  - {fileID: 0}
+  multiPositionArray: []
 --- !u!1 &4870035923714307969
 GameObject:
   m_ObjectHideFlags: 0

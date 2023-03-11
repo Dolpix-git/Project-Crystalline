@@ -472,7 +472,7 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: 5dd4aa4037f28a4ba665f5da9fb40167
     GuidInternal: 
-    m_lastTime: -8585232256941696882
+    m_lastTime: -8585232145480479546
     List:
     - name: Footsteps
       guid: 518f8c32d3ac9747a8443165f4bc7664
@@ -488,20 +488,6 @@ MonoBehaviour:
         ObjectType: 7
         guid: 518f8c32d3ac9747a8443165f4bc7664
       Path: SoundBanks\Default Work Unit\Footsteps
-    - name: Play_C_Atmo
-      guid: 42ecf7efd0f51346a38510f597fad409
-      id: 4249302535
-      PathAndIcons:
-      - ElementName: SoundBanks
-        ObjectType: 5
-        guid: 00000000000000000000000000000000
-      - ElementName: Default Work Unit
-        ObjectType: 12
-        guid: 5dd4aa4037f28a4ba665f5da9fb40167
-      - ElementName: Play_C_Atmo
-        ObjectType: 7
-        guid: 42ecf7efd0f51346a38510f597fad409
-      Path: SoundBanks\Default Work Unit\Play_C_Atmo
   EventWwu:
   - PhysicalPath: Events\Default Work Unit.wwu
     PathAndIcons:
@@ -514,7 +500,7 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: 42974ee106cdd64b8120f90cd49fee48
     GuidInternal: 
-    m_lastTime: -8585232256941716882
+    m_lastTime: -8585232145480479546
     List:
     - name: Footsteps
       guid: 406490dcd546294eb78a230045e3fae9
@@ -530,23 +516,6 @@ MonoBehaviour:
         ObjectType: 3
         guid: 406490dcd546294eb78a230045e3fae9
       Path: Events\Default Work Unit\Footsteps
-      maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
-    - name: Play_C_atmoAmb
-      guid: 3d94ad661629324490bf8f0216350e60
-      id: 3940056561
-      PathAndIcons:
-      - ElementName: Events
-        ObjectType: 5
-        guid: 00000000000000000000000000000000
-      - ElementName: Default Work Unit
-        ObjectType: 12
-        guid: 42974ee106cdd64b8120f90cd49fee48
-      - ElementName: Play_C_atmoAmb
-        ObjectType: 3
-        guid: 3d94ad661629324490bf8f0216350e60
-      Path: Events\Default Work Unit\Play_C_atmoAmb
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1

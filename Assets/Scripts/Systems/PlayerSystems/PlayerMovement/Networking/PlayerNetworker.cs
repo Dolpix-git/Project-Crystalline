@@ -51,6 +51,8 @@ public class PlayerNetworker : NetworkBehaviour {
 
     #region Start up.
     private void Awake() {
+        AkSoundEngine.RegisterGameObj(gameObject);
+
         capsuleCollider = GetComponent<CapsuleCollider>();
         playerEffects = GetComponent<PlayerEffects>();
         rigidBody = GetComponent<Rigidbody>();

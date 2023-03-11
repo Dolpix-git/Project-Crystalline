@@ -3,17 +3,6 @@
 	<Events>
 		<WorkUnit Name="Default Work Unit" ID="{E14E9742-CD06-4BD6-8120-F90CD49FEE48}" PersistMode="Standalone">
 			<ChildrenList>
-				<Event Name="Play_C_atmoAmb" ID="{66AD943D-2916-4432-90BF-8F0216350E60}">
-					<ChildrenList>
-						<Action Name="" ID="{FD4C025B-D715-4599-9393-37C3E7E2DF54}" ShortID="354890664">
-							<ReferenceList>
-								<Reference Name="Target">
-									<ObjectRef Name="C atmoAmb" ID="{47B0A9A1-E030-493B-81DA-99B3D4FFE5EE}" WorkUnitID="{D9C0B92D-FEDB-44A8-AF23-D93A852198CF}"/>
-								</Reference>
-							</ReferenceList>
-						</Action>
-					</ChildrenList>
-				</Event>
 				<Event Name="Footsteps" ID="{DC906440-46D5-4E29-B78A-230045E3FAE9}">
 					<ChildrenList>
 						<Action Name="" ID="{95268279-2702-46C5-9581-50B609FDF111}" ShortID="180735052">

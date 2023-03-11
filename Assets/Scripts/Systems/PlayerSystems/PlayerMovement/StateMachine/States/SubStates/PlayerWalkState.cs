@@ -1,18 +1,21 @@
 using UnityEngine;
 
 public class PlayerWalkState : PlayerBaseState {
+    float count = 0;
+    float maxCountDelta = 0.2f;
     public PlayerWalkState(PlayerStateMachine currentContext, PlayerStateCashe playerStateFactory) : base(currentContext, playerStateFactory) { }
 
     #region States.
-    public override void EnterState() {
-        Debug.Log($"Enter Walk state {Ctx.RigidBody.gameObject.GetInstanceID()}");
-        AkSoundEngine.RegisterGameObj(Ctx.RigidBody.gameObject);
-        AkSoundEngine.PostEvent("Footsteps", Ctx.RigidBody.gameObject);
-        AkSoundEngine.UnregisterGameObj(Ctx.RigidBody.gameObject);
-    }
+    public override void EnterState() { }
     public override void UpdateState() {
         GDSSReturn();
         GDSS();
+
+        count += Time.deltaTime;
+        if (count >= maxCountDelta) {
+            count = 0;
+            AkSoundEngine.PostEvent("Footsteps", Ctx.RigidBody.gameObject);
+        }
 
         AdjustVelocity();
 

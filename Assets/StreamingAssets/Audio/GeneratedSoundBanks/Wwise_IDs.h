@@ -14,7 +14,6 @@ namespace AK
     namespace EVENTS
     {
         static const AkUniqueID FOOTSTEPS = 2385628198U;
-        static const AkUniqueID PLAY_C_ATMOAMB = 3940056561U;
     } // namespace EVENTS
 
     namespace SWITCHES
@@ -35,7 +34,6 @@ namespace AK
     {
         static const AkUniqueID INIT = 1355168291U;
         static const AkUniqueID FOOTSTEPS = 2385628198U;
-        static const AkUniqueID PLAY_C_ATMO = 4249302535U;
     } // namespace BANKS
 
     namespace BUSSES
