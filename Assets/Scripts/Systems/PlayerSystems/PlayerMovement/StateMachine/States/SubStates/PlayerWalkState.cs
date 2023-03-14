@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerWalkState : PlayerBaseState {
     float count = 0;
-    float maxCountDelta = 0.2f;
+    float maxCountDelta = 0.2000f;
     public PlayerWalkState(PlayerStateMachine currentContext, PlayerStateCashe playerStateFactory) : base(currentContext, playerStateFactory) { }
 
     #region States.

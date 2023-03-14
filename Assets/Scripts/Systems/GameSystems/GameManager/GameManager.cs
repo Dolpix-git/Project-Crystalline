@@ -10,7 +10,7 @@ public class GameManager : NetworkBehaviour{
                 _instance = FindObjectOfType<GameManager>();
                 if (_instance is null) {
                     var obj = Instantiate(new GameObject("GameManager"));
-                    CustomLogger.LogWarning("GameManager was acsessed and there was no GameManager!");
+                    Log.LogWarning("GameManager was acsessed and there was no GameManager!");
                     _instance = obj.AddComponent<GameManager>();
                 }
             }
@@ -38,14 +38,14 @@ public class GameManager : NetworkBehaviour{
         base.OnStartServer();
 
         if (!base.IsServer) { return; }
-        CustomLogger.Log(LogCategories.GameManager , "Start");
+        Log.LogMsg(LogCategories.GameManager , "Start");
         gameMode.StartGame();
     }
     public override void OnStopServer() {
         base.OnStopServer();
 
         if (!base.IsServer) { return; }
-        CustomLogger.Log(LogCategories.GameManager , "End");
+        Log.LogMsg(LogCategories.GameManager , "End");
         stoppingServer = true;
         gameMode.EndGame();
     }

@@ -22,11 +22,11 @@ public class PlayerEventManager {
     public event Action<NetworkConnection> OnPlayerDisconnected;
 
     public void InvokePlayerDeath(NetworkConnection dead, NetworkConnection killer, NetworkConnection assister) {
-        CustomLogger.Log(LogCategories.SystEventManager, $"Player has died  Dead:{dead?.ClientId} Killer:{killer?.ClientId} Assister:{assister?.ClientId}");
+        Log.LogMsg(LogCategories.SystEventManager, $"Player has died  Dead:{dead?.ClientId} Killer:{killer?.ClientId} Assister:{assister?.ClientId}");
         OnPlayerDeath?.Invoke(dead,killer,assister);
     }
     public void InvokePlayerConnected(NetworkConnection conn) {
-        CustomLogger.Log(LogCategories.SystEventManager, $"Player connected {conn?.ClientId}");
+        Log.LogMsg(LogCategories.SystEventManager, $"Player connected {conn?.ClientId}");
         OnPlayerConnected?.Invoke(conn);
     }
     /// <summary>
@@ -34,11 +34,11 @@ public class PlayerEventManager {
     /// </summary>
     /// <param name="obj"></param>
     public void InvokePlayerClentConnected(NetworkObject obj) {
-        CustomLogger.Log(LogCategories.SystEventManager, $"Player connected {obj}");
+        Log.LogMsg(LogCategories.SystEventManager, $"Player connected {obj}");
         OnPlayerClentConnected?.Invoke(obj);
     }
     public void InvokePlayerDisconnected(NetworkConnection conn) {
-        CustomLogger.Log(LogCategories.SystEventManager, $"Player disconnected {conn?.ClientId}");
+        Log.LogMsg(LogCategories.SystEventManager, $"Player disconnected {conn?.ClientId}");
         OnPlayerDisconnected?.Invoke(conn);
     }
 }

@@ -1,14 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Mac" BasePlatform="Mac" SchemaVersion="16" SoundBankVersion="145">
 	<RootPaths>
-		<ProjectRoot>../../</ProjectRoot>
-		<SourceFilesRoot>../../.cache/Mac/</SourceFilesRoot>
+		<ProjectRoot>../..</ProjectRoot>
+		<SourceFilesRoot>../../.cache/Mac</SourceFilesRoot>
 		<SoundBanksRoot>.</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
 		<ExternalSourcesOutputRoot>.</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
+		<SoundBank Id="674522502" Type="User" Language="SFX" Hash="{5836B8F4-F99F-490A-715E-7BDAED931EF9}">
+			<ShortName>Land</ShortName>
+			<Path>Land.bnk</Path>
+			<Events>
+				<Event Id="674522502" Name="Land" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
+			</Events>
+		</SoundBank>
+		<SoundBank Id="745179803" Type="User" Language="SFX" Hash="{9C635F0C-B410-0B57-3EC4-7FA0D02FCEF2}">
+			<ShortName>Throw</ShortName>
+			<Path>Throw.bnk</Path>
+			<Events>
+				<Event Id="745179803" Name="Throw" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
+			</Events>
+		</SoundBank>
+		<SoundBank Id="1117531639" Type="User" Language="SFX" Hash="{7115E02C-1A3E-F2A4-A14C-048870B75D9D}">
+			<ShortName>AMB</ShortName>
+			<Path>AMB.bnk</Path>
+			<Media>
+				<File Id="655563220" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>C atmoAmb.wav</ShortName>
+					<CachePath>SFX/C atmoAmb_10C4C929.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="1117531639" Name="AMB" DurationType="OneShot" DurationMin="96.5" DurationMax="96.5">
+					<MediaRefs>
+						<MediaRef Id="655563220"/>
+					</MediaRefs>
+				</Event>
+			</Events>
+		</SoundBank>
 		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{075B4A12-52B7-E76B-853D-0A8DBA8FD85C}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
@@ -60,14 +91,24 @@
 				</AuxBus>
 			</AuxBusses>
 			<SwitchGroups>
+				<SwitchGroup Id="674522502" Name="Land">
+					<Switches>
+						<Switch Id="2195636714" Name="Dirt"/>
+					</Switches>
+				</SwitchGroup>
 				<SwitchGroup Id="2385628198" Name="Footsteps">
+					<Switches>
+						<Switch Id="2195636714" Name="Dirt"/>
+					</Switches>
+				</SwitchGroup>
+				<SwitchGroup Id="2655407367" Name="Crouch">
 					<Switches>
 						<Switch Id="2195636714" Name="Dirt"/>
 					</Switches>
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="2385628198" Type="User" Language="SFX" Hash="{B37C8E9A-B997-5D9E-ABB6-7FC5FFC816CA}">
+		<SoundBank Id="2385628198" Type="User" Language="SFX" Hash="{70348322-D3A0-D26E-D944-6EEFC75F2975}">
 			<ShortName>Footsteps</ShortName>
 			<Path>Footsteps.bnk</Path>
 			<Media>
@@ -106,6 +147,62 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
+		<SoundBank Id="2655407367" Type="User" Language="SFX" Hash="{C5059C63-2689-F27C-D472-58DD51BB439B}">
+			<ShortName>Crouch</ShortName>
+			<Path>Crouch.bnk</Path>
+			<Media>
+				<File Id="169228004" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PLY_SFX_LOCO_FOOTSTEPS_INDOOR_04.wav</ShortName>
+					<CachePath>SFX/PLY_SFX_LOCO_FOOTSTEPS_INDOOR_04_10C4C929.wem</CachePath>
+				</File>
+				<File Id="498913498" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PLY_SFX_LOCO_FOOTSTEPS_INDOOR_01.wav</ShortName>
+					<CachePath>SFX/PLY_SFX_LOCO_FOOTSTEPS_INDOOR_01_10C4C929.wem</CachePath>
+				</File>
+				<File Id="582785820" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PLY_SFX_LOCO_FOOTSTEPS_INDOOR_03.wav</ShortName>
+					<CachePath>SFX/PLY_SFX_LOCO_FOOTSTEPS_INDOOR_03_10C4C929.wem</CachePath>
+				</File>
+				<File Id="680642949" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PLY_SFX_LOCO_FOOTSTEPS_INDOOR_02.wav</ShortName>
+					<CachePath>SFX/PLY_SFX_LOCO_FOOTSTEPS_INDOOR_02_10C4C929.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="2655407367" Name="Crouch" DurationType="OneShot" DurationMin="0" DurationMax="0">
+					<MediaRefs>
+						<MediaRef Id="169228004"/>
+						<MediaRef Id="498913498"/>
+						<MediaRef Id="582785820"/>
+						<MediaRef Id="680642949"/>
+					</MediaRefs>
+				</Event>
+			</Events>
+			<SwitchGroups>
+				<SwitchGroup Id="2655407367" Name="Crouch">
+					<Switches>
+						<Switch Id="2195636714" Name="Dirt"/>
+					</Switches>
+				</SwitchGroup>
+			</SwitchGroups>
+		</SoundBank>
+		<SoundBank Id="3833651337" Type="User" Language="SFX" Hash="{FFE321CF-01D7-99FE-8DDD-153C698B471F}">
+			<ShortName>Jump</ShortName>
+			<Path>Jump.bnk</Path>
+			<Media>
+				<File Id="976628534" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>jump.wav</ShortName>
+					<CachePath>SFX/jump_10C4C929.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="3833651337" Name="Jump" DurationType="OneShot" DurationMin="0" DurationMax="0">
+					<MediaRefs>
+						<MediaRef Id="976628534"/>
+					</MediaRefs>
+				</Event>
+			</Events>
+		</SoundBank>
 	</SoundBanks>
-	<FileHash>{55431066-EBA5-E37C-962B-125A9908AFEC}</FileHash>
+	<FileHash>{0491DB77-B8A3-99B8-F3B9-B77302E633E0}</FileHash>
 </SoundBanksInfo>

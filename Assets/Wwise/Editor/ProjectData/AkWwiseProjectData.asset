@@ -472,8 +472,36 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: 5dd4aa4037f28a4ba665f5da9fb40167
     GuidInternal: 
-    m_lastTime: -8585232145480479546
+    m_lastTime: -8585228071773189634
     List:
+    - name: AMB
+      guid: bd0d8c9d05c2a3498a55ef8b9e67070b
+      id: 1117531639
+      PathAndIcons:
+      - ElementName: SoundBanks
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 5dd4aa4037f28a4ba665f5da9fb40167
+      - ElementName: AMB
+        ObjectType: 7
+        guid: bd0d8c9d05c2a3498a55ef8b9e67070b
+      Path: SoundBanks\Default Work Unit\AMB
+    - name: Crouch
+      guid: 1404369174a165439cf4111a6497a3d5
+      id: 2655407367
+      PathAndIcons:
+      - ElementName: SoundBanks
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 5dd4aa4037f28a4ba665f5da9fb40167
+      - ElementName: Crouch
+        ObjectType: 7
+        guid: 1404369174a165439cf4111a6497a3d5
+      Path: SoundBanks\Default Work Unit\Crouch
     - name: Footsteps
       guid: 518f8c32d3ac9747a8443165f4bc7664
       id: 2385628198
@@ -488,6 +516,48 @@ MonoBehaviour:
         ObjectType: 7
         guid: 518f8c32d3ac9747a8443165f4bc7664
       Path: SoundBanks\Default Work Unit\Footsteps
+    - name: Jump
+      guid: b01e25f3a2b27b479ca275161b3b1b43
+      id: 3833651337
+      PathAndIcons:
+      - ElementName: SoundBanks
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 5dd4aa4037f28a4ba665f5da9fb40167
+      - ElementName: Jump
+        ObjectType: 7
+        guid: b01e25f3a2b27b479ca275161b3b1b43
+      Path: SoundBanks\Default Work Unit\Jump
+    - name: Land
+      guid: 912dbee73abf484c82b9a87d412e1aa1
+      id: 674522502
+      PathAndIcons:
+      - ElementName: SoundBanks
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 5dd4aa4037f28a4ba665f5da9fb40167
+      - ElementName: Land
+        ObjectType: 7
+        guid: 912dbee73abf484c82b9a87d412e1aa1
+      Path: SoundBanks\Default Work Unit\Land
+    - name: Throw
+      guid: 9cfe40c88a59e045b631e121db4d09b9
+      id: 745179803
+      PathAndIcons:
+      - ElementName: SoundBanks
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 5dd4aa4037f28a4ba665f5da9fb40167
+      - ElementName: Throw
+        ObjectType: 7
+        guid: 9cfe40c88a59e045b631e121db4d09b9
+      Path: SoundBanks\Default Work Unit\Throw
   EventWwu:
   - PhysicalPath: Events\Default Work Unit.wwu
     PathAndIcons:
@@ -500,8 +570,68 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: 42974ee106cdd64b8120f90cd49fee48
     GuidInternal: 
-    m_lastTime: -8585232145480479546
+    m_lastTime: -8585228071773309572
     List:
+    - name: AMB
+      guid: 6825098b905aab4d8d1f3bf77b9d5e58
+      id: 1117531639
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 42974ee106cdd64b8120f90cd49fee48
+      - ElementName: AMB
+        ObjectType: 3
+        guid: 6825098b905aab4d8d1f3bf77b9d5e58
+      Path: Events\Default Work Unit\AMB
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Attack
+      guid: bda1ba371edd2249b766dfca4f84f80e
+      id: 180661997
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 42974ee106cdd64b8120f90cd49fee48
+      - ElementName: Player
+        ObjectType: 4
+        guid: a6a9697b9c86ce43bc50564dd4fb739a
+      - ElementName: Attack
+        ObjectType: 4
+        guid: bda1ba371edd2249b766dfca4f84f80e
+      Path: Events\Default Work Unit\Player\Attack
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Crouch
+      guid: 6b6de3085c4f694fb373647326ca3b1f
+      id: 2655407367
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 42974ee106cdd64b8120f90cd49fee48
+      - ElementName: Player
+        ObjectType: 4
+        guid: a6a9697b9c86ce43bc50564dd4fb739a
+      - ElementName: Locomotion
+        ObjectType: 4
+        guid: aaab6e836d80eb42ac141c0152fa7383
+      - ElementName: Crouch
+        ObjectType: 3
+        guid: 6b6de3085c4f694fb373647326ca3b1f
+      Path: Events\Default Work Unit\Player\Locomotion\Crouch
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Footsteps
       guid: 406490dcd546294eb78a230045e3fae9
       id: 2385628198
@@ -512,10 +642,122 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: 42974ee106cdd64b8120f90cd49fee48
+      - ElementName: Player
+        ObjectType: 4
+        guid: a6a9697b9c86ce43bc50564dd4fb739a
+      - ElementName: Locomotion
+        ObjectType: 4
+        guid: aaab6e836d80eb42ac141c0152fa7383
       - ElementName: Footsteps
         ObjectType: 3
         guid: 406490dcd546294eb78a230045e3fae9
-      Path: Events\Default Work Unit\Footsteps
+      Path: Events\Default Work Unit\Player\Locomotion\Footsteps
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Jump
+      guid: e56444fc3e993b43b1658931e2045418
+      id: 3833651337
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 42974ee106cdd64b8120f90cd49fee48
+      - ElementName: Player
+        ObjectType: 4
+        guid: a6a9697b9c86ce43bc50564dd4fb739a
+      - ElementName: Locomotion
+        ObjectType: 4
+        guid: aaab6e836d80eb42ac141c0152fa7383
+      - ElementName: Jump
+        ObjectType: 3
+        guid: e56444fc3e993b43b1658931e2045418
+      Path: Events\Default Work Unit\Player\Locomotion\Jump
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Land
+      guid: efc26ffb91ba204ca293304e3ca34813
+      id: 674522502
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 42974ee106cdd64b8120f90cd49fee48
+      - ElementName: Player
+        ObjectType: 4
+        guid: a6a9697b9c86ce43bc50564dd4fb739a
+      - ElementName: Locomotion
+        ObjectType: 4
+        guid: aaab6e836d80eb42ac141c0152fa7383
+      - ElementName: Land
+        ObjectType: 3
+        guid: efc26ffb91ba204ca293304e3ca34813
+      Path: Events\Default Work Unit\Player\Locomotion\Land
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Locomotion
+      guid: aaab6e836d80eb42ac141c0152fa7383
+      id: 556887514
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 42974ee106cdd64b8120f90cd49fee48
+      - ElementName: Player
+        ObjectType: 4
+        guid: a6a9697b9c86ce43bc50564dd4fb739a
+      - ElementName: Locomotion
+        ObjectType: 4
+        guid: aaab6e836d80eb42ac141c0152fa7383
+      Path: Events\Default Work Unit\Player\Locomotion
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Player
+      guid: a6a9697b9c86ce43bc50564dd4fb739a
+      id: 1069431850
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 42974ee106cdd64b8120f90cd49fee48
+      - ElementName: Player
+        ObjectType: 4
+        guid: a6a9697b9c86ce43bc50564dd4fb739a
+      Path: Events\Default Work Unit\Player
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Throw
+      guid: cb8b8326055fa74cb67b32d8638f39ba
+      id: 745179803
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 42974ee106cdd64b8120f90cd49fee48
+      - ElementName: Player
+        ObjectType: 4
+        guid: a6a9697b9c86ce43bc50564dd4fb739a
+      - ElementName: Attack
+        ObjectType: 4
+        guid: bda1ba371edd2249b766dfca4f84f80e
+      - ElementName: Throw
+        ObjectType: 3
+        guid: cb8b8326055fa74cb67b32d8638f39ba
+      Path: Events\Default Work Unit\Player\Attack\Throw
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -559,8 +801,42 @@ MonoBehaviour:
     ParentPath: Switches\Default Work Unit
     guid: 60ae5c0a195a414a873ecabd2cb62482
     GuidInternal: 
-    m_lastTime: -8585233927215099464
+    m_lastTime: -8585228071773169623
     List:
+    - name: Crouch
+      guid: 45ade95266208249ac5e5be601225e46
+      id: 2655407367
+      PathAndIcons:
+      - ElementName: Switches
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 60ae5c0a195a414a873ecabd2cb62482
+      - ElementName: Crouch
+        ObjectType: 11
+        guid: 45ade95266208249ac5e5be601225e46
+      Path: Switches\Default Work Unit\Crouch
+      values:
+      - name: Dirt
+        guid: 55a6daa41cf0fd40bb563e06881ce5b7
+        id: 2195636714
+        PathAndIcons:
+        - ElementName: Switches
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: 60ae5c0a195a414a873ecabd2cb62482
+        - ElementName: Crouch
+          ObjectType: 11
+          guid: 45ade95266208249ac5e5be601225e46
+        - ElementName: Dirt
+          ObjectType: 10
+          guid: 55a6daa41cf0fd40bb563e06881ce5b7
+      ValueGuids: []
+      ValueIcons: []
+      valuesInternal: []
     - name: Footsteps
       guid: cb344438b09520479e9666f0f75104ef
       id: 2385628198
@@ -595,6 +871,40 @@ MonoBehaviour:
       ValueGuids: []
       ValueIcons: []
       valuesInternal: []
+    - name: Land
+      guid: eb9ded790ff4c44ea72265e0844ef5ad
+      id: 674522502
+      PathAndIcons:
+      - ElementName: Switches
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 60ae5c0a195a414a873ecabd2cb62482
+      - ElementName: Land
+        ObjectType: 11
+        guid: eb9ded790ff4c44ea72265e0844ef5ad
+      Path: Switches\Default Work Unit\Land
+      values:
+      - name: Dirt
+        guid: f93115e93aede347bae72dec6a136126
+        id: 2195636714
+        PathAndIcons:
+        - ElementName: Switches
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: 60ae5c0a195a414a873ecabd2cb62482
+        - ElementName: Land
+          ObjectType: 11
+          guid: eb9ded790ff4c44ea72265e0844ef5ad
+        - ElementName: Dirt
+          ObjectType: 10
+          guid: f93115e93aede347bae72dec6a136126
+      ValueGuids: []
+      ValueIcons: []
+      valuesInternal: []
   TriggerWwu:
   - PhysicalPath: Triggers\Default Work Unit.wwu
     PathAndIcons:
@@ -611,7 +921,7 @@ MonoBehaviour:
     List: []
   ExpandedFileSystemItemIds: 
   ExpandedWaapiItemIds: 010000000500000006000000070000000a0000000b0000000c0000000d000000
-  AutoSyncSelection: 0
+  AutoSyncSelection: 1
   autoPopulateEnabled: 1
   currentDataSource: 0
   CurrentPluginConfig: 

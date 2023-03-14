@@ -71,7 +71,7 @@ public class PlayerManager : NetworkBehaviour {
     private void InitializeOnce() {
         networkManager = InstanceFinder.NetworkManager;
         if (networkManager == null) {
-            CustomLogger.LogWarning($"PlayerSpawner on {gameObject.name} cannot work as NetworkManager wasn't found on this object or within parent objects.");
+            Log.LogWarning($"PlayerSpawner on {gameObject.name} cannot work as NetworkManager wasn't found on this object or within parent objects.");
             return;
         }
 
@@ -80,7 +80,7 @@ public class PlayerManager : NetworkBehaviour {
     }
     private void OnDestroy() {
         if (networkManager == null) {
-            CustomLogger.LogWarning($"PlayerSpawner on {gameObject.name} cannot work as NetworkManager wasn't found on this object or within parent objects.");
+            Log.LogWarning($"PlayerSpawner on {gameObject.name} cannot work as NetworkManager wasn't found on this object or within parent objects.");
             return;
         }
         networkManager.SceneManager.OnClientLoadedStartScenes -= SceneManager_OnClientLoadedStartScenes;
@@ -100,13 +100,14 @@ public class PlayerManager : NetworkBehaviour {
     /// </summary>
     private void SceneManager_OnClientLoadedStartScenes(NetworkConnection conn, bool asServer) {
         if (playerPrefab == null) {
-            CustomLogger.LogWarning($"Player prefab is empty and cannot be spawned for connection {conn.ClientId}.");
+            Log.LogWarning($"Player prefab is empty and cannot be spawned for connection {conn.ClientId}.");
             return;
         }
 
         if (asServer) {
             NetworkObject nob = networkManager.GetPooledInstantiated(playerPrefab, true);
             nob.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+            nob.name = conn.ClientId.ToString();
             networkManager.ServerManager.Spawn(nob, conn);
 
             nob.GetComponent<Health>().Disable();
@@ -114,7 +115,7 @@ public class PlayerManager : NetworkBehaviour {
             //If there are no global scenes 
             if (addToDefaultScene)
                 networkManager.SceneManager.AddOwnerToDefaultScene(nob);
-
+            Log.LogMsg(LogCategories.SystPlayerManager, $"SERVER: Added Player {conn.ClientId} {nob}");
             players.Add(conn, nob);
             PlayerEventManager.Instance.InvokePlayerConnected(conn);
         }
@@ -122,7 +123,7 @@ public class PlayerManager : NetworkBehaviour {
 
     private void ServerManager_OnRemoteConnectionState(NetworkConnection conn, RemoteConnectionStateArgs args) {
         if (args.ConnectionState == RemoteConnectionState.Stopped) {
-            CustomLogger.Log(LogCategories.PlayerManager, args.ConnectionState);
+            Log.LogMsg(LogCategories.PlayerManager, args.ConnectionState);
             PlayerEventManager.Instance.InvokePlayerDisconnected(conn);
             players.Remove(conn);
         }

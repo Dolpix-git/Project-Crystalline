@@ -9,6 +9,7 @@ public class PlayerRunState : PlayerBaseState{
     public override void UpdateState() {
         GDSSReturn();
         GDSS();
+        AkSoundEngine.PostEvent("Footsteps", Ctx.RigidBody.gameObject);
 
         AdjustVelocity();
 

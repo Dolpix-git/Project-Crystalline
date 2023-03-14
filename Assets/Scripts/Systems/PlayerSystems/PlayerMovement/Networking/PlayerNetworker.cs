@@ -242,11 +242,11 @@ public class PlayerNetworker : NetworkBehaviour {
 
     #region Death and Respawn Events.
     private void OnDeath() {
-        CustomLogger.Log(LogCategories.Player, $"{gameObject.name} Has died");
+        Log.LogMsg(LogCategories.Player, $"{gameObject.name} Has died");
         canMove = false;
     }
     private void OnRespawned() {
-        CustomLogger.Log(LogCategories.Player, $"{gameObject.name} Has been respawned");
+        Log.LogMsg(LogCategories.Player, $"{gameObject.name} Has been respawned");
         canMove = true;
         visualTransform.gameObject.SetActive(true);
         capsuleCollider.enabled = true;
@@ -254,7 +254,7 @@ public class PlayerNetworker : NetworkBehaviour {
         rigidBody.useGravity = true;
     }
     private void OnDisabled() {
-        CustomLogger.Log(LogCategories.Player, $"{gameObject.name} Has been disabled");
+        Log.LogMsg(LogCategories.Player, $"{gameObject.name} Has been disabled");
         canMove = false;
         visualTransform.gameObject.SetActive(false);
         capsuleCollider.enabled = false;

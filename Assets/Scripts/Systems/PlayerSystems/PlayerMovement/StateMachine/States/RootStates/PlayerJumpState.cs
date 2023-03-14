@@ -9,6 +9,7 @@ public class PlayerJumpState : PlayerBaseState{
     public override void EnterState() {
         InitiatizeSubState();
         HandleJump();
+        AkSoundEngine.PostEvent("Land", Ctx.RigidBody.gameObject);
     }
     public override void UpdateState() {
         CheckSwitchStates();
@@ -40,6 +41,7 @@ public class PlayerJumpState : PlayerBaseState{
         Ctx.Velocity += new Vector3(0f, 4f, 0f);
         Ctx.PlayerStateSetup.stepsSinceLastJump = 0;
         //Ctx.RigidBody.AddForce(new Vector3(0,10,0),ForceMode.Impulse);
+        AkSoundEngine.PostEvent("Jump", Ctx.RigidBody.gameObject);
     }
     #endregion
 }

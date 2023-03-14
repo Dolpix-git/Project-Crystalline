@@ -16,11 +16,11 @@ public class GameEventManager {
     public event Action OnGameEnd;
 
     public void InvokeGameStart() {
-        CustomLogger.Log(LogCategories.SystEventManager, "Game Start");
+        Log.LogMsg(LogCategories.SystEventManager, "Game Start");
         OnGameStart?.Invoke();
     }
     public void InvokeGameEnd() {
-        CustomLogger.Log(LogCategories.SystEventManager, "Game End");
+        Log.LogMsg(LogCategories.SystEventManager, "Game End");
         OnGameEnd?.Invoke();
     }
 }

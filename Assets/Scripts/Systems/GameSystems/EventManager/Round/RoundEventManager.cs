@@ -20,15 +20,15 @@ public class RoundEventManager {
     public event Action OnTeamFlipFlop;
 
     public void InvokeRoundStart() {
-        CustomLogger.Log(LogCategories.SystEventManager, "Round Start");
+        Log.LogMsg(LogCategories.SystEventManager, "Round Start");
         OnRoundStart?.Invoke();
     }
     public void InvokeRoundEnd(Teams team) {
-        CustomLogger.Log(LogCategories.SystEventManager, $"Round End with {team} winning");
+        Log.LogMsg(LogCategories.SystEventManager, $"Round End with {team} winning");
         OnRoundEnd?.Invoke(team);
     }
     public void InvokeTeamFlipFlop() {
-        CustomLogger.Log(LogCategories.SystEventManager, "Team flip flop");
+        Log.LogMsg(LogCategories.SystEventManager, "Team flip flop");
         OnTeamFlipFlop?.Invoke();
     }
 }

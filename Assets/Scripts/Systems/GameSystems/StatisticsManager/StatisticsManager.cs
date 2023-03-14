@@ -69,7 +69,7 @@ public class StatisticsManager : NetworkBehaviour {
     }
 
     private void Instance_OnRoundEnd(Teams team) {
-        CustomLogger.Log(LogCategories.SystStatisticsManager, "Looking for a MVP");
+        Log.LogMsg(LogCategories.SystStatisticsManager, "Looking for a MVP");
         NetworkConnection currentMVP = null;
         int currentMVPPoints = -1000;
         bool TiedMVP = false;
@@ -83,7 +83,7 @@ public class StatisticsManager : NetworkBehaviour {
             }
         }
         if (!TiedMVP && currentMVP != null) {
-            CustomLogger.Log(LogCategories.SystStatisticsManager, "A MVP was found and has been given stats");
+            Log.LogMsg(LogCategories.SystStatisticsManager, "A MVP was found and has been given stats");
             StatisticsData stats = playerStatistics[currentMVP];
             stats.MVPs++;
             playerStatistics.Dirty(currentMVP);
@@ -93,7 +93,7 @@ public class StatisticsManager : NetworkBehaviour {
 
     private void Instance_OnPlayerDeath(NetworkConnection pDeader, NetworkConnection pKiller, NetworkConnection pAssister) {
         // On player death give point to dead, Give reward to killer, Give reward to assister
-        CustomLogger.Log(LogCategories.SystStatisticsManager, "A person has died Updateing statistics");
+        Log.LogMsg(LogCategories.SystStatisticsManager, "A person has died Updateing statistics");
         if (pDeader != null) {
             if (playerStatistics.ContainsKey(pDeader)) {
                 StatisticsData stats = playerStatistics[pDeader];
@@ -135,7 +135,7 @@ public class StatisticsManager : NetworkBehaviour {
 
     private void Instance_OnObjectiveStarted(Teams team, NetworkConnection conn) {
         // On bomb plant, give reward to planter
-        CustomLogger.Log(LogCategories.SystStatisticsManager, "Objective has been started Updateing statistics");
+        Log.LogMsg(LogCategories.SystStatisticsManager, "Objective has been started Updateing statistics");
         if (playerStatistics.ContainsKey(conn)) {
             StatisticsData stats = playerStatistics[conn];
             stats.objectives++;
@@ -149,7 +149,7 @@ public class StatisticsManager : NetworkBehaviour {
     }
     private void Instance_OnObjectiveComplete(Teams team, NetworkConnection conn) {
         // On bomb defuse, give reward to defuser
-        CustomLogger.Log(LogCategories.SystStatisticsManager, "Objective has been completed Updateing statistics");
+        Log.LogMsg(LogCategories.SystStatisticsManager, "Objective has been completed Updateing statistics");
         if (playerStatistics.ContainsKey(conn)) {
             StatisticsData stats = playerStatistics[conn];
             stats.objectives++;

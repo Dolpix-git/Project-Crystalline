@@ -14,5 +14,8 @@ public enum LogCategories {
     SystPlayerManager,
     SystSpawnManager,
     SystStatisticsManager,
-    SystTeamManager
+    SystTeamManager,
+    PlayerItemPickup,
+    PlayerInventory,
+    PlayerHotbar
 }

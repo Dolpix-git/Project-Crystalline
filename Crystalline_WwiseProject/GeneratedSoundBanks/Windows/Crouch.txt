@@ -1,0 +1,15 @@
+Event	ID	Name			Wwise Object Path	Notes
+	2655407367	Crouch			\Default Work Unit\Player\Locomotion\Crouch	
+
+Switch Group	ID	Name			Wwise Object Path	Notes
+	2655407367	Crouch			\Default Work Unit\Crouch	
+
+Switch	ID	Name	Switch Group			Notes
+	2195636714	Dirt	Crouch			
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	169228004	PLY_SFX_LOCO_FOOTSTEPS_INDOOR_04	X:\RiskProjects\Crystalline\Crystalline_WwiseProject\.cache\Windows\SFX\PLY_SFX_LOCO_FOOTSTEPS_INDOOR_04_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Player\Locomotion\Crouch\Dirt\PLY_SFX_LOCO_FOOTSTEPS_INDOOR_04		0
+	498913498	PLY_SFX_LOCO_FOOTSTEPS_INDOOR_01	X:\RiskProjects\Crystalline\Crystalline_WwiseProject\.cache\Windows\SFX\PLY_SFX_LOCO_FOOTSTEPS_INDOOR_01_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Player\Locomotion\Crouch\Dirt\PLY_SFX_LOCO_FOOTSTEPS_INDOOR_01		0
+	582785820	PLY_SFX_LOCO_FOOTSTEPS_INDOOR_03	X:\RiskProjects\Crystalline\Crystalline_WwiseProject\.cache\Windows\SFX\PLY_SFX_LOCO_FOOTSTEPS_INDOOR_03_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Player\Locomotion\Crouch\Dirt\PLY_SFX_LOCO_FOOTSTEPS_INDOOR_03		0
+	680642949	PLY_SFX_LOCO_FOOTSTEPS_INDOOR_02	X:\RiskProjects\Crystalline\Crystalline_WwiseProject\.cache\Windows\SFX\PLY_SFX_LOCO_FOOTSTEPS_INDOOR_02_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Player\Locomotion\Crouch\Dirt\PLY_SFX_LOCO_FOOTSTEPS_INDOOR_02		0
+

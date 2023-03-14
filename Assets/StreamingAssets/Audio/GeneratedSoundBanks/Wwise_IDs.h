@@ -13,11 +13,26 @@ namespace AK
 {
     namespace EVENTS
     {
+        static const AkUniqueID AMB = 1117531639U;
+        static const AkUniqueID CROUCH = 2655407367U;
         static const AkUniqueID FOOTSTEPS = 2385628198U;
+        static const AkUniqueID JUMP = 3833651337U;
+        static const AkUniqueID LAND = 674522502U;
+        static const AkUniqueID THROW = 745179803U;
     } // namespace EVENTS
 
     namespace SWITCHES
     {
+        namespace CROUCH
+        {
+            static const AkUniqueID GROUP = 2655407367U;
+
+            namespace SWITCH
+            {
+                static const AkUniqueID DIRT = 2195636714U;
+            } // namespace SWITCH
+        } // namespace CROUCH
+
         namespace FOOTSTEPS
         {
             static const AkUniqueID GROUP = 2385628198U;
@@ -28,12 +43,27 @@ namespace AK
             } // namespace SWITCH
         } // namespace FOOTSTEPS
 
+        namespace LAND
+        {
+            static const AkUniqueID GROUP = 674522502U;
+
+            namespace SWITCH
+            {
+                static const AkUniqueID DIRT = 2195636714U;
+            } // namespace SWITCH
+        } // namespace LAND
+
     } // namespace SWITCHES
 
     namespace BANKS
     {
         static const AkUniqueID INIT = 1355168291U;
+        static const AkUniqueID AMB = 1117531639U;
+        static const AkUniqueID CROUCH = 2655407367U;
         static const AkUniqueID FOOTSTEPS = 2385628198U;
+        static const AkUniqueID JUMP = 3833651337U;
+        static const AkUniqueID LAND = 674522502U;
+        static const AkUniqueID THROW = 745179803U;
     } // namespace BANKS
 
     namespace BUSSES

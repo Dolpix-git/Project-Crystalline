@@ -42,22 +42,27 @@ public class PlayerWeaponManager : NetworkBehaviour {
     public bool HasSpike { get => hasSpike; set => hasSpike = value; }
     #endregion
 
-    [SerializeField] NadeCommandScriptableObject nadeToAdd;
+    [SerializeField] private NadeCommandScriptableObject nadeToAdd;
+    [SerializeField] private int inventoryLength = 3;
+    private int currentInventoryIndex;
 
     [SyncVar]
-    private Command inventorySlotOne;
+    private Command[] toolBelt;
 
 
     private void Awake() {
-        NadeCommand nade = new();
-        nade.Setup(nadeToAdd,this,nadeToAdd.MaxStack);
-        inventorySlotOne = nade;
-
-
-
         gameObject.GetComponent<Health>().OnDisabled += PlayerWeaponManager_OnDisabled;
         gameObject.GetComponent<Health>().OnRespawned += PlayerWeaponManager_OnRespawned;
         gameObject.GetComponent<Health>().OnDeath += PlayerWeaponManager_OnDeath;
+    }
+    private void Start() {
+        if (base.IsServer) {
+            Debug.Log("Attempting to add an item to the inventory");
+            toolBelt = new Command[inventoryLength];
+            NadeCommand nade = new();
+            nade.Setup(nadeToAdd, this, nadeToAdd.MaxStack, 0);
+            toolBelt[0] = nade;
+        }
     }
     private void OnDestroy() {
         gameObject.GetComponent<Health>().OnDisabled += PlayerWeaponManager_OnDisabled;
@@ -86,6 +91,11 @@ public class PlayerWeaponManager : NetworkBehaviour {
         if (PlayerInputManager.Instance.GetWeaponsInput()) {
             Activate(PlayerInputManager.Instance.GetCamForward());
         }
+        // IF drop nade pressed (Drop nade)
+
+        // IF change inventory key (Change to that inventory slot)
+
+        // IF change inventory up or down (Change the inventory slot up or down)
 
         //if (PlayerInputManager.Instance.GetPlantSpike()) {
         //    PlantSpike(transform.position + (transform.forward * 2f));
@@ -94,16 +104,59 @@ public class PlayerWeaponManager : NetworkBehaviour {
         //    StartInteraction();
         //}
     }
-    [ServerRpc]
-    public void Activate(Vector3 lookVector) {
-        inventorySlotOne.Activate(lookVector);
+
+    [Server]
+    public int AddObjectToInventory(Command objectToAdd, int amount) {
+        // loop through all the tool belt items
+        // if empty slot then add object and then add as much of the amount as possible, subtract the amount we were able to add
+        // else if slot is the same as the object we are trying to add, then attempt to add as much of the amount as possible , subtract the amount we were able to add
+
+        // if we ran out of amount to give, early exit with 0
+        
+        // else if we looped through everything, then return the amount remaining
+
+        //for (int i = 0; i < toolBelt.Length; i++) {
+        //    if (toolBelt[i] == null) {
+        //        toolBelt[i] = new oftype objectToAdd;
+        //        toolBelt[i] = 
+        //    }
+        //}
+        return amount;
     }
     [Server]
-    public GameObject SpawnObject(GameObject nadeObj, Vector3 position, Quaternion rotation) {
-        GameObject result = Instantiate(nadeObj, position, rotation);
+    public void RemoveObjectFromInventory(int index) {
+        toolBelt[index] = null;
+    }
+    [ServerRpc]
+    public void PreviousInventoryIndex() {
+        currentInventoryIndex = Mathf.Clamp(currentInventoryIndex --, 0, toolBelt.Length - 1);
+    }
+    [ServerRpc]
+    public void NextInventoryIndex() {
+        currentInventoryIndex = Mathf.Clamp(currentInventoryIndex ++, 0, toolBelt.Length - 1);
+    }
+    [ServerRpc]
+    public void ChangeInventoryIndex(int newIndex) {
+        currentInventoryIndex = Mathf.Clamp(newIndex,0, toolBelt.Length - 1);
+    }
+
+    [ServerRpc]
+    public void Activate(Vector3 lookVector) {
+        toolBelt[currentInventoryIndex].Activate(lookVector);
+    }
+    [ServerRpc]
+    public void DropObject(Vector3 lookVector) {
+        toolBelt[currentInventoryIndex].Drop(lookVector);
+    }
+
+    [Server]
+    public GameObject SpawnObject(GameObject obj, Vector3 position, Quaternion rotation) {
+        GameObject result = Instantiate(obj, position, rotation);
         base.Spawn(result);
         return result;
     }
+
+
 
     //#region Plant.
     ///// <summary>

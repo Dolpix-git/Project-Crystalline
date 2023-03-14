@@ -8,6 +8,16 @@
 						<Switch Name="Dirt" ID="{EF067B2C-EA64-497C-915D-2FB311016F9A}"/>
 					</ChildrenList>
 				</SwitchGroup>
+				<SwitchGroup Name="Land" ID="{79ED9DEB-F40F-4EC4-A722-65E0844EF5AD}">
+					<ChildrenList>
+						<Switch Name="Dirt" ID="{E91531F9-ED3A-47E3-BAE7-2DEC6A136126}"/>
+					</ChildrenList>
+				</SwitchGroup>
+				<SwitchGroup Name="Crouch" ID="{52E9AD45-2066-4982-AC5E-5BE601225E46}">
+					<ChildrenList>
+						<Switch Name="Dirt" ID="{A4DAA655-F01C-40FD-BB56-3E06881CE5B7}"/>
+					</ChildrenList>
+				</SwitchGroup>
 			</ChildrenList>
 		</WorkUnit>
 	</Switches>

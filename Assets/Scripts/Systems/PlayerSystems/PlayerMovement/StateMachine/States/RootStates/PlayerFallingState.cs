@@ -27,6 +27,7 @@ public class PlayerFallingState : PlayerBaseState{
             SwitchState(Cashe.Jump());
         } else if (Ctx.OnGround) {
             SwitchState(Cashe.Grounded());
+            
         }
     }
     public override PlayerStates PlayerState() {

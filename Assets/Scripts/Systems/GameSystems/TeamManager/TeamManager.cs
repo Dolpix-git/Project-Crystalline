@@ -47,9 +47,9 @@ public class TeamManager : NetworkBehaviour {
 
     private void Instance_OnRoundEnd(Teams team) {
         if (!base.IsServer) { return; }
-        CustomLogger.Log(LogCategories.SystTeamManager, $"Giving a point to {team} client?{base.IsClient} server?{base.IsServer}");
+        Log.LogMsg(LogCategories.SystTeamManager, $"Giving a point to {team} client?{base.IsClient} server?{base.IsServer}");
         if (team == Teams.TeamOne || team == Teams.TeamTwo) {
-            CustomLogger.Log(LogCategories.SystTeamManager, $"Length {teamsDict.Count} Team one:{teamsDict.ContainsKey(Teams.TeamOne)} Team two:{teamsDict.ContainsKey(Teams.TeamTwo)}");
+            Log.LogMsg(LogCategories.SystTeamManager, $"Length {teamsDict.Count} Team one:{teamsDict.ContainsKey(Teams.TeamOne)} Team two:{teamsDict.ContainsKey(Teams.TeamTwo)}");
             if (teamsDict.ContainsKey(Teams.TeamOne) && teamsDict.ContainsKey(Teams.TeamTwo)) {
 
                 TeamData teamD = teamsDict[team];
@@ -60,11 +60,11 @@ public class TeamManager : NetworkBehaviour {
         }
     }
     private void Instance_OnPlayerConnected(NetworkConnection obj) {
-        CustomLogger.Log(LogCategories.SystTeamManager, $"Adding {obj} to team roster");
+        Log.LogMsg(LogCategories.SystTeamManager, $"Adding {obj} to team roster");
         playerTeams.Add(obj, Teams.None);
     }
     private void Instance_OnPlayerDisconnected(NetworkConnection obj) {
-        CustomLogger.Log(LogCategories.SystTeamManager, $"Removeing {obj} from team roster");
+        Log.LogMsg(LogCategories.SystTeamManager, $"Removeing {obj} from team roster");
         playerTeams.Remove(obj);
     }
 
@@ -83,16 +83,16 @@ public class TeamManager : NetworkBehaviour {
         }
 
         if (tie) {
-            CustomLogger.Log(LogCategories.SystTeamManager, "There was a Tie!");
+            Log.LogMsg(LogCategories.SystTeamManager, "There was a Tie!");
         } else if(winningTeam != Teams.None){
-            CustomLogger.Log(LogCategories.SystTeamManager, $"{winningTeam} Has won the game!");
+            Log.LogMsg(LogCategories.SystTeamManager, $"{winningTeam} Has won the game!");
         } else {
-            CustomLogger.Log(LogCategories.SystTeamManager, "There was no winner!");
+            Log.LogMsg(LogCategories.SystTeamManager, "There was no winner!");
         }
     }
 
     public void ResetTeams() {
-        CustomLogger.Log(LogCategories.SystTeamManager, $"Reseting teams");
+        Log.LogMsg(LogCategories.SystTeamManager, $"Reseting teams");
         foreach (NetworkConnection player in playerTeams.Keys.ToList()) {
             playerTeams[player] = Teams.None;
         }
@@ -100,7 +100,7 @@ public class TeamManager : NetworkBehaviour {
     }
     [Server]
     public void SetUpTeams() {
-        CustomLogger.Log(LogCategories.SystTeamManager, $"Setting up teams");
+        Log.LogMsg(LogCategories.SystTeamManager, $"Setting up teams");
         TeamData teamOne = new TeamData {
             name = "TeamOne",
             objective = Objectives.Attackers
@@ -117,7 +117,7 @@ public class TeamManager : NetworkBehaviour {
         teamsDict.Add(Teams.TeamTwo, teamTwo);
         teamsDict.Dirty(Teams.TeamTwo);
 
-        CustomLogger.Log(LogCategories.SystEventManager, $"Length of teams: {teamsDict.Count}");
+        Log.LogMsg(LogCategories.SystEventManager, $"Length of teams: {teamsDict.Count}");
 
         NetworkConnection[] arrayOfPlayers = Shuffle(playerTeams.Keys.ToArray());
         for (int i = 0; i < arrayOfPlayers.Length; i++) {
@@ -132,11 +132,11 @@ public class TeamManager : NetworkBehaviour {
     public Teams GetTeamFromObjective(Objectives obj) { 
         foreach (Teams team in teamsDict.Keys) {
             if (teamsDict[team].objective == obj) {
-                CustomLogger.Log(LogCategories.SystTeamManager, $"Getting team from {obj} team:{team}");
+                Log.LogMsg(LogCategories.SystTeamManager, $"Getting team from {obj} team:{team}");
                 return team;
             }
         }
-        CustomLogger.Log(LogCategories.SystTeamManager, $"There was no team for Objective:{obj}");
+        Log.LogMsg(LogCategories.SystTeamManager, $"There was no team for Objective:{obj}");
         return Teams.None;
     }
 
@@ -149,11 +149,11 @@ public class TeamManager : NetworkBehaviour {
             }
         }
         if(list.Count == 0) {
-            CustomLogger.Log(LogCategories.SystTeamManager, $"No random players in team:{team}");
+            Log.LogMsg(LogCategories.SystTeamManager, $"No random players in team:{team}");
             return null;
         }
         int index = Random.Range(0, list.Count);
-        CustomLogger.Log(LogCategories.SystTeamManager, $"Returning random player from team:{team} player:{list[index]}");
+        Log.LogMsg(LogCategories.SystTeamManager, $"Returning random player from team:{team} player:{list[index]}");
         return list[index];
     }
 
@@ -169,7 +169,7 @@ public class TeamManager : NetworkBehaviour {
     }
 
     public void TeamFlipFlop() {
-        CustomLogger.Log(LogCategories.SystTeamManager, $"Team Flip flop");
+        Log.LogMsg(LogCategories.SystTeamManager, $"Team Flip flop");
         Objectives teamOneObj = teamsDict[Teams.TeamOne].objective;
         Objectives teamTwoObj = teamsDict[Teams.TeamTwo].objective;
 

@@ -1,6 +1,9 @@
 using UnityEngine;
 
 public class PlayerCrouchState : PlayerBaseState {
+    float count = 0;
+    float maxCountDelta = 0.2000f;
+
     public PlayerCrouchState(PlayerStateMachine currentContext, PlayerStateCashe playerStateFactory) : base(currentContext, playerStateFactory) { }
 
     #region States.
@@ -12,6 +15,7 @@ public class PlayerCrouchState : PlayerBaseState {
             UnCrouch();
         } else {
             ChangeColliderHeight(Ctx.PlayerEffects.CrouchDelta);
+            AkSoundEngine.PostEvent("Crouch", Ctx.RigidBody.gameObject);
         }
 
         AdjustVelocity();

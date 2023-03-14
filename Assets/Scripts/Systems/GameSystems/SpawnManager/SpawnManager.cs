@@ -35,7 +35,7 @@ public class SpawnManager : MonoBehaviour{
                 PlayerManager.Instance.players[player].GetComponent<Health>().Respawn();
                 PlayerManager.Instance.players[player].transform.position = attackerSpawn.position;
             } else {
-                CustomLogger.Log(LogCategories.Round, "A player was not under eather attackers or defenders");
+                Log.LogMsg(LogCategories.Round, "A player was not under eather attackers or defenders");
             }
         }
     }

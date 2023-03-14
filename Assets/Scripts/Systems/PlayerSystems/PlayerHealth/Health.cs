@@ -81,7 +81,7 @@ public class Health : NetworkBehaviour {
     /// </summary>
     public void Respawn() {
         if (!base.IsServer) { return; }
-        CustomLogger.Log(LogCategories.Health, $"{gameObject.name} Has been respawned!");
+        Log.LogMsg(LogCategories.Health, $"{gameObject.name} Has been respawned!");
         OnRespawned?.Invoke();
         RestoreHealth();
         damageRecord.Clear();
@@ -93,7 +93,7 @@ public class Health : NetworkBehaviour {
     /// </summary>
     [ObserversRpc(ExcludeServer = true)]
     private void ObserversRespawned() {
-        CustomLogger.Log(LogCategories.Health, $"{gameObject.name} Has been respawned!");
+        Log.LogMsg(LogCategories.Health, $"{gameObject.name} Has been respawned!");
         OnRespawned?.Invoke();
     }
     /// <summary>
@@ -146,7 +146,7 @@ public class Health : NetworkBehaviour {
     /// </summary>
     [ObserversRpc(ExcludeServer = true)]
     public virtual void ObserverDeath() {
-        CustomLogger.Log(LogCategories.Health, $"{gameObject.name} Has Died");
+        Log.LogMsg(LogCategories.Health, $"{gameObject.name} Has Died");
         OnDeath?.Invoke();
     }
     /// <summary>
@@ -156,7 +156,7 @@ public class Health : NetworkBehaviour {
     /// <param name="next">Next health</param>
     /// <param name="asServer">True if is server</param>
     private void On_Health(int prev, int next, bool asServer) {
-        CustomLogger.Log(LogCategories.Health, $"Health has changed: {prev} {next} {MaximumHealth}  is Server:{asServer}");
+        Log.LogMsg(LogCategories.Health, $"Health has changed: {prev} {next} {MaximumHealth}  is Server:{asServer}");
         OnHealthChanged?.Invoke(prev, next, MaximumHealth);
     }
     private void On_Disabled(bool prev, bool next, bool asServer) {
@@ -167,7 +167,7 @@ public class Health : NetworkBehaviour {
     }
     public void Disable() {
         if (!base.IsServer) { return; }
-        CustomLogger.Log($"Observer disable request. Is server?:{base.IsServer}");
+        Log.LogMsg($"Observer disable request. Is server?:{base.IsServer}");
         OnDisabled?.Invoke();
         isDisabled = true;
     }

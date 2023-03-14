@@ -1,0 +1,3 @@
+Event	ID	Name			Wwise Object Path	Notes
+	745179803	Throw			\Default Work Unit\Player\Attack\Throw	
+

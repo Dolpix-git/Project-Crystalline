@@ -19,12 +19,12 @@ public class ObjectiveEventManager {
     public event Action<Teams, NetworkConnection> OnObjectiveStarted;
 
     public void InvokeObjectiveComplete(Teams team, NetworkConnection net) {
-        CustomLogger.Log(LogCategories.SystEventManager, $"Objective complete Team:{team} Conn:{net}");
+        Log.LogMsg(LogCategories.SystEventManager, $"Objective complete Team:{team} Conn:{net}");
         OnObjectiveComplete?.Invoke(team, net);
     }
 
     public void InvokeObjectiveStarted(Teams team, NetworkConnection net) {
-        CustomLogger.Log(LogCategories.SystEventManager, $"Objective started Team:{team} Conn:{net}");
+        Log.LogMsg(LogCategories.SystEventManager, $"Objective started Team:{team} Conn:{net}");
         OnObjectiveStarted?.Invoke(team, net);
     }
 }

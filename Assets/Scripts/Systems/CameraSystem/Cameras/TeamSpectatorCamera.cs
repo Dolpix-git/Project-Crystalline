@@ -42,7 +42,7 @@ public class TeamSpectatorCamera : CameraBaseClass {
     }
 
     public void NextTeamCamera() {
-        CustomLogger.Log($"Looking for the next team camera");
+        Log.LogMsg($"Looking for the next team camera");
         int tempIndex = pointerIndex + 1;
 
         NetworkConnection ownerConn = InstanceFinder.ClientManager.Connection;

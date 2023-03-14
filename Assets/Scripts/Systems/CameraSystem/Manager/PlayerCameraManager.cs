@@ -58,7 +58,6 @@ public class PlayerCameraManager : MonoBehaviour{
 
     private void Instance_OnPlayerClentConnected(NetworkObject obj) {
         NetworkConnection conn = obj.Owner;
-        CustomLogger.Log(conn.ClientId + " " + InstanceFinder.ClientManager.Connection.ClientId);
         if (conn == InstanceFinder.ClientManager.Connection) {
             PlayerManager.Instance.players[conn].GetComponent<Health>().OnDeath += Health_OnDeath;
             PlayerManager.Instance.players[conn].GetComponent<Health>().OnRespawned += Health_OnRespawned;
@@ -67,22 +66,22 @@ public class PlayerCameraManager : MonoBehaviour{
     }
 
     private void Health_OnRespawned() {
-        CustomLogger.Log(LogCategories.Camera, "Switched to First person");
+        Log.LogMsg(LogCategories.Camera, "Switched to First person");
         currentCamera = CameraTypes.firstPerson;
         cameraClasses[currentCamera].SetCamera();
     }
     private void Health_OnDeath() {
-        CustomLogger.Log(LogCategories.Camera, "Switched to Team spectator");
+        Log.LogMsg(LogCategories.Camera, "Switched to Team spectator");
         currentCamera = CameraTypes.teamSpectator;
         cameraClasses[currentCamera].SetCamera();
     }
     public void SetSpectator() {
-        CustomLogger.Log(LogCategories.Camera, "Switched to Spectator");
+        Log.LogMsg(LogCategories.Camera, "Switched to Spectator");
         currentCamera = CameraTypes.Spectator;
         cameraClasses[currentCamera].SetCamera();
     }
     public void SetLocked() {
-        CustomLogger.Log(LogCategories.Camera, "Switched to Locked");
+        Log.LogMsg(LogCategories.Camera, "Switched to Locked");
         currentCamera = CameraTypes.locked;
         cameraClasses[currentCamera].SetCamera();
     }
