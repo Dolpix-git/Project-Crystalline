@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 8004145175360252860}
   - component: {fileID: 9002359642332007482}
   - component: {fileID: 5324421884714839305}
+  - component: {fileID: 2968071905471243310}
   - component: {fileID: 901988388494858577}
   - component: {fileID: 3593365082401464698}
   - component: {fileID: 6391269186535704374}
@@ -100,11 +101,12 @@ MonoBehaviour:
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours:
-  - {fileID: 901988388494858577}
-  - {fileID: 1882312147218659704}
-  - {fileID: 0}
-  - {fileID: 8004145175360252860}
   - {fileID: -9088385742316106720}
+  - {fileID: 1882312147218659704}
+  - {fileID: 8004145175360252860}
+  - {fileID: 9002359642332007482}
+  - {fileID: 5324421884714839305}
+  - {fileID: 901988388494858577}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
@@ -161,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b32648e4a77fef4393939ad13896f90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 4
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 5162187385007901065}
   _networkObjectCache: {fileID: 5162187385007901065}
   probeMask:
@@ -235,7 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbacd7be58d81a14682d6c1f23767faa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 3
+  _componentIndexCache: 2
   _addedNetworkObject: {fileID: 5162187385007901065}
   _networkObjectCache: {fileID: 5162187385007901065}
   baseHealth: 100
@@ -253,9 +255,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 824372b2d7ce4f34484d2600adca3217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 3
   _addedNetworkObject: {fileID: 5162187385007901065}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 5162187385007901065}
   inventorySize: 3
   inventory: []
   currentInventoryIndex: 0
@@ -271,9 +273,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e7111efd9ce3f40a6c9bb6a47ee2ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 4
+  _addedNetworkObject: {fileID: 5162187385007901065}
+  _networkObjectCache: {fileID: 5162187385007901065}
+--- !u!114 &2968071905471243310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4870035923611722996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3840d1b1a4cc32d4b9dd08620b7941f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 5162187385007901065}
   _networkObjectCache: {fileID: 0}
+  interactionRadius: 2
+  isInteracting: 0
+  isInteractionPause: 0
 --- !u!114 &901988388494858577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,7 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87a3baef4e75e2d45963580966df8ece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
+  _componentIndexCache: 5
   _addedNetworkObject: {fileID: 5162187385007901065}
   _networkObjectCache: {fileID: 5162187385007901065}
   head: {fileID: 6770776063968730071}

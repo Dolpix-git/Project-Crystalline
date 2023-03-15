@@ -44,7 +44,7 @@ public class PlayerHud : MonoBehaviour{
         if (obj.Owner != InstanceFinder.ClientManager.Connection) return;
 
         if (PlayerManager.Instance.players.ContainsKey(InstanceFinder.ClientManager.Connection)) {
-            PlayerManager.Instance.players[InstanceFinder.ClientManager.Connection].GetComponent<Health>().OnHealthChanged += PlayerHud_OnHealthChanged;
+            PlayerManager.Instance.players[InstanceFinder.ClientManager.Connection].GetComponent<PlayerHealth>().OnHealthChanged += PlayerHud_OnHealthChanged;
         } else {
             Log.LogWarning($"Tried to get a player and they were not in the list of players Conn:{InstanceFinder.ClientManager.Connection}");
         }

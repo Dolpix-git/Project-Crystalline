@@ -135,10 +135,11 @@ public class EconomyManager : NetworkBehaviour {
     private void Instance_OnObjectiveComplete(Teams team, NetworkConnection conn) {
         // On bomb defuse, give reward to defuser
         Log.LogMsg(LogCategories.SystEconomyManager, $"Objective complete for team:{team} conn:{conn}");
-        if (conn != null) return;
+        if (conn == null) return;
 
-        if (playerEconomy.ContainsKey(conn)) {
+        if (TeamManager.Instance.GetTeamFromObjective(Objectives.Defenders) == team) return;
+
+        if (playerEconomy.ContainsKey(conn)) 
             playerEconomy[conn] += Mathf.Clamp(objectiveEndMoney + playerEconomy[conn], 0, maxPlayerMoney);
-        }
     }
 }

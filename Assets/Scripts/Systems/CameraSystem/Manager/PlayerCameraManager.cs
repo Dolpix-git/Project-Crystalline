@@ -59,8 +59,8 @@ public class PlayerCameraManager : MonoBehaviour{
     private void Instance_OnPlayerClentConnected(NetworkObject obj) {
         NetworkConnection conn = obj.Owner;
         if (conn == InstanceFinder.ClientManager.Connection) {
-            PlayerManager.Instance.players[conn].GetComponent<Health>().OnDeath += Health_OnDeath;
-            PlayerManager.Instance.players[conn].GetComponent<Health>().OnRespawned += Health_OnRespawned;
+            PlayerManager.Instance.players[conn].GetComponent<PlayerHealth>().OnDeath += Health_OnDeath;
+            PlayerManager.Instance.players[conn].GetComponent<PlayerHealth>().OnRespawned += Health_OnRespawned;
             SetSpectator();
         }
     }

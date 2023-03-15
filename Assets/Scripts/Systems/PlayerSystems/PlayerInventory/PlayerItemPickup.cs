@@ -3,13 +3,16 @@ using UnityEngine;
 
 [RequireComponent(typeof(InventorySystem))]
 public class PlayerItemPickup : NetworkBehaviour{
-    InventorySystem inventorySystem;
+    private InventorySystem inventorySystem;
+    private PlayerHealth playerHealth;
     private void Awake() {
         inventorySystem = GetComponent<InventorySystem>();
-        Log.LogMsg(LogCategories.PlayerItemPickup, $"Finding inventory system: {inventorySystem}");
+        playerHealth = GetComponent<PlayerHealth>();
     }
     private void OnCollisionEnter(Collision collision) {
         if (!base.IsServer) return;
+
+        if (playerHealth.IsDisabled || playerHealth.IsDead) return;
 
         IPickupable pickup = collision.gameObject.GetComponent<IPickupable>();
         if (pickup == null) return;

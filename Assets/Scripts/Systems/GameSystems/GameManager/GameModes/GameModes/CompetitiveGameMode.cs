@@ -1,12 +1,11 @@
-using FishNet;
 using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CompetitiveGameMode : BaseGameMode {
+    [SerializeField] private ItemData spikePrefab;
     #region Private.
     private bool roundInProgress;
 
@@ -24,7 +23,6 @@ public class CompetitiveGameMode : BaseGameMode {
     private int halfTime = 4;
     private float roundTime = 30;
     #endregion
-
 
     #region Setup and Destroy.
     public override void OnStartServer() {
@@ -182,17 +180,17 @@ public class CompetitiveGameMode : BaseGameMode {
         Teams attackingTeam = TeamManager.Instance.GetTeamFromObjective(Objectives.Attackers);
         NetworkConnection conn = TeamManager.Instance.GetRandomPlayerFromTeam(attackingTeam);
         if (conn != null) {
-            PlayerWeaponManager weaponManager = PlayerManager.Instance.players[conn].GetComponent<PlayerWeaponManager>();
-            if (weaponManager != null)
-                weaponManager.HasSpike = true;
+            InventorySystem inventorySystem = PlayerManager.Instance.players[conn].GetComponent<InventorySystem>();
+            if (inventorySystem != null)
+                inventorySystem.AtttemptToAddItem(spikePrefab,1,out int rem);
         }
     }
     private void TakeSpikeAwayFromPlayers() {
         Log.LogMsg(LogCategories.Round, $"Taking away spike");
         foreach (NetworkObject player in PlayerManager.Instance.players.Values) {
-            PlayerWeaponManager weaponManager = player.GetComponent<PlayerWeaponManager>();
-            if(weaponManager != null)
-                weaponManager.HasSpike = false;
+            InventorySystem inventorySystem = player.GetComponent<InventorySystem>();
+            if (inventorySystem != null)
+                inventorySystem.WipeItemFromInventory(spikePrefab);
         }
     }
     #endregion

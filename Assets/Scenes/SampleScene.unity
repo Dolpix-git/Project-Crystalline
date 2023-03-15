@@ -4136,6 +4136,7 @@ MonoBehaviour:
   _componentIndexCache: 1
   _addedNetworkObject: {fileID: 1941173840}
   _networkObjectCache: {fileID: 1941173840}
+  spikePrefab: {fileID: 11400000, guid: 223e602338f09cf439507a470f774c50, type: 2}
 --- !u!114 &1941173843
 MonoBehaviour:
   m_ObjectHideFlags: 0

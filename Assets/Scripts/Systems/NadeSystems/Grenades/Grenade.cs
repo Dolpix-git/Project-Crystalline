@@ -73,7 +73,7 @@ public class Grenade : NetworkBehaviour, IThrowable, IRound{
             //Trace for players 
             Collider[] hits = Physics.OverlapSphere(transform.position, damageRadius, playerLayer);
             for (int i = 0; i < hits.Length; i++) {
-                Health h = hits[i].GetComponent<Health>();
+                PlayerHealth h = hits[i].GetComponent<PlayerHealth>();
                 if (h != null) {
                     NetworkConnection conn = h.Owner;
                     Log.LogMsg($"Attempting to kill {TeamManager.Instance.playerTeams[conn]}");

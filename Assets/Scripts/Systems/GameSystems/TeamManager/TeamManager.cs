@@ -210,7 +210,7 @@ public class TeamManager : NetworkBehaviour {
     public bool CheckTeamWipe(Teams team) {
         foreach (NetworkConnection player in playerTeams.Keys) {
             if (playerTeams[player] == team) {
-                if (!PlayerManager.Instance.players[player].GetComponent<Health>().IsDead) {
+                if (!PlayerManager.Instance.players[player].GetComponent<PlayerHealth>().IsDead) {
                     return false;
                 }
             }
@@ -221,7 +221,7 @@ public class TeamManager : NetworkBehaviour {
         int count = 0;
         foreach (NetworkConnection player in playerTeams.Keys) {
             if (playerTeams[player] == team) {
-                if (!PlayerManager.Instance.players[player].GetComponent<Health>().IsDead) {
+                if (!PlayerManager.Instance.players[player].GetComponent<PlayerHealth>().IsDead) {
                     count++;
                 }
             }

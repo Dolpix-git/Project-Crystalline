@@ -1,6 +1,8 @@
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using System;
 using UnityEngine;
+using static Steamworks.InventoryItem;
 
 public class InventorySystem : NetworkBehaviour{
     [SerializeField] protected int inventorySize;
@@ -65,6 +67,32 @@ public class InventorySystem : NetworkBehaviour{
         }
     }
     [Server]
+    public void WipeItemFromInventory(ItemData item) {
+        for (int i = 0; i < inventory.Length; i++) {
+            if (inventory[i].ItemData == item) {
+                inventory[i].SetItemData(null);
+            }
+        }
+    }
+    [Server]
+    public bool AtttemptToRemoveItem(ItemData item, int amount, out int remaning) {
+        // loop through inventory and find items that are the same, then attempt to fill there slots
+        for (int i = 0; i < inventory.Length; i++) {
+            if (inventory[i].ItemData == item) {
+                inventory[i].RemoveFromStack(amount, out amount);
+                if (amount > 0) { // We were able to remove but there is still some left over
+                    inventory[i].SetItemData(null);
+                } else { // We dont need to remove any more, so we can exit early
+                    remaning = amount;
+                    return false;
+                }
+            }
+        }
+        // there is a remaining amount
+        remaning = amount;
+        return true;
+    }
+    [Server]
     public bool AttemptToRemoveAtIndex(int index, int amount, out int remaning) {
         if (index < 0 || index >= inventory.Length) { // Index out of range
             remaning = amount;
@@ -72,15 +100,16 @@ public class InventorySystem : NetworkBehaviour{
         }
 
         inventory[index].RemoveFromStack(amount, out amount);
+        remaning = amount;
 
         if (amount > 0) { // there was some left over
             inventory[index].SetItemData(null);
-            remaning = amount;
             return true;
-        } else { // we were able to remove the amount
-            remaning = 0;
-            return false;
         }
+        if (inventory[index].Amount == 0)
+            inventory[index].SetItemData(null);
+
+        return false;
     }
 
     [Server]

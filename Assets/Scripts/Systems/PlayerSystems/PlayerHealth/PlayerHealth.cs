@@ -6,7 +6,7 @@ using System;
 using UnityEngine;
 
 
-public class Health : NetworkBehaviour {
+public class PlayerHealth : NetworkBehaviour {
     #region Serialized.
     /// <summary>
     /// Health to start with.
@@ -57,6 +57,10 @@ public class Health : NetworkBehaviour {
     /// Returns true if player is dead.
     /// </summary>
     public bool IsDead { get { return currentHealth <= 0f; } }
+    /// <summary>
+    /// Returns true if player is disabled. Dissabled is the state where they are not visible.
+    /// </summary>
+    public bool IsDisabled { get => isDisabled; }
     #endregion
 
 

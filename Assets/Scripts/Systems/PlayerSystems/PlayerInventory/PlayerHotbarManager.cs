@@ -1,40 +1,101 @@
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerHotbarManager : InventorySystem{
     [SyncVar] private int currentInventoryIndex;
     private float lastActivateTime;
     private float lastDropTime;
+    private PlayerHealth playerHealth;
+    private PlayerInteraction playerInteraction;
 
-    //Too doo: add client side requests to server
-    private void Update() {
-        if (!IsOwner) { return; }
+    private void Awake() {
+        playerHealth = GetComponent<PlayerHealth>();
+        playerInteraction = GetComponent<PlayerInteraction>();
 
-        if (PlayerInputManager.Instance.GetWeaponsInput()) {
-            Activate(PlayerInputManager.Instance.GetCamForward());
-        } 
+        playerHealth.OnDeath += PlayerHealth_OnDeath;
+        playerHealth.OnDisabled += PlayerHealth_OnDisabled;
+        PlayerInputManager.Instance.OnThrow += Instance_OnThrow;
+        PlayerInputManager.Instance.OnDrop += Instance_OnDrop;
+        PlayerInputManager.Instance.OnHotbarChange += Instance_OnHotbarChange;
+        PlayerInputManager.Instance.OnHotbarDelta += Instance_OnHotbarDelta;
+    }
+
+    private void OnDestroy() {
+        playerHealth.OnDeath -= PlayerHealth_OnDeath;
+        playerHealth.OnDisabled -= PlayerHealth_OnDisabled;
+        PlayerInputManager.Instance.OnThrow -= Instance_OnThrow;
+        PlayerInputManager.Instance.OnDrop -= Instance_OnDrop;
+        PlayerInputManager.Instance.OnHotbarChange -= Instance_OnHotbarChange;
+        PlayerInputManager.Instance.OnHotbarDelta -= Instance_OnHotbarDelta;
     }
 
 
+    [Client]
+    private void Instance_OnThrow() {
+        if (!IsOwner) { return; }
+        Activate(PlayerInputManager.Instance.CamForward);
+    }
+    [Client]
+    private void Instance_OnDrop() {
+        if (!IsOwner) { return; }
+        Drop(PlayerInputManager.Instance.CamForward);
+    }
+    [Client]
+    private void Instance_OnHotbarChange(int obj) {
+        if (!IsOwner) { return; }
+        ChangeIndex(obj);
+    }
+    [Client]
+    private void Instance_OnHotbarDelta(int obj) {
+        if (!IsOwner) { return; }
+        ChangeIndexDelta(obj);
+    }
+
     [ServerRpc]
     public void Drop(Vector3 forward) {
-        Log.LogMsg(LogCategories.PlayerHotbar, $"SERVER: We recived a request to drop an item at index {currentInventoryIndex}");
+        if (playerHealth.IsDisabled || playerHealth.IsDead || playerInteraction.IsInteractionPause) return;
         if (inventory[currentInventoryIndex].ItemData == null) return;
+
+        Log.LogMsg(LogCategories.PlayerHotbar, $"SERVER: We recived a request to drop an item at index {currentInventoryIndex}");
         if (!inventory[currentInventoryIndex].ItemData.DropAmount(forward, Time.time - lastDropTime, this, inventory[currentInventoryIndex].Amount, currentInventoryIndex))
             lastDropTime = Time.time;
     }
     [ServerRpc]
     public void Activate(Vector3 forward) {
-        Log.LogMsg(LogCategories.PlayerHotbar, $"SERVER: We recived a request to activate an item at index {currentInventoryIndex}");
+        if (playerHealth.IsDisabled || playerHealth.IsDead || playerInteraction.IsInteractionPause) return;
         if (inventory[currentInventoryIndex].ItemData == null) return;
+
+        Log.LogMsg(LogCategories.PlayerHotbar, $"SERVER: We recived a request to activate an item at index {currentInventoryIndex}");
         if (!inventory[currentInventoryIndex].ItemData.Activate(forward, Time.time - lastActivateTime, this, currentInventoryIndex))
             lastActivateTime = Time.time;
     }
     [ServerRpc]
     public void ChangeIndex(int index) {
+        if (playerHealth.IsDisabled || playerHealth.IsDead || playerInteraction.IsInteractionPause) return;
         Log.LogMsg(LogCategories.PlayerHotbar, $"SERVER: We recived a request to change current index too {index}");
-        // too doo, if index is out of range please dont change the index
-        currentInventoryIndex = index;
+        currentInventoryIndex = Mathf.Clamp(index, 0, inventory.Length - 1);
+    }
+    [ServerRpc]
+    public void ChangeIndexDelta(int delta) {
+        if (playerHealth.IsDisabled || playerHealth.IsDead || playerInteraction.IsInteractionPause) return;
+        Log.LogMsg(LogCategories.PlayerHotbar, $"SERVER: We recived a request to change current index by {delta}");
+        currentInventoryIndex = Mathf.Clamp(currentInventoryIndex+delta, 0, inventory.Length-1);
+    }
+
+    [Server]
+    private void PlayerHealth_OnDisabled() {
+        for (int i = 0; i < inventory.Length; i++) {
+            if (inventory[i].ItemData == null) continue;
+            inventory[i].ItemData.DropAmount(transform.forward, 1000, this, inventory[i].Amount, i);
+        }
+    }
+    [Server]
+    private void PlayerHealth_OnDeath() {
+        for (int i = 0; i < inventory.Length; i++) {
+            if (inventory[i].ItemData == null) continue;
+            inventory[i].ItemData.DropAmount(transform.forward, 1000, this, inventory[i].Amount, i);
+        }
     }
 }

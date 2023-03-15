@@ -110,7 +110,7 @@ public class PlayerManager : NetworkBehaviour {
             nob.name = conn.ClientId.ToString();
             networkManager.ServerManager.Spawn(nob, conn);
 
-            nob.GetComponent<Health>().Disable();
+            nob.GetComponent<PlayerHealth>().Disable();
 
             //If there are no global scenes 
             if (addToDefaultScene)

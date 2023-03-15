@@ -3,6 +3,7 @@ using FishNet.Object;
 using FishNet.Object.Prediction;
 using FishNet.Transporting;
 using System;
+using System.Text;
 using UnityEngine;
 
 public struct CachedStateInfo {
@@ -26,7 +27,8 @@ public class PlayerNetworker : NetworkBehaviour {
     private CapsuleCollider capsuleCollider;
     private PlayerStateMachine playerStateMachine;
     private PlayerEffects playerEffects;
-    private Health playerHealth;
+    private PlayerHealth playerHealth;
+    private PlayerInteraction playerInteraction;
 
     private bool canMove = true;
 
@@ -53,10 +55,11 @@ public class PlayerNetworker : NetworkBehaviour {
     private void Awake() {
         AkSoundEngine.RegisterGameObj(gameObject);
 
+        playerInteraction = GetComponent<PlayerInteraction>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         playerEffects = GetComponent<PlayerEffects>();
         rigidBody = GetComponent<Rigidbody>();
-        playerHealth = GetComponent<Health>();
+        playerHealth = GetComponent<PlayerHealth>();
         playerStateMachine = new PlayerStateMachine(this);
 
         playerHealth.OnDeath += OnDeath;
@@ -173,7 +176,11 @@ public class PlayerNetworker : NetworkBehaviour {
     #region Movement and Reconciliation.
     private void SimulateWithMove(PlayerMoveData md) {
         if (canMove) {
-            playerStateMachine.UpdateStates(md);
+            if (playerInteraction.IsInteractionPause) {
+                playerStateMachine.UpdateStates(default);
+            } else {
+                playerStateMachine.UpdateStates(md);
+            }
         } else {
             playerStateMachine.RigidBody.velocity = Vector3.zero;
         }
