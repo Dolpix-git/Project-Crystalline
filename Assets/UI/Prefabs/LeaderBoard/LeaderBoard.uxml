@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/StyleSheet/StyleSheet.uss?fileID=7433441132597879392&amp;guid=203c78db95830b3419e07fa19aed70ed&amp;type=3#StyleSheet" />
+    <ui:VisualElement style="flex-grow: 1; align-items: center; justify-content: center;">
+        <ui:VisualElement style="background-color: rgb(46, 46, 46); width: 50%; height: 50%; justify-content: center; align-items: center;">
+            <ui:Label text="LeaderBoard Screen" display-tooltip-when-elided="true" class="Teams" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

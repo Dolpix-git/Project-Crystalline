@@ -1,13 +1,10 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/StyleSheet.uss?fileID=7433441132597879392&amp;guid=203c78db95830b3419e07fa19aed70ed&amp;type=3#StyleSheet" />
+    <Style src="project://database/Assets/UI/StyleSheet/StyleSheet.uss?fileID=7433441132597879392&amp;guid=203c78db95830b3419e07fa19aed70ed&amp;type=3#StyleSheet" />
     <ui:VisualElement style="flex-grow: 1; justify-content: flex-end; flex-direction: column-reverse;">
         <ui:VisualElement style="height: 88px; flex-direction: row; align-items: center; justify-content: center;">
             <ui:Label text="TeamOneScore" display-tooltip-when-elided="true" name="TeamOneScore" class="Score Teams" />
             <ui:Label text="00:00" display-tooltip-when-elided="true" name="Time" class="Timer" />
             <ui:Label text="TeamTwoScore" display-tooltip-when-elided="true" name="TeamTwoScore" class="Teams" />
         </ui:VisualElement>
-    </ui:VisualElement>
-    <ui:VisualElement style="margin-left: 24px; margin-right: 24px; margin-top: 24px; margin-bottom: 24px;">
-        <ui:Label text="Health:" display-tooltip-when-elided="true" name="Health" style="color: rgb(255, 255, 255); font-size: 18px;" />
     </ui:VisualElement>
 </ui:UXML>

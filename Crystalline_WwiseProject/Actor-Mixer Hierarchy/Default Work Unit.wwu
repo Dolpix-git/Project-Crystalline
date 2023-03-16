@@ -234,7 +234,6 @@
 										</Sound>
 									</ChildrenList>
 								</RandomSequenceContainer>
-								<WorkUnit Name="Land" ID="{26F8386E-C7C5-4BAF-BBC1-03D2EE1DB258}" PersistMode="Reference"/>
 								<SwitchContainer Name="Crouch" ID="{62750AC1-E5AD-420B-ABCF-C25434125637}" ShortID="633254810">
 									<ReferenceList>
 										<Reference Name="Conversion">
@@ -362,11 +361,7 @@
 								</SwitchContainer>
 							</ChildrenList>
 						</Folder>
-						<Folder Name="Attacks" ID="{D6C0A44E-3F87-43CD-88F0-191F726293B5}" ShortID="974725730">
-							<ChildrenList>
-								<WorkUnit Name="Throw" ID="{741AA32C-3A01-42D0-81E2-5313999214B2}" PersistMode="Reference"/>
-							</ChildrenList>
-						</Folder>
+						<Folder Name="Attacks" ID="{D6C0A44E-3F87-43CD-88F0-191F726293B5}" ShortID="974725730"/>
 					</ChildrenList>
 				</Folder>
 				<Folder Name="UI" ID="{202F48F2-23A5-4444-913D-1BEDF41608FF}" ShortID="298148871"/>

@@ -1,6 +1,5 @@
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerHotbarManager : InventorySystem{
@@ -34,22 +33,22 @@ public class PlayerHotbarManager : InventorySystem{
 
     [Client]
     private void Instance_OnThrow() {
-        if (!IsOwner) { return; }
+        if (!IsOwner || UIManager.Instance.IsMenu) { return; }
         Activate(PlayerInputManager.Instance.CamForward);
     }
     [Client]
     private void Instance_OnDrop() {
-        if (!IsOwner) { return; }
+        if (!IsOwner || UIManager.Instance.IsMenu) { return; }
         Drop(PlayerInputManager.Instance.CamForward);
     }
     [Client]
     private void Instance_OnHotbarChange(int obj) {
-        if (!IsOwner) { return; }
+        if (!IsOwner || UIManager.Instance.IsMenu) { return; }
         ChangeIndex(obj);
     }
     [Client]
     private void Instance_OnHotbarDelta(int obj) {
-        if (!IsOwner) { return; }
+        if (!IsOwner || UIManager.Instance.IsMenu) { return; }
         ChangeIndexDelta(obj);
     }
 
@@ -97,5 +96,9 @@ public class PlayerHotbarManager : InventorySystem{
             if (inventory[i].ItemData == null) continue;
             inventory[i].ItemData.DropAmount(transform.forward, 1000, this, inventory[i].Amount, i);
         }
+    }
+    [ServerRpc]
+    public void PerchaseItem(int itemIndex, int amount, int cost) {
+        EconomyManager.Instance.PerchaseItem(BuyMenuUI.Instance.itemToBuy[itemIndex], amount, cost, Owner);
     }
 }

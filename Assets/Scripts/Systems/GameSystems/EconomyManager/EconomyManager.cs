@@ -1,6 +1,8 @@
 using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using System;
+using System.Linq;
 using UnityEngine;
 
 public class EconomyManager : NetworkBehaviour {
@@ -14,6 +16,11 @@ public class EconomyManager : NetworkBehaviour {
     [SerializeField] private int maxPlayerMoney = 5000;
 
     private static EconomyManager _instance;
+    [SyncObject]
+    private readonly SyncDictionary<NetworkConnection, int> playerEconomy = new SyncDictionary<NetworkConnection, int>();
+
+    public event Action OnEcoChange;
+
     public static EconomyManager Instance {
         get {
             if (_instance is null) {
@@ -27,8 +34,7 @@ public class EconomyManager : NetworkBehaviour {
         }
     }
 
-    [SyncObject]
-    private readonly SyncDictionary<NetworkConnection, int> playerEconomy = new SyncDictionary<NetworkConnection, int>();
+    public SyncDictionary<NetworkConnection, int> PlayerEconomy => playerEconomy;
 
     private void Awake() {
         if (_instance != null && _instance != this) {
@@ -63,45 +69,50 @@ public class EconomyManager : NetworkBehaviour {
     }
 
     private void Instance_OnPlayerDisconnected(NetworkConnection obj) {
-        playerEconomy.Add(obj, 0);
+        playerEconomy.Remove(obj);
+        OnEcoChange?.Invoke();
     }
 
     private void Instance_OnPlayerConnected(NetworkConnection obj) {
-        playerEconomy.Remove(obj);
+        playerEconomy.Add(obj, 0);
+        OnEcoChange?.Invoke();
     }
-
 
     private void Instance_OnGameStart() {
         // On game start, give base money
         Log.LogMsg(LogCategories.SystEconomyManager, "Giving base money");
-        foreach (NetworkConnection player in playerEconomy.Keys) {
+        foreach (NetworkConnection player in playerEconomy.Keys.ToList()) {
             playerEconomy[player] = baseMoney;
+            OnEcoChange?.Invoke();
         }
     }
     private void Instance_OnTeamFlipFlop() {
         // On game flip flop, reset money, give base money 
         Log.LogMsg(LogCategories.SystEconomyManager, "flip teams");
-        foreach (NetworkConnection player in playerEconomy.Keys) {
+        foreach (NetworkConnection player in playerEconomy.Keys.ToList()) {
             playerEconomy[player] = baseMoney;
+            OnEcoChange?.Invoke();
         }
     }
     private void Instance_OnGameEnd() {
         // On game end, reset money
         Log.LogMsg(LogCategories.SystEconomyManager, "Reseting money");
-        foreach (NetworkConnection player in playerEconomy.Keys) {
+        foreach (NetworkConnection player in playerEconomy.Keys.ToList()) {
             playerEconomy[player] = 0;
+            OnEcoChange?.Invoke();
         }
     }
 
     private void Instance_OnRoundEnd(Teams team) {
         // On round end, give money for wining to winning team
         Log.LogMsg(LogCategories.SystEconomyManager, $"Giving money to teams, winning team:{team}");
-        foreach (NetworkConnection player in playerEconomy.Keys) {
+        foreach (NetworkConnection player in playerEconomy.Keys.ToList()) {
             if (TeamManager.Instance.playerTeams[player] == team) {
                 playerEconomy[player] = Mathf.Clamp(roundWinMoney + playerEconomy[player], 0, maxPlayerMoney);
             } else {
                 playerEconomy[player] = Mathf.Clamp(roundLoseMoney + playerEconomy[player], 0, maxPlayerMoney);
             }
+            OnEcoChange?.Invoke();
         }
     }
 
@@ -111,12 +122,14 @@ public class EconomyManager : NetworkBehaviour {
         if (pKiller != null) {
             if (playerEconomy.ContainsKey(pKiller)) {
                 playerEconomy[pKiller] = Mathf.Clamp(playerKillMoney + playerEconomy[pKiller], 0, maxPlayerMoney);
+                OnEcoChange?.Invoke();
             }
         }
 
         if (pAssister != null) {
             if (playerEconomy.ContainsKey(pAssister)) {
                 playerEconomy[pAssister] = Mathf.Clamp(playerKillAssistMoney + playerEconomy[pAssister], 0, maxPlayerMoney);
+                OnEcoChange?.Invoke();
             }
         }
 
@@ -130,6 +143,7 @@ public class EconomyManager : NetworkBehaviour {
 
         if (playerEconomy.ContainsKey(conn)) {
             playerEconomy[conn] += Mathf.Clamp(objectiveStartMoney + playerEconomy[conn], 0, maxPlayerMoney);
+            OnEcoChange?.Invoke();
         }
     }
     private void Instance_OnObjectiveComplete(Teams team, NetworkConnection conn) {
@@ -139,7 +153,17 @@ public class EconomyManager : NetworkBehaviour {
 
         if (TeamManager.Instance.GetTeamFromObjective(Objectives.Defenders) == team) return;
 
-        if (playerEconomy.ContainsKey(conn)) 
+        if (playerEconomy.ContainsKey(conn)) {
             playerEconomy[conn] += Mathf.Clamp(objectiveEndMoney + playerEconomy[conn], 0, maxPlayerMoney);
+            OnEcoChange?.Invoke();
+        }
+    }
+    [Server]
+    public void PerchaseItem(ItemData item, int amount, int cost, NetworkConnection conn) {
+        if (playerEconomy[conn] < amount * cost) return;
+        PlayerManager.Instance.players[conn].GetComponent<InventorySystem>().AtttemptToAddItem(item, amount, out int remaning);
+        playerEconomy[conn] -= (amount - remaning) * cost;
+
+        OnEcoChange?.Invoke();
     }
 }

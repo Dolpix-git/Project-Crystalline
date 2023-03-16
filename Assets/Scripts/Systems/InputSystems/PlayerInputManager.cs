@@ -4,7 +4,19 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputManager : MonoBehaviour{
     #region Public.
-    public static PlayerInputManager Instance { get; private set; }
+    private static PlayerInputManager _instance;
+    public static PlayerInputManager Instance {
+        get {
+            if (_instance is null) {
+                _instance = FindObjectOfType<PlayerInputManager>();
+                if (_instance is null) {
+                    var obj = Instantiate(new GameObject("PlayerInputManager"));
+                    _instance = obj.AddComponent<PlayerInputManager>();
+                }
+            }
+            return _instance;
+        }
+    }
     #endregion
 
     #region Private.
@@ -17,8 +29,6 @@ public class PlayerInputManager : MonoBehaviour{
     private Vector2 look;
 
     private Camera cam;
-    private bool isPaused = false;
-    private bool isLocked = false;
     #endregion
 
     #region Getters Setters.
@@ -39,15 +49,14 @@ public class PlayerInputManager : MonoBehaviour{
 
 
     private void Awake() {
-        if (Instance != null && Instance != this) {
+        if (_instance != null && _instance != this) {
             Destroy(this);
         } else {
-            Instance = this;
+            _instance = this;
         }
 
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
-        playerInputActions.UI.Enable();
 
         playerInputActions.Player.Jump.performed += Jump;
 
@@ -68,33 +77,13 @@ public class PlayerInputManager : MonoBehaviour{
         playerInputActions.Player.Hotbar2.performed += Hotbar2_performed;
         playerInputActions.Player.Hotbar3.performed += Hotbar3_performed;
 
-        playerInputActions.UI.Escape.performed += Escape_performed;
-
         cam = Camera.main;
     }
 
     private void Update() {
         HandleScroll();
         movement = playerInputActions.Player.Movement.ReadValue<Vector2>();
-        look = playerInputActions.Player.Look.ReadValue<Vector2>();
-    }
-
-    void OnApplicationFocus(bool hasFocus) {
-        isPaused = !hasFocus;
-    }
-    void OnApplicationPause(bool pauseStatus) {
-        isPaused = pauseStatus;
-    }
-    private void Escape_performed(InputAction.CallbackContext obj) {
-        Debug.Log(isPaused);
-        if (isPaused) return;
-        isLocked = !isLocked;
-        Debug.Log(isLocked);
-        if (isLocked) {
-            Cursor.lockState = CursorLockMode.Locked;
-        } else {
-            Cursor.lockState = CursorLockMode.None;
-        }
+        if (!UIManager.Instance.IsMenu) { look = playerInputActions.Player.Look.ReadValue<Vector2>(); } else { look = Vector2.zero; }
     }
 
 

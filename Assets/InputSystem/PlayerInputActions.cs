@@ -415,6 +415,33 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BuyMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""3514bbeb-ef66-4c92-bdb4-74934f3270eb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LeaderBoard"",
+                    ""type"": ""Button"",
+                    ""id"": ""9a662730-c5b5-4a3d-9fad-4a66e340e70d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Debug"",
+                    ""type"": ""Button"",
+                    ""id"": ""03f12b60-81c4-4526-9db7-71fdc9c2caf3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -426,6 +453,39 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""04d3a194-a33a-4fda-84c5-b5dee8dc5de7"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BuyMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""006130d0-21b4-481c-ac35-4c4221d7d0a8"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeaderBoard"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""52928e84-e173-46bf-a3b5-fe0e0ad1228f"",
+                    ""path"": ""<Keyboard>/f3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Debug"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -451,6 +511,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Escape = m_UI.FindAction("Escape", throwIfNotFound: true);
+        m_UI_BuyMenu = m_UI.FindAction("BuyMenu", throwIfNotFound: true);
+        m_UI_LeaderBoard = m_UI.FindAction("LeaderBoard", throwIfNotFound: true);
+        m_UI_Debug = m_UI.FindAction("Debug", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -647,11 +710,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_UI;
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_Escape;
+    private readonly InputAction m_UI_BuyMenu;
+    private readonly InputAction m_UI_LeaderBoard;
+    private readonly InputAction m_UI_Debug;
     public struct UIActions
     {
         private @PlayerInputActions m_Wrapper;
         public UIActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Escape => m_Wrapper.m_UI_Escape;
+        public InputAction @BuyMenu => m_Wrapper.m_UI_BuyMenu;
+        public InputAction @LeaderBoard => m_Wrapper.m_UI_LeaderBoard;
+        public InputAction @Debug => m_Wrapper.m_UI_Debug;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -664,6 +733,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Escape.started += instance.OnEscape;
             @Escape.performed += instance.OnEscape;
             @Escape.canceled += instance.OnEscape;
+            @BuyMenu.started += instance.OnBuyMenu;
+            @BuyMenu.performed += instance.OnBuyMenu;
+            @BuyMenu.canceled += instance.OnBuyMenu;
+            @LeaderBoard.started += instance.OnLeaderBoard;
+            @LeaderBoard.performed += instance.OnLeaderBoard;
+            @LeaderBoard.canceled += instance.OnLeaderBoard;
+            @Debug.started += instance.OnDebug;
+            @Debug.performed += instance.OnDebug;
+            @Debug.canceled += instance.OnDebug;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -671,6 +749,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Escape.started -= instance.OnEscape;
             @Escape.performed -= instance.OnEscape;
             @Escape.canceled -= instance.OnEscape;
+            @BuyMenu.started -= instance.OnBuyMenu;
+            @BuyMenu.performed -= instance.OnBuyMenu;
+            @BuyMenu.canceled -= instance.OnBuyMenu;
+            @LeaderBoard.started -= instance.OnLeaderBoard;
+            @LeaderBoard.performed -= instance.OnLeaderBoard;
+            @LeaderBoard.canceled -= instance.OnLeaderBoard;
+            @Debug.started -= instance.OnDebug;
+            @Debug.performed -= instance.OnDebug;
+            @Debug.canceled -= instance.OnDebug;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -706,5 +793,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     public interface IUIActions
     {
         void OnEscape(InputAction.CallbackContext context);
+        void OnBuyMenu(InputAction.CallbackContext context);
+        void OnLeaderBoard(InputAction.CallbackContext context);
+        void OnDebug(InputAction.CallbackContext context);
     }
 }

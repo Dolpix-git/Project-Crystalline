@@ -1,8 +1,7 @@
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
-using System;
 using UnityEngine;
-using static Steamworks.InventoryItem;
+
 
 public class InventorySystem : NetworkBehaviour{
     [SerializeField] protected int inventorySize;
@@ -16,8 +15,10 @@ public class InventorySystem : NetworkBehaviour{
             inventory[i] = new();
         }
     }
+
     [Server]
     public bool AtttemptToAddItem(ItemData item, int amount, out int remaning) {
+        
         // loop through inventory and find items that are the same, then attempt to fill there slots
         for (int i = 0; i < inventory.Length; i++) {
             if (inventory[i].ItemData == item) {
