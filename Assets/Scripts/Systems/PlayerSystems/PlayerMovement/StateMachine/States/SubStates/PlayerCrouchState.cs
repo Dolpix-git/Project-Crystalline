@@ -1,28 +1,31 @@
 using UnityEngine;
 
 public class PlayerCrouchState : PlayerBaseState {
-    float count = 0;
-    float maxCountDelta = 0.2000f;
-
     public PlayerCrouchState(PlayerStateMachine currentContext, PlayerStateCashe playerStateFactory) : base(currentContext, playerStateFactory) { }
 
     #region States.
     public override void EnterState() {
-        Ctx.Velocity += Vector3.down * 5f;
+        Debug.Log("EnterCrouchState");
+        Debug.Log(Ctx.OnGround);
+        if (Ctx.OnGround) {
+            Ctx.Velocity += Vector3.down * 5f;
+        }
     }
     public override void UpdateState() {
         if (!Ctx.MoveData.Crouch) {
             UnCrouch();
         } else {
             ChangeColliderHeight(Ctx.PlayerEffects.CrouchDelta);
-            AkSoundEngine.PostEvent("Crouch", Ctx.RigidBody.gameObject);
+            //AkSoundEngine.PostEvent("Crouch", Ctx.RigidBody.gameObject);
         }
 
         AdjustVelocity();
 
         CheckSwitchStates();
     }
-    public override void ExitState() { }
+    public override void ExitState() {
+        Debug.Log("EXIT CROUCH");
+    }
     public override void InitiatizeSubState() { }
     public override void CheckSwitchStates() {
         if (Ctx.MoveData.Crouch) {
@@ -43,6 +46,7 @@ public class PlayerCrouchState : PlayerBaseState {
         return PlayerStates.crouching;
     }
     #endregion
+
     #region Methods.
     /// <summary>
     /// Handles getting the players new velocity based on what its standing on, the players input, and acceleration values.

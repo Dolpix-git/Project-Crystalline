@@ -9,14 +9,18 @@ public class PlayerJumpState : PlayerBaseState{
     public override void EnterState() {
         InitiatizeSubState();
         HandleJump();
-        AkSoundEngine.PostEvent("Land", Ctx.RigidBody.gameObject);
+        //AkSoundEngine.PostEvent("Land", Ctx.RigidBody.gameObject);
     }
     public override void UpdateState() {
         CheckSwitchStates();
     }
     public override void ExitState() { }
     public override void InitiatizeSubState() {
-        if (Ctx.MoveData.Movement.magnitude != 0 && Ctx.MoveData.Sprint) {
+        if (Ctx.Velocity.magnitude >= Ctx.PlayerEffects.SlidingActivationSpeed && Ctx.MoveData.Crouch) {
+            SetSubState(Cashe.Sliding());
+        } else if (Ctx.MoveData.Crouch) {
+            SetSubState(Cashe.Crouching());
+        } else if (Ctx.MoveData.Movement.magnitude != 0 && Ctx.MoveData.Sprint) {
             SetSubState(Cashe.Run());
         } else if (Ctx.MoveData.Movement.magnitude != 0) {
             SetSubState(Cashe.Walk());
@@ -25,9 +29,6 @@ public class PlayerJumpState : PlayerBaseState{
         }
     }
     public override void CheckSwitchStates() {
-        // TOO DO: Go to falling state
-        // TOO DO: Then go to grounded state
-
         SwitchState(Cashe.Falling());
     }
 

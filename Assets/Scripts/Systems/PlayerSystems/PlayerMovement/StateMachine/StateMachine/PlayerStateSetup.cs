@@ -81,7 +81,6 @@ public class PlayerStateSetup{
         // Sets the velocity of RB, normalises the contact normals, resets the jump counts
         playerStateMachine.Velocity = playerStateMachine.RigidBody.velocity;
         if (playerStateMachine.OnGround || SnapToGround() || CheckSteepContacts()) {
-            //wallRunUp = true;
             stepsSinceLastGrounded = 0;
             if (groundContactCount > 1) {
                 contactNormal.Normalize();

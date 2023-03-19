@@ -1,4 +1,3 @@
-using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerSlideState : PlayerBaseState {
@@ -6,7 +5,10 @@ public class PlayerSlideState : PlayerBaseState {
 
     #region States.
     public override void EnterState() {
-        Ctx.Velocity += Vector3.down * 5f;
+        Debug.Log("EnterCrouchSlide");
+        if (Ctx.OnGround) {
+            Ctx.Velocity += Vector3.down * 5f;
+        }
     }
     public override void UpdateState() {
         if (!Ctx.MoveData.Crouch) {
@@ -15,14 +17,14 @@ public class PlayerSlideState : PlayerBaseState {
             ChangeColliderHeight(Ctx.PlayerEffects.CrouchDelta);
         }
 
-        Ctx.Velocity *= 0.997f;
+        Ctx.Velocity *= Ctx.PlayerEffects.SlidingFriction;
 
         CheckSwitchStates();
     }
     public override void ExitState() { }
     public override void InitiatizeSubState() { }
     public override void CheckSwitchStates() {
-        if (Ctx.Velocity.magnitude < Ctx.PlayerEffects.SlidingActivationSpeed || !Ctx.MoveData.Crouch) {
+        if (Ctx.Velocity.magnitude < Ctx.PlayerEffects.SlidingDeactivationSpeed || !Ctx.MoveData.Crouch) {
             SwitchState(Cashe.Crouching());
         } else if (Ctx.PlayerCollider.height >= Ctx.OriginalPlayerHeight) {
             if (Ctx.MoveData.Movement.magnitude != 0 && Ctx.MoveData.Sprint) {

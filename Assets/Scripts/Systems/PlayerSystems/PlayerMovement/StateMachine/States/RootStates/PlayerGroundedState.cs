@@ -14,7 +14,11 @@ public class PlayerGroundedState : PlayerBaseState{
     }
     public override void ExitState() { }
     public override void InitiatizeSubState() {
-        if (Ctx.MoveData.Movement.magnitude != 0 && Ctx.MoveData.Sprint) {
+        if (Ctx.Velocity.magnitude >= Ctx.PlayerEffects.SlidingActivationSpeed && Ctx.MoveData.Crouch) {
+            SetSubState(Cashe.Sliding());
+        } else if (Ctx.MoveData.Crouch) {
+            SetSubState(Cashe.Crouching());
+        } else if (Ctx.MoveData.Movement.magnitude != 0 && Ctx.MoveData.Sprint) {
             SetSubState(Cashe.Run());
         } else if (Ctx.MoveData.Movement.magnitude != 0) {
             SetSubState(Cashe.Walk());
@@ -27,7 +31,6 @@ public class PlayerGroundedState : PlayerBaseState{
             SwitchState(Cashe.Jump());
         }else if (!Ctx.OnGround) {
             SwitchState(Cashe.Falling());
-           
         }
     }
     public override PlayerStates PlayerState() {

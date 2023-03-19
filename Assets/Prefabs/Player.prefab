@@ -106,6 +106,7 @@ MonoBehaviour:
   - {fileID: 8004145175360252860}
   - {fileID: 9002359642332007482}
   - {fileID: 5324421884714839305}
+  - {fileID: 2968071905471243310}
   - {fileID: 901988388494858577}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
@@ -114,7 +115,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 4
+  <PrefabId>k__BackingField: 5
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -200,6 +201,8 @@ MonoBehaviour:
     z: -10
     w: 10
   slidingActivationSpeed: 6
+  slidingDeactivationSpeed: 3
+  slidingFriction: 0.99
   slidingGroundAcc: 90
   slidingAirAcc: 10
   slidingMaxSpeed: 7
@@ -288,9 +291,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3840d1b1a4cc32d4b9dd08620b7941f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 5
   _addedNetworkObject: {fileID: 5162187385007901065}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 5162187385007901065}
   interactionRadius: 2
   isInteracting: 0
   isInteractionPause: 0
@@ -306,7 +309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87a3baef4e75e2d45963580966df8ece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 5
+  _componentIndexCache: 6
   _addedNetworkObject: {fileID: 5162187385007901065}
   _networkObjectCache: {fileID: 5162187385007901065}
   head: {fileID: 6770776063968730071}

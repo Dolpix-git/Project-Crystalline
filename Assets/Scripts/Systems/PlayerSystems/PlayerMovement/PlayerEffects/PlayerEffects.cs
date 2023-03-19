@@ -1,7 +1,6 @@
 using FishNet.Object;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class PlayerEffects : NetworkBehaviour{
     [Header("GDSS")]
@@ -35,6 +34,8 @@ public class PlayerEffects : NetworkBehaviour{
 
     [Header("sliding")]
     [SerializeField] private float slidingActivationSpeed = 6;
+    [SerializeField] private float slidingDeactivationSpeed = 3;
+    [SerializeField, Range(0, 1)] private float slidingFriction = 0.9f;
     [SerializeField] private float slidingGroundAcc = 90;
     [SerializeField] private float slidingAirAcc = 10;
     [SerializeField] private float slidingMaxSpeed = 7f;
@@ -65,8 +66,11 @@ public class PlayerEffects : NetworkBehaviour{
     public float4 CrouchSpeedClamp { get => crouchSpeedClamp; }
 
     public float SlidingActivationSpeed { get => slidingActivationSpeed; }
+    public float SlidingDeactivationSpeed { get => slidingDeactivationSpeed; }
+    public float SlidingFriction { get => slidingFriction; }
     public float SlidingGroundAcc { get => slidingGroundAcc; }
     public float SlidingAirAcc { get => slidingAirAcc; }
     public float SlidingMaxSpeed { get => slidingMaxSpeed; }
     public float4 SlidingSpeedClamp { get => slidingSpeedClamp; }
+    
 }
