@@ -1,45 +1,21 @@
-using UnityEngine;
-
 public class LeaderBoardUIStates : UIBaseState {
-    public LeaderBoardUIStates(UIManager ctx, UIStateCashe cashe) : base(ctx, cashe) {
-        UIInputManager.Instance.OnBuyMenu += Instance_OnBuyMenu;
-        UIInputManager.Instance.OnLeaderBoard += Instance_OnLeaderBoard;
-        UIInputManager.Instance.OnDebug += Instance_OnDebug;
-        UIInputManager.Instance.OnEscape += Instance_OnEscape;
-    }
-    private void Instance_OnEscape() {
-        if (cashe.EventTime == Time.time) return;
-        if (!(ctx.CurrentState == this)) return;
-        cashe.EventTime = Time.time;
+    public LeaderBoardUIStates(UIManager ctx, UIStateCashe cashe) : base(ctx, cashe) { }
+
+    public override void OnEscape() {
         ctx.CurrentState = cashe.GetState(UIStates.Escape);
-        ctx.ChangedState();
     }
 
-    private void Instance_OnDebug() {
-        if (cashe.EventTime == Time.time) return;
-        if (!(ctx.CurrentState == this)) return;
-        cashe.EventTime = Time.time;
+    public override void OnDebug() {
         ctx.CurrentState = cashe.GetState(UIStates.Debug);
-        ctx.ChangedState();
     }
 
-    private void Instance_OnLeaderBoard(bool obj) {
-        if (cashe.EventTime == Time.time) return;
-        if (!(ctx.CurrentState == this)) return;
-        if (obj) return;
-        cashe.EventTime = Time.time;
+    public override void OnLeaderBoardClose() {
         ctx.CurrentState = cashe.GetState(UIStates.Game);
-        ctx.ChangedState();
     }
 
-    private void Instance_OnBuyMenu() {
-        if (cashe.EventTime == Time.time) return;
-        if (!(ctx.CurrentState == this)) return;
-        cashe.EventTime = Time.time;
+    public override void OnBuyMenu() {
         ctx.CurrentState = cashe.GetState(UIStates.BuyMenu);
-        ctx.ChangedState();
     }
-
     public override UIStates GetState() {
         return UIStates.LeaderBoard;
     }

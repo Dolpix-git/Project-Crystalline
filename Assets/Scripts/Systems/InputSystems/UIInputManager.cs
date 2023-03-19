@@ -30,7 +30,8 @@ public class UIInputManager : MonoBehaviour {
     #region Events.
     public event Action OnEscape;
     public event Action OnBuyMenu;
-    public event Action<bool> OnLeaderBoard;
+    public event Action OnLeaderBoardOpen;
+    public event Action OnLeaderBoardClose;
     public event Action OnDebug;
     #endregion
 
@@ -58,16 +59,14 @@ public class UIInputManager : MonoBehaviour {
     private void Escape_performed(InputAction.CallbackContext obj) {
         OnEscape?.Invoke();
     }
-
     private void BuyMenu_performed(InputAction.CallbackContext obj) {
         OnBuyMenu?.Invoke();
     }
-
     private void LeaderBoard_started(InputAction.CallbackContext obj) {
-        OnLeaderBoard?.Invoke(true);
+        OnLeaderBoardOpen?.Invoke();
     }
     private void LeaderBoard_canceled(InputAction.CallbackContext obj) {
-        OnLeaderBoard?.Invoke(false);
+        OnLeaderBoardClose?.Invoke();
     }
     private void Debug_performed(InputAction.CallbackContext obj) {
         OnDebug?.Invoke();

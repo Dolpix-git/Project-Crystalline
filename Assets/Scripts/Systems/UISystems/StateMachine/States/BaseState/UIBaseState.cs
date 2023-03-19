@@ -6,5 +6,11 @@ public abstract class UIBaseState {
         this.cashe = cashe;
     }
 
+    public virtual void OnEscape() { }
+    public virtual void OnDebug() { }
+    public virtual void OnLeaderBoardOpen() { }
+    public virtual void OnLeaderBoardClose() { }
+    public virtual void OnBuyMenu() { }
+
     public abstract UIStates GetState();
 }

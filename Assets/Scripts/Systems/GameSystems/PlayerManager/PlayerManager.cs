@@ -4,7 +4,6 @@ using FishNet.Managing;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using FishNet.Transporting;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerManager : NetworkBehaviour {
@@ -115,7 +114,7 @@ public class PlayerManager : NetworkBehaviour {
             //If there are no global scenes 
             if (addToDefaultScene)
                 networkManager.SceneManager.AddOwnerToDefaultScene(nob);
-            Log.LogMsg(LogCategories.SystPlayerManager, $"SERVER: Added Player {conn.ClientId} {nob}");
+            Log.LogMsg(LogCategories.PlayerManager, $"SERVER: Added Player {conn.ClientId} {nob}");
             players.Add(conn, nob);
             PlayerEventManager.Instance.InvokePlayerConnected(conn);
         }

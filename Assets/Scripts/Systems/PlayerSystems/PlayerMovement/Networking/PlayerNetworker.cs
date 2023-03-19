@@ -3,7 +3,6 @@ using FishNet.Object;
 using FishNet.Object.Prediction;
 using FishNet.Transporting;
 using System;
-using System.Text;
 using UnityEngine;
 
 public struct CachedStateInfo {
@@ -177,7 +176,8 @@ public class PlayerNetworker : NetworkBehaviour {
     private void SimulateWithMove(PlayerMoveData md) {
         if (canMove) {
             if (playerInteraction.IsInteractionPause) {
-                playerStateMachine.UpdateStates(default);
+                PlayerMoveData nmd = new PlayerMoveData(false, false, false, Vector3.zero, md.CameraRight, md.CameraForward);
+                playerStateMachine.UpdateStates(nmd);
             } else {
                 playerStateMachine.UpdateStates(md);
             }

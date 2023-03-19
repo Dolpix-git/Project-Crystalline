@@ -26,16 +26,14 @@ public class InventorySlot{
     /// <param name="remaning"></param>
     /// <returns></returns>
     public bool AddToStack(int amount, out int remaning) {
+        remaning = amount;
+        if (amount <= 0) return true;
         this.amount += amount;
         remaning = this.amount - ItemData.MaxStackSize;
         this.amount = Mathf.Clamp(this.amount,0,itemData.MaxStackSize);
         remaning = Mathf.Max(0, remaning);
 
-        if (remaning == 0) {
-            return false;
-        } else {
-            return true;
-        }
+        return remaning != 0;
     }
     /// <summary>
     /// returns true if there is a remaining amount
@@ -44,16 +42,13 @@ public class InventorySlot{
     /// <param name="remaning"></param>
     /// <returns></returns>
     public bool RemoveFromStack(int amount, out int remaning) {
+        remaning = amount;
+        if (amount <= 0) return true;
         this.amount -= amount;
-        remaning = Mathf.Min(this.amount, 0);
+        remaning = Mathf.Abs(Mathf.Min(this.amount, 0));
         this.amount = Mathf.Clamp(this.amount, 0, itemData.MaxStackSize);
-        remaning *= -1;
 
-        if (remaning == 0) {
-            return false;
-        } else {
-            return true;
-        }
+        return remaning != 0;
     }
     /// <summary>
     /// Warning, will reset amount

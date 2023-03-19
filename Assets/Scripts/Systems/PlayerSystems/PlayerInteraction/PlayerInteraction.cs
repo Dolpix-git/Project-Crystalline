@@ -26,6 +26,7 @@ public class PlayerInteraction : NetworkBehaviour{
 
 
     private void Update() {
+        isInteractionPause = false;
         if (playerHealth.IsDisabled || playerHealth.IsDead) return;
         if (isInteracting) Interaction();
     }
@@ -48,8 +49,6 @@ public class PlayerInteraction : NetworkBehaviour{
     /// </summary>
     [Server]
     private void Interaction() {
-        isInteractionPause = false;
-
         Collider[] hits = Physics.OverlapSphere(transform.position, interactionRadius);
         for (int i = 0; i < hits.Length; i++) {
             IInteractable interaction = hits[i].GetComponent<IInteractable>();

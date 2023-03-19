@@ -4,8 +4,6 @@ public class UIStateCashe{
     private UIManager context;
     private Dictionary<UIStates, UIBaseState> states = new Dictionary<UIStates, UIBaseState>();
 
-    public float EventTime;
-
     public UIStateCashe(UIManager currentContext) {
         context = currentContext;
         states[UIStates.Game] = new GameUIState(context, this);

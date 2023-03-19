@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour {
 
     public bool IsMenu;
 
-    public UIBaseState CurrentState { get => currentState; set => currentState = value; }
+    public UIBaseState CurrentState { get => currentState; set { currentState = value; ChangedState(); } }
 
     private void Awake() {
         if (_instance != null && _instance != this) {
@@ -34,9 +34,36 @@ public class UIManager : MonoBehaviour {
         childPanels = GetComponentsInChildren<IPanel>();
 
         uiStateCashe = new(this);
-        currentState = uiStateCashe.GetState(UIStates.Game);
 
-        ChangedState();
+        UIInputManager.Instance.OnBuyMenu += Instance_OnBuyMenu;
+        UIInputManager.Instance.OnDebug += Instance_OnDebug;
+        UIInputManager.Instance.OnEscape += Instance_OnEscape;
+        UIInputManager.Instance.OnLeaderBoardOpen += Instance_OnLeaderBoardOpen;
+        UIInputManager.Instance.OnLeaderBoardClose += Instance_OnLeaderBoardClose;
+    }
+
+    private void Instance_OnLeaderBoardClose() {
+        currentState.OnLeaderBoardClose();
+    }
+
+    private void Instance_OnLeaderBoardOpen() {
+        currentState.OnLeaderBoardOpen();
+    }
+
+    private void Instance_OnEscape() {
+        currentState.OnEscape();
+    }
+
+    private void Instance_OnDebug() {
+        currentState.OnDebug();
+    }
+
+    private void Instance_OnBuyMenu() {
+        currentState.OnBuyMenu();
+    }
+
+    private void Start() {
+        CurrentState = uiStateCashe.GetState(UIStates.Game);
     }
 
     public void ChangedState() {

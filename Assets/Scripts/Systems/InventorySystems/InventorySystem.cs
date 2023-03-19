@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class InventorySystem : NetworkBehaviour{
     [SerializeField] protected int inventorySize;
-
     [SyncVar] protected InventorySlot[] inventory;
 
     private void Start() {
@@ -18,27 +17,24 @@ public class InventorySystem : NetworkBehaviour{
 
     [Server]
     public bool AtttemptToAddItem(ItemData item, int amount, out int remaning) {
-        
+        remaning = 0;
         // loop through inventory and find items that are the same, then attempt to fill there slots
         for (int i = 0; i < inventory.Length; i++) {
-            if (inventory[i].ItemData == item) {
-                inventory[i].AddToStack(amount, out amount);
-                if (amount == 0) {
-                    remaning = amount;
-                    return false;
-                }
-            }
+            if (inventory[i].ItemData != item) continue;
+            Debug.Log("We found an item that matches!");
+            inventory[i].AddToStack(amount, out amount);
+
+            if (amount == 0) return false;
         }
+        Debug.Log("Now attempting to fill blank slots");
         // loop through inventory and find free slots, then attempt to fill those slots
         for (int i = 0; i < inventory.Length; i++) {
-            if (inventory[i].ItemData == null) {
-                inventory[i].SetItemData(item);
-                inventory[i].AddToStack(amount, out amount);
-                if (amount == 0) {
-                    remaning = amount;
-                    return false;
-                }
-            }
+            if (inventory[i].ItemData != null) continue;
+            Debug.Log("We Found an empty slot!");
+            inventory[i].SetItemData(item);
+            inventory[i].AddToStack(amount, out amount);
+
+            if (amount == 0) return false;
         }
         // there is a remaining amount
         remaning = amount;
