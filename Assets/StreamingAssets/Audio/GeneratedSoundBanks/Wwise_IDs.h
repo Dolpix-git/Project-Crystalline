@@ -18,7 +18,6 @@ namespace AK
         static const AkUniqueID FOOTSTEPS = 2385628198U;
         static const AkUniqueID JUMP = 3833651337U;
         static const AkUniqueID LAND = 674522502U;
-        static const AkUniqueID THROW = 745179803U;
     } // namespace EVENTS
 
     namespace SWITCHES
@@ -63,7 +62,6 @@ namespace AK
         static const AkUniqueID FOOTSTEPS = 2385628198U;
         static const AkUniqueID JUMP = 3833651337U;
         static const AkUniqueID LAND = 674522502U;
-        static const AkUniqueID THROW = 745179803U;
     } // namespace BANKS
 
     namespace BUSSES

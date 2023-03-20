@@ -5,10 +5,9 @@ public class PlayerCrouchState : PlayerBaseState {
 
     #region States.
     public override void EnterState() {
-        Debug.Log("EnterCrouchState");
-        Debug.Log(Ctx.OnGround);
+        ChangeColliderHeight(Ctx.PlayerEffects.CrouchDelta);
         if (Ctx.OnGround) {
-            Ctx.Velocity += Vector3.down * 5f;
+            Ctx.Velocity += Vector3.down * 2f;
         }
     }
     public override void UpdateState() {
@@ -16,16 +15,14 @@ public class PlayerCrouchState : PlayerBaseState {
             UnCrouch();
         } else {
             ChangeColliderHeight(Ctx.PlayerEffects.CrouchDelta);
-            //AkSoundEngine.PostEvent("Crouch", Ctx.RigidBody.gameObject);
+            AkSoundEngine.PostEvent("Crouch", Ctx.RigidBody.gameObject);
         }
 
         AdjustVelocity();
 
         CheckSwitchStates();
     }
-    public override void ExitState() {
-        Debug.Log("EXIT CROUCH");
-    }
+    public override void ExitState() { }
     public override void InitiatizeSubState() { }
     public override void CheckSwitchStates() {
         if (Ctx.MoveData.Crouch) {

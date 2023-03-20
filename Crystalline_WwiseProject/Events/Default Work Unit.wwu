@@ -3,17 +3,6 @@
 	<Events>
 		<WorkUnit Name="Default Work Unit" ID="{E14E9742-CD06-4BD6-8120-F90CD49FEE48}" PersistMode="Standalone">
 			<ChildrenList>
-				<Event Name="AMB" ID="{8B092568-5A90-4DAB-8D1F-3BF77B9D5E58}">
-					<ChildrenList>
-						<Action Name="" ID="{B3D9569C-D357-4C3E-8A7B-B4531252B6FC}" ShortID="408232529">
-							<ReferenceList>
-								<Reference Name="Target">
-									<ObjectRef Name="C atmoAmb" ID="{96680BB2-5AFF-4D22-8808-83D263B79321}" WorkUnitID="{D9C0B92D-FEDB-44A8-AF23-D93A852198CF}"/>
-								</Reference>
-							</ReferenceList>
-						</Action>
-					</ChildrenList>
-				</Event>
 				<Folder Name="Player" ID="{7B69A9A6-869C-43CE-BC50-564DD4FB739A}" ShortID="10029511">
 					<ChildrenList>
 						<Folder Name="Locomotion" ID="{836EABAA-806D-42EB-AC14-1C0152FA7383}" ShortID="740487616">
@@ -64,21 +53,21 @@
 								</Event>
 							</ChildrenList>
 						</Folder>
-						<Folder Name="Attack" ID="{37BAA1BD-DD1E-4922-B766-DFCA4F84F80E}" ShortID="7886367">
+					</ChildrenList>
+				</Folder>
+				<Folder Name="Ambience" ID="{823B7D57-FEDC-4DDD-91BB-7521B3512E52}" ShortID="569426907">
+					<ChildrenList>
+						<Event Name="AMB" ID="{8B092568-5A90-4DAB-8D1F-3BF77B9D5E58}">
 							<ChildrenList>
-								<Event Name="Throw" ID="{26838BCB-5F05-4CA7-B67B-32D8638F39BA}">
-									<ChildrenList>
-										<Action Name="" ID="{FB97F6DF-BC15-4DFA-9034-0BEDA9480024}" ShortID="638581943">
-											<ReferenceList>
-												<Reference Name="Target">
-													<ObjectRef Name="jump" ID="{9FF28B0F-65D5-459B-A57B-A3736ECB75E5}" WorkUnitID="{741AA32C-3A01-42D0-81E2-5313999214B2}"/>
-												</Reference>
-											</ReferenceList>
-										</Action>
-									</ChildrenList>
-								</Event>
+								<Action Name="" ID="{B3D9569C-D357-4C3E-8A7B-B4531252B6FC}" ShortID="408232529">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="C atmoAmb" ID="{96680BB2-5AFF-4D22-8808-83D263B79321}" WorkUnitID="{D9C0B92D-FEDB-44A8-AF23-D93A852198CF}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
 							</ChildrenList>
-						</Folder>
+						</Event>
 					</ChildrenList>
 				</Folder>
 			</ChildrenList>

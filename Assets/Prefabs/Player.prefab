@@ -173,34 +173,34 @@ MonoBehaviour:
   probeDistance: 0.3
   maxSnapSpeed: 100
   maxSlope: 40
-  idleGroundAcc: 90
-  idleAirAcc: 10
-  walkingGroundAcc: 90
+  idleGroundAcc: 60
+  idleAirAcc: 0
+  walkingGroundAcc: 70
   walkingAirAcc: 10
   walkingMaxSpeed: 3.5
   walkigSpeedClamp:
-    x: -10
-    y: 10
-    z: -10
+    x: -6
+    y: 6
+    z: -3
     w: 10
-  runningGroundAcc: 90
+  runningGroundAcc: 50
   runningAirAcc: 10
   runningMaxSpeed: 7
   runningSpeedClamp:
-    x: -10
-    y: 10
-    z: -10
+    x: -6
+    y: 6
+    z: -3
     w: 10
   crouchDelta: 0.8
-  crouchGroundAcc: 90
+  crouchGroundAcc: 60
   crouchAirAcc: 10
   crouchMaxSpeed: 2.5
   crouchSpeedClamp:
-    x: -10
-    y: 10
-    z: -10
-    w: 10
-  slidingActivationSpeed: 6
+    x: -3
+    y: 3
+    z: -3
+    w: 3
+  slidingActivationSpeed: 5
   slidingDeactivationSpeed: 3
   slidingFriction: 0.99
   slidingGroundAcc: 90

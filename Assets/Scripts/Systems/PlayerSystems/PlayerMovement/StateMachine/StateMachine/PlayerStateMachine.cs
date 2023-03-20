@@ -44,12 +44,12 @@ public class PlayerStateMachine{
     public bool OnSteep => playerStateSetup.steepContactCount > 0;
     #endregion
     #region Getters and Setters.
-    public Rigidbody RigidBody { get => playerNet.RigidBody; set => playerNet.RigidBody = value; }
-    public CapsuleCollider PlayerCollider { get => playerNet.CapsuleCollider; set => playerNet.CapsuleCollider = value; }
+    public Rigidbody RigidBody { get => playerNet.RigidBody; }
+    public CapsuleCollider PlayerCollider { get => playerNet.CapsuleCollider; }
     public PlayerBaseState CurrentState { get => currentState; set => currentState = value; }
     public PlayerStateCashe States { get => states; set => states = value; }
     public PlayerEffects PlayerEffects { get => playerNet.PlayerEffects; }
-    public Vector3 Velocity { get => velocity; set => velocity = value; }
+    public Vector3 Velocity { get => velocity; set { velocity = value; } }
     public PlayerMoveData MoveData { get => moveData;}
     public float TickDelta { get => tickDelta; set => tickDelta = value; }
     public Vector3 RightAxis { get => playerStateSetup.rightAxis; set => playerStateSetup.rightAxis= value; }
@@ -74,7 +74,6 @@ public class PlayerStateMachine{
         tickDelta = (float)InstanceFinder.TimeManager.TickDelta;
 
         playerStateSetup.Update();
-
         currentState.UpdateStates();
         RigidBody.velocity = velocity;
 

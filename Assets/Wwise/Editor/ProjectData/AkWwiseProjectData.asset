@@ -472,7 +472,7 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: 5dd4aa4037f28a4ba665f5da9fb40167
     GuidInternal: 
-    m_lastTime: -8585228071773189634
+    m_lastTime: -8585223278473305692
     List:
     - name: AMB
       guid: bd0d8c9d05c2a3498a55ef8b9e67070b
@@ -484,10 +484,33 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: 5dd4aa4037f28a4ba665f5da9fb40167
+      - ElementName: Main
+        ObjectType: 4
+        guid: 67763d762b5884449a3997feec186a56
+      - ElementName: Ambience
+        ObjectType: 4
+        guid: 1d90e2d55eb36c4e8dd1c2bef08c6128
       - ElementName: AMB
         ObjectType: 7
         guid: bd0d8c9d05c2a3498a55ef8b9e67070b
-      Path: SoundBanks\Default Work Unit\AMB
+      Path: SoundBanks\Default Work Unit\Main\Ambience\AMB
+    - name: Ambience
+      guid: 1d90e2d55eb36c4e8dd1c2bef08c6128
+      id: 85412153
+      PathAndIcons:
+      - ElementName: SoundBanks
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 5dd4aa4037f28a4ba665f5da9fb40167
+      - ElementName: Main
+        ObjectType: 4
+        guid: 67763d762b5884449a3997feec186a56
+      - ElementName: Ambience
+        ObjectType: 4
+        guid: 1d90e2d55eb36c4e8dd1c2bef08c6128
+      Path: SoundBanks\Default Work Unit\Main\Ambience
     - name: Crouch
       guid: 1404369174a165439cf4111a6497a3d5
       id: 2655407367
@@ -498,10 +521,19 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: 5dd4aa4037f28a4ba665f5da9fb40167
+      - ElementName: Main
+        ObjectType: 4
+        guid: 67763d762b5884449a3997feec186a56
+      - ElementName: Player
+        ObjectType: 4
+        guid: 91248d1bfe782941aebfb383a29d8adc
+      - ElementName: Locomotion
+        ObjectType: 4
+        guid: bfca2184dd67a74e8d8ae1cfec9a67a9
       - ElementName: Crouch
         ObjectType: 7
         guid: 1404369174a165439cf4111a6497a3d5
-      Path: SoundBanks\Default Work Unit\Crouch
+      Path: SoundBanks\Default Work Unit\Main\Player\Locomotion\Crouch
     - name: Footsteps
       guid: 518f8c32d3ac9747a8443165f4bc7664
       id: 2385628198
@@ -512,10 +544,19 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: 5dd4aa4037f28a4ba665f5da9fb40167
+      - ElementName: Main
+        ObjectType: 4
+        guid: 67763d762b5884449a3997feec186a56
+      - ElementName: Player
+        ObjectType: 4
+        guid: 91248d1bfe782941aebfb383a29d8adc
+      - ElementName: Locomotion
+        ObjectType: 4
+        guid: bfca2184dd67a74e8d8ae1cfec9a67a9
       - ElementName: Footsteps
         ObjectType: 7
         guid: 518f8c32d3ac9747a8443165f4bc7664
-      Path: SoundBanks\Default Work Unit\Footsteps
+      Path: SoundBanks\Default Work Unit\Main\Player\Locomotion\Footsteps
     - name: Jump
       guid: b01e25f3a2b27b479ca275161b3b1b43
       id: 3833651337
@@ -526,10 +567,19 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: 5dd4aa4037f28a4ba665f5da9fb40167
+      - ElementName: Main
+        ObjectType: 4
+        guid: 67763d762b5884449a3997feec186a56
+      - ElementName: Player
+        ObjectType: 4
+        guid: 91248d1bfe782941aebfb383a29d8adc
+      - ElementName: Locomotion
+        ObjectType: 4
+        guid: bfca2184dd67a74e8d8ae1cfec9a67a9
       - ElementName: Jump
         ObjectType: 7
         guid: b01e25f3a2b27b479ca275161b3b1b43
-      Path: SoundBanks\Default Work Unit\Jump
+      Path: SoundBanks\Default Work Unit\Main\Player\Locomotion\Jump
     - name: Land
       guid: 912dbee73abf484c82b9a87d412e1aa1
       id: 674522502
@@ -540,13 +590,22 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: 5dd4aa4037f28a4ba665f5da9fb40167
+      - ElementName: Main
+        ObjectType: 4
+        guid: 67763d762b5884449a3997feec186a56
+      - ElementName: Player
+        ObjectType: 4
+        guid: 91248d1bfe782941aebfb383a29d8adc
+      - ElementName: Locomotion
+        ObjectType: 4
+        guid: bfca2184dd67a74e8d8ae1cfec9a67a9
       - ElementName: Land
         ObjectType: 7
         guid: 912dbee73abf484c82b9a87d412e1aa1
-      Path: SoundBanks\Default Work Unit\Land
-    - name: Throw
-      guid: 9cfe40c88a59e045b631e121db4d09b9
-      id: 745179803
+      Path: SoundBanks\Default Work Unit\Main\Player\Locomotion\Land
+    - name: Locomotion
+      guid: bfca2184dd67a74e8d8ae1cfec9a67a9
+      id: 556887514
       PathAndIcons:
       - ElementName: SoundBanks
         ObjectType: 5
@@ -554,10 +613,47 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: 5dd4aa4037f28a4ba665f5da9fb40167
-      - ElementName: Throw
-        ObjectType: 7
-        guid: 9cfe40c88a59e045b631e121db4d09b9
-      Path: SoundBanks\Default Work Unit\Throw
+      - ElementName: Main
+        ObjectType: 4
+        guid: 67763d762b5884449a3997feec186a56
+      - ElementName: Player
+        ObjectType: 4
+        guid: 91248d1bfe782941aebfb383a29d8adc
+      - ElementName: Locomotion
+        ObjectType: 4
+        guid: bfca2184dd67a74e8d8ae1cfec9a67a9
+      Path: SoundBanks\Default Work Unit\Main\Player\Locomotion
+    - name: Main
+      guid: 67763d762b5884449a3997feec186a56
+      id: 3161908922
+      PathAndIcons:
+      - ElementName: SoundBanks
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 5dd4aa4037f28a4ba665f5da9fb40167
+      - ElementName: Main
+        ObjectType: 4
+        guid: 67763d762b5884449a3997feec186a56
+      Path: SoundBanks\Default Work Unit\Main
+    - name: Player
+      guid: 91248d1bfe782941aebfb383a29d8adc
+      id: 1069431850
+      PathAndIcons:
+      - ElementName: SoundBanks
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 5dd4aa4037f28a4ba665f5da9fb40167
+      - ElementName: Main
+        ObjectType: 4
+        guid: 67763d762b5884449a3997feec186a56
+      - ElementName: Player
+        ObjectType: 4
+        guid: 91248d1bfe782941aebfb383a29d8adc
+      Path: SoundBanks\Default Work Unit\Main\Player
   EventWwu:
   - PhysicalPath: Events\Default Work Unit.wwu
     PathAndIcons:
@@ -570,7 +666,7 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: 42974ee106cdd64b8120f90cd49fee48
     GuidInternal: 
-    m_lastTime: -8585228071773309572
+    m_lastTime: -8585223293783571308
     List:
     - name: AMB
       guid: 6825098b905aab4d8d1f3bf77b9d5e58
@@ -582,16 +678,19 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: 42974ee106cdd64b8120f90cd49fee48
+      - ElementName: Ambience
+        ObjectType: 4
+        guid: 577d3b82dcfedd4d91bb7521b3512e52
       - ElementName: AMB
         ObjectType: 3
         guid: 6825098b905aab4d8d1f3bf77b9d5e58
-      Path: Events\Default Work Unit\AMB
+      Path: Events\Default Work Unit\Ambience\AMB
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
-    - name: Attack
-      guid: bda1ba371edd2249b766dfca4f84f80e
-      id: 180661997
+    - name: Ambience
+      guid: 577d3b82dcfedd4d91bb7521b3512e52
+      id: 85412153
       PathAndIcons:
       - ElementName: Events
         ObjectType: 5
@@ -599,13 +698,10 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: 42974ee106cdd64b8120f90cd49fee48
-      - ElementName: Player
+      - ElementName: Ambience
         ObjectType: 4
-        guid: a6a9697b9c86ce43bc50564dd4fb739a
-      - ElementName: Attack
-        ObjectType: 4
-        guid: bda1ba371edd2249b766dfca4f84f80e
-      Path: Events\Default Work Unit\Player\Attack
+        guid: 577d3b82dcfedd4d91bb7521b3512e52
+      Path: Events\Default Work Unit\Ambience
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -735,29 +831,6 @@ MonoBehaviour:
         ObjectType: 4
         guid: a6a9697b9c86ce43bc50564dd4fb739a
       Path: Events\Default Work Unit\Player
-      maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
-    - name: Throw
-      guid: cb8b8326055fa74cb67b32d8638f39ba
-      id: 745179803
-      PathAndIcons:
-      - ElementName: Events
-        ObjectType: 5
-        guid: 00000000000000000000000000000000
-      - ElementName: Default Work Unit
-        ObjectType: 12
-        guid: 42974ee106cdd64b8120f90cd49fee48
-      - ElementName: Player
-        ObjectType: 4
-        guid: a6a9697b9c86ce43bc50564dd4fb739a
-      - ElementName: Attack
-        ObjectType: 4
-        guid: bda1ba371edd2249b766dfca4f84f80e
-      - ElementName: Throw
-        ObjectType: 3
-        guid: cb8b8326055fa74cb67b32d8638f39ba
-      Path: Events\Default Work Unit\Player\Attack\Throw
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -920,7 +993,7 @@ MonoBehaviour:
     m_lastTime: -8585240127075720021
     List: []
   ExpandedFileSystemItemIds: 
-  ExpandedWaapiItemIds: 010000000500000006000000070000000a0000000b0000000c0000000d000000
+  ExpandedWaapiItemIds: 0100000005000000060000000700000008000000090000000b0000000c0000000d0000000e0000001c0000001f0000002100000023000000
   AutoSyncSelection: 1
   autoPopulateEnabled: 1
   currentDataSource: 0

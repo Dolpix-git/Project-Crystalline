@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Mac" BasePlatform="Mac" SchemaVersion="16" SoundBankVersion="145">
 	<RootPaths>
-		<ProjectRoot>../..</ProjectRoot>
-		<SourceFilesRoot>../../.cache/Mac</SourceFilesRoot>
+		<ProjectRoot>../../</ProjectRoot>
+		<SourceFilesRoot>../../.cache/Mac/</SourceFilesRoot>
 		<SoundBanksRoot>.</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
 		<ExternalSourcesOutputRoot>.</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="674522502" Type="User" Language="SFX" Hash="{5836B8F4-F99F-490A-715E-7BDAED931EF9}">
+		<SoundBank Id="674522502" Type="User" Language="SFX" Hash="{19A34C0A-F462-6695-3A1B-A8B874CF6414}">
 			<ShortName>Land</ShortName>
 			<Path>Land.bnk</Path>
+			<Media>
+				<File Id="157160918" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>land.wav</ShortName>
+					<CachePath>SFX/land_10C4C929.wem</CachePath>
+				</File>
+			</Media>
 			<Events>
-				<Event Id="674522502" Name="Land" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
-			</Events>
-		</SoundBank>
-		<SoundBank Id="745179803" Type="User" Language="SFX" Hash="{9C635F0C-B410-0B57-3EC4-7FA0D02FCEF2}">
-			<ShortName>Throw</ShortName>
-			<Path>Throw.bnk</Path>
-			<Events>
-				<Event Id="745179803" Name="Throw" MaxAttenuation="0" DurationType="OneShot" DurationMin="0" DurationMax="0"/>
+				<Event Id="674522502" Name="Land" DurationType="OneShot" DurationMin="1.1908617" DurationMax="1.1908617">
+					<MediaRefs>
+						<MediaRef Id="157160918"/>
+					</MediaRefs>
+				</Event>
 			</Events>
 		</SoundBank>
 		<SoundBank Id="1117531639" Type="User" Language="SFX" Hash="{7115E02C-1A3E-F2A4-A14C-048870B75D9D}">
@@ -147,7 +150,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="2655407367" Type="User" Language="SFX" Hash="{C5059C63-2689-F27C-D472-58DD51BB439B}">
+		<SoundBank Id="2655407367" Type="User" Language="SFX" Hash="{00F7355A-E99C-7261-6966-AAE98F1A7758}">
 			<ShortName>Crouch</ShortName>
 			<Path>Crouch.bnk</Path>
 			<Media>
@@ -169,7 +172,7 @@
 				</File>
 			</Media>
 			<Events>
-				<Event Id="2655407367" Name="Crouch" DurationType="OneShot" DurationMin="0" DurationMax="0">
+				<Event Id="2655407367" Name="Crouch" DurationType="OneShot" DurationMin="0.291678" DurationMax="0.37498868">
 					<MediaRefs>
 						<MediaRef Id="169228004"/>
 						<MediaRef Id="498913498"/>
@@ -186,7 +189,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3833651337" Type="User" Language="SFX" Hash="{FFE321CF-01D7-99FE-8DDD-153C698B471F}">
+		<SoundBank Id="3833651337" Type="User" Language="SFX" Hash="{5AE88911-628D-B9A3-370B-ABBA804B9E70}">
 			<ShortName>Jump</ShortName>
 			<Path>Jump.bnk</Path>
 			<Media>
@@ -196,7 +199,7 @@
 				</File>
 			</Media>
 			<Events>
-				<Event Id="3833651337" Name="Jump" DurationType="OneShot" DurationMin="0" DurationMax="0">
+				<Event Id="3833651337" Name="Jump" DurationType="OneShot" DurationMin="0.40573695" DurationMax="0.40573695">
 					<MediaRefs>
 						<MediaRef Id="976628534"/>
 					</MediaRefs>
@@ -204,5 +207,5 @@
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{0491DB77-B8A3-99B8-F3B9-B77302E633E0}</FileHash>
+	<FileHash>{CDA2BE98-6C2B-9DEF-B87B-63087EA69481}</FileHash>
 </SoundBanksInfo>

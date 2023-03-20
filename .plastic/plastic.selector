@@ -1,4 +1,4 @@
 repository "Crystalline@kikigoldwolf@cloud"
   path "/"
-    br "/main"
-    co "/main"
+    smartbranch "/main" changeset "46"             
+     

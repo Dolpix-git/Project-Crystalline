@@ -8,8 +8,8 @@ Switch	ID	Name	Switch Group			Notes
 	2195636714	Dirt	Crouch			
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
-	169228004	PLY_SFX_LOCO_FOOTSTEPS_INDOOR_04	X:\RiskProjects\Crystalline\Crystalline_WwiseProject\.cache\Windows\SFX\PLY_SFX_LOCO_FOOTSTEPS_INDOOR_04_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Player\Locomotion\Crouch\Dirt\PLY_SFX_LOCO_FOOTSTEPS_INDOOR_04		0
-	498913498	PLY_SFX_LOCO_FOOTSTEPS_INDOOR_01	X:\RiskProjects\Crystalline\Crystalline_WwiseProject\.cache\Windows\SFX\PLY_SFX_LOCO_FOOTSTEPS_INDOOR_01_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Player\Locomotion\Crouch\Dirt\PLY_SFX_LOCO_FOOTSTEPS_INDOOR_01		0
-	582785820	PLY_SFX_LOCO_FOOTSTEPS_INDOOR_03	X:\RiskProjects\Crystalline\Crystalline_WwiseProject\.cache\Windows\SFX\PLY_SFX_LOCO_FOOTSTEPS_INDOOR_03_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Player\Locomotion\Crouch\Dirt\PLY_SFX_LOCO_FOOTSTEPS_INDOOR_03		0
-	680642949	PLY_SFX_LOCO_FOOTSTEPS_INDOOR_02	X:\RiskProjects\Crystalline\Crystalline_WwiseProject\.cache\Windows\SFX\PLY_SFX_LOCO_FOOTSTEPS_INDOOR_02_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Player\Locomotion\Crouch\Dirt\PLY_SFX_LOCO_FOOTSTEPS_INDOOR_02		0
+	169228004	PLY_SFX_LOCO_FOOTSTEPS_INDOOR_04	Y:\Crystalline\Crystalline_WwiseProject\.cache\Windows\SFX\PLY_SFX_LOCO_FOOTSTEPS_INDOOR_04_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Player\Locomotion\Crouch\Dirt\PLY_SFX_LOCO_FOOTSTEPS_INDOOR_04		25886
+	498913498	PLY_SFX_LOCO_FOOTSTEPS_INDOOR_01	Y:\Crystalline\Crystalline_WwiseProject\.cache\Windows\SFX\PLY_SFX_LOCO_FOOTSTEPS_INDOOR_01_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Player\Locomotion\Crouch\Dirt\PLY_SFX_LOCO_FOOTSTEPS_INDOOR_01		25886
+	582785820	PLY_SFX_LOCO_FOOTSTEPS_INDOOR_03	Y:\Crystalline\Crystalline_WwiseProject\.cache\Windows\SFX\PLY_SFX_LOCO_FOOTSTEPS_INDOOR_03_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Player\Locomotion\Crouch\Dirt\PLY_SFX_LOCO_FOOTSTEPS_INDOOR_03		33234
+	680642949	PLY_SFX_LOCO_FOOTSTEPS_INDOOR_02	Y:\Crystalline\Crystalline_WwiseProject\.cache\Windows\SFX\PLY_SFX_LOCO_FOOTSTEPS_INDOOR_02_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Player\Locomotion\Crouch\Dirt\PLY_SFX_LOCO_FOOTSTEPS_INDOOR_02		31396
 

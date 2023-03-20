@@ -26,23 +26,6 @@
 				</Event>
 			</Events>
 		</SoundBank>
-		<SoundBank Id="745179803" Type="User" Language="SFX" Hash="{88198568-F6FF-4998-8455-69A3DB8AAE3C}">
-			<ShortName>Throw</ShortName>
-			<Path>Throw.bnk</Path>
-			<Media>
-				<File Id="976628534" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>jump.wav</ShortName>
-					<CachePath>SFX/jump_10C4C929.wem</CachePath>
-				</File>
-			</Media>
-			<Events>
-				<Event Id="745179803" Name="Throw" DurationType="OneShot" DurationMin="0.40573695" DurationMax="0.40573695">
-					<MediaRefs>
-						<MediaRef Id="976628534"/>
-					</MediaRefs>
-				</Event>
-			</Events>
-		</SoundBank>
 		<SoundBank Id="1117531639" Type="User" Language="SFX" Hash="{7115E02C-1A3E-F2A4-A14C-048870B75D9D}">
 			<ShortName>AMB</ShortName>
 			<Path>AMB.bnk</Path>
@@ -224,5 +207,5 @@
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{5B16D9C9-E641-9BA1-0EBF-A0C7847C85BB}</FileHash>
+	<FileHash>{EAEFC201-1376-BA38-AC7B-2CB183137FF4}</FileHash>
 </SoundBanksInfo>

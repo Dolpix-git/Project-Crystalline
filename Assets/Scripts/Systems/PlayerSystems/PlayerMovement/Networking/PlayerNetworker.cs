@@ -42,9 +42,9 @@ public class PlayerNetworker : NetworkBehaviour {
     #endregion
 
     #region Getters and Setters.
-    public Rigidbody RigidBody { get => rigidBody; set => rigidBody = value; }
-    public CapsuleCollider CapsuleCollider { get => capsuleCollider; set => capsuleCollider = value; }
-    public Transform VisualTransform { get => visualTransform; set => visualTransform = value; }
+    public Rigidbody RigidBody { get => rigidBody; }
+    public CapsuleCollider CapsuleCollider { get => capsuleCollider; }
+    public Transform VisualTransform { get => visualTransform; }
     public PlayerMoveData LastMove { get => lastMove; }
     public PlayerEffects PlayerEffects { get => playerEffects; }
     #endregion

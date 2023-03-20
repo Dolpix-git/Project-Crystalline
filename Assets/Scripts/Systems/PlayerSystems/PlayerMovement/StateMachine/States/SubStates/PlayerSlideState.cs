@@ -5,9 +5,9 @@ public class PlayerSlideState : PlayerBaseState {
 
     #region States.
     public override void EnterState() {
-        Debug.Log("EnterCrouchSlide");
+        ChangeColliderHeight(Ctx.PlayerEffects.CrouchDelta);
         if (Ctx.OnGround) {
-            Ctx.Velocity += Vector3.down * 5f;
+            Ctx.Velocity += Vector3.down * 3.5f;
         }
     }
     public override void UpdateState() {
@@ -17,7 +17,10 @@ public class PlayerSlideState : PlayerBaseState {
             ChangeColliderHeight(Ctx.PlayerEffects.CrouchDelta);
         }
 
-        Ctx.Velocity *= Ctx.PlayerEffects.SlidingFriction;
+        if (Ctx.OnGround) {
+            Ctx.Velocity *= Ctx.PlayerEffects.SlidingFriction;
+        }
+        
 
         CheckSwitchStates();
     }

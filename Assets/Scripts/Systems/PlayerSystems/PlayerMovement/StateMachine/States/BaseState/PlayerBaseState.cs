@@ -27,7 +27,7 @@ public abstract class PlayerBaseState{
     public abstract void InitiatizeSubState();
     public abstract void CheckSwitchStates(); // NOTE: Must be at the bottom of update state
     /// <summary>
-    /// Call for getting this state/
+    /// Call for getting this state
     /// </summary>
     /// <returns>Player state</returns>
     public abstract PlayerStates PlayerState();
