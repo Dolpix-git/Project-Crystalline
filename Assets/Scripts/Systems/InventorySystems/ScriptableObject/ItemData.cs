@@ -8,10 +8,13 @@ public class ItemData : ScriptableObject{
     [SerializeField] private int maxStackSize;
     [SerializeField] private GameObject dropPrefab;
     [SerializeField] private float dropDelay;
+    [SerializeField] private int cost;
+    [SerializeField] private Sprite itemTexture;
 
     public string ItemName { get => itemName; }
     public int MaxStackSize { get => maxStackSize; }
     public GameObject DropPrefab { get => dropPrefab; }
+    public int Cost { get => cost; }
 
     public virtual bool Activate(Vector3 forward, float time, InventorySystem ctx, int index) {
         return false;

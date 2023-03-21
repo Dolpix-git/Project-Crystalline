@@ -4,8 +4,6 @@ using UnityEngine;
 public class SpikeItemData : ItemData {
     [SerializeField] private GameObject spikePrefab;
     [SerializeField] private float spikeStartDelay;
-    [SerializeField] private float spikePlantRange;
-    [SerializeField] private LayerMask plantLayer;
 
     public override bool Activate(Vector3 forward, float time, InventorySystem ctx, int index) {
         if (time < spikeStartDelay) return true;
@@ -29,7 +27,7 @@ public class SpikeItemData : ItemData {
     }
 
     private bool CheckZone(InventorySystem ctx) {
-        Collider[] hits = Physics.OverlapSphere(ctx.transform.position, spikePlantRange, plantLayer);
+        Collider[] hits = Physics.OverlapSphere(ctx.transform.position, 0.1f);
         for (int i = 0; i < hits.Length; i++) {
             IZonable zone = hits[i].GetComponent<IZonable>();
             if (zone == null) continue;

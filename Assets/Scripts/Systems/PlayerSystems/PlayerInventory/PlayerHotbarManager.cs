@@ -98,7 +98,21 @@ public class PlayerHotbarManager : InventorySystem{
         }
     }
     [ServerRpc]
-    public void PerchaseItem(int itemIndex, int amount, int cost) {
-        EconomyManager.Instance.PerchaseItem(BuyMenuUI.Instance.itemToBuy[itemIndex], amount, cost, Owner);
+    public void PerchaseItem(int itemIndex, int amount) {
+        if (!CheckZone(gameObject.transform.position)) return;
+        EconomyManager.Instance.PerchaseItem(BuyMenuUI.Instance.itemToBuy[itemIndex], amount, BuyMenuUI.Instance.itemToBuy[itemIndex].Cost, Owner);
+    }
+
+    private bool CheckZone(Vector3 pos) {
+        Collider[] hits = Physics.OverlapSphere(pos, 0.1f);
+        for (int i = 0; i < hits.Length; i++) {
+            IZonable zone = hits[i].GetComponent<IZonable>();
+            if (zone == null) continue;
+
+            if (zone.GetZone() != Zones.Buy) continue;
+
+            return true;
+        }
+        return false;
     }
 }

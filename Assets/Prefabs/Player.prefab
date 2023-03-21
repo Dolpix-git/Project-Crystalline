@@ -267,6 +267,10 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 5162187385007901065}
   inventorySize: 3
   inventory: []
+  buyRange: 0.1
+  buyZone:
+    serializedVersion: 2
+    m_Bits: 256
   currentInventoryIndex: 0
 --- !u!114 &5324421884714839305
 MonoBehaviour:

@@ -4,7 +4,7 @@
         <ui:VisualElement style="background-color: rgb(46, 46, 46); width: 50%; height: 50%; justify-content: center; align-items: center;">
             <ui:Label text="BuyMenu Screen" display-tooltip-when-elided="true" class="Teams" />
             <ui:Label text="Money:" display-tooltip-when-elided="true" name="Money" class="Teams" />
-            <ui:Button text="Buy Grenade 5$" display-tooltip-when-elided="true" name="BuyNade" />
+            <ui:ListView focusable="true" name="item-list" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
