@@ -7,6 +7,9 @@
 					<ChildrenList>
 						<Sound Name="C atmoAmb" ID="{96680BB2-5AFF-4D22-8808-83D263B79321}" ShortID="27323864">
 							<PropertyList>
+								<Property Name="3DSpatialization" Type="int16" Value="2"/>
+								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+								<Property Name="SpeakerPanning" Type="int16" Value="2"/>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
 										<Value>-20</Value>
@@ -30,6 +33,9 @@
 									</MediaIDList>
 								</AudioFileSource>
 							</ChildrenList>
+							<PositioningInfo>
+								<Panner Name="" ID="{FCFD7D23-A997-4CFB-B52E-E0A33A58443A}"/>
+							</PositioningInfo>
 							<ActiveSourceList>
 								<ActiveSource Name="C atmoAmb" ID="{84293F14-6298-42E7-8DCF-207EF0E99877}" Platform="Linked"/>
 							</ActiveSourceList>
@@ -360,8 +366,10 @@
 										</GroupingBehaviorList>
 									</GroupingInfo>
 								</SwitchContainer>
+								<WorkUnit Name="Slide" ID="{65E0DF76-6BD3-415F-A3F8-3A340CB39D01}" PersistMode="Reference"/>
 							</ChildrenList>
 						</Folder>
+						<WorkUnit Name="Attack" ID="{80A4E44A-168E-4D62-8258-CCCBD234AC5F}" PersistMode="Reference"/>
 					</ChildrenList>
 				</Folder>
 				<Folder Name="UI" ID="{202F48F2-23A5-4444-913D-1BEDF41608FF}" ShortID="298148871"/>

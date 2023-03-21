@@ -47,6 +47,7 @@ public class PlayerNetworker : NetworkBehaviour {
     public Transform VisualTransform { get => visualTransform; }
     public PlayerMoveData LastMove { get => lastMove; }
     public PlayerEffects PlayerEffects { get => playerEffects; }
+    public PlayerStateMachine PlayerStateMachine { get => playerStateMachine; }
     #endregion
 
 

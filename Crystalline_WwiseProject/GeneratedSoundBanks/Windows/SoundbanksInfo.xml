@@ -9,6 +9,23 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
+		<SoundBank Id="180661997" Type="User" Language="SFX" Hash="{F36B405D-219F-DDDE-873D-FC463010646B}">
+			<ShortName>Attack</ShortName>
+			<Path>Attack.bnk</Path>
+			<Media>
+				<File Id="126704395" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>ESM_Karate_Throw_Whoosh_Explainer_Video__Mobile_App_Game_Swish_Swoosh_Movement.wav</ShortName>
+					<CachePath>SFX/ESM_Karate_Throw_Whoosh_Explainer_Video__Mobile_App_Game_Swish_Swoosh_Movement_10C4C929.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="180661997" Name="Attack" DurationType="OneShot" DurationMin="0.16142857" DurationMax="0.16142857">
+					<MediaRefs>
+						<MediaRef Id="126704395"/>
+					</MediaRefs>
+				</Event>
+			</Events>
+		</SoundBank>
 		<SoundBank Id="674522502" Type="User" Language="SFX" Hash="{19A34C0A-F462-6695-3A1B-A8B874CF6414}">
 			<ShortName>Land</ShortName>
 			<Path>Land.bnk</Path>
@@ -26,17 +43,17 @@
 				</Event>
 			</Events>
 		</SoundBank>
-		<SoundBank Id="1117531639" Type="User" Language="SFX" Hash="{7115E02C-1A3E-F2A4-A14C-048870B75D9D}">
+		<SoundBank Id="1117531639" Type="User" Language="SFX" Hash="{B3361DB2-6D5C-9622-B366-EAAA4C6F3CE0}">
 			<ShortName>AMB</ShortName>
 			<Path>AMB.bnk</Path>
 			<Media>
 				<File Id="655563220" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>C atmoAmb.wav</ShortName>
-					<CachePath>SFX/C atmoAmb_10C4C929.wem</CachePath>
+					<CachePath>SFX/C atmoAmb_D79FB2B7.wem</CachePath>
 				</File>
 			</Media>
 			<Events>
-				<Event Id="1117531639" Name="AMB" DurationType="OneShot" DurationMin="96.5" DurationMax="96.5">
+				<Event Id="1117531639" Name="AMB" DurationType="Infinite">
 					<MediaRefs>
 						<MediaRef Id="655563220"/>
 					</MediaRefs>
@@ -189,6 +206,23 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
+		<SoundBank Id="3686556480" Type="User" Language="SFX" Hash="{68449186-0457-0A29-C088-F7010A8C5C49}">
+			<ShortName>Slide</ShortName>
+			<Path>Slide.bnk</Path>
+			<Media>
+				<File Id="184546384" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>ESM_Slide_6v4_Explainer_Video__Mobile_App_Game_Swish_Swoosh_Movement.wav</ShortName>
+					<CachePath>SFX/ESM_Slide_6v4_Explainer_Video__Mobile_App_Game_Swish_Swoosh_Movement_10C4C929.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="3686556480" Name="Slide" DurationType="OneShot" DurationMin="0.68750566" DurationMax="0.68750566">
+					<MediaRefs>
+						<MediaRef Id="184546384"/>
+					</MediaRefs>
+				</Event>
+			</Events>
+		</SoundBank>
 		<SoundBank Id="3833651337" Type="User" Language="SFX" Hash="{5AE88911-628D-B9A3-370B-ABBA804B9E70}">
 			<ShortName>Jump</ShortName>
 			<Path>Jump.bnk</Path>
@@ -207,5 +241,5 @@
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{EAEFC201-1376-BA38-AC7B-2CB183137FF4}</FileHash>
+	<FileHash>{6DD78B63-8EC9-72CB-92A1-7ECBFA75E6C0}</FileHash>
 </SoundBanksInfo>

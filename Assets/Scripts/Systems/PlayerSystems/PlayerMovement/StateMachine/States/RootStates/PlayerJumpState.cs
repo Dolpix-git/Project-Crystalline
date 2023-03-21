@@ -9,7 +9,7 @@ public class PlayerJumpState : PlayerBaseState{
     public override void EnterState() {
         InitiatizeSubState();
         HandleJump();
-        //AkSoundEngine.PostEvent("Land", Ctx.RigidBody.gameObject);
+        AkSoundEngine.PostEvent("Land", Ctx.RigidBody.gameObject);
     }
     public override void UpdateState() {
         CheckSwitchStates();

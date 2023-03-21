@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6770776063968730071}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CameraHead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,11 @@ GameObject:
   - component: {fileID: 3413463188451197482}
   - component: {fileID: 1082651257540912545}
   - component: {fileID: 7506570395549692134}
-  m_Layer: 0
+  - component: {fileID: 1012514772806384799}
+  - component: {fileID: 4143899641349697904}
+  - component: {fileID: 2444387265669348596}
+  - component: {fileID: 4461306793391011440}
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,32 +177,32 @@ MonoBehaviour:
   probeDistance: 0.3
   maxSnapSpeed: 100
   maxSlope: 40
-  idleGroundAcc: 60
-  idleAirAcc: 0
-  walkingGroundAcc: 70
+  idleGroundAcc: 70
+  idleAirAcc: 10
+  walkingGroundAcc: 60
   walkingAirAcc: 10
   walkingMaxSpeed: 3.5
   walkigSpeedClamp:
-    x: -6
-    y: 6
+    x: -4
+    y: 4
     z: -3
     w: 10
   runningGroundAcc: 50
   runningAirAcc: 10
   runningMaxSpeed: 7
   runningSpeedClamp:
-    x: -6
-    y: 6
+    x: -4
+    y: 4
     z: -3
     w: 10
   crouchDelta: 0.8
-  crouchGroundAcc: 60
+  crouchGroundAcc: 90
   crouchAirAcc: 10
   crouchMaxSpeed: 2.5
   crouchSpeedClamp:
     x: -3
     y: 3
-    z: -3
+    z: -2
     w: 3
   slidingActivationSpeed: 5
   slidingDeactivationSpeed: 3
@@ -557,7 +561,7 @@ MonoBehaviour:
   data:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 414dec41bfa114cb58d52ab26ce5977b,
+    WwiseObjectReference: {fileID: 11400000, guid: b65b735d03ca040999c38c7898b1b67b,
       type: 2}
   useCallbacks: 0
   Callbacks: []
@@ -589,7 +593,7 @@ MonoBehaviour:
   data:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 93f177a68b1cf4911a2ca2d6fe1049b7,
+    WwiseObjectReference: {fileID: 11400000, guid: 6afb1ff878cf8457382afb9a68c3a55c,
       type: 2}
   decodeBank: 0
   loadAsynchronous: 0
@@ -657,6 +661,126 @@ MonoBehaviour:
   unloadTriggerList: 958ca0ea
   bankNameInternal: 
   valueGuidInternal: 
+--- !u!114 &1012514772806384799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4870035923611722996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5cc5a29726df784a83ddf02b0c7b619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: cad6bdc3bcf0547e393c1170509bc768,
+      type: 2}
+  decodeBank: 0
+  loadAsynchronous: 0
+  saveDecodedBank: 0
+  unloadTriggerList: 958ca0ea
+  bankNameInternal: 
+  valueGuidInternal: 
+--- !u!114 &4143899641349697904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4870035923611722996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee9cb8c4a5e507945a799469e8a7d3b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  actionOnEventType: 0
+  curveInterpolation: 4
+  enableActionOnEvent: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: ac8e11bdc7419420a8bc97e40c3ec90c,
+      type: 2}
+  useCallbacks: 0
+  Callbacks: []
+  playingId: 0
+  soundEmitterObject: {fileID: 0}
+  transitionDuration: 0
+  eventIdInternal: 0
+  valueGuidInternal: 
+  m_callbackDataInternal: {fileID: 0}
+  MultiPositionType: 1
+  multiPositionTypeLabel: 0
+  attenuationSphereColor: {r: 1, g: 0, b: 0, a: 0.1}
+  LargeModePositions: []
+  multiPositionArray: []
+--- !u!114 &2444387265669348596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4870035923611722996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee9cb8c4a5e507945a799469e8a7d3b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  actionOnEventType: 0
+  curveInterpolation: 4
+  enableActionOnEvent: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 07f8ceae506a84bbba6a6816ce223de9,
+      type: 2}
+  useCallbacks: 0
+  Callbacks: []
+  playingId: 0
+  soundEmitterObject: {fileID: 0}
+  transitionDuration: 0
+  eventIdInternal: 0
+  valueGuidInternal: 
+  m_callbackDataInternal: {fileID: 0}
+  MultiPositionType: 1
+  multiPositionTypeLabel: 0
+  attenuationSphereColor: {r: 1, g: 0, b: 0, a: 0.1}
+  LargeModePositions: []
+  multiPositionArray: []
+--- !u!114 &4461306793391011440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4870035923611722996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5cc5a29726df784a83ddf02b0c7b619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 0e7c86896fc9844fab9cdb18b3e5c867,
+      type: 2}
+  decodeBank: 0
+  loadAsynchronous: 0
+  saveDecodedBank: 0
+  unloadTriggerList: 958ca0ea
+  bankNameInternal: 
+  valueGuidInternal: 
 --- !u!1 &4870035923714307969
 GameObject:
   m_ObjectHideFlags: 0
@@ -668,7 +792,7 @@ GameObject:
   - component: {fileID: 4870035923714307970}
   - component: {fileID: 4870035923714307972}
   - component: {fileID: 4870035923714307971}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -751,7 +875,7 @@ GameObject:
   - component: {fileID: 4870035923993098859}
   - component: {fileID: 4870035923993098861}
   - component: {fileID: 4870035923993098860}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -834,7 +958,7 @@ GameObject:
   - component: {fileID: 4870035924477073598}
   - component: {fileID: 4870035924477073584}
   - component: {fileID: 4870035924477073599}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -917,7 +1041,7 @@ GameObject:
   - component: {fileID: 4870035924695137484}
   - component: {fileID: 4870035924695137487}
   - component: {fileID: 4870035924695137486}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}

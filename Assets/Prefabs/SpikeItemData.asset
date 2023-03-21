@@ -19,3 +19,7 @@ MonoBehaviour:
   spikePrefab: {fileID: 2563415760963950010, guid: 1a7046bc5103a6b42ac4604d7707ae77,
     type: 3}
   spikeStartDelay: 0
+  spikePlantRange: 0.2
+  plantLayer:
+    serializedVersion: 2
+    m_Bits: 256

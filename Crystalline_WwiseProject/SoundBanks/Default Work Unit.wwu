@@ -48,6 +48,24 @@
 											<ObjectExclusionList/>
 											<GameSyncExclusionList/>
 										</SoundBank>
+										<SoundBank Name="Slide" ID="{A23B60AA-6BB6-4563-B43D-639B99BB1FCC}">
+											<ObjectInclusionList>
+												<ObjectRef Name="Slide" ID="{EF24B2F2-23DA-422F-9805-B2F7E5DB64FC}" WorkUnitID="{E14E9742-CD06-4BD6-8120-F90CD49FEE48}" Origin="Manual" Filter="7"/>
+											</ObjectInclusionList>
+											<ObjectExclusionList/>
+											<GameSyncExclusionList/>
+										</SoundBank>
+									</ChildrenList>
+								</Folder>
+								<Folder Name="Attack" ID="{649FF736-DFFC-4E85-AD6C-473999AE14F1}" ShortID="657624023">
+									<ChildrenList>
+										<SoundBank Name="Attack" ID="{175C49AE-EB99-4415-97DC-3E2811AE3CC6}">
+											<ObjectInclusionList>
+												<ObjectRef Name="Attack" ID="{A65695A3-50D4-4B29-B31F-598E1848959F}" WorkUnitID="{E14E9742-CD06-4BD6-8120-F90CD49FEE48}" Origin="Manual" Filter="7"/>
+											</ObjectInclusionList>
+											<ObjectExclusionList/>
+											<GameSyncExclusionList/>
+										</SoundBank>
 									</ChildrenList>
 								</Folder>
 							</ChildrenList>

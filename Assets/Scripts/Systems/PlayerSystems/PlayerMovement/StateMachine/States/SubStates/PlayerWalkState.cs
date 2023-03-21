@@ -12,7 +12,7 @@ public class PlayerWalkState : PlayerBaseState {
         GDSS();
 
         count += Time.deltaTime;
-        if (count >= maxCountDelta) {
+        if (count >= maxCountDelta && Ctx.OnGround) {
             count = 0;
             AkSoundEngine.PostEvent("Footsteps", Ctx.RigidBody.gameObject);
         }

@@ -51,8 +51,30 @@
 										</Action>
 									</ChildrenList>
 								</Event>
+								<Event Name="Slide" ID="{EF24B2F2-23DA-422F-9805-B2F7E5DB64FC}">
+									<ChildrenList>
+										<Action Name="" ID="{2F950342-D675-4BF0-8306-4B8BD311C234}" ShortID="630436079">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="ESM_Slide_6v4_Explainer_Video__Mobile_App_Game_Swish_Swoosh_Movement" ID="{D0D38417-5A86-4D25-B894-222C8F4850DC}" WorkUnitID="{65E0DF76-6BD3-415F-A3F8-3A340CB39D01}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
 							</ChildrenList>
 						</Folder>
+						<Event Name="Attack" ID="{A65695A3-50D4-4B29-B31F-598E1848959F}">
+							<ChildrenList>
+								<Action Name="" ID="{54A524B2-9A7A-49A2-87F7-C8BE5C820CF7}" ShortID="218581206">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="ESM_Karate_Throw_Whoosh_Explainer_Video__Mobile_App_Game_Swish_Swoosh_Movement" ID="{73115A36-E259-4CB7-AD67-C44BABA85045}" WorkUnitID="{80A4E44A-168E-4D62-8258-CCCBD234AC5F}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
 					</ChildrenList>
 				</Folder>
 				<Folder Name="Ambience" ID="{823B7D57-FEDC-4DDD-91BB-7521B3512E52}" ShortID="569426907">

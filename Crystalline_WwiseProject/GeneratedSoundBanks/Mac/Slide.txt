@@ -1,0 +1,6 @@
+Event	ID	Name			Wwise Object Path	Notes
+	3686556480	Slide			\Default Work Unit\Player\Locomotion\Slide	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	184546384	ESM_Slide_6v4_Explainer_Video__Mobile_App_Game_Swish_Swoosh_Movement	Y:\Crystalline\Crystalline_WwiseProject\.cache\Mac\SFX\ESM_Slide_6v4_Explainer_Video__Mobile_App_Game_Swish_Swoosh_Movement_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Player\Locomotion\Slide\ESM_Slide_6v4_Explainer_Video__Mobile_App_Game_Swish_Swoosh_Movement		121372
+

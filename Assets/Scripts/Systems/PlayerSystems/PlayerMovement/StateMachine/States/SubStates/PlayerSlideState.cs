@@ -5,22 +5,21 @@ public class PlayerSlideState : PlayerBaseState {
 
     #region States.
     public override void EnterState() {
-        ChangeColliderHeight(Ctx.PlayerEffects.CrouchDelta);
+        Debug.Log("EnterCrouchSlide");
         if (Ctx.OnGround) {
-            Ctx.Velocity += Vector3.down * 3.5f;
-        }
+            Ctx.Velocity += Vector3.down * 5f;
+            AkSoundEngine.PostEvent("Slide", Ctx.RigidBody.gameObject);
+            }
     }
     public override void UpdateState() {
         if (!Ctx.MoveData.Crouch) {
             UnCrouch();
         } else {
             ChangeColliderHeight(Ctx.PlayerEffects.CrouchDelta);
+       
         }
 
-        if (Ctx.OnGround) {
-            Ctx.Velocity *= Ctx.PlayerEffects.SlidingFriction;
-        }
-        
+        Ctx.Velocity *= Ctx.PlayerEffects.SlidingFriction;
 
         CheckSwitchStates();
     }
@@ -36,6 +35,7 @@ public class PlayerSlideState : PlayerBaseState {
                 SwitchState(Cashe.Walk());
             } else if (Ctx.MoveData.Movement.magnitude == 0) {
                 SwitchState(Cashe.Idle());
+                
             }
         }
     }
@@ -48,6 +48,7 @@ public class PlayerSlideState : PlayerBaseState {
     void ChangeColliderHeight(float a) {
         Ctx.PlayerCollider.height = Ctx.OriginalPlayerHeight - a;
         Ctx.PlayerCollider.center = new Vector3(0, a * 0.5f, 0);
+       
     }
 
 

@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3716d2d3c19c2c54ab8db665b879587f, type: 3}
-  m_Name: Data
+  m_Script: {fileID: 11500000, guid: f226ce96f45d3d04b889259ef850cc97, type: 3}
+  m_Name: A65695A3-50D4-4B29-B31F-598E1848959F
   m_EditorClassIdentifier: 
-  nadePrefab: {fileID: 4560890644814375177, guid: d52b995c0b1d6994f82e64b8457c9c74,
-    type: 3}
-  throwForce: 200
-  throwDelay: 1
-  maxStack: 5
-  cost: 20
+  objectName: Attack
+  id: 180661997
+  guid: A65695A3-50D4-4B29-B31F-598E1848959F

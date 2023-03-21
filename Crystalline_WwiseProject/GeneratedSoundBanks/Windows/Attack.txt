@@ -1,0 +1,6 @@
+Event	ID	Name			Wwise Object Path	Notes
+	180661997	Attack			\Default Work Unit\Player\Attack	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	126704395	ESM_Karate_Throw_Whoosh_Explainer_Video__Mobile_App_Game_Swish_Swoosh_Movement	Y:\Crystalline\Crystalline_WwiseProject\.cache\Windows\SFX\ESM_Karate_Throw_Whoosh_Explainer_Video__Mobile_App_Game_Swish_Swoosh_Movement_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Player\Attack\ESM_Karate_Throw_Whoosh_Explainer_Video__Mobile_App_Game_Swish_Swoosh_Movement		28572
+

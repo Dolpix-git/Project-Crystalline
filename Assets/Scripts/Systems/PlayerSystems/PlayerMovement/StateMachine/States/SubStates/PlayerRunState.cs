@@ -2,6 +2,8 @@ using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerRunState : PlayerBaseState{
+    float count = 0;
+    float maxCountDelta = 0.1000f;
     public PlayerRunState(PlayerStateMachine currentContext, PlayerStateCashe playerStateFactory) : base(currentContext, playerStateFactory){}
 
     #region States.
@@ -9,7 +11,12 @@ public class PlayerRunState : PlayerBaseState{
     public override void UpdateState() {
         GDSSReturn();
         GDSS();
-        AkSoundEngine.PostEvent("Footsteps", Ctx.RigidBody.gameObject);
+
+        count += Time.deltaTime;
+        if (count >= maxCountDelta && Ctx.OnGround) {
+            count = 0;
+            AkSoundEngine.PostEvent("Footsteps", Ctx.RigidBody.gameObject);
+        }
 
         AdjustVelocity();
 

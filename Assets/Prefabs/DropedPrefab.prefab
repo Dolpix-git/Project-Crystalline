@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4092324198629156485}
   - component: {fileID: 4092324198629156484}
   - component: {fileID: 4092324198629156487}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DropedPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 0
+  <PrefabId>k__BackingField: 1
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 4092324199226959499}
   - component: {fileID: 4092324199226959494}
   - component: {fileID: 4092324199226959497}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

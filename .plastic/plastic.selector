@@ -1,4 +1,3 @@
-repository "Crystalline@kikigoldwolf@cloud"
+rep "Crystalline@kikigoldwolf@cloud"
   path "/"
-    smartbranch "/main" changeset "46"             
-     
+    smartbranch "/main"

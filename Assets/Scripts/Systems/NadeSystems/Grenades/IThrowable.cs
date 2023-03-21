@@ -8,4 +8,5 @@ public interface IThrowable {
     /// </summary>
     /// <param name="force"></param>
     void Initialize(Vector3 force, NetworkConnection conn);
+    
 }
