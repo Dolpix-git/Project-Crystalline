@@ -1,20 +1,16 @@
 using FishNet.Object;
 using UnityEngine;
 
-[RequireComponent(typeof(InventorySystem))]
 public class PlayerItemPickup : NetworkBehaviour{
-    private InventorySystem inventorySystem;
-    private PlayerHealth playerHealth;
-    private void Awake() {
-        inventorySystem = GetComponent<InventorySystem>();
-        playerHealth = GetComponent<PlayerHealth>();
-    }
-    private void OnCollisionEnter(Collision collision) {
+    [SerializeField] private InventorySystem inventorySystem;
+    [SerializeField] private PlayerHealth playerHealth;
+
+    private void OnTriggerEnter(Collider other) {
         if (!base.IsServer) return;
 
         if (playerHealth.IsDisabled || playerHealth.IsDead) return;
 
-        IPickupable pickup = collision.gameObject.GetComponent<IPickupable>();
+        IPickupable pickup = other.gameObject.GetComponent<IPickupable>();
         if (pickup == null) return;
 
         Log.LogMsg(LogCategories.PlayerItemPickup, $"Player picked up {pickup.GetItemData()} with amount:{pickup.GetItemAmount()}");

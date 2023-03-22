@@ -5,16 +5,21 @@
 			<PropertyList>
 				<Property Name="AudioFilesImporter\Path" Type="string" Value="Y:\Desktop\PLAYER SOUNDS\Indoor Footsteps\"/>
 				<Property Name="Event Action List\{08E36D6B-4F5C-4F69-B373-647326CA3B1F}\x64_Expand States" Type="string" Value=""/>
+				<Property Name="Event Action List\{0C349C4D-DCCE-47CD-9F21-633A188C2B46}\x64_Expand States" Type="string" Value=""/>
 				<Property Name="Event Action List\{26838BCB-5F05-4CA7-B67B-32D8638F39BA}\x64_Expand States" Type="string" Value=""/>
+				<Property Name="Event Action List\{34DCE809-8709-4F28-B3BC-BA2703DE7D98}\x64_Expand States" Type="string" Value=""/>
 				<Property Name="Event Action List\{36EE7CB3-D5F6-48DA-A3AD-F83192486CA7}\x64_Expand States" Type="string" Value=""/>
+				<Property Name="Event Action List\{3C1B4FA7-B52C-4C1A-8828-5CE166A1DB3E}\x64_Expand States" Type="string" Value=""/>
 				<Property Name="Event Action List\{5D3C0389-5AD5-4416-80C2-DF80AF331606}\x64_Expand States" Type="string" Value=""/>
 				<Property Name="Event Action List\{66AD943D-2916-4432-90BF-8F0216350E60}\x64_Expand States" Type="string" Value=""/>
+				<Property Name="Event Action List\{7ADE5D6A-F742-4900-84B8-6AB5EEE0C5D4}\x64_Expand States" Type="string" Value=""/>
 				<Property Name="Event Action List\{8B092568-5A90-4DAB-8D1F-3BF77B9D5E58}\x64_Expand States" Type="string" Value=""/>
 				<Property Name="Event Action List\{98CF668E-B7EC-45F5-AEAB-044425B6DCBE}\x64_Expand States" Type="string" Value=""/>
 				<Property Name="Event Action List\{A0AD4B35-393B-47A8-BD6A-55B539AC79EA}\x64_Expand States" Type="string" Value=""/>
 				<Property Name="Event Action List\{A65695A3-50D4-4B29-B31F-598E1848959F}\x64_Expand States" Type="string" Value=""/>
 				<Property Name="Event Action List\{DC906440-46D5-4E29-B78A-230045E3FAE9}\x64_Expand States" Type="string" Value=""/>
 				<Property Name="Event Action List\{EF24B2F2-23DA-422F-9805-B2F7E5DB64FC}\x64_Expand States" Type="string" Value=""/>
+				<Property Name="Event Action List\{F4A2A903-7498-46C4-85FD-459A7CF1D42F}\x64_Expand States" Type="string" Value=""/>
 				<Property Name="Event Action List\{FB6FC2EF-BA91-4C20-A293-304E3CA34813}\x64_Expand States" Type="string" Value=""/>
 				<Property Name="Event Action List\{FC4464E5-993E-433B-B165-8931E2045418}\x64_Expand States" Type="string" Value=""/>
 				<Property Name="EventView\FilterMode1" Type="int32" Value="2"/>

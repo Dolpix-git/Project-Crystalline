@@ -90,6 +90,28 @@
 								</Action>
 							</ChildrenList>
 						</Event>
+						<Event Name="Thunder" ID="{7ADE5D6A-F742-4900-84B8-6AB5EEE0C5D4}">
+							<ChildrenList>
+								<Action Name="" ID="{B5555BF5-83C4-4A74-A7FF-80AC51D2C67C}" ShortID="755386056">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="ESM_Thunderstorm_6_Ambience_Nature_Tribal_Organic_Tennessee_Thunder_Storm_Lightning_Strike" ID="{E14CC991-E94B-4471-A732-CDC2DE470F46}" WorkUnitID="{D9C0B92D-FEDB-44A8-AF23-D93A852198CF}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Wind" ID="{F4A2A903-7498-46C4-85FD-459A7CF1D42F}">
+							<ChildrenList>
+								<Action Name="" ID="{204888A5-0558-49CF-9261-F769E36315BA}" ShortID="525762743">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="SPLC-0571_FX_Oneshot_Wind_Storm_Whistling" ID="{E878B535-1FE7-49C6-8347-3B6A6F04EB0A}" WorkUnitID="{D9C0B92D-FEDB-44A8-AF23-D93A852198CF}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
 					</ChildrenList>
 				</Folder>
 			</ChildrenList>

@@ -87,14 +87,14 @@ public class PlayerHotbarManager : InventorySystem{
     private void PlayerHealth_OnDisabled() {
         for (int i = 0; i < inventory.Length; i++) {
             if (inventory[i].ItemData == null) continue;
-            inventory[i].ItemData.DropAmount(transform.forward, 1000, this, inventory[i].Amount, i);
+            inventory[i].ItemData.DropAmount(transform.forward, 0, this, inventory[i].Amount, i);
         }
     }
     [Server]
     private void PlayerHealth_OnDeath() {
         for (int i = 0; i < inventory.Length; i++) {
             if (inventory[i].ItemData == null) continue;
-            inventory[i].ItemData.DropAmount(transform.forward, 1000, this, inventory[i].Amount, i);
+            inventory[i].ItemData.DropAmount(transform.forward, 0, this, inventory[i].Amount, i);
         }
     }
     [ServerRpc]

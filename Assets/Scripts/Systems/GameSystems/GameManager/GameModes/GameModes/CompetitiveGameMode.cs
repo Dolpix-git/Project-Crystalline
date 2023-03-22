@@ -74,7 +74,9 @@ public class CompetitiveGameMode : BaseGameMode {
         StartRound();
     }
     #endregion
+
     #region Rounds.
+    [Server]
     private void StartRound() {
         Log.LogMsg(LogCategories.Round, "Round Start");
         RoundEventManager.Instance.InvokeRoundStart();
@@ -87,6 +89,7 @@ public class CompetitiveGameMode : BaseGameMode {
         // Start the timer
         GameManager.Instance.gameTimer.StartTimer(roundTime, true);
     }
+    [Server]
     private void EndRound() {
         Log.LogMsg(LogCategories.Round, "Round End");
         roundInProgress = false;
@@ -118,7 +121,6 @@ public class CompetitiveGameMode : BaseGameMode {
         StartRound();
     }
     #endregion
-
 
     private void Update() {
         GameManager.Instance.gameTimer.Update(Time.deltaTime);
@@ -174,6 +176,7 @@ public class CompetitiveGameMode : BaseGameMode {
         TeamManager.Instance.AddLateJoiner(conn, TeamManager.Instance.GetTeamWithLeastMembers());
     }
     #endregion
+
     #region Methods.
     private void GiveSpikeToRandomPlayer() {
         Log.LogMsg(LogCategories.Round, "Giving someone the spike");

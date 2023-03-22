@@ -26,6 +26,23 @@
 				</Event>
 			</Events>
 		</SoundBank>
+		<SoundBank Id="186852181" Type="User" Language="SFX" Hash="{99F875DB-8852-CBBF-BDCE-6095CD9A2F06}">
+			<ShortName>Thunder</ShortName>
+			<Path>Thunder.bnk</Path>
+			<Media>
+				<File Id="697356885" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>ESM_Thunderstorm_6_Ambience_Nature_Tribal_Organic_Tennessee_Thunder_Storm_Lightning_Strike.wav</ShortName>
+					<CachePath>SFX/ESM_Thunderstorm_6_Ambience_Nature_Tribal_Organic_Tennessee_Thunder_Storm_Lightning_Strike_D79FB2B7.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="186852181" Name="Thunder" MaxAttenuation="136" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="697356885"/>
+					</MediaRefs>
+				</Event>
+			</Events>
+		</SoundBank>
 		<SoundBank Id="674522502" Type="User" Language="SFX" Hash="{19A34C0A-F462-6695-3A1B-A8B874CF6414}">
 			<ShortName>Land</ShortName>
 			<Path>Land.bnk</Path>
@@ -43,19 +60,19 @@
 				</Event>
 			</Events>
 		</SoundBank>
-		<SoundBank Id="1117531639" Type="User" Language="SFX" Hash="{B3361DB2-6D5C-9622-B366-EAAA4C6F3CE0}">
+		<SoundBank Id="1117531639" Type="User" Language="English(US)" Hash="{C4F27D14-B967-7B17-61FB-8A15C90CF30D}">
 			<ShortName>AMB</ShortName>
-			<Path>AMB.bnk</Path>
+			<Path>English(US)/AMB.bnk</Path>
 			<Media>
-				<File Id="655563220" Language="SFX" Streaming="false" Location="Memory">
+				<File Id="655563221" Language="English(US)" Streaming="false" Location="Memory">
 					<ShortName>C atmoAmb.wav</ShortName>
-					<CachePath>SFX/C atmoAmb_D79FB2B7.wem</CachePath>
+					<CachePath>Voices/English(US)/C atmoAmb_D79FB2B7.wem</CachePath>
 				</File>
 			</Media>
 			<Events>
-				<Event Id="1117531639" Name="AMB" DurationType="Infinite">
+				<Event Id="1117531639" Name="AMB" MaxAttenuation="136" DurationType="Infinite">
 					<MediaRefs>
-						<MediaRef Id="655563220"/>
+						<MediaRef Id="655563221"/>
 					</MediaRefs>
 				</Event>
 			</Events>
@@ -127,6 +144,23 @@
 					</Switches>
 				</SwitchGroup>
 			</SwitchGroups>
+		</SoundBank>
+		<SoundBank Id="1537061107" Type="User" Language="SFX" Hash="{E98839BC-8A88-F6CB-3282-B550A1B2767D}">
+			<ShortName>Wind</ShortName>
+			<Path>Wind.bnk</Path>
+			<Media>
+				<File Id="38313502" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SPLC-0571_FX_Oneshot_Wind_Storm_Whistling.wav</ShortName>
+					<CachePath>SFX/SPLC-0571_FX_Oneshot_Wind_Storm_Whistling_10C4C929.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="1537061107" Name="Wind" DurationType="OneShot" DurationMin="45.525574" DurationMax="45.525574">
+					<MediaRefs>
+						<MediaRef Id="38313502"/>
+					</MediaRefs>
+				</Event>
+			</Events>
 		</SoundBank>
 		<SoundBank Id="2385628198" Type="User" Language="SFX" Hash="{70348322-D3A0-D26E-D944-6EEFC75F2975}">
 			<ShortName>Footsteps</ShortName>
@@ -241,5 +275,5 @@
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{6DD78B63-8EC9-72CB-92A1-7ECBFA75E6C0}</FileHash>
+	<FileHash>{2B989D28-1800-A0B6-E5BB-22C7C3528C5F}</FileHash>
 </SoundBanksInfo>

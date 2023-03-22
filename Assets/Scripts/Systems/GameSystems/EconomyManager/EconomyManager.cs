@@ -43,6 +43,8 @@ public class EconomyManager : NetworkBehaviour {
             _instance = this;
         }
 
+        playerEconomy.OnChange += PlayerEconomy_OnChange;
+
         GameEventManager.Instance.OnGameStart += Instance_OnGameStart;
         GameEventManager.Instance.OnGameEnd += Instance_OnGameEnd;
         RoundEventManager.Instance.OnRoundEnd += Instance_OnRoundEnd;
@@ -54,7 +56,9 @@ public class EconomyManager : NetworkBehaviour {
         ObjectiveEventManager.Instance.OnObjectiveComplete += Instance_OnObjectiveComplete;
     }
 
-
+    private void PlayerEconomy_OnChange(SyncDictionaryOperation op, NetworkConnection key, int value, bool asServer) {
+        OnEcoChange?.Invoke();
+    }
 
     private void OnDestroy() {
         GameEventManager.Instance.OnGameStart -= Instance_OnGameStart;
@@ -70,12 +74,10 @@ public class EconomyManager : NetworkBehaviour {
 
     private void Instance_OnPlayerDisconnected(NetworkConnection obj) {
         playerEconomy.Remove(obj);
-        OnEcoChange?.Invoke();
     }
 
     private void Instance_OnPlayerConnected(NetworkConnection obj) {
         playerEconomy.Add(obj, 0);
-        OnEcoChange?.Invoke();
     }
 
     private void Instance_OnGameStart() {
@@ -83,7 +85,6 @@ public class EconomyManager : NetworkBehaviour {
         Log.LogMsg(LogCategories.SystEconomyManager, "Giving base money");
         foreach (NetworkConnection player in playerEconomy.Keys.ToList()) {
             playerEconomy[player] = baseMoney;
-            OnEcoChange?.Invoke();
         }
     }
     private void Instance_OnTeamFlipFlop() {
@@ -91,7 +92,6 @@ public class EconomyManager : NetworkBehaviour {
         Log.LogMsg(LogCategories.SystEconomyManager, "flip teams");
         foreach (NetworkConnection player in playerEconomy.Keys.ToList()) {
             playerEconomy[player] = baseMoney;
-            OnEcoChange?.Invoke();
         }
     }
     private void Instance_OnGameEnd() {
@@ -99,7 +99,6 @@ public class EconomyManager : NetworkBehaviour {
         Log.LogMsg(LogCategories.SystEconomyManager, "Reseting money");
         foreach (NetworkConnection player in playerEconomy.Keys.ToList()) {
             playerEconomy[player] = 0;
-            OnEcoChange?.Invoke();
         }
     }
 
@@ -112,7 +111,6 @@ public class EconomyManager : NetworkBehaviour {
             } else {
                 playerEconomy[player] = Mathf.Clamp(roundLoseMoney + playerEconomy[player], 0, maxPlayerMoney);
             }
-            OnEcoChange?.Invoke();
         }
     }
 
@@ -122,14 +120,12 @@ public class EconomyManager : NetworkBehaviour {
         if (pKiller != null) {
             if (playerEconomy.ContainsKey(pKiller)) {
                 playerEconomy[pKiller] = Mathf.Clamp(playerKillMoney + playerEconomy[pKiller], 0, maxPlayerMoney);
-                OnEcoChange?.Invoke();
             }
         }
 
         if (pAssister != null) {
             if (playerEconomy.ContainsKey(pAssister)) {
                 playerEconomy[pAssister] = Mathf.Clamp(playerKillAssistMoney + playerEconomy[pAssister], 0, maxPlayerMoney);
-                OnEcoChange?.Invoke();
             }
         }
 
@@ -143,7 +139,6 @@ public class EconomyManager : NetworkBehaviour {
 
         if (playerEconomy.ContainsKey(conn)) {
             playerEconomy[conn] += Mathf.Clamp(objectiveStartMoney + playerEconomy[conn], 0, maxPlayerMoney);
-            OnEcoChange?.Invoke();
         }
     }
     private void Instance_OnObjectiveComplete(Teams team, NetworkConnection conn) {
@@ -155,7 +150,6 @@ public class EconomyManager : NetworkBehaviour {
 
         if (playerEconomy.ContainsKey(conn)) {
             playerEconomy[conn] += Mathf.Clamp(objectiveEndMoney + playerEconomy[conn], 0, maxPlayerMoney);
-            OnEcoChange?.Invoke();
         }
     }
     [Server]
@@ -163,7 +157,5 @@ public class EconomyManager : NetworkBehaviour {
         if (playerEconomy[conn] < amount * cost) return;
         PlayerManager.Instance.players[conn].GetComponent<InventorySystem>().AtttemptToAddItem(item, amount, out int remaning);
         playerEconomy[conn] -= (amount - remaning) * cost;
-
-        OnEcoChange?.Invoke();
     }
 }

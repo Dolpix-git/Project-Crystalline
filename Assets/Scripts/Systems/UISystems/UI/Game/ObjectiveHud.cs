@@ -20,14 +20,14 @@ public class ObjectiveHud : MonoBehaviour, IPanel {
         root.visible = false;
 
         PlayerEventManager.Instance.OnPlayerDeath += Instance_OnPlayerDeath;
-        RoundEventManager.Instance.OnRoundStart += Instance_OnRoundStart;
-        RoundEventManager.Instance.OnRoundEnd += Instance_OnRoundEnd;
+        TeamManager.Instance.OnTeamsChanged += Instance_OnTeamsChanged;
     }
+
+
 
     private void OnDestroy() {
         PlayerEventManager.Instance.OnPlayerDeath -= Instance_OnPlayerDeath;
-        RoundEventManager.Instance.OnRoundStart -= Instance_OnRoundStart;
-        RoundEventManager.Instance.OnRoundEnd -= Instance_OnRoundEnd;
+        TeamManager.Instance.OnTeamsChanged -= Instance_OnTeamsChanged;
     }
 
     private void Update() {
@@ -38,10 +38,7 @@ public class ObjectiveHud : MonoBehaviour, IPanel {
     private void Instance_OnPlayerDeath(FishNet.Connection.NetworkConnection arg1, FishNet.Connection.NetworkConnection arg2, FishNet.Connection.NetworkConnection arg3) {
         UpdateTeamInfo();
     }
-    private void Instance_OnRoundStart() {
-        UpdateTeamInfo();
-    }
-    private void Instance_OnRoundEnd(Teams obj) {
+    private void Instance_OnTeamsChanged() {
         UpdateTeamInfo();
     }
 

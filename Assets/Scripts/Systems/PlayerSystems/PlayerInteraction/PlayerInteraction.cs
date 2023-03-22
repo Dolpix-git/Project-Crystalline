@@ -11,8 +11,6 @@ public class PlayerInteraction : NetworkBehaviour{
     [SyncVar] private bool isInteracting;
     [SyncVar] private bool isInteractionPause;
 
-    public event Action<bool> OnInteractionPause;
-
     public bool IsInteractionPause { get => isInteractionPause; }
 
     private void Awake() {
@@ -26,6 +24,7 @@ public class PlayerInteraction : NetworkBehaviour{
 
 
     private void Update() {
+        if (!base.IsServer) return;
         isInteractionPause = false;
         if (playerHealth.IsDisabled || playerHealth.IsDead) return;
         if (isInteracting) Interaction();

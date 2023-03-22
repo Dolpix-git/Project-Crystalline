@@ -1,0 +1,6 @@
+Event	ID	Name			Wwise Object Path	Notes
+	1117531639	AMB			\Default Work Unit\Ambience\AMB	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	655563221	C atmoAmb	Y:\Crystalline\Crystalline_WwiseProject\.cache\Windows\Voices\English(US)\C atmoAmb_D79FB2B7.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambience\C atmoAmb		18528160
+

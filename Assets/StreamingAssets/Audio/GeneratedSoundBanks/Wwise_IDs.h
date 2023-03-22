@@ -20,6 +20,8 @@ namespace AK
         static const AkUniqueID JUMP = 3833651337U;
         static const AkUniqueID LAND = 674522502U;
         static const AkUniqueID SLIDE = 3686556480U;
+        static const AkUniqueID THUNDER = 186852181U;
+        static const AkUniqueID WIND = 1537061107U;
     } // namespace EVENTS
 
     namespace SWITCHES
@@ -66,6 +68,8 @@ namespace AK
         static const AkUniqueID JUMP = 3833651337U;
         static const AkUniqueID LAND = 674522502U;
         static const AkUniqueID SLIDE = 3686556480U;
+        static const AkUniqueID THUNDER = 186852181U;
+        static const AkUniqueID WIND = 1537061107U;
     } // namespace BANKS
 
     namespace BUSSES

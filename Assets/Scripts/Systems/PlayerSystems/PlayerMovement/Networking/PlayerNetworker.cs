@@ -208,7 +208,6 @@ public class PlayerNetworker : NetworkBehaviour {
         playerStateMachine.CurrentState.EnterState();
         playerStateMachine.CurrentState.SetSubStateReconsile(rd.SubPlayerState);
 
-        Debug.Log(playerStateMachine.CurrentState);
         // canMove
         // interaction pause
     }

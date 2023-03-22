@@ -1,7 +1,7 @@
 using FishNet.Object;
 using UnityEngine;
 
-public class PickUp : NetworkBehaviour, IPickupable {
+public class PickUp : NetworkBehaviour, IPickupable, IRound {
     [SerializeField] private ItemData itemData;
     [SerializeField] private int amount;
     public int GetItemAmount() {
@@ -10,6 +10,8 @@ public class PickUp : NetworkBehaviour, IPickupable {
     public ItemData GetItemData() {
         return itemData;
     }
+
+
     [Server]
     public void SetAmount(int amount) {
         this.amount = amount;
@@ -18,5 +20,9 @@ public class PickUp : NetworkBehaviour, IPickupable {
     [Server]
     public void SetItem(ItemData itemData) {
         this.itemData = itemData;
+    }
+    [Server]
+    public void RoundEnded() {
+        Despawn();
     }
 }

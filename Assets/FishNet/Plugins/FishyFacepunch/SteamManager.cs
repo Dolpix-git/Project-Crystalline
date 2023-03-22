@@ -12,9 +12,9 @@ public class SteamManager : MonoBehaviour
     /// <summary>
     /// Steam application Id.
     /// </summary>
-    [Tooltip("Steam application Id.")]
-    [SerializeField]
-    private uint _steamAppID = 480;
+    //[Tooltip("Steam application Id.")]
+    //[SerializeField]
+    //private uint _steamAppID = 480;
 
     /// <summary>
     /// SSteam Mod Directory.

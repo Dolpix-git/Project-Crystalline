@@ -14,6 +14,20 @@
 									<ObjectExclusionList/>
 									<GameSyncExclusionList/>
 								</SoundBank>
+								<SoundBank Name="Thunder" ID="{929BA4BE-8D1F-4FE9-BD4F-2C62C9699738}">
+									<ObjectInclusionList>
+										<ObjectRef Name="Thunder" ID="{7ADE5D6A-F742-4900-84B8-6AB5EEE0C5D4}" WorkUnitID="{E14E9742-CD06-4BD6-8120-F90CD49FEE48}" Origin="Manual" Filter="7"/>
+									</ObjectInclusionList>
+									<ObjectExclusionList/>
+									<GameSyncExclusionList/>
+								</SoundBank>
+								<SoundBank Name="Wind" ID="{9AA6CC6B-2F7C-4D2F-BF7F-C255779E9C68}">
+									<ObjectInclusionList>
+										<ObjectRef Name="Wind" ID="{F4A2A903-7498-46C4-85FD-459A7CF1D42F}" WorkUnitID="{E14E9742-CD06-4BD6-8120-F90CD49FEE48}" Origin="Manual" Filter="7"/>
+									</ObjectInclusionList>
+									<ObjectExclusionList/>
+									<GameSyncExclusionList/>
+								</SoundBank>
 							</ChildrenList>
 						</Folder>
 						<Folder Name="Player" ID="{1B8D2491-78FE-4129-AEBF-B383A29D8ADC}" ShortID="519505707">

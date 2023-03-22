@@ -1,6 +1,7 @@
 using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -25,6 +26,7 @@ public class TeamManager : NetworkBehaviour {
     [SyncObject]
     public readonly SyncDictionary<Teams, TeamData> teamsDict = new SyncDictionary<Teams, TeamData>();
 
+    public event Action OnTeamsChanged;
 
     private void Awake() {
         if (_instance != null && _instance != this) {
@@ -32,18 +34,29 @@ public class TeamManager : NetworkBehaviour {
         } else {
             _instance = this;
         }
+
+        playerTeams.OnChange += PlayerTeams_OnChange; ;
+        teamsDict.OnChange += TeamsDict_OnChange; ;
+
         PlayerEventManager.Instance.OnPlayerConnected += Instance_OnPlayerConnected;
         PlayerEventManager.Instance.OnPlayerDisconnected += Instance_OnPlayerDisconnected;
         RoundEventManager.Instance.OnRoundEnd += Instance_OnRoundEnd;
     }
 
+    private void PlayerTeams_OnChange(SyncDictionaryOperation op, NetworkConnection key, Teams value, bool asServer) {
+        OnTeamsChanged?.Invoke();
+    }
 
+    private void TeamsDict_OnChange(SyncDictionaryOperation op, Teams key, TeamData value, bool asServer) {
+        OnTeamsChanged?.Invoke();
+    }
 
     private void OnDestroy() {
         PlayerEventManager.Instance.OnPlayerConnected -= Instance_OnPlayerConnected;
         PlayerEventManager.Instance.OnPlayerDisconnected -= Instance_OnPlayerDisconnected;
         RoundEventManager.Instance.OnRoundEnd -= Instance_OnRoundEnd;
     }
+
 
     private void Instance_OnRoundEnd(Teams team) {
         if (!base.IsServer) { return; }
@@ -152,14 +165,14 @@ public class TeamManager : NetworkBehaviour {
             Log.LogMsg(LogCategories.SystTeamManager, $"No random players in team:{team}");
             return null;
         }
-        int index = Random.Range(0, list.Count);
+        int index = UnityEngine.Random.Range(0, list.Count);
         Log.LogMsg(LogCategories.SystTeamManager, $"Returning random player from team:{team} player:{list[index]}");
         return list[index];
     }
 
     private NetworkConnection[] Shuffle(NetworkConnection[] a) {
         for (int i = a.Length - 1; i > 0; i--) {
-            int rnd = Random.Range(0, i);
+            int rnd = UnityEngine.Random.Range(0, i);
             NetworkConnection temp = a[i];
 
             a[i] = a[rnd];

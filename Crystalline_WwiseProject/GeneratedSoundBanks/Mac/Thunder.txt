@@ -1,0 +1,6 @@
+Event	ID	Name			Wwise Object Path	Notes
+	186852181	Thunder			\Default Work Unit\Ambience\Thunder	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	697356885	ESM_Thunderstorm_6_Ambience_Nature_Tribal_Organic_Tennessee_Thunder_Storm_Lightning_Strike	Y:\Crystalline\Crystalline_WwiseProject\.cache\Mac\SFX\ESM_Thunderstorm_6_Ambience_Nature_Tribal_Organic_Tennessee_Thunder_Storm_Lightning_Strike_D79FB2B7.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambience\ESM_Thunderstorm_6_Ambience_Nature_Tribal_Organic_Tennessee_Thunder_Storm_Lightning_Strike		9128860
+

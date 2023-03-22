@@ -472,7 +472,7 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: 5dd4aa4037f28a4ba665f5da9fb40167
     GuidInternal: 
-    m_lastTime: -8585222763861508578
+    m_lastTime: -8585221095588575782
     List:
     - name: AMB
       guid: bd0d8c9d05c2a3498a55ef8b9e67070b
@@ -720,6 +720,46 @@ MonoBehaviour:
         ObjectType: 7
         guid: aa603ba2b66b6345b43d639b99bb1fcc
       Path: SoundBanks\Default Work Unit\Main\Player\Locomotion\Slide
+    - name: Thunder
+      guid: bea49b921f8de94fbd4f2c62c9699738
+      id: 186852181
+      PathAndIcons:
+      - ElementName: SoundBanks
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 5dd4aa4037f28a4ba665f5da9fb40167
+      - ElementName: Main
+        ObjectType: 4
+        guid: 67763d762b5884449a3997feec186a56
+      - ElementName: Ambience
+        ObjectType: 4
+        guid: 1d90e2d55eb36c4e8dd1c2bef08c6128
+      - ElementName: Thunder
+        ObjectType: 7
+        guid: bea49b921f8de94fbd4f2c62c9699738
+      Path: SoundBanks\Default Work Unit\Main\Ambience\Thunder
+    - name: Wind
+      guid: 6bcca69a7c2f2f4dbf7fc255779e9c68
+      id: 1537061107
+      PathAndIcons:
+      - ElementName: SoundBanks
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 5dd4aa4037f28a4ba665f5da9fb40167
+      - ElementName: Main
+        ObjectType: 4
+        guid: 67763d762b5884449a3997feec186a56
+      - ElementName: Ambience
+        ObjectType: 4
+        guid: 1d90e2d55eb36c4e8dd1c2bef08c6128
+      - ElementName: Wind
+        ObjectType: 7
+        guid: 6bcca69a7c2f2f4dbf7fc255779e9c68
+      Path: SoundBanks\Default Work Unit\Main\Ambience\Wind
   EventWwu:
   - PhysicalPath: Events\Default Work Unit.wwu
     PathAndIcons:
@@ -732,7 +772,7 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: 42974ee106cdd64b8120f90cd49fee48
     GuidInternal: 
-    m_lastTime: -8585222763861568579
+    m_lastTime: -8585221095588615749
     List:
     - name: AMB
       guid: 6825098b905aab4d8d1f3bf77b9d5e58
@@ -943,6 +983,46 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
+    - name: Thunder
+      guid: 6a5dde7a42f7004984b86ab5eee0c5d4
+      id: 186852181
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 42974ee106cdd64b8120f90cd49fee48
+      - ElementName: Ambience
+        ObjectType: 4
+        guid: 577d3b82dcfedd4d91bb7521b3512e52
+      - ElementName: Thunder
+        ObjectType: 3
+        guid: 6a5dde7a42f7004984b86ab5eee0c5d4
+      Path: Events\Default Work Unit\Ambience\Thunder
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Wind
+      guid: 03a9a2f49874c44685fd459a7cf1d42f
+      id: 1537061107
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 42974ee106cdd64b8120f90cd49fee48
+      - ElementName: Ambience
+        ObjectType: 4
+        guid: 577d3b82dcfedd4d91bb7521b3512e52
+      - ElementName: Wind
+        ObjectType: 3
+        guid: 03a9a2f49874c44685fd459a7cf1d42f
+      Path: Events\Default Work Unit\Ambience\Wind
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
   RtpcWwu:
   - PhysicalPath: Game Parameters\Default Work Unit.wwu
     PathAndIcons:
@@ -1102,7 +1182,7 @@ MonoBehaviour:
     m_lastTime: -8585240127075720021
     List: []
   ExpandedFileSystemItemIds: 
-  ExpandedWaapiItemIds: 0100000005000000060000000700000008000000090000000b0000000c0000000d0000000e000000190000001a0000001b0000001c0000001d0000001f0000002100000022000000230000002500000027000000
+  ExpandedWaapiItemIds: 01000000050000000600000007000000080000000b0000000c0000000d0000000e000000190000001a0000001b0000001c0000001f000000200000002100000022000000230000002500000026000000270000002b0000002c0000005a000000
   AutoSyncSelection: 1
   autoPopulateEnabled: 1
   currentDataSource: 0

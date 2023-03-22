@@ -4,21 +4,22 @@ using System.Linq;
 using UnityEngine;
 
 public class TeamSpectatorCamera : CameraBaseClass {
+    [SerializeField] float rotationLerp = 0.5f;
+
     private PlayerHead currentHead;
     private int pointerIndex;
-    float counter = 0;
-    [SerializeField] float rotationLerp = 0.5f;
+
+
+    private void Awake() {
+        CameraInputManager.Instance.OnNextCam += NextTeamCamera;
+        CameraInputManager.Instance.OnPrevCam += PreviousTeamCamera;
+    }
     public override void SetCamera() {
         NextTeamCamera();
     }
     public override void DestroyCamera() { }
     
     public override void UpdateCamera() {
-        counter += 1;
-        if (counter > 100) {
-            counter = 0;
-            NextTeamCamera();
-        }
         if (currentHead != null) {
             CameraPosition();
             CameraRotation();
@@ -43,26 +44,41 @@ public class TeamSpectatorCamera : CameraBaseClass {
 
     public void NextTeamCamera() {
         Log.LogMsg($"Looking for the next team camera");
-        int tempIndex = pointerIndex + 1;
-
         NetworkConnection ownerConn = InstanceFinder.ClientManager.Connection;
         Teams ownerTeam = TeamManager.Instance.playerTeams[ownerConn];
 
         NetworkConnection[] conn = PlayerManager.Instance.players.Keys.ToArray();
-        while (pointerIndex != tempIndex) {
-            if (tempIndex >= conn.Length) {
-                tempIndex = 0;
-            }
-            NetworkConnection currentConn = conn[tempIndex];
+
+        pointerIndex++;
+        for (int i = 0; i < conn.Length; i++) {
+            int indexOffset = (pointerIndex + i) % conn.Length;
+
+            NetworkConnection currentConn = conn[indexOffset];
             if (TeamManager.Instance.playerTeams[currentConn] == ownerTeam && currentConn != ownerConn) {
                 currentHead = PlayerManager.Instance.players[currentConn].GetComponent<PlayerHead>();
-                pointerIndex = tempIndex;
+                pointerIndex = indexOffset;
                 break;
             }
-            tempIndex++;
         }
     }
     public void PreviousTeamCamera() {
+        Log.LogMsg($"Looking for the previous team camera");
+        NetworkConnection ownerConn = InstanceFinder.ClientManager.Connection;
+        Teams ownerTeam = TeamManager.Instance.playerTeams[ownerConn];
 
+        NetworkConnection[] conn = PlayerManager.Instance.players.Keys.ToArray();
+
+        pointerIndex--;
+        for (int i = 0; i < conn.Length; i++) {
+            int indexOffset = (pointerIndex - i);
+            if (indexOffset < 0) indexOffset += conn.Length;
+
+            NetworkConnection currentConn = conn[indexOffset];
+            if (TeamManager.Instance.playerTeams[currentConn] == ownerTeam && currentConn != ownerConn) {
+                currentHead = PlayerManager.Instance.players[currentConn].GetComponent<PlayerHead>();
+                pointerIndex = indexOffset;
+                break;
+            }
+        }
     }
 }
