@@ -21,6 +21,7 @@ public class PlayerCameraManager : MonoBehaviour{
     public float CameraRotationSpeed { get => cameraRotationSpeed; set => cameraRotationSpeed = value; }
     public float MaxCameraDelta { get => maxCameraDelta; set => maxCameraDelta = value; }
     public float MaxCameraAngle { get => maxCameraAngle; set => maxCameraAngle = value; }
+    public CameraTypes CurrentCamera { get => currentCamera; }
 
     private void Awake() {
         CameraBaseClass camera = gameObject.AddComponent<LockedCamera>();

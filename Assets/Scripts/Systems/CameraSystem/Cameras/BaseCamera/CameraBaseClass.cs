@@ -4,7 +4,7 @@ public abstract class CameraBaseClass : NetworkBehaviour{
     /// <summary>
     /// Refrence to player camera manager
     /// </summary>
-    private PlayerCameraManager playerCameraManager;
+    protected PlayerCameraManager playerCameraManager;
 
     public PlayerCameraManager PlayerCameraManager { get => playerCameraManager; set => playerCameraManager = value; }
 

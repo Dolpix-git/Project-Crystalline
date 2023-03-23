@@ -17,8 +17,7 @@ public class NameDisplayer : NetworkBehaviour{
         }
     }
 
-    public override void OnStopClient()
-    {
+    public override void OnStopClient(){
         base.OnStopClient();
         PlayerNameTracker.OnNameChange -= PlayerNameTracker_OnNameChange;
     }
@@ -44,7 +43,7 @@ public class NameDisplayer : NetworkBehaviour{
     /// </summary>
     private void SetName(){
         string result = null;
-        //Owner does nto exist.
+
         if (base.Owner.IsValid)
             result = PlayerNameTracker.GetPlayerName(base.Owner);
 

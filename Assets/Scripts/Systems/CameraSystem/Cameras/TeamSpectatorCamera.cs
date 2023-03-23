@@ -43,6 +43,7 @@ public class TeamSpectatorCamera : CameraBaseClass {
     }
 
     public void NextTeamCamera() {
+        if (playerCameraManager.CurrentCamera != CameraTypes.teamSpectator) return;
         Log.LogMsg($"Looking for the next team camera");
         NetworkConnection ownerConn = InstanceFinder.ClientManager.Connection;
         Teams ownerTeam = TeamManager.Instance.playerTeams[ownerConn];
@@ -62,6 +63,7 @@ public class TeamSpectatorCamera : CameraBaseClass {
         }
     }
     public void PreviousTeamCamera() {
+        if (playerCameraManager.CurrentCamera != CameraTypes.teamSpectator) return;
         Log.LogMsg($"Looking for the previous team camera");
         NetworkConnection ownerConn = InstanceFinder.ClientManager.Connection;
         Teams ownerTeam = TeamManager.Instance.playerTeams[ownerConn];

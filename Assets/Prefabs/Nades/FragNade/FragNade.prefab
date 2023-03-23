@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 8452756392153825365}
   - component: {fileID: 431108474201484180}
   m_Layer: 0
-  m_Name: Grenade
+  m_Name: FragNade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,7 +113,7 @@ Transform:
   m_GameObject: {fileID: 4560890644814375177}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4560890643652967176}
@@ -174,11 +174,11 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 9
+  <PrefabId>k__BackingField: 2
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 2002064235014996019
+  <AssetPathHash>k__BackingField: 1868037003663724650
   _sceneNetworkObjects: []
 --- !u!114 &8452756392153825365
 MonoBehaviour:
@@ -228,7 +228,9 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 9034352355836837251}
   _networkObjectCache: {fileID: 9034352355836837251}
   detonationDelay: 2.5
-  damageRadius: 5
+  damageRadius: 3
   playerLayer:
     serializedVersion: 2
     m_Bits: 65
+  explosionPrefab: {fileID: 8847704123775603932, guid: 4fec725a6df80aa4090a17f2502724e4,
+    type: 3}

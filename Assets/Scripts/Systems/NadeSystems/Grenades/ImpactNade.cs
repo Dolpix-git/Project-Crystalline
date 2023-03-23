@@ -2,14 +2,8 @@ using FishNet.Connection;
 using FishNet.Object;
 using UnityEngine;
 
-public class Grenade : NetworkBehaviour, IThrowable, IRound{
+public class ImpactNade : NetworkBehaviour, IThrowable, IRound{
     #region Serialized.
-    /// <summary>
-    /// How long after spawn to detonate.
-    /// </summary>
-    [Tooltip("How long after spawn to detonate.")]
-    [SerializeField]
-    private float detonationDelay = 3f;
     // Radius of damage.
     [Tooltip("Radius of damage.")]
     [SerializeField]
@@ -17,52 +11,33 @@ public class Grenade : NetworkBehaviour, IThrowable, IRound{
     /// <summary>
     /// Default layer
     /// </summary>
-    /// <summary>
-    /// Default layer
-    /// </summary>
     [Tooltip("The player layer")]
     [SerializeField]
     private LayerMask playerLayer = 0;
+
+    [SerializeField]
+    private GameObject explosionPrefab;
     #endregion
+
     #region Private.
-    /// <summary>
-    /// When to detonate.
-    /// </summary>
-    private float detonationTime = -1f;
     /// <summary>
     /// The team the grenade is on to prevent frendly fire.
     /// </summary>
     private NetworkConnection ownerConn;
     #endregion
 
-
-    private void Update() {
-        if (!base.IsServer) { return; }
-        CheckDetonate();
-    }
     /// <summary>
     /// Sets up the grenade, called at startup.
     /// </summary>
     /// <param name="pt"></param>
     /// <param name="force"></param>
     public void Initialize(Vector3 force, NetworkConnection conn) {
-        detonationTime = Time.time + detonationDelay;
         ownerConn = conn;
 
         GetComponent<Rigidbody>().AddForce(force);
     }
-    /// <summary>
-    /// Checks for detonation.
-    /// </summary>
-    protected void CheckDetonate() {
-        if (detonationTime == -1f)
-            return;
-        if (Time.time < detonationTime)
-            return;
 
-        /* If here then detonate. */
-        detonationTime = -1f;
-
+    private void OnCollisionEnter(Collision collision) {
         Detonate();
     }
     /// <summary>
@@ -77,7 +52,6 @@ public class Grenade : NetworkBehaviour, IThrowable, IRound{
                 if (h != null) {
                     NetworkConnection conn = h.Owner;
                     Log.LogMsg($"Attempting to kill {TeamManager.Instance.playerTeams[conn]}");
-                    Log.LogMsg($"Attempting to kill {TeamManager.Instance.playerTeams[ownerConn]}");
                     if (TeamManager.Instance.playerTeams[conn] != TeamManager.Instance.playerTeams[ownerConn]) {
                         int damage = 25;
 
@@ -97,9 +71,8 @@ public class Grenade : NetworkBehaviour, IThrowable, IRound{
     /// </summary>
     [ObserversRpc]
     private void ObserversSpawnDetonatePrefab() {
-        //Too Do: add a particle effect to spawn
+        Instantiate(explosionPrefab, transform.position, Quaternion.LookRotation(GetComponent<Rigidbody>().velocity, Vector3.up));
 
-        //If also client host destroy here.
         if (base.IsServer)
             base.Despawn();
     }

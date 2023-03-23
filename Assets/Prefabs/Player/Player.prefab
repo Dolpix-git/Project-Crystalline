@@ -162,7 +162,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 5162187385007901065}
   _networkObjectCache: {fileID: 5162187385007901065}
   _text: {fileID: 9001628814743791530}
-  root: {fileID: 0}
+  root: {fileID: 4870035923611722996}
 --- !u!1 &3016038820161780189
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,7 +453,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 5
+  <PrefabId>k__BackingField: 7
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -643,7 +643,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4870035923611722996}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78b8cc1bc752b2b4c85139126dbe58de, type: 3}
   m_Name: 

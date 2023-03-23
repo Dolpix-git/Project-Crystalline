@@ -32,7 +32,7 @@
 	<ValidationCacheItem File="X:\RiskProjects\Crystalline\Crystalline_WwiseProject\Switches\Default Work Unit.wwu" DateLow="1678799708" DateHigh="0"/>
 	<ValidationCacheItem File="X:\RiskProjects\Crystalline\Crystalline_WwiseProject\States\Default Work Unit.wwu" DateLow="1677594177" DateHigh="0"/>
 	<ValidationCacheItem File="X:\RiskProjects\Crystalline\Crystalline_WwiseProject\Soundcaster Sessions\Default Work Unit.wwu" DateLow="1677594177" DateHigh="0"/>
-	<ValidationCacheItem File="X:\RiskProjects\Crystalline\Crystalline_WwiseProject\SoundBanks\Default Work Unit.wwu" DateLow="1678799708" DateHigh="0"/>
+	<ValidationCacheItem File="X:\RiskProjects\Crystalline\Crystalline_WwiseProject\SoundBanks\Default Work Unit.wwu" DateLow="1679497326" DateHigh="0"/>
 	<ValidationCacheItem File="X:\RiskProjects\Crystalline\Crystalline_WwiseProject\Queries\Factory Queries.wwu" DateLow="1677593404" DateHigh="0"/>
 	<ValidationCacheItem File="X:\RiskProjects\Crystalline\Crystalline_WwiseProject\Queries\Default Work Unit.wwu" DateLow="1677594177" DateHigh="0"/>
 	<ValidationCacheItem File="X:\RiskProjects\Crystalline\Crystalline_WwiseProject\Presets\Factory Spatial Audio.wwu" DateLow="1677593404" DateHigh="0"/>
@@ -43,7 +43,7 @@
 	<ValidationCacheItem File="X:\RiskProjects\Crystalline\Crystalline_WwiseProject\Master-Mixer Hierarchy\Default Work Unit.wwu" DateLow="1678214163" DateHigh="0"/>
 	<ValidationCacheItem File="X:\RiskProjects\Crystalline\Crystalline_WwiseProject\Interactive Music Hierarchy\Default Work Unit.wwu" DateLow="1677594177" DateHigh="0"/>
 	<ValidationCacheItem File="X:\RiskProjects\Crystalline\Crystalline_WwiseProject\Game Parameters\Default Work Unit.wwu" DateLow="1677594177" DateHigh="0"/>
-	<ValidationCacheItem File="X:\RiskProjects\Crystalline\Crystalline_WwiseProject\Events\Default Work Unit.wwu" DateLow="1678799708" DateHigh="0"/>
+	<ValidationCacheItem File="X:\RiskProjects\Crystalline\Crystalline_WwiseProject\Events\Default Work Unit.wwu" DateLow="1679497326" DateHigh="0"/>
 	<ValidationCacheItem File="X:\RiskProjects\Crystalline\Crystalline_WwiseProject\Effects\Factory Effects.wwu" DateLow="1677593404" DateHigh="0"/>
 	<ValidationCacheItem File="X:\RiskProjects\Crystalline\Crystalline_WwiseProject\Effects\Default Work Unit.wwu" DateLow="1677594177" DateHigh="0"/>
 	<ValidationCacheItem File="X:\RiskProjects\Crystalline\Crystalline_WwiseProject\Dynamic Dialogue\Default Work Unit.wwu" DateLow="1677594177" DateHigh="0"/>
@@ -53,6 +53,9 @@
 	<ValidationCacheItem File="X:\RiskProjects\Crystalline\Crystalline_WwiseProject\Conversion Settings\Default Work Unit.wwu" DateLow="1677594177" DateHigh="0"/>
 	<ValidationCacheItem File="X:\RiskProjects\Crystalline\Crystalline_WwiseProject\Control Surface Sessions\Default Work Unit.wwu" DateLow="1678069972" DateHigh="0"/>
 	<ValidationCacheItem File="X:\RiskProjects\Crystalline\Crystalline_WwiseProject\Audio Devices\Default Work Unit.wwu" DateLow="1677594177" DateHigh="0"/>
-	<ValidationCacheItem File="X:\RiskProjects\Crystalline\Crystalline_WwiseProject\Attenuations\Default Work Unit.wwu" DateLow="1677594177" DateHigh="0"/>
-	<ValidationCacheItem File="X:\RiskProjects\Crystalline\Crystalline_WwiseProject\Actor-Mixer Hierarchy\Default Work Unit.wwu" DateLow="1678933928" DateHigh="0"/>
+	<ValidationCacheItem File="X:\RiskProjects\Crystalline\Crystalline_WwiseProject\Attenuations\Default Work Unit.wwu" DateLow="1679497326" DateHigh="0"/>
+	<ValidationCacheItem File="X:\RiskProjects\Crystalline\Crystalline_WwiseProject\Actor-Mixer Hierarchy\Slide.wwu" DateLow="1679330494" DateHigh="0"/>
+	<ValidationCacheItem File="X:\RiskProjects\Crystalline\Crystalline_WwiseProject\Actor-Mixer Hierarchy\Land.wwu" DateLow="1679277503" DateHigh="0"/>
+	<ValidationCacheItem File="X:\RiskProjects\Crystalline\Crystalline_WwiseProject\Actor-Mixer Hierarchy\Default Work Unit.wwu" DateLow="1679497326" DateHigh="0"/>
+	<ValidationCacheItem File="X:\RiskProjects\Crystalline\Crystalline_WwiseProject\Actor-Mixer Hierarchy\Attack.wwu" DateLow="1679330494" DateHigh="0"/>
 </ValidationCache>

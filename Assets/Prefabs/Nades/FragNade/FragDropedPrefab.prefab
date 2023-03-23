@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4092324198629156484}
   - component: {fileID: 4092324198629156487}
   m_Layer: 7
-  m_Name: DropedPrefab
+  m_Name: FragDropedPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91,11 +91,11 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 1
+  <PrefabId>k__BackingField: 4
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 9009054212867994491
+  <AssetPathHash>k__BackingField: 4023981077699853386
   _sceneNetworkObjects:
   - {fileID: 4092324198629156485}
   - {fileID: 0}

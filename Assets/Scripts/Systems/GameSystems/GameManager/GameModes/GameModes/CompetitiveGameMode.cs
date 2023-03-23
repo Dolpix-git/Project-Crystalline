@@ -21,7 +21,7 @@ public class CompetitiveGameMode : BaseGameMode {
 
     private int maxPoints = 5;
     private int halfTime = 4;
-    private float roundTime = 30;
+    [SerializeField] private float roundTime = 30;
     #endregion
 
     #region Setup and Destroy.
