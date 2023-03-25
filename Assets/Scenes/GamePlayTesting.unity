@@ -7516,8 +7516,8 @@ MonoBehaviour:
   NetworkObserver: {fileID: 0}
   <PrefabId>k__BackingField: 65535
   <SpawnableCollectionId>k__BackingField: 0
-  _scenePathHash: 584410112
-  <SceneId>k__BackingField: 2510022319803194476
+  _scenePathHash: 377767226
+  <SceneId>k__BackingField: 1622497881380493196
   <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
   - {fileID: 1370743971}
@@ -11618,8 +11618,8 @@ MonoBehaviour:
   NetworkObserver: {fileID: 0}
   <PrefabId>k__BackingField: 0
   <SpawnableCollectionId>k__BackingField: 0
-  _scenePathHash: 584410112
-  <SceneId>k__BackingField: 2510022321420834054
+  _scenePathHash: 377767226
+  <SceneId>k__BackingField: 1622497883413149405
   <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
   - {fileID: 1370743971}
