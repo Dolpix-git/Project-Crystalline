@@ -542,17 +542,17 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  walkingMaxSpeed: 6
+  walkingMaxSpeed: 5
   walkigSpeedClamp:
     x: -5
     y: 5
-    z: -4
+    z: -3
     w: 10
   sneakingMaxSpeed: 3
   sneakingSpeedClamp:
     x: -4
     y: 4
-    z: -4
+    z: -3
     w: 4
   crouchDelta: 0.8
   crouchMaxSpeed: 2.5

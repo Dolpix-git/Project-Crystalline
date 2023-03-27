@@ -59,7 +59,7 @@ public class PlayerSneakState : PlayerBaseState{
     #region GDSS.
     void GDSS() {
         RaycastHit ray;
-        Vector3 proJect = Ctx.RigidBody.velocity.normalized;
+        Vector3 proJect = (Ctx.RigidBody.velocity + Ctx.ForwardAxis).normalized;
         proJect.y = 0;
         Vector3 playerProjected = Ctx.RigidBody.transform.position + (proJect * 0.15f) + Ctx.PlayerCollider.center;
         if (Physics.SphereCast(playerProjected, 0.195f, Vector3.down, out ray, Ctx.OriginalPlayerHeight * 0.5f - 0.3f, Ctx.PlayerEffects.ProbeMask)) {

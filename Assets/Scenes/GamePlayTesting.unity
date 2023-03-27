@@ -1490,7 +1490,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.1
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -12164,7 +12164,7 @@ MonoBehaviour:
   _timingType: 0
   _allowTickDropping: 1
   _maximumFrameTicks: 2
-  _tickRate: 30
+  _tickRate: 64
   _pingInterval: 1
   _timingInterval: 2
   _physicsMode: 1
