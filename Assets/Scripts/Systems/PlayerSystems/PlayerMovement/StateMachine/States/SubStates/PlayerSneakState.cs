@@ -1,22 +1,13 @@
-using Unity.Mathematics;
 using UnityEngine;
 
-public class PlayerRunState : PlayerBaseState{
-    float count = 0;
-    float maxCountDelta = 0.1000f;
-    public PlayerRunState(PlayerStateMachine currentContext, PlayerStateCashe playerStateFactory) : base(currentContext, playerStateFactory){}
+public class PlayerSneakState : PlayerBaseState{
+    public PlayerSneakState(PlayerStateMachine currentContext, PlayerStateCashe playerStateFactory) : base(currentContext, playerStateFactory){}
 
     #region States.
     public override void EnterState() {}
     public override void UpdateState() {
         GDSSReturn();
         GDSS();
-
-        count += Time.deltaTime;
-        if (count >= maxCountDelta && Ctx.OnGround) {
-            count = 0;
-            AkSoundEngine.PostEvent("Footsteps", Ctx.RigidBody.gameObject);
-        }
 
         AdjustVelocity();
 
@@ -25,20 +16,19 @@ public class PlayerRunState : PlayerBaseState{
     public override void ExitState() { }
     public override void InitiatizeSubState() { }
     public override void CheckSwitchStates() {
-        if (Ctx.Velocity.magnitude >= Ctx.PlayerEffects.SlidingActivationSpeed && Ctx.MoveData.Crouch) {
-            SwitchState(Cashe.Sliding()); 
-        } else if (Ctx.MoveData.Crouch) {
+        if (Ctx.MoveData.Crouch) {
             SwitchState(Cashe.Crouching());
-        } else if (Ctx.MoveData.Movement.magnitude != 0 && !Ctx.MoveData.Sprint){
+        } else if (Ctx.MoveData.Movement.magnitude != 0 && !Ctx.MoveData.Sneak){
             SwitchState(Cashe.Walk());
         } else if(Ctx.MoveData.Movement.magnitude == 0){
             SwitchState(Cashe.Idle());
         } 
     }
     public override PlayerStates PlayerState() {
-        return PlayerStates.run;
+        return PlayerStates.sneak;
     }
     #endregion
+
     #region Methods.
     /// <summary>
     /// Handles getting the players new velocity based on what its standing on, the players input, and acceleration values.
@@ -51,13 +41,13 @@ public class PlayerRunState : PlayerBaseState{
         float currentX = Vector3.Dot(relativeVelocity, xAxis);
         float currentZ = Vector3.Dot(relativeVelocity, zAxis);
 
-        float acceleration = Ctx.OnGround ? Ctx.PlayerEffects.RunningGroundAcc : Ctx.PlayerEffects.RunningAirAcc;
+        float acceleration = Ctx.OnGround ? Ctx.PlayerEffects.AirAcc(Ctx.Velocity.magnitude) : Ctx.PlayerEffects.AirAcc(Ctx.Velocity.magnitude);
         float maxSpeedChange = acceleration * Ctx.TickDelta;
 
         Vector3 desiredVelocity = new Vector3(
-            Mathf.Clamp(Ctx.MoveData.Movement.x * Ctx.PlayerEffects.RunningMaxSpeed , Ctx.PlayerEffects.RunningSpeedClamp.x, Ctx.PlayerEffects.RunningSpeedClamp.y),
+            Mathf.Clamp(Ctx.MoveData.Movement.x * Ctx.PlayerEffects.SneakMaxSpeed , Ctx.PlayerEffects.SneakSpeedClamp.x, Ctx.PlayerEffects.SneakSpeedClamp.y),
             0f,
-            Mathf.Clamp(Ctx.MoveData.Movement.y * Ctx.PlayerEffects.RunningMaxSpeed, Ctx.PlayerEffects.RunningSpeedClamp.z, Ctx.PlayerEffects.RunningSpeedClamp.w));
+            Mathf.Clamp(Ctx.MoveData.Movement.y * Ctx.PlayerEffects.SneakMaxSpeed, Ctx.PlayerEffects.SneakSpeedClamp.z, Ctx.PlayerEffects.SneakSpeedClamp.w));
 
         float newX = Mathf.MoveTowards(currentX, desiredVelocity.x, maxSpeedChange);
         float newZ = Mathf.MoveTowards(currentZ, desiredVelocity.z, maxSpeedChange);
@@ -65,6 +55,7 @@ public class PlayerRunState : PlayerBaseState{
         Ctx.Velocity += xAxis * (newX - currentX) + zAxis * (newZ - currentZ);
     }
     #endregion
+
     #region GDSS.
     void GDSS() {
         RaycastHit ray;

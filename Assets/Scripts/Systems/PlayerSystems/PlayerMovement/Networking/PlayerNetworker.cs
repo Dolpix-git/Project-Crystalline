@@ -204,12 +204,11 @@ public class PlayerNetworker : NetworkBehaviour {
         rigidBody.angularVelocity = rd.AngularVelocity;
         capsuleCollider.center = rd.ColliderCenter;
         capsuleCollider.height = rd.ColliderHeight;
-        playerStateMachine.CurrentState = playerStateMachine.States.GetState(rd.SuperPlayerState);
-        playerStateMachine.CurrentState.EnterState();
-        playerStateMachine.CurrentState.SetSubStateReconsile(rd.SubPlayerState);
 
-        // canMove
-        // interaction pause
+
+        playerStateMachine.CurrentState = playerStateMachine.States.GetState(rd.SuperPlayerState);
+        playerStateMachine.CurrentState.SetSubStateReconsile(rd.SubPlayerState);
+        playerStateMachine.CurrentState.EnterState();
     }
 
     [ObserversRpc(ExcludeOwner = true, BufferLast = true)]

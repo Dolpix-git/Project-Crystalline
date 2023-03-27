@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1671fb839d40c9041b93c3e641f2c1f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 8
+  _componentIndexCache: 7
   _addedNetworkObject: {fileID: 5162187385007901065}
   _networkObjectCache: {fileID: 5162187385007901065}
   _text: {fileID: 9001628814743791530}
@@ -174,7 +174,6 @@ GameObject:
   - component: {fileID: 6803010254429958469}
   - component: {fileID: 5329858204155074214}
   - component: {fileID: 8066128056801085208}
-  - component: {fileID: 1762482555090023553}
   m_Layer: 7
   m_Name: ItemPickup
   m_TagString: Untagged
@@ -228,21 +227,6 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 5162187385007901065}
   inventorySystem: {fileID: 9002359642332007482}
   playerHealth: {fileID: 8004145175360252860}
---- !u!114 &1762482555090023553
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3016038820161780189}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3082b5a16bd6cfe4e9407babe8a11833, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 7
-  _addedNetworkObject: {fileID: 5162187385007901065}
-  _networkObjectCache: {fileID: 5162187385007901065}
 --- !u!1 &4064172911074062404
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,7 +428,6 @@ MonoBehaviour:
   - {fileID: 2968071905471243310}
   - {fileID: 901988388494858577}
   - {fileID: 8066128056801085208}
-  - {fileID: 1762482555090023553}
   - {fileID: 2344824478942560601}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
@@ -511,44 +494,73 @@ MonoBehaviour:
   probeDistance: 0.3
   maxSnapSpeed: 100
   maxSlope: 40
-  idleGroundAcc: 70
-  idleAirAcc: 10
-  walkingGroundAcc: 60
-  walkingAirAcc: 10
-  walkingMaxSpeed: 3.5
+  groundAcc:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 80
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 10
+      value: 80
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  airAcc:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 20
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 10
+      value: 20
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  walkingMaxSpeed: 6
   walkigSpeedClamp:
+    x: -5
+    y: 5
+    z: -4
+    w: 10
+  sneakingMaxSpeed: 3
+  sneakingSpeedClamp:
     x: -4
     y: 4
-    z: -3
-    w: 10
-  runningGroundAcc: 50
-  runningAirAcc: 10
-  runningMaxSpeed: 7
-  runningSpeedClamp:
-    x: -4
-    y: 4
-    z: -3
-    w: 10
+    z: -4
+    w: 4
   crouchDelta: 0.8
-  crouchGroundAcc: 90
-  crouchAirAcc: 10
   crouchMaxSpeed: 2.5
   crouchSpeedClamp:
     x: -3
     y: 3
     z: -2
     w: 3
-  slidingActivationSpeed: 5
-  slidingDeactivationSpeed: 3
-  slidingFriction: 0.99
-  slidingGroundAcc: 90
-  slidingAirAcc: 10
-  slidingMaxSpeed: 7
-  slidingSpeedClamp:
-    x: -10
-    y: 10
-    z: -10
-    w: 10
 --- !u!114 &1882312147218659704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -643,7 +655,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4870035923611722996}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78b8cc1bc752b2b4c85139126dbe58de, type: 3}
   m_Name: 

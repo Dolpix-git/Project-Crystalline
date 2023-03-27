@@ -15,12 +15,10 @@ public class PlayerIdleState : PlayerBaseState{
     public override void ExitState() { }
     public override void InitiatizeSubState() { }
     public override void CheckSwitchStates() {
-        if (Ctx.Velocity.magnitude >= Ctx.PlayerEffects.SlidingActivationSpeed && Ctx.MoveData.Crouch) {
-            SwitchState(Cashe.Sliding());
-        } else if (Ctx.MoveData.Crouch) {
+        if (Ctx.MoveData.Crouch) {
             SwitchState(Cashe.Crouching());
-        } else if (Ctx.MoveData.Movement.magnitude != 0 && Ctx.MoveData.Sprint){
-            SwitchState(Cashe.Run());
+        } else if (Ctx.MoveData.Movement.magnitude != 0 && Ctx.MoveData.Sneak){
+            SwitchState(Cashe.Sneak());
         } else if (Ctx.MoveData.Movement.magnitude != 0){
             SwitchState(Cashe.Walk());
         }
@@ -42,7 +40,7 @@ public class PlayerIdleState : PlayerBaseState{
         float currentX = Vector3.Dot(relativeVelocity, xAxis);
         float currentZ = Vector3.Dot(relativeVelocity, zAxis);
 
-        float acceleration = Ctx.OnGround ? Ctx.PlayerEffects.IdleGroundAcc : Ctx.PlayerEffects.IdleAirAcc;
+        float acceleration = Ctx.OnGround ? Ctx.PlayerEffects.GroundAcc(Ctx.Velocity.magnitude) : Ctx.PlayerEffects.AirAcc(Ctx.Velocity.magnitude);
         float maxSpeedChange = acceleration * Ctx.TickDelta;
 
         Vector3 desiredVelocity = new Vector3(0, 0, 0);
@@ -53,6 +51,7 @@ public class PlayerIdleState : PlayerBaseState{
         Ctx.Velocity += xAxis * (newX - currentX) + zAxis * (newZ - currentZ);
     }
     #endregion
+
     #region GDSS.
     void GDSSReturn() {
         if (Ctx.PlayerCollider.height < Ctx.OriginalPlayerHeight) {

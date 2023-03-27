@@ -4,14 +4,14 @@ using UnityEngine;
 public struct PlayerMoveData : IReplicateData {
     public bool Jump;
     public bool Crouch;
-    public bool Sprint;
+    public bool Sneak;
     public Vector2 Movement;
     public Vector3 CameraRight;
     public Vector3 CameraForward;
     public PlayerMoveData(bool jump, bool crouch, bool sprint, Vector2 movement, Vector3 cameraRight, Vector3 cameraForward) {
         Jump = jump;
         Crouch = crouch;
-        Sprint = sprint;
+        Sneak = sprint;
         Movement = movement;
 
         CameraRight = cameraRight;

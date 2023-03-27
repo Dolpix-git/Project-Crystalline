@@ -3,12 +3,11 @@ using System.Collections.Generic;
 public enum PlayerStates{
     idle,
     walk,
-    run,
+    sneak,
+    crouching,
     jump,
     grounded,
-    falling,
-    crouching,
-    sliding
+    falling
 }
 
 public class PlayerStateCashe{
@@ -18,12 +17,11 @@ public class PlayerStateCashe{
         context = currentContext;
         states[PlayerStates.idle] = new PlayerIdleState(context, this);
         states[PlayerStates.walk] = new PlayerWalkState(context, this);
-        states[PlayerStates.run] = new PlayerRunState(context, this);
+        states[PlayerStates.sneak] = new PlayerSneakState(context, this);
         states[PlayerStates.jump] = new PlayerJumpState(context, this);
         states[PlayerStates.grounded] = new PlayerGroundedState(context, this);
         states[PlayerStates.falling] = new PlayerFallingState(context, this);
         states[PlayerStates.crouching] = new PlayerCrouchState(context, this);
-        states[PlayerStates.sliding] = new PlayerSlideState(context, this);
     }
 
     public PlayerBaseState Idle() {
@@ -34,8 +32,8 @@ public class PlayerStateCashe{
         return states[PlayerStates.walk];
     }
 
-    public PlayerBaseState Run() {
-        return states[PlayerStates.run];
+    public PlayerBaseState Sneak() {
+        return states[PlayerStates.sneak];
     }
         
     public PlayerBaseState Jump(){
@@ -52,10 +50,6 @@ public class PlayerStateCashe{
     
     public PlayerBaseState Crouching() {
         return states[PlayerStates.crouching];
-    }
-
-    public PlayerBaseState Sliding() {
-        return states[PlayerStates.sliding];
     }
 
     public PlayerBaseState GetState(PlayerStates playerStates) {

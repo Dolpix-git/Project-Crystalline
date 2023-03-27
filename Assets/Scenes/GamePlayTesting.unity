@@ -11655,7 +11655,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 1941173840}
   _networkObjectCache: {fileID: 1941173840}
   spikePrefab: {fileID: 11400000, guid: 223e602338f09cf439507a470f774c50, type: 2}
-  roundTime: 120
+  roundTime: 30
 --- !u!114 &1941173843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12141,7 +12141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34e4a322dca349547989b14021da4e23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Transport: {fileID: 7443408886979169090}
+  Transport: {fileID: 0}
   _latencySimulator:
     _enabled: 0
     _simulateHost: 1
@@ -13026,7 +13026,7 @@ MonoBehaviour:
   _startedColor: {r: 0, g: 0.5882353, b: 0.64705884, a: 1}
   _serverIndicator: {fileID: 3965864433284411826}
   _clientIndicator: {fileID: 1424052073283055032}
-  facepunch: {fileID: 7443408886979169090}
+  facepunch: {fileID: 0}
 --- !u!1 &4393252310826039065
 GameObject:
   m_ObjectHideFlags: 0
@@ -13422,7 +13422,6 @@ GameObject:
   - component: {fileID: 7443408886979169086}
   - component: {fileID: 7443408886979169089}
   - component: {fileID: 7443408886979169088}
-  - component: {fileID: 7443408886979169090}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -13492,24 +13491,6 @@ MonoBehaviour:
   _color: {r: 1, g: 1, b: 1, a: 1}
   _placement: 1
   _hideTickRate: 0
---- !u!114 &7443408886979169090
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7443408886979169083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9da90c29836670c49809661c5c09cd5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _steamAppID: 480
-  _serverBindAddress: 
-  _port: 27015
-  _maximumClients: 16
-  _clientAddress: 
-  _timeout: 25
 --- !u!224 &9139860296178313795
 RectTransform:
   m_ObjectHideFlags: 0
