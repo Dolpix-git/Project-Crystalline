@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="16" SoundBankVersion="145">
 	<RootPaths>
-		<ProjectRoot>../..</ProjectRoot>
-		<SourceFilesRoot>../../.cache/Windows</SourceFilesRoot>
+		<ProjectRoot>../../</ProjectRoot>
+		<SourceFilesRoot>../../.cache/Windows/</SourceFilesRoot>
 		<SoundBanksRoot>.</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
 		<ExternalSourcesOutputRoot>.</ExternalSourcesOutputRoot>
@@ -26,19 +26,19 @@
 				</Event>
 			</Events>
 		</SoundBank>
-		<SoundBank Id="186852181" Type="User" Language="SFX" Hash="{99F875DB-8852-CBBF-BDCE-6095CD9A2F06}">
-			<ShortName>Thunder</ShortName>
-			<Path>Thunder.bnk</Path>
+		<SoundBank Id="352130103" Type="User" Language="SFX" Hash="{4746FFE4-CAB0-BBEB-D017-EB3258BF1B59}">
+			<ShortName>Birds</ShortName>
+			<Path>Birds.bnk</Path>
 			<Media>
-				<File Id="697356885" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>ESM_Thunderstorm_6_Ambience_Nature_Tribal_Organic_Tennessee_Thunder_Storm_Lightning_Strike.wav</ShortName>
-					<CachePath>SFX/ESM_Thunderstorm_6_Ambience_Nature_Tribal_Organic_Tennessee_Thunder_Storm_Lightning_Strike_D79FB2B7.wem</CachePath>
+				<File Id="970543442" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>WIND_Wind Heavy Blowing Snow_PSE_BR-C_ZuCjf.wav</ShortName>
+					<CachePath>SFX/WIND_Wind Heavy Blowing Snow_PSE_BR-C_ZuCjf_D79FB2B7.wem</CachePath>
 				</File>
 			</Media>
 			<Events>
-				<Event Id="186852181" Name="Thunder" MaxAttenuation="136" DurationType="Infinite">
+				<Event Id="352130103" Name="Birds" MaxAttenuation="51" DurationType="Infinite">
 					<MediaRefs>
-						<MediaRef Id="697356885"/>
+						<MediaRef Id="970543442"/>
 					</MediaRefs>
 				</Event>
 			</Events>
@@ -60,24 +60,58 @@
 				</Event>
 			</Events>
 		</SoundBank>
-		<SoundBank Id="1117531639" Type="User" Language="English(US)" Hash="{C4F27D14-B967-7B17-61FB-8A15C90CF30D}">
-			<ShortName>AMB</ShortName>
-			<Path>English(US)/AMB.bnk</Path>
+		<SoundBank Id="688956121" Type="User" Language="SFX" Hash="{B3AD9CDC-5D12-C006-8C85-A180DBCCBB0C}">
+			<ShortName>Gun2</ShortName>
+			<Path>Gun2.bnk</Path>
 			<Media>
-				<File Id="655563221" Language="English(US)" Streaming="false" Location="Memory">
-					<ShortName>C atmoAmb.wav</ShortName>
-					<CachePath>Voices/English(US)/C atmoAmb_D79FB2B7.wem</CachePath>
+				<File Id="501467638" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>AMBWar_Battle Gunshots_PSE_BW-BD3HL_TPBlo.wav</ShortName>
+					<CachePath>SFX/AMBWar_Battle Gunshots_PSE_BW-BD3HL_TPBlo_D79FB2B7.wem</CachePath>
 				</File>
 			</Media>
 			<Events>
-				<Event Id="1117531639" Name="AMB" MaxAttenuation="136" DurationType="Infinite">
+				<Event Id="688956121" Name="Gun2" MaxAttenuation="51" DurationType="Infinite">
 					<MediaRefs>
-						<MediaRef Id="655563221"/>
+						<MediaRef Id="501467638"/>
 					</MediaRefs>
 				</Event>
 			</Events>
 		</SoundBank>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{6970A49B-7CFA-0FF4-5953-4539B12F1A7E}">
+		<SoundBank Id="688956122" Type="User" Language="SFX" Hash="{053501EF-6A04-209A-C803-25BF24EEF0D3}">
+			<ShortName>Gun1</ShortName>
+			<Path>Gun1.bnk</Path>
+			<Media>
+				<File Id="469897706" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>AMBWar_Battle Gunshots_PSE_BW-BD3HL_nqcxy.wav</ShortName>
+					<CachePath>SFX/AMBWar_Battle Gunshots_PSE_BW-BD3HL_nqcxy_D79FB2B7.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="688956122" Name="Gun1" MaxAttenuation="51" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="469897706"/>
+					</MediaRefs>
+				</Event>
+			</Events>
+		</SoundBank>
+		<SoundBank Id="1117531639" Type="User" Language="SFX" Hash="{EDC80CD7-212A-D3E2-3C2A-786C84032EA3}">
+			<ShortName>Amb</ShortName>
+			<Path>Amb.bnk</Path>
+			<Media>
+				<File Id="841463001" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>BattleModernWarfare_BW.134.wav</ShortName>
+					<CachePath>SFX/BattleModernWarfare_BW.134_A5DE88C4.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="1117531639" Name="Amb" MaxAttenuation="51" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="841463001"/>
+					</MediaRefs>
+				</Event>
+			</Events>
+		</SoundBank>
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{27ED7713-D770-F14B-3242-A3311FBD15E7}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -145,24 +179,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="1537061107" Type="User" Language="SFX" Hash="{E98839BC-8A88-F6CB-3282-B550A1B2767D}">
-			<ShortName>Wind</ShortName>
-			<Path>Wind.bnk</Path>
-			<Media>
-				<File Id="38313502" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>SPLC-0571_FX_Oneshot_Wind_Storm_Whistling.wav</ShortName>
-					<CachePath>SFX/SPLC-0571_FX_Oneshot_Wind_Storm_Whistling_10C4C929.wem</CachePath>
-				</File>
-			</Media>
-			<Events>
-				<Event Id="1537061107" Name="Wind" DurationType="OneShot" DurationMin="45.525574" DurationMax="45.525574">
-					<MediaRefs>
-						<MediaRef Id="38313502"/>
-					</MediaRefs>
-				</Event>
-			</Events>
-		</SoundBank>
-		<SoundBank Id="2385628198" Type="User" Language="SFX" Hash="{70348322-D3A0-D26E-D944-6EEFC75F2975}">
+		<SoundBank Id="2385628198" Type="User" Language="SFX" Hash="{AC213B30-CAD5-1CB8-3D05-45C0A20F83D0}">
 			<ShortName>Footsteps</ShortName>
 			<Path>Footsteps.bnk</Path>
 			<Media>
@@ -184,7 +201,7 @@
 				</File>
 			</Media>
 			<Events>
-				<Event Id="2385628198" Name="Footsteps" DurationType="OneShot" DurationMin="0.304764" DurationMax="0.4302757">
+				<Event Id="2385628198" Name="Footsteps" MaxAttenuation="1" DurationType="OneShot" DurationMin="0.304764" DurationMax="0.4302757">
 					<MediaRefs>
 						<MediaRef Id="139344530"/>
 						<MediaRef Id="550998752"/>
@@ -240,6 +257,40 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
+		<SoundBank Id="2678880713" Type="User" Language="SFX" Hash="{30DFB152-7D92-4C32-CD3A-227855F391C0}">
+			<ShortName>Fire</ShortName>
+			<Path>Fire.bnk</Path>
+			<Media>
+				<File Id="365509504" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>FIRECrkl_Fire Medium_PSE_SCSE_rESD0.wav</ShortName>
+					<CachePath>SFX/FIRECrkl_Fire Medium_PSE_SCSE_rESD0_D79FB2B7.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="2678880713" Name="Fire" MaxAttenuation="51" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="365509504"/>
+					</MediaRefs>
+				</Event>
+			</Events>
+		</SoundBank>
+		<SoundBank Id="2937832959" Type="User" Language="SFX" Hash="{DA948557-383B-36C2-A08E-5FD60AAED2DB}">
+			<ShortName>Battle</ShortName>
+			<Path>Battle.bnk</Path>
+			<Media>
+				<File Id="841463001" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>BattleModernWarfare_BW.134.wav</ShortName>
+					<CachePath>SFX/BattleModernWarfare_BW.134_A5DE88C4.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="2937832959" Name="Battle" MaxAttenuation="51" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="841463001"/>
+					</MediaRefs>
+				</Event>
+			</Events>
+		</SoundBank>
 		<SoundBank Id="3686556480" Type="User" Language="SFX" Hash="{68449186-0457-0A29-C088-F7010A8C5C49}">
 			<ShortName>Slide</ShortName>
 			<Path>Slide.bnk</Path>
@@ -253,6 +304,23 @@
 				<Event Id="3686556480" Name="Slide" DurationType="OneShot" DurationMin="0.68750566" DurationMax="0.68750566">
 					<MediaRefs>
 						<MediaRef Id="184546384"/>
+					</MediaRefs>
+				</Event>
+			</Events>
+		</SoundBank>
+		<SoundBank Id="3833115874" Type="User" Language="SFX" Hash="{3F0B7EAA-AFC5-1B3E-5CD5-6F3AFEE77399}">
+			<ShortName>PlayeraMb</ShortName>
+			<Path>PlayeraMb.bnk</Path>
+			<Media>
+				<File Id="683386812" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>AMBDsgn_Created Ship Hull Engine Creaks Impacts Loop Stereo_PSE_SL-FL_DuGw1.wav</ShortName>
+					<CachePath>SFX/AMBDsgn_Created Ship Hull Engine Creaks Impacts Loop Stereo_PSE_SL-FL_DuGw1_D79FB2B7.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="3833115874" Name="PlayeraMB" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="683386812"/>
 					</MediaRefs>
 				</Event>
 			</Events>
@@ -275,5 +343,5 @@
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{6F109498-7619-E34E-AC10-0A9945029075}</FileHash>
+	<FileHash>{9FF110D9-C9F5-68A4-5981-685C835D957A}</FileHash>
 </SoundBanksInfo>

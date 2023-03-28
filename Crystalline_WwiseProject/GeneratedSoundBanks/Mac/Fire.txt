@@ -1,0 +1,6 @@
+Event	ID	Name			Wwise Object Path	Notes
+	2678880713	Fire			\Default Work Unit\Ambience\Fire	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	365509504	FIRECrkl_Fire Medium_PSE_SCSE_rESD0	Y:\Crystalline\Crystalline_WwiseProject\.cache\Mac\SFX\FIRECrkl_Fire Medium_PSE_SCSE_rESD0_D79FB2B7.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambience\FIRECrkl_Fire Medium_PSE_SCSE_rESD0		8036254
+

@@ -9,13 +9,9 @@ public class CompetitiveGameMode : BaseGameMode {
     #region Private.
     private bool roundInProgress;
 
-
-
     private bool timerCompleted;
     private bool defenderObjective, attackerObjective;
     private bool defenderWipe, attackerWipe;
-
-
 
     private int round = 0;
 

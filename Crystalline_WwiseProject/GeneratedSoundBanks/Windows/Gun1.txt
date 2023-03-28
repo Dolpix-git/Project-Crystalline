@@ -1,0 +1,6 @@
+Event	ID	Name			Wwise Object Path	Notes
+	688956122	Gun1			\Default Work Unit\Ambience\Gun1	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	469897706	AMBWar_Battle Gunshots_PSE_BW-BD3HL_nqcxy	Y:\Crystalline\Crystalline_WwiseProject\.cache\Windows\SFX\AMBWar_Battle Gunshots_PSE_BW-BD3HL_nqcxy_D79FB2B7.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambience\AMBWar_Battle Gunshots_PSE_BW-BD3HL_nqcxy		19123296
+

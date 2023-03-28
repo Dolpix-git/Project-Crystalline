@@ -1,0 +1,6 @@
+Event	ID	Name			Wwise Object Path	Notes
+	3833115874	PlayeraMB			\Default Work Unit\Ambience\PlayeraMB	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	683386812	AMBDsgn_Created Ship Hull Engine Creaks Impacts Loop Stereo_PSE_SL-FL_DuGw1	Y:\Crystalline\Crystalline_WwiseProject\.cache\Mac\SFX\AMBDsgn_Created Ship Hull Engine Creaks Impacts Loop Stereo_PSE_SL-FL_DuGw1_D79FB2B7.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambience\AMBDsgn_Created Ship Hull Engine Creaks Impacts Loop Stereo_PSE_SL-FL_DuGw1		57433056
+

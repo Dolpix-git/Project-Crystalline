@@ -10,40 +10,12 @@
 						</Reference>
 					</ReferenceList>
 					<ChildrenList>
-						<Bus Name="PlayerMaster" ID="{70239E50-5E48-4ADE-A8F4-F9071BE75F57}">
-							<ChildrenList>
-								<Bus Name="PlayerLocomotion" ID="{C2DA2B4D-6768-42DE-B26B-44EDDE9C7475}">
-									<ChildrenList>
-										<Bus Name="Footsteps" ID="{52039337-56F0-44B5-8F08-D85AAFA51042}"/>
-										<Bus Name="Slide" ID="{B4032600-D608-47CC-B6FB-943B58330CD1}"/>
-										<Bus Name="Jump" ID="{FCF96588-7915-4DB5-8D92-F96011BFEC22}"/>
-										<Bus Name="Land" ID="{7600D082-8AA6-450C-A425-63BBD4F7C3CA}"/>
-									</ChildrenList>
-								</Bus>
-								<Bus Name="PlayerAttack" ID="{0560399C-4A5D-4C55-8ACA-CCEDE93509B8}"/>
-								<Bus Name="PlayerDeath" ID="{982E9AF6-A998-4B98-9790-C4F42CD589CB}"/>
-								<Bus Name="PlayerHurt" ID="{6FD8235E-287C-4049-B37E-EF7E0559E928}"/>
-								<Bus Name="PlayerHeal" ID="{333C0B6B-971D-4342-B79B-3061176FDE51}"/>
-							</ChildrenList>
-						</Bus>
-						<Bus Name="AmbientMaster" ID="{A5905DA1-F3A2-4081-918D-8DC660FF4743}">
-							<ChildrenList>
-								<Bus Name="AmbientBeds" ID="{80C6C593-A286-41F5-A112-3CC7AAA8C657}">
-									<ChildrenList>
-										<Bus Name="AmbientBeds2D" ID="{9FD7B2EF-D9E2-4BAF-92B8-DFA4E90CC455}"/>
-									</ChildrenList>
-								</Bus>
-								<Bus Name="Ambience3D" ID="{5BCB5B5C-3876-4115-B06B-F68CBD6EACB9}"/>
-								<Bus Name="Ambient2D" ID="{388A3146-F968-4763-B853-7F3A9903470D}"/>
-							</ChildrenList>
-						</Bus>
-						<AuxBus Name="Reverbs" ID="{7F1B2377-C916-44A0-8D5A-F12E59CE4E07}">
-							<ChildrenList>
-								<AuxBus Name="LargeRoom" ID="{DCBE5B37-8AF3-443B-9760-F8A85571C0C2}"/>
-								<AuxBus Name="SmallRoom" ID="{BAC5033B-4AAC-4E64-87E5-82E4C885C878}"/>
-								<AuxBus Name="Cave" ID="{285F22FE-515C-4701-9E48-B30C0A09873A}"/>
-								<AuxBus Name="Outdoor" ID="{181D201C-5B17-4A7E-8DB6-D34A724C9390}"/>
-							</ChildrenList>
+						<AuxBus Name="Reverb" ID="{5E1C0644-59BD-40C7-AEDD-DE94593962C5}">
+							<ReferenceList>
+								<Reference Name="Effect0" PluginName="Wwise RoomVerb" CompanyID="0" PluginID="118" PluginType="3">
+									<ObjectRef Name="Hall_Medium_Bright" ID="{3C3845B2-C76E-4634-9108-83FA43A5A7BC}" WorkUnitID="{E8613F7D-BAD3-45CD-A3ED-505576F31277}"/>
+								</Reference>
+							</ReferenceList>
 						</AuxBus>
 					</ChildrenList>
 				</Bus>

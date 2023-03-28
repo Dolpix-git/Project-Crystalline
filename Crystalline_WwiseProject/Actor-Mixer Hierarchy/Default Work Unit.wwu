@@ -5,13 +5,204 @@
 			<ChildrenList>
 				<Folder Name="Ambience" ID="{C5BA2ADF-AF23-492D-BF53-889D9B1806ED}" ShortID="181397190">
 					<ChildrenList>
-						<Sound Name="C atmoAmb" ID="{96680BB2-5AFF-4D22-8808-83D263B79321}" ShortID="27323864">
+						<Sound Name="BattleModernWarfare_BW_134" ID="{77F5F55D-3B1B-492B-99BD-39404421C0B4}" ShortID="283084055">
 							<PropertyList>
 								<Property Name="3DSpatialization" Type="int16" Value="2"/>
-								<Property Name="EnableDiffraction" Type="bool" Value="True"/>
+								<Property Name="CenterPercentage" Type="int32">
+									<ValueList>
+										<Value>100</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Highpass" Type="int16">
+									<ValueList>
+										<Value>9</Value>
+									</ValueList>
+								</Property>
 								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
-								<Property Name="IsVoice" Type="bool" Value="True"/>
-								<Property Name="SpeakerPanning" Type="int16" Value="1"/>
+								<Property Name="Lowpass" Type="int16">
+									<ValueList>
+										<Value>38</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Pitch" Type="int32">
+									<ValueList>
+										<Value>30</Value>
+									</ValueList>
+								</Property>
+								<Property Name="SpeakerPanning" Type="int16" Value="2"/>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-8</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="Amb" ID="{F03F9FBF-9E75-42AA-AB67-909607AD7ADC}" WorkUnitID="{62AA8D1A-38E2-4651-A8E2-029D6990444E}"/>
+								</Reference>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{2E337954-BC83-4C5D-A497-6A21CF70B05D}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F07DDD36-ACAE-4C24-9AC9-74B8C91AD942}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="BattleModernWarfare_BW_134" ID="{8483A123-212D-4E9F-9E44-59F46F164B51}">
+									<PropertyList>
+										<Property Name="ChannelConfigOverride" Type="int64" Value="518"/>
+										<Property Name="LoopEnd" Type="Real64" Value="108.551217125382"/>
+										<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+									</PropertyList>
+									<Language>SFX</Language>
+									<AudioFile>BattleModernWarfare_BW.134.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="841463001"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<PositioningInfo>
+								<Panner Name="" ID="{ACB3D917-C5FF-4235-A824-B2CEF922FD0D}">
+									<PropertyList>
+										<Property Name="PanX" Type="Real64" Value="0.71428571428573"/>
+										<Property Name="PanY" Type="Real64" Value="0.384615384615377"/>
+									</PropertyList>
+								</Panner>
+							</PositioningInfo>
+							<ActiveSourceList>
+								<ActiveSource Name="BattleModernWarfare_BW_134" ID="{8483A123-212D-4E9F-9E44-59F46F164B51}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="FIRECrkl_Fire Medium_PSE_SCSE_rESD0" ID="{3B493AF8-5C90-450A-AB62-BF8E130F9113}" ShortID="371679696">
+							<PropertyList>
+								<Property Name="3DSpatialization" Type="int16" Value="2"/>
+								<Property Name="CenterPercentage" Type="int32">
+									<ValueList>
+										<Value>100</Value>
+									</ValueList>
+								</Property>
+								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+								<Property Name="SpeakerPanning" Type="int16" Value="2"/>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-8</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="Amb" ID="{F03F9FBF-9E75-42AA-AB67-909607AD7ADC}" WorkUnitID="{62AA8D1A-38E2-4651-A8E2-029D6990444E}"/>
+								</Reference>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{2E337954-BC83-4C5D-A497-6A21CF70B05D}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F07DDD36-ACAE-4C24-9AC9-74B8C91AD942}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="FIRECrkl_Fire Medium_PSE_SCSE_rESD0" ID="{6716AC0D-C7E4-49FB-96D6-28FCBA31C948}">
+									<Language>SFX</Language>
+									<AudioFile>FIRECrkl_Fire Medium_PSE_SCSE_rESD0.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="365509504"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<PositioningInfo>
+								<Panner Name="" ID="{6F738318-6368-4661-A47D-A2708B8E1591}">
+									<PropertyList>
+										<Property Name="PanX" Type="Real64" Value="1.07142857142858"/>
+										<Property Name="PanY" Type="Real64" Value="-1.15346153846154"/>
+										<Property Name="PanZ" Type="Real64" Value="81"/>
+									</PropertyList>
+								</Panner>
+							</PositioningInfo>
+							<ActiveSourceList>
+								<ActiveSource Name="FIRECrkl_Fire Medium_PSE_SCSE_rESD0" ID="{6716AC0D-C7E4-49FB-96D6-28FCBA31C948}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="AMBWar_Battle Gunshots_PSE_BW-BD3HL_nqcxy" ID="{802CFC53-4EEC-48DC-870F-71FB42C5B62D}" ShortID="247537869">
+							<PropertyList>
+								<Property Name="3DSpatialization" Type="int16" Value="2"/>
+								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+								<Property Name="SpeakerPanning" Type="int16" Value="2"/>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-1</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="Amb" ID="{F03F9FBF-9E75-42AA-AB67-909607AD7ADC}" WorkUnitID="{62AA8D1A-38E2-4651-A8E2-029D6990444E}"/>
+								</Reference>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{2E337954-BC83-4C5D-A497-6A21CF70B05D}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F07DDD36-ACAE-4C24-9AC9-74B8C91AD942}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="AMBWar_Battle Gunshots_PSE_BW-BD3HL_nqcxy" ID="{4F0D6DA3-A3C9-40D9-829E-82146FA77654}">
+									<Language>SFX</Language>
+									<AudioFile>AMBWar_Battle Gunshots_PSE_BW-BD3HL_nqcxy.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="469897706"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<PositioningInfo>
+								<Panner Name="" ID="{9AD2F34B-37E2-4D1C-AD1C-E3CB459E6669}"/>
+							</PositioningInfo>
+							<ActiveSourceList>
+								<ActiveSource Name="AMBWar_Battle Gunshots_PSE_BW-BD3HL_nqcxy" ID="{4F0D6DA3-A3C9-40D9-829E-82146FA77654}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="AMBWar_Battle Gunshots_PSE_BW-BD3HL_TPBlo" ID="{3154C9EF-5CB5-4B4C-A773-526A9F56685B}" ShortID="669986549">
+							<PropertyList>
+								<Property Name="3DSpatialization" Type="int16" Value="2"/>
+								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+								<Property Name="SpeakerPanning" Type="int16" Value="2"/>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-1</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="Amb" ID="{F03F9FBF-9E75-42AA-AB67-909607AD7ADC}" WorkUnitID="{62AA8D1A-38E2-4651-A8E2-029D6990444E}"/>
+								</Reference>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{2E337954-BC83-4C5D-A497-6A21CF70B05D}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F07DDD36-ACAE-4C24-9AC9-74B8C91AD942}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="AMBWar_Battle Gunshots_PSE_BW-BD3HL_TPBlo" ID="{6160CB6C-28B9-4EE5-982B-0D8713F67F95}">
+									<Language>SFX</Language>
+									<AudioFile>AMBWar_Battle Gunshots_PSE_BW-BD3HL_TPBlo.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="501467638"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<PositioningInfo>
+								<Panner Name="" ID="{F6347E51-9DFB-4F34-8584-7B715F4281E0}"/>
+							</PositioningInfo>
+							<ActiveSourceList>
+								<ActiveSource Name="AMBWar_Battle Gunshots_PSE_BW-BD3HL_TPBlo" ID="{6160CB6C-28B9-4EE5-982B-0D8713F67F95}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="AMBMisc_Ambience Dawn Birdcalls02 Stereo_PSE_SL-FL_H9US7" ID="{F375BB98-D57C-4CC7-A96B-BAB7FDCA5965}" ShortID="391339529">
+							<PropertyList>
+								<Property Name="3DSpatialization" Type="int16" Value="2"/>
+								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+								<Property Name="SpeakerPanning" Type="int16" Value="2"/>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
 										<Value>-10</Value>
@@ -30,81 +221,35 @@
 								</Reference>
 							</ReferenceList>
 							<ChildrenList>
-								<AudioFileSource Name="C atmoAmb" ID="{84293F14-6298-42E7-8DCF-207EF0E99877}">
-									<Language>English(US)</Language>
-									<AudioFile>C atmoAmb.wav</AudioFile>
+								<AudioFileSource Name="AMBMisc_Ambience Dawn Birdcalls02 Stereo_PSE_SL-FL_H9US7" ID="{8EC9C60D-2C56-4F98-AB7B-61A4E38F0AE2}">
+									<Language>SFX</Language>
+									<AudioFile>AMBMisc_Ambience Dawn Birdcalls02 Stereo_PSE_SL-FL_H9US7.wav</AudioFile>
 									<MediaIDList>
-										<MediaID ID="655563221"/>
+										<MediaID ID="192077220"/>
+									</MediaIDList>
+								</AudioFileSource>
+								<AudioFileSource Name="WIND_Wind Heavy Blowing Snow_PSE_BR-C_ZuCjf" ID="{A99F4CC0-8332-419F-B2DB-08398009335E}">
+									<Language>SFX</Language>
+									<AudioFile>WIND_Wind Heavy Blowing Snow_PSE_BR-C_ZuCjf.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="970543442"/>
 									</MediaIDList>
 								</AudioFileSource>
 							</ChildrenList>
 							<PositioningInfo>
-								<Panner Name="" ID="{FCFD7D23-A997-4CFB-B52E-E0A33A58443A}">
-									<PropertyList>
-										<Property Name="PanX" Type="Real64" Value="0.35650623885918"/>
-										<Property Name="PanY" Type="Real64" Value="1.53550863723609"/>
-									</PropertyList>
-								</Panner>
-								<Position Name="" ID="{0E83A899-790D-4178-9520-8507F7A2F01C}"/>
+								<Panner Name="" ID="{9CBC442F-6999-405F-89B0-AD9E63DAF58C}"/>
 							</PositioningInfo>
 							<ActiveSourceList>
-								<ActiveSource Name="C atmoAmb" ID="{84293F14-6298-42E7-8DCF-207EF0E99877}" Platform="Linked"/>
+								<ActiveSource Name="WIND_Wind Heavy Blowing Snow_PSE_BR-C_ZuCjf" ID="{A99F4CC0-8332-419F-B2DB-08398009335E}" Platform="Linked"/>
 							</ActiveSourceList>
 						</Sound>
-						<Sound Name="ESM_Thunderstorm_6_Ambience_Nature_Tribal_Organic_Tennessee_Thunder_Storm_Lightning_Strike" ID="{E14CC991-E94B-4471-A732-CDC2DE470F46}" ShortID="949419961">
+						<Sound Name="AMBDsgn_Created Ship Hull Engine Creaks Impacts Loop Stereo_PSE_SL-FL_DuGw1" ID="{59EDBFD8-611F-4336-8894-871CBB3F1E70}" ShortID="465980301">
 							<PropertyList>
-								<Property Name="3DSpatialization" Type="int16" Value="1"/>
-								<Property Name="InitialDelay" Type="Real64">
-									<ValueList>
-										<Value>2</Value>
-									</ValueList>
-								</Property>
+								<Property Name="3DSpatialization" Type="int16" Value="2"/>
 								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
-										<Value>-16</Value>
-									</ValueList>
-								</Property>
-							</PropertyList>
-							<ReferenceList>
-								<Reference Name="Attenuation">
-									<ObjectRef Name="Amb" ID="{F03F9FBF-9E75-42AA-AB67-909607AD7ADC}" WorkUnitID="{62AA8D1A-38E2-4651-A8E2-029D6990444E}"/>
-								</Reference>
-								<Reference Name="Conversion">
-									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{2E337954-BC83-4C5D-A497-6A21CF70B05D}"/>
-								</Reference>
-								<Reference Name="OutputBus">
-									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{F07DDD36-ACAE-4C24-9AC9-74B8C91AD942}"/>
-								</Reference>
-							</ReferenceList>
-							<ChildrenList>
-								<AudioFileSource Name="ESM_Thunderstorm_6_Ambience_Nature_Tribal_Organic_Tennessee_Thunder_Storm_Lightning_Strike" ID="{AEE7EC1B-EBA1-4508-A1ED-017FCFDE9141}">
-									<Language>SFX</Language>
-									<AudioFile>ESM_Thunderstorm_6_Ambience_Nature_Tribal_Organic_Tennessee_Thunder_Storm_Lightning_Strike.wav</AudioFile>
-									<MediaIDList>
-										<MediaID ID="697356885"/>
-									</MediaIDList>
-								</AudioFileSource>
-							</ChildrenList>
-							<ActiveSourceList>
-								<ActiveSource Name="ESM_Thunderstorm_6_Ambience_Nature_Tribal_Organic_Tennessee_Thunder_Storm_Lightning_Strike" ID="{AEE7EC1B-EBA1-4508-A1ED-017FCFDE9141}" Platform="Linked"/>
-							</ActiveSourceList>
-						</Sound>
-						<Sound Name="SPLC-0571_FX_Oneshot_Wind_Storm_Whistling" ID="{E878B535-1FE7-49C6-8347-3B6A6F04EB0A}" ShortID="725848258">
-							<PropertyList>
-								<Property Name="Lowpass" Type="int16">
-									<ValueList>
-										<Value>68</Value>
-									</ValueList>
-								</Property>
-								<Property Name="Pitch" Type="int32">
-									<ValueList>
-										<Value>-20</Value>
-									</ValueList>
-								</Property>
-								<Property Name="Volume" Type="Real64">
-									<ValueList>
-										<Value>-20</Value>
+										<Value>-17</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
@@ -117,16 +262,16 @@
 								</Reference>
 							</ReferenceList>
 							<ChildrenList>
-								<AudioFileSource Name="SPLC-0571_FX_Oneshot_Wind_Storm_Whistling" ID="{56C8EDEF-5B99-4612-AA91-F767723825C1}">
+								<AudioFileSource Name="AMBDsgn_Created Ship Hull Engine Creaks Impacts Loop Stereo_PSE_SL-FL_DuGw1" ID="{727FCAFA-B2EE-4085-85E9-E37C6E98143B}">
 									<Language>SFX</Language>
-									<AudioFile>SPLC-0571_FX_Oneshot_Wind_Storm_Whistling.wav</AudioFile>
+									<AudioFile>AMBDsgn_Created Ship Hull Engine Creaks Impacts Loop Stereo_PSE_SL-FL_DuGw1.wav</AudioFile>
 									<MediaIDList>
-										<MediaID ID="38313502"/>
+										<MediaID ID="683386812"/>
 									</MediaIDList>
 								</AudioFileSource>
 							</ChildrenList>
 							<ActiveSourceList>
-								<ActiveSource Name="SPLC-0571_FX_Oneshot_Wind_Storm_Whistling" ID="{56C8EDEF-5B99-4612-AA91-F767723825C1}" Platform="Linked"/>
+								<ActiveSource Name="AMBDsgn_Created Ship Hull Engine Creaks Impacts Loop Stereo_PSE_SL-FL_DuGw1" ID="{727FCAFA-B2EE-4085-85E9-E37C6E98143B}" Platform="Linked"/>
 							</ActiveSourceList>
 						</Sound>
 					</ChildrenList>
@@ -136,7 +281,13 @@
 						<Folder Name="Locomotion" ID="{1F537C9C-CF78-4B79-B1B2-0C4B81E0B9DD}" ShortID="61423661">
 							<ChildrenList>
 								<SwitchContainer Name="Footsteps" ID="{36CFDB8D-4FF7-4795-B7EB-E773A5BAC608}" ShortID="562141509">
+									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="1"/>
+									</PropertyList>
 									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="Locomotion" ID="{6DB82758-426C-4630-B51A-2694987336BA}" WorkUnitID="{62AA8D1A-38E2-4651-A8E2-029D6990444E}"/>
+										</Reference>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{2E337954-BC83-4C5D-A497-6A21CF70B05D}"/>
 										</Reference>
@@ -166,6 +317,9 @@
 												</Property>
 												<Property Name="NormalOrShuffle" Type="int16" Value="0"/>
 												<Property Name="OverrideEarlyReflections" Type="bool" Value="True"/>
+												<Property Name="OverrideGameAuxSends" Type="bool" Value="True"/>
+												<Property Name="OverrideOutput" Type="bool" Value="True"/>
+												<Property Name="OverrideUserAuxSends" Type="bool" Value="True"/>
 												<Property Name="Pitch" Type="int32">
 													<ValueList>
 														<Value>260</Value>
@@ -173,6 +327,7 @@
 												</Property>
 												<Property Name="RandomAvoidRepeating" Type="bool" Value="False"/>
 												<Property Name="RandomAvoidRepeatingCount" Type="int32" Value="11"/>
+												<Property Name="UseGameAuxSends" Type="bool" Value="True"/>
 												<Property Name="Volume" Type="Real64">
 													<ValueList>
 														<Value>-5</Value>

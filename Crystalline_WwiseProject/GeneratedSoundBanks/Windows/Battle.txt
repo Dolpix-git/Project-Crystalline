@@ -1,0 +1,6 @@
+Event	ID	Name			Wwise Object Path	Notes
+	2937832959	Battle			\Default Work Unit\Ambience\Battle	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	841463001	BattleModernWarfare_BW_134	Y:\Crystalline\Crystalline_WwiseProject\.cache\Windows\SFX\BattleModernWarfare_BW.134_A5DE88C4.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambience\BattleModernWarfare_BW_134		69190800
+

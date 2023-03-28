@@ -1,6 +1,0 @@
-Event	ID	Name			Wwise Object Path	Notes
-	1537061107	Wind			\Default Work Unit\Ambience\Wind	
-
-In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
-	38313502	SPLC-0571_FX_Oneshot_Wind_Storm_Whistling	Y:\Crystalline\Crystalline_WwiseProject\.cache\Windows\SFX\SPLC-0571_FX_Oneshot_Wind_Storm_Whistling_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambience\SPLC-0571_FX_Oneshot_Wind_Storm_Whistling		8640608
-

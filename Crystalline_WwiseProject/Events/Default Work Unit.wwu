@@ -79,34 +79,78 @@
 				</Folder>
 				<Folder Name="Ambience" ID="{823B7D57-FEDC-4DDD-91BB-7521B3512E52}" ShortID="569426907">
 					<ChildrenList>
-						<Event Name="AMB" ID="{8B092568-5A90-4DAB-8D1F-3BF77B9D5E58}">
+						<Event Name="Amb" ID="{14C90E0D-4F2F-4E40-8CDA-809295AC0FB0}">
 							<ChildrenList>
-								<Action Name="" ID="{B3D9569C-D357-4C3E-8A7B-B4531252B6FC}" ShortID="408232529">
+								<Action Name="" ID="{ACA64DB5-89D7-4FEC-AB18-918B29344067}" ShortID="313826944">
 									<ReferenceList>
 										<Reference Name="Target">
-											<ObjectRef Name="C atmoAmb" ID="{96680BB2-5AFF-4D22-8808-83D263B79321}" WorkUnitID="{D9C0B92D-FEDB-44A8-AF23-D93A852198CF}"/>
+											<ObjectRef Name="BattleModernWarfare_BW_134" ID="{77F5F55D-3B1B-492B-99BD-39404421C0B4}" WorkUnitID="{D9C0B92D-FEDB-44A8-AF23-D93A852198CF}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
 							</ChildrenList>
 						</Event>
-						<Event Name="Thunder" ID="{7ADE5D6A-F742-4900-84B8-6AB5EEE0C5D4}">
+						<Event Name="Fire" ID="{66B1A5BD-F5AF-47B8-ACFD-4ED53D5D6500}">
 							<ChildrenList>
-								<Action Name="" ID="{B5555BF5-83C4-4A74-A7FF-80AC51D2C67C}" ShortID="755386056">
+								<Action Name="" ID="{EC5E0224-592C-4397-B2BA-758ADFFC9B01}" ShortID="738669108">
 									<ReferenceList>
 										<Reference Name="Target">
-											<ObjectRef Name="ESM_Thunderstorm_6_Ambience_Nature_Tribal_Organic_Tennessee_Thunder_Storm_Lightning_Strike" ID="{E14CC991-E94B-4471-A732-CDC2DE470F46}" WorkUnitID="{D9C0B92D-FEDB-44A8-AF23-D93A852198CF}"/>
+											<ObjectRef Name="FIRECrkl_Fire Medium_PSE_SCSE_rESD0" ID="{3B493AF8-5C90-450A-AB62-BF8E130F9113}" WorkUnitID="{D9C0B92D-FEDB-44A8-AF23-D93A852198CF}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
 							</ChildrenList>
 						</Event>
-						<Event Name="Wind" ID="{F4A2A903-7498-46C4-85FD-459A7CF1D42F}">
+						<Event Name="Birds" ID="{23702E9B-F7EA-4347-8C76-DB56BEFFA76F}">
 							<ChildrenList>
-								<Action Name="" ID="{204888A5-0558-49CF-9261-F769E36315BA}" ShortID="525762743">
+								<Action Name="" ID="{DC4B8D9A-FC9C-4C0C-A82E-15CE7D495829}" ShortID="509467663">
 									<ReferenceList>
 										<Reference Name="Target">
-											<ObjectRef Name="SPLC-0571_FX_Oneshot_Wind_Storm_Whistling" ID="{E878B535-1FE7-49C6-8347-3B6A6F04EB0A}" WorkUnitID="{D9C0B92D-FEDB-44A8-AF23-D93A852198CF}"/>
+											<ObjectRef Name="AMBMisc_Ambience Dawn Birdcalls02 Stereo_PSE_SL-FL_H9US7" ID="{F375BB98-D57C-4CC7-A96B-BAB7FDCA5965}" WorkUnitID="{D9C0B92D-FEDB-44A8-AF23-D93A852198CF}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Gun1" ID="{B4D4D1CD-56F1-4A37-B09B-707924DBBA5D}">
+							<ChildrenList>
+								<Action Name="" ID="{8D6CE000-0A5E-4092-9669-BB9F8BC6B1F7}" ShortID="483566872">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="AMBWar_Battle Gunshots_PSE_BW-BD3HL_nqcxy" ID="{802CFC53-4EEC-48DC-870F-71FB42C5B62D}" WorkUnitID="{D9C0B92D-FEDB-44A8-AF23-D93A852198CF}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Gun2" ID="{A348B780-86D1-4A25-9C3F-986F6EE781AA}">
+							<ChildrenList>
+								<Action Name="" ID="{D4924505-667C-4D3D-AD8D-6EB275D60BA4}" ShortID="453700805">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="AMBWar_Battle Gunshots_PSE_BW-BD3HL_TPBlo" ID="{3154C9EF-5CB5-4B4C-A773-526A9F56685B}" WorkUnitID="{D9C0B92D-FEDB-44A8-AF23-D93A852198CF}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="PlayeraMB" ID="{F4DB2314-0E62-4C45-89E2-BEF91F8C3138}">
+							<ChildrenList>
+								<Action Name="" ID="{27193261-A522-4EF9-9752-BFC2D4438F09}" ShortID="211814061">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="AMBDsgn_Created Ship Hull Engine Creaks Impacts Loop Stereo_PSE_SL-FL_DuGw1" ID="{59EDBFD8-611F-4336-8894-871CBB3F1E70}" WorkUnitID="{D9C0B92D-FEDB-44A8-AF23-D93A852198CF}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Battle" ID="{9247BAB7-7063-401D-8689-CE02167E3172}">
+							<ChildrenList>
+								<Action Name="" ID="{8A468321-BAB9-41A0-84D2-9ABC902F21C7}" ShortID="818505052">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="BattleModernWarfare_BW_134" ID="{77F5F55D-3B1B-492B-99BD-39404421C0B4}" WorkUnitID="{D9C0B92D-FEDB-44A8-AF23-D93A852198CF}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>

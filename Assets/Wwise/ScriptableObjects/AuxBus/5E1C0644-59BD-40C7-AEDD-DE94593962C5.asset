@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6840f81de2a06f4c9d45477e09c0c5a, type: 3}
+  m_Name: 5E1C0644-59BD-40C7-AEDD-DE94593962C5
+  m_EditorClassIdentifier: 
+  objectName: Reverb
+  id: 348963605
+  guid: 5E1C0644-59BD-40C7-AEDD-DE94593962C5

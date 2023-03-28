@@ -7,23 +7,51 @@
 					<ChildrenList>
 						<Folder Name="Ambience" ID="{D5E2901D-B35E-4E6C-8DD1-C2BEF08C6128}" ShortID="818936052">
 							<ChildrenList>
-								<SoundBank Name="AMB" ID="{9D8C0DBD-C205-49A3-8A55-EF8B9E67070B}">
+								<SoundBank Name="Amb" ID="{B57FAF68-1C63-4C9B-BCF9-B6E42DB3B722}">
 									<ObjectInclusionList>
-										<ObjectRef Name="AMB" ID="{8B092568-5A90-4DAB-8D1F-3BF77B9D5E58}" WorkUnitID="{E14E9742-CD06-4BD6-8120-F90CD49FEE48}" Origin="Manual" Filter="7"/>
+										<ObjectRef Name="Amb" ID="{14C90E0D-4F2F-4E40-8CDA-809295AC0FB0}" WorkUnitID="{E14E9742-CD06-4BD6-8120-F90CD49FEE48}" Origin="Manual" Filter="7"/>
 									</ObjectInclusionList>
 									<ObjectExclusionList/>
 									<GameSyncExclusionList/>
 								</SoundBank>
-								<SoundBank Name="Thunder" ID="{929BA4BE-8D1F-4FE9-BD4F-2C62C9699738}">
+								<SoundBank Name="Fire" ID="{55D9424B-B436-49A2-A45E-AF8760F7686F}">
 									<ObjectInclusionList>
-										<ObjectRef Name="Thunder" ID="{7ADE5D6A-F742-4900-84B8-6AB5EEE0C5D4}" WorkUnitID="{E14E9742-CD06-4BD6-8120-F90CD49FEE48}" Origin="Manual" Filter="7"/>
+										<ObjectRef Name="Fire" ID="{66B1A5BD-F5AF-47B8-ACFD-4ED53D5D6500}" WorkUnitID="{E14E9742-CD06-4BD6-8120-F90CD49FEE48}" Origin="Manual" Filter="7"/>
 									</ObjectInclusionList>
 									<ObjectExclusionList/>
 									<GameSyncExclusionList/>
 								</SoundBank>
-								<SoundBank Name="Wind" ID="{9AA6CC6B-2F7C-4D2F-BF7F-C255779E9C68}">
+								<SoundBank Name="Gun1" ID="{C84497AF-5CF6-472A-8F0E-85816D926796}">
 									<ObjectInclusionList>
-										<ObjectRef Name="Wind" ID="{F4A2A903-7498-46C4-85FD-459A7CF1D42F}" WorkUnitID="{E14E9742-CD06-4BD6-8120-F90CD49FEE48}" Origin="Manual" Filter="7"/>
+										<ObjectRef Name="Gun1" ID="{B4D4D1CD-56F1-4A37-B09B-707924DBBA5D}" WorkUnitID="{E14E9742-CD06-4BD6-8120-F90CD49FEE48}" Origin="Manual" Filter="7"/>
+									</ObjectInclusionList>
+									<ObjectExclusionList/>
+									<GameSyncExclusionList/>
+								</SoundBank>
+								<SoundBank Name="Gun2" ID="{A02AD45D-EE97-47D0-A92B-215610C45048}">
+									<ObjectInclusionList>
+										<ObjectRef Name="Gun2" ID="{A348B780-86D1-4A25-9C3F-986F6EE781AA}" WorkUnitID="{E14E9742-CD06-4BD6-8120-F90CD49FEE48}" Origin="Manual" Filter="7"/>
+									</ObjectInclusionList>
+									<ObjectExclusionList/>
+									<GameSyncExclusionList/>
+								</SoundBank>
+								<SoundBank Name="PlayeraMb" ID="{95F8FC91-CFFE-4DB3-95C7-F2EAA8465818}">
+									<ObjectInclusionList>
+										<ObjectRef Name="PlayeraMB" ID="{F4DB2314-0E62-4C45-89E2-BEF91F8C3138}" WorkUnitID="{E14E9742-CD06-4BD6-8120-F90CD49FEE48}" Origin="Manual" Filter="7"/>
+									</ObjectInclusionList>
+									<ObjectExclusionList/>
+									<GameSyncExclusionList/>
+								</SoundBank>
+								<SoundBank Name="Birds" ID="{C5366B3D-1ECA-4781-94FD-0D14215AF92C}">
+									<ObjectInclusionList>
+										<ObjectRef Name="Birds" ID="{23702E9B-F7EA-4347-8C76-DB56BEFFA76F}" WorkUnitID="{E14E9742-CD06-4BD6-8120-F90CD49FEE48}" Origin="Manual" Filter="7"/>
+									</ObjectInclusionList>
+									<ObjectExclusionList/>
+									<GameSyncExclusionList/>
+								</SoundBank>
+								<SoundBank Name="Battle" ID="{955D575C-8761-43ED-A823-1657D9F51032}">
+									<ObjectInclusionList>
+										<ObjectRef Name="Battle" ID="{9247BAB7-7063-401D-8689-CE02167E3172}" WorkUnitID="{E14E9742-CD06-4BD6-8120-F90CD49FEE48}" Origin="Manual" Filter="7"/>
 									</ObjectInclusionList>
 									<ObjectExclusionList/>
 									<GameSyncExclusionList/>

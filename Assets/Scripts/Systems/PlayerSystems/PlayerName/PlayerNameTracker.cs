@@ -3,6 +3,7 @@ using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using FishNet.Transporting;
 using System;
+using UnityEngine;
 
 /// <summary>
 /// Lets players set their name and synchronizes it to others.
@@ -41,7 +42,6 @@ public class PlayerNameTracker : NetworkBehaviour
         base.OnStopServer();
         base.NetworkManager.ServerManager.OnRemoteConnectionState -= ServerManager_OnRemoteConnectionState;
     }
-
     /// <summary>
     /// Called when a remote client connection state changes.
     /// </summary>
@@ -87,8 +87,7 @@ public class PlayerNameTracker : NetworkBehaviour
     /// <param name="name"></param>
     /// <param name="sender"></param>
     [ServerRpc(RequireOwnership = false)]
-    private void ServerSetName(string name, NetworkConnection sender = null)
-    {
+    private void ServerSetName(string name, NetworkConnection sender = null){
         _playerNames[sender] = name;
     }
 }

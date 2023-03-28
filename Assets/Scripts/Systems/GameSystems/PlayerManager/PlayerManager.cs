@@ -50,8 +50,6 @@ public class PlayerManager : NetworkBehaviour {
     /// </summary>
     [SyncObject]
     public readonly SyncDictionary<NetworkConnection, NetworkObject> players = new SyncDictionary<NetworkConnection, NetworkObject>();
-
-    private string characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0987654321";
     #endregion
 
 
@@ -110,20 +108,6 @@ public class PlayerManager : NetworkBehaviour {
         if (asServer) {
             NetworkObject nob = networkManager.GetPooledInstantiated(playerPrefab, true);
             nob.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
-
-            try {
-                if (Steamworks.SteamClient.Name.ToString() != null) {
-                    PlayerNameTracker.SetName(Steamworks.SteamClient.Name.ToString());
-                    nob.name = Steamworks.SteamClient.Name.ToString();
-                }
-            } catch (NullReferenceException) {
-                string randName = "";
-                for (int i = 0; i < 10; i++) {
-                    randName += characters[UnityEngine.Random.Range(0, characters.Length)];
-                }
-                PlayerNameTracker.SetName(randName);
-                nob.name = randName;
-            }
 
             networkManager.ServerManager.Spawn(nob, conn);
 

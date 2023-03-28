@@ -14,7 +14,9 @@ public class PlayerEventManager {
         }
     }
 
-    // The player who died, the player who killed them, and the player who assisted
+    /// <summary>
+    /// The player who died, the player who killed them, and the player who assisted
+    /// </summary>
     public event Action<NetworkConnection, NetworkConnection, NetworkConnection> OnPlayerDeath;
 
     public event Action<NetworkConnection> OnPlayerConnected;

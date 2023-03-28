@@ -15,13 +15,17 @@ namespace AK
     {
         static const AkUniqueID AMB = 1117531639U;
         static const AkUniqueID ATTACK = 180661997U;
+        static const AkUniqueID BATTLE = 2937832959U;
+        static const AkUniqueID BIRDS = 352130103U;
         static const AkUniqueID CROUCH = 2655407367U;
+        static const AkUniqueID FIRE = 2678880713U;
         static const AkUniqueID FOOTSTEPS = 2385628198U;
+        static const AkUniqueID GUN1 = 688956122U;
+        static const AkUniqueID GUN2 = 688956121U;
         static const AkUniqueID JUMP = 3833651337U;
         static const AkUniqueID LAND = 674522502U;
+        static const AkUniqueID PLAYERAMB = 3833115874U;
         static const AkUniqueID SLIDE = 3686556480U;
-        static const AkUniqueID THUNDER = 186852181U;
-        static const AkUniqueID WIND = 1537061107U;
     } // namespace EVENTS
 
     namespace SWITCHES
@@ -63,13 +67,17 @@ namespace AK
         static const AkUniqueID INIT = 1355168291U;
         static const AkUniqueID AMB = 1117531639U;
         static const AkUniqueID ATTACK = 180661997U;
+        static const AkUniqueID BATTLE = 2937832959U;
+        static const AkUniqueID BIRDS = 352130103U;
         static const AkUniqueID CROUCH = 2655407367U;
+        static const AkUniqueID FIRE = 2678880713U;
         static const AkUniqueID FOOTSTEPS = 2385628198U;
+        static const AkUniqueID GUN1 = 688956122U;
+        static const AkUniqueID GUN2 = 688956121U;
         static const AkUniqueID JUMP = 3833651337U;
         static const AkUniqueID LAND = 674522502U;
+        static const AkUniqueID PLAYERAMB = 3833115874U;
         static const AkUniqueID SLIDE = 3686556480U;
-        static const AkUniqueID THUNDER = 186852181U;
-        static const AkUniqueID WIND = 1537061107U;
     } // namespace BANKS
 
     namespace BUSSES

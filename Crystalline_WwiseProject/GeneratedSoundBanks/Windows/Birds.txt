@@ -1,0 +1,6 @@
+Event	ID	Name			Wwise Object Path	Notes
+	352130103	Birds			\Default Work Unit\Ambience\Birds	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	970543442	AMBMisc_Ambience Dawn Birdcalls02 Stereo_PSE_SL-FL_H9US7	Y:\Crystalline\Crystalline_WwiseProject\.cache\Windows\SFX\WIND_Wind Heavy Blowing Snow_PSE_BR-C_ZuCjf_D79FB2B7.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambience\AMBMisc_Ambience Dawn Birdcalls02 Stereo_PSE_SL-FL_H9US7		41606496
+
